@@ -1,12 +1,10 @@
 ## IntegratedDynamics-Compat
 
-[![Build Status](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat.svg?branch=master-1.10)](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat)
+[![Build Status](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat.svg?branch=master-1.11)](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat)
 [![Download](https://api.bintray.com/packages/cyclopsmc/dev/IntegratedDynamics-Compat/images/download.svg) ](https://bintray.com/cyclopsmc/dev/IntegratedDynamics-Compat/_latestVersion)
-[![CurseForge](http://cf.way2muchnoise.eu/full_270145_downloads.svg)](http://minecraft.curseforge.com/projects/270145)
 
-Integrated Dynamics compatibility with other mods
-
-All stable releases (including deobfuscated builds) can be found on [CurseForge](http://minecraft.curseforge.com/mc-mods/270145/files).
+Integrated Dynamics compatibility with other mods.
+This mod is packaged together with [Integrated Dynamics](https://minecraft.curseforge.com/projects/integrated-dynamics/).
 
 ### Contributing
 * Before submitting a pull request containing a new feature, please discuss this first with one of the lead developers.
