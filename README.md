@@ -1,7 +1,7 @@
 ## IntegratedDynamics-Compat
 
 [![Build Status](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat.svg?branch=master-1.11)](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat)
-[![Download](https://api.bintray.com/packages/cyclopsmc/dev/IntegratedDynamics-Compat/images/download.svg) ](https://bintray.com/cyclopsmc/dev/IntegratedDynamics-Compat/_latestVersion)
+[![Download](https://api.bintray.com/packages/cyclopsmc/dev/IntegratedDynamicsCompat/images/download.svg) ](https://bintray.com/cyclopsmc/dev/IntegratedDynamics-Compat/_latestVersion)
 
 Integrated Dynamics compatibility with other mods.
 This mod is packaged together with [Integrated Dynamics](https://minecraft.curseforge.com/projects/integrated-dynamics/).
