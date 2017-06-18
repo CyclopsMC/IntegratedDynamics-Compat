@@ -26,6 +26,8 @@ loadProperties()
 version = config.mod_version
 group = "org.cyclops.integrateddynamicscompat"
 archivesBaseName = "IntegratedDynamicsCompat"
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 def loadProperties() {
     // Config file with custom properties
@@ -59,5 +61,15 @@ apply from: 'gradle/deploy.gradle'
 idea {
     module {
         sourceDirs += file('src/api/java')
+    }
+}
+
+// TODO: temporarily disable some mod compats
+sourceSets {
+    main {
+        java {
+            exclude '**/modcompat/thaumcraft/**'
+            exclude '**/modcompat/mcmultipart/**'
+        }
     }
 }

@@ -1,32 +1,5 @@
 apply plugin: 'maven'
 
-curseforge {
-    if(project.hasProperty("curseforge_key") && project.hasProperty("changelog")) {
-        apiKey = project.curseforge_key
-    } else if(System.getenv().TRAVIS && System.getenv().CURSEFORGE_KEY_SECRET) {
-        apiKey = System.getenv().CURSEFORGE_KEY_SECRET
-    }
-
-    project {
-        id = "270145" // my project url is http://minecraft.curseforge.com/mc-mods/270145/
-        releaseType = project.config.release_type
-        mainArtifact(jar) {
-            relations {
-                requiredLibrary 'cyclops-core'
-            }
-        }
-
-        changelog = ""
-        if (new File("resources/changelog/${project.version}.txt").exists()) {
-            changelog = new File("resources/changelog/${project.version}.txt").text
-        }
-
-        addArtifact deobfJar
-        addArtifact sourceJar
-        addArtifact javadocJar
-    }
-}
-
 configurations {
     deployerJars
 }
