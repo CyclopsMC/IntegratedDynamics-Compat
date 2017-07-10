@@ -4,12 +4,12 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.recipe.custom.api.IRecipe;
 import org.cyclops.cyclopscore.recipe.custom.component.DurationRecipeProperties;
-import org.cyclops.cyclopscore.recipe.custom.component.ItemAndFluidStackRecipeComponent;
+import org.cyclops.cyclopscore.recipe.custom.component.IngredientAndFluidStackRecipeComponent;
 import org.cyclops.integrateddynamics.block.BlockDryingBasin;
 
 import javax.annotation.Nullable;
@@ -20,15 +20,15 @@ import java.util.List;
  * @author rubensworks
  */
 @Data
-public class DryingBasinRecipeJEI extends BlankRecipeWrapper {
+public class DryingBasinRecipeJEI implements IRecipeWrapper {
 
-    private final IRecipe<ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties> recipe;
+    private final IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> recipe;
     private final List<ItemStack> inputItem;
     private final FluidStack inputFluid;
     private final List<ItemStack> outputItem;
     private final FluidStack outputFluid;
 
-    public DryingBasinRecipeJEI(IRecipe<ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties> recipe) {
+    public DryingBasinRecipeJEI(IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> recipe) {
         this.recipe = recipe;
         this.inputItem = recipe.getInput().getItemStacks();
         this.inputFluid = recipe.getInput().getFluidStack();
@@ -55,10 +55,10 @@ public class DryingBasinRecipeJEI extends BlankRecipeWrapper {
     }
 
     public static List<DryingBasinRecipeJEI> getAllRecipes() {
-        return Lists.transform(BlockDryingBasin.getInstance().getRecipeRegistry().allRecipes(), new Function<IRecipe<ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties>, DryingBasinRecipeJEI>() {
+        return Lists.transform(BlockDryingBasin.getInstance().getRecipeRegistry().allRecipes(), new Function<IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties>, DryingBasinRecipeJEI>() {
             @Nullable
             @Override
-            public DryingBasinRecipeJEI apply(IRecipe<ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties> input) {
+            public DryingBasinRecipeJEI apply(IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> input) {
                 return new DryingBasinRecipeJEI(input);
             }
         });

@@ -9,8 +9,8 @@ import org.cyclops.cyclopscore.modcompat.minetweaker.handlers.RecipeRegistryHand
 import org.cyclops.cyclopscore.recipe.custom.Recipe;
 import org.cyclops.cyclopscore.recipe.custom.api.IRecipe;
 import org.cyclops.cyclopscore.recipe.custom.component.DummyPropertiesComponent;
-import org.cyclops.cyclopscore.recipe.custom.component.ItemAndFluidStackRecipeComponent;
-import org.cyclops.cyclopscore.recipe.custom.component.ItemStackRecipeComponent;
+import org.cyclops.cyclopscore.recipe.custom.component.IngredientAndFluidStackRecipeComponent;
+import org.cyclops.cyclopscore.recipe.custom.component.IngredientRecipeComponent;
 import org.cyclops.integrateddynamics.block.BlockSqueezer;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeJEI;
 import stanhebben.zenscript.annotations.Optional;
@@ -18,7 +18,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.integrateddynamics.Squeezer")
-public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, ItemStackRecipeComponent, ItemAndFluidStackRecipeComponent, DummyPropertiesComponent> {
+public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> {
 
     private static final SqueezerHandler INSTANCE = new SqueezerHandler();
 
@@ -34,10 +34,10 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, ItemSt
 
     @net.minecraftforge.fml.common.Optional.Method(modid = Reference.MOD_JEI)
     @Override
-    protected IJeiRecipeWrapperWrapper<ItemStackRecipeComponent, ItemAndFluidStackRecipeComponent, DummyPropertiesComponent> createJeiWrapperWrapper() {
-        return new IJeiRecipeWrapperWrapper<ItemStackRecipeComponent, ItemAndFluidStackRecipeComponent, DummyPropertiesComponent>() {
+    protected IJeiRecipeWrapperWrapper<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> createJeiWrapperWrapper() {
+        return new IJeiRecipeWrapperWrapper<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent>() {
             @Override
-            public IRecipeWrapper wrap(IRecipe<ItemStackRecipeComponent, ItemAndFluidStackRecipeComponent, DummyPropertiesComponent> recipe) {
+            public IRecipeWrapper wrap(IRecipe<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> recipe) {
                 return new SqueezerRecipeJEI(recipe);
             }
         };
@@ -47,8 +47,8 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, ItemSt
     public static void addRecipe(IItemStack inputStack,
                            @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         INSTANCE.add(new Recipe<>(
-                new ItemStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
+                new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
                 new DummyPropertiesComponent()));
     }
 
@@ -56,15 +56,15 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, ItemSt
     public static void removeRecipe(IItemStack inputStack,
                               @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         INSTANCE.remove(new Recipe<>(
-                new ItemStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
+                new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
                 new DummyPropertiesComponent()));
     }
 
     @ZenMethod
     public static void removeRecipesWithOutput(@Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         INSTANCE.remove(
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid))
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid))
         );
     }
 }

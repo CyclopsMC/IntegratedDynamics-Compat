@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.cyclops.integrateddynamics.IntegratedDynamics;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
@@ -47,8 +48,9 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
             itemStack = (ItemStack) focusElement;
         } else if (focusElement instanceof FluidStack) {
             itemStack = new ItemStack(Items.BUCKET);
-            IFluidHandler fluidHandler = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+            IFluidHandlerItem fluidHandler = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
             fluidHandler.fill((FluidStack) focusElement, true);
+            itemStack = fluidHandler.getContainer();
         }
 
         if (element != null && itemStack != null) {

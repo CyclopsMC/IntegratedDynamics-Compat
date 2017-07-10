@@ -9,7 +9,7 @@ import org.cyclops.cyclopscore.modcompat.minetweaker.handlers.RecipeRegistryHand
 import org.cyclops.cyclopscore.recipe.custom.Recipe;
 import org.cyclops.cyclopscore.recipe.custom.api.IRecipe;
 import org.cyclops.cyclopscore.recipe.custom.component.DurationRecipeProperties;
-import org.cyclops.cyclopscore.recipe.custom.component.ItemAndFluidStackRecipeComponent;
+import org.cyclops.cyclopscore.recipe.custom.component.IngredientAndFluidStackRecipeComponent;
 import org.cyclops.integrateddynamics.block.BlockDryingBasin;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeJEI;
 import stanhebben.zenscript.annotations.Optional;
@@ -17,7 +17,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.integrateddynamics.DryingBasin")
-public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties> {
+public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> {
 
     private static final DryingBasinHandler INSTANCE = new DryingBasinHandler();
 
@@ -33,10 +33,10 @@ public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, 
 
     @net.minecraftforge.fml.common.Optional.Method(modid = Reference.MOD_JEI)
     @Override
-    protected IJeiRecipeWrapperWrapper<ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties> createJeiWrapperWrapper() {
-        return new IJeiRecipeWrapperWrapper<ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties>() {
+    protected IJeiRecipeWrapperWrapper<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> createJeiWrapperWrapper() {
+        return new IJeiRecipeWrapperWrapper<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties>() {
             @Override
-            public IRecipeWrapper wrap(IRecipe<ItemAndFluidStackRecipeComponent, ItemAndFluidStackRecipeComponent, DurationRecipeProperties> recipe) {
+            public IRecipeWrapper wrap(IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> recipe) {
                 return new DryingBasinRecipeJEI(recipe);
             }
         };
@@ -46,8 +46,8 @@ public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, 
     public static void addRecipe(@Optional IItemStack inputStack, @Optional ILiquidStack inputFluid,
                            @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
         INSTANCE.add(new Recipe<>(
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
                 new DurationRecipeProperties(duration)));
     }
 
@@ -55,15 +55,15 @@ public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, 
     public static void removeRecipe(@Optional IItemStack inputStack, @Optional ILiquidStack inputFluid,
                               @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
         INSTANCE.remove(new Recipe<>(
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
                 new DurationRecipeProperties(duration)));
     }
 
     @ZenMethod
     public static void removeRecipesWithOutput(@Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         INSTANCE.remove(
-                new ItemAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid))
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid))
         );
     }
 }

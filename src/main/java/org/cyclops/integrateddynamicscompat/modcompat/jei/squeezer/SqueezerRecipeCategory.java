@@ -15,8 +15,6 @@ import org.cyclops.integrateddynamics.IntegratedDynamics;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.block.BlockSqueezer;
 import org.cyclops.integrateddynamics.block.BlockSqueezerConfig;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.*;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeJEI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +24,8 @@ import javax.annotation.Nullable;
  * @author rubensworks
  */
 public class SqueezerRecipeCategory implements IRecipeCategory {
+
+    public static final String NAME = Reference.MOD_ID + ":squeezer";
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
@@ -45,13 +45,18 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
     @Nonnull
     @Override
     public String getUid() {
-        return org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeHandler.CATEGORY;
+        return NAME;
     }
 
     @Nonnull
     @Override
     public String getTitle() {
         return L10NHelpers.localize(BlockSqueezer.getInstance().getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getModName() {
+        return Reference.MOD_NAME;
     }
 
     @Nonnull
@@ -78,8 +83,8 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
         recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 75, 7);
         recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 75, 30);
 
-        if(recipeWrapper instanceof org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeJEI) {
-            org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeJEI recipe = (SqueezerRecipeJEI) recipeWrapper;
+        if(recipeWrapper instanceof SqueezerRecipeJEI) {
+            SqueezerRecipeJEI recipe = (SqueezerRecipeJEI) recipeWrapper;
             if(!recipe.getInputItem().isEmpty()) {
                 recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
             }

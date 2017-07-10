@@ -27,7 +27,6 @@ import org.cyclops.integrateddynamicscompat.modcompat.immersiveengineering.Immer
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.minetweaker.MineTweakerModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.tconstruct.TConstructModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.TeslaApiCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.*;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
@@ -80,7 +79,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
         modCompatLoader.addModCompat(new WailaModCompat());
         //modCompatLoader.addModCompat(new ThaumcraftModCompat());
         modCompatLoader.addModCompat(new JEIModCompat());
-        modCompatLoader.addModCompat(new TConstructModCompat());
+        //modCompatLoader.addModCompat(new TConstructModCompat());
         modCompatLoader.addModCompat(new ForestryModCompat());
         modCompatLoader.addModCompat(new Ic2ModCompat());
         modCompatLoader.addModCompat(new TopModCompat());

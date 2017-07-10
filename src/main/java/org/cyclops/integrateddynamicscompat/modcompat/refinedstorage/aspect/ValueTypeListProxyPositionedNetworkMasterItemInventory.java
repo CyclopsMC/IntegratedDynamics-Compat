@@ -3,7 +3,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
-import com.raoulvdberge.refinedstorage.api.network.INetworkMaster;
+import com.raoulvdberge.refinedstorage.api.network.node.INetworkNode;
 import com.raoulvdberge.refinedstorage.api.storage.IStorage;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,9 +15,9 @@ import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeItem
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyPositioned;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypes;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.*;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,23 +34,24 @@ public class ValueTypeListProxyPositionedNetworkMasterItemInventory extends Valu
         super(RefinedStorageModCompat.POSITIONED_MASTERITEMINVENTORY.getName(), ValueTypes.OBJECT_ITEMSTACK, pos, EnumFacing.NORTH);
     }
 
-    protected Optional<INetworkMaster> getNetworkMaster() {
-        return Optional.fromNullable(TileHelpers.getSafeTile(getPos(), INetworkMaster.class));
+    protected Optional<INetworkNode> getNetworkMaster() {
+        return Optional.fromNullable(TileHelpers.getSafeTile(getPos(), INetworkNode.class));
     }
 
     protected Optional<List<ItemStack>> getInventory() {
-        return getNetworkMaster().transform(new Function<INetworkMaster, List<ItemStack>>() {
+        return getNetworkMaster().transform(new Function<INetworkNode, List<ItemStack>>() {
             @Nullable
             @Override
-            public List<ItemStack> apply(@Nullable INetworkMaster networkMaster) {
+            public List<ItemStack> apply(@Nullable INetworkNode networkMaster) {
                 if (networkMaster == null) {
                     return null;
                 }
-                List<List<ItemStack>> itemStacksLists = Lists.transform(networkMaster.getItemStorageCache().getStorages(), new Function<IStorage<ItemStack>, List<ItemStack>>() {
+                List<List<ItemStack>> itemStacksLists = Lists.transform(networkMaster.getNetwork().getItemStorageCache().getStorages(), new Function<IStorage<ItemStack>, List<ItemStack>>() {
                     @Nullable
                     @Override
                     public List<ItemStack> apply(@Nullable IStorage<ItemStack> itemStorage) {
-                        return itemStorage.getStacks();
+                        Collection<ItemStack> stacks = itemStorage.getStacks();
+                        return stacks instanceof List ? (List<ItemStack>) stacks : Lists.newArrayList(stacks);
                     }
                 });
                 return new org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.LazyCompositeList<>(itemStacksLists);

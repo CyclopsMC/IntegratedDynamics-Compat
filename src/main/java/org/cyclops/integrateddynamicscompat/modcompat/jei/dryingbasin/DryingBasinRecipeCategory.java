@@ -16,8 +16,6 @@ import org.cyclops.integrateddynamics.IntegratedDynamics;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.block.BlockDryingBasin;
 import org.cyclops.integrateddynamics.block.BlockDryingBasinConfig;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.*;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeJEI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +25,8 @@ import javax.annotation.Nullable;
  * @author rubensworks
  */
 public class DryingBasinRecipeCategory implements IRecipeCategory {
+
+    public static final String NAME = Reference.MOD_ID + ":dryingBasin";
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
@@ -48,13 +48,18 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
     @Nonnull
     @Override
     public String getUid() {
-        return org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeHandler.CATEGORY;
+        return NAME;
     }
 
     @Nonnull
     @Override
     public String getTitle() {
         return L10NHelpers.localize(BlockDryingBasin.getInstance().getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getModName() {
+        return Reference.MOD_NAME;
     }
 
     @Nonnull
@@ -81,8 +86,8 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
         recipeLayout.getItemStacks().init(FLUIDINPUT_SLOT, true, 6, 28);
         recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28);
 
-        if(recipeWrapper instanceof org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeJEI) {
-            org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeJEI recipe = (DryingBasinRecipeJEI) recipeWrapper;
+        if(recipeWrapper instanceof DryingBasinRecipeJEI) {
+            DryingBasinRecipeJEI recipe = (DryingBasinRecipeJEI) recipeWrapper;
             if(!recipe.getInputItem().isEmpty()) {
                 recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
             }

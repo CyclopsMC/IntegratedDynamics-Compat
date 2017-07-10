@@ -7,7 +7,7 @@ import com.raoulvdberge.refinedstorage.api.RSAPIInject;
 import com.raoulvdberge.refinedstorage.api.autocrafting.ICraftingPattern;
 import com.raoulvdberge.refinedstorage.api.autocrafting.task.ICraftingStep;
 import com.raoulvdberge.refinedstorage.api.autocrafting.task.ICraftingTask;
-import com.raoulvdberge.refinedstorage.api.network.INetworkMaster;
+import com.raoulvdberge.refinedstorage.api.network.INetwork;
 import com.raoulvdberge.refinedstorage.api.network.node.INetworkNode;
 import com.raoulvdberge.refinedstorage.api.network.node.INetworkNodeProxy;
 import com.raoulvdberge.refinedstorage.api.util.IComparer;
@@ -28,8 +28,6 @@ import org.cyclops.integrateddynamics.core.part.aspect.build.AspectBuilder;
 import org.cyclops.integrateddynamics.core.part.aspect.build.IAspectValuePropagator;
 import org.cyclops.integrateddynamics.core.part.aspect.property.AspectProperties;
 import org.cyclops.integrateddynamics.core.part.aspect.property.AspectPropertyTypeInstance;
-import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.ValueTypeListProxyPositionedNetworkMasterFluidInventory;
-import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.ValueTypeListProxyPositionedNetworkMasterItemInventory;
 import org.cyclops.integrateddynamics.part.aspect.read.AspectReadBuilders;
 import org.cyclops.integrateddynamics.part.aspect.write.AspectWriteBuilders;
 
@@ -58,24 +56,24 @@ public class RefinedStorageAspects {
                 return null;
             }
         };
-        public static final IAspectValuePropagator<INetworkNode, INetworkMaster> PROP_GET_MASTER = new IAspectValuePropagator<INetworkNode, INetworkMaster>() {
+        public static final IAspectValuePropagator<INetworkNode, INetwork> PROP_GET_MASTER = new IAspectValuePropagator<INetworkNode, INetwork>() {
             @Override
-            public INetworkMaster getOutput(INetworkNode input) {
+            public INetwork getOutput(INetworkNode input) {
                 return input != null ? input.getNetwork() : null;
             }
         };
 
-        public static final AspectBuilder<ValueTypeBoolean.ValueBoolean, ValueTypeBoolean, INetworkMaster>
+        public static final AspectBuilder<ValueTypeBoolean.ValueBoolean, ValueTypeBoolean, INetwork>
                 BUILDER_BOOLEAN = AspectReadBuilders.BUILDER_BOOLEAN.handle(PROP_GET_NODE, "refinedstorage").handle(PROP_GET_MASTER);
-        public static final AspectBuilder<ValueTypeList.ValueList, ValueTypeList, INetworkMaster>
+        public static final AspectBuilder<ValueTypeList.ValueList, ValueTypeList, INetwork>
                 BUILDER_LIST = AspectReadBuilders.BUILDER_LIST.handle(PROP_GET_NODE, "refinedstorage").handle(PROP_GET_MASTER);
 
         public static final class Network {
 
             public static final IAspectRead<ValueTypeBoolean.ValueBoolean, ValueTypeBoolean> BOOLEAN_APPLICABLE =
-                    BUILDER_BOOLEAN.appendKind("network").handle(new IAspectValuePropagator<INetworkMaster, Boolean>() {
+                    BUILDER_BOOLEAN.appendKind("network").handle(new IAspectValuePropagator<INetwork, Boolean>() {
                         @Override
-                        public Boolean getOutput(INetworkMaster networkMaster) {
+                        public Boolean getOutput(INetwork networkMaster) {
                             return networkMaster != null;
                         }
                     }).handle(AspectReadBuilders.PROP_GET_BOOLEAN, "applicable").buildRead();
@@ -85,22 +83,22 @@ public class RefinedStorageAspects {
         public static final class Inventory {
 
             public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_ITEMSTACKS =
-                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetworkMaster, ValueTypeList.ValueList>() {
+                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetwork, ValueTypeList.ValueList>() {
                         @Override
-                        public ValueTypeList.ValueList getOutput(INetworkMaster networkMaster) {
+                        public ValueTypeList.ValueList getOutput(INetwork networkMaster) {
                             if (networkMaster != null) {
                                 return ValueTypeList.ValueList.ofFactory(
                                         new ValueTypeListProxyPositionedNetworkMasterItemInventory(
-                                                DimPos.of(networkMaster.getNetworkWorld(), networkMaster.getPosition())));
+                                                DimPos.of(networkMaster.world(), networkMaster.getPosition())));
                             }
                             return ValueTypeList.ValueList.ofList(ValueTypes.OBJECT_ITEMSTACK, Collections.<ValueObjectTypeItemStack.ValueItemStack>emptyList());
                         }
                     }, "itemstacks").buildRead();
 
             public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_CRAFTABLEITEMS =
-                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetworkMaster, ValueTypeList.ValueList>() {
+                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetwork, ValueTypeList.ValueList>() {
                         @Override
-                        public ValueTypeList.ValueList getOutput(INetworkMaster networkMaster) {
+                        public ValueTypeList.ValueList getOutput(INetwork networkMaster) {
                             if (networkMaster != null) {
                                 List<ValueObjectTypeItemStack.ValueItemStack> itemStacks = Lists.newArrayList();
                                 for (ICraftingPattern craftingPattern : networkMaster.getCraftingManager().getPatterns()) {
@@ -116,7 +114,7 @@ public class RefinedStorageAspects {
                     }, "craftableitems").buildRead();
 
             public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_CRAFTINGITEMS =
-                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetworkMaster, ValueTypeList.ValueList>() {
+                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetwork, ValueTypeList.ValueList>() {
 
                         protected void addPatternItemStacks(List<ValueObjectTypeItemStack.ValueItemStack> itemStacks, ICraftingTask craftingTask) {
                             ICraftingPattern craftingPattern = craftingTask.getPattern();
@@ -132,7 +130,7 @@ public class RefinedStorageAspects {
                         }
 
                         @Override
-                        public ValueTypeList.ValueList getOutput(INetworkMaster networkMaster) {
+                        public ValueTypeList.ValueList getOutput(INetwork networkMaster) {
                             if (networkMaster != null) {
                                 List<ValueObjectTypeItemStack.ValueItemStack> itemStacks = Lists.newArrayList();
                                 for (ICraftingTask craftingTask : networkMaster.getCraftingManager().getTasks()) {
@@ -145,7 +143,7 @@ public class RefinedStorageAspects {
                     }, "craftingitems").buildRead();
 
             public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_MISSINGCRAFTINGITEMS =
-                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetworkMaster, ValueTypeList.ValueList>() {
+                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<INetwork, ValueTypeList.ValueList>() {
 
                         protected void addPatternItemStacksMissing(List<ValueObjectTypeItemStack.ValueItemStack> itemStacks, ICraftingTask craftingTask) {
                             for (ItemStack itemStack : craftingTask.getMissing().getStacks()) {
@@ -154,7 +152,7 @@ public class RefinedStorageAspects {
                         }
 
                         @Override
-                        public ValueTypeList.ValueList getOutput(INetworkMaster networkMaster) {
+                        public ValueTypeList.ValueList getOutput(INetwork networkMaster) {
                             if (networkMaster != null) {
                                 List<ValueObjectTypeItemStack.ValueItemStack> itemStacks = Lists.newArrayList();
                                 for (ICraftingTask craftingTask : networkMaster.getCraftingManager().getTasks()) {
@@ -171,13 +169,13 @@ public class RefinedStorageAspects {
         public static final class Fluid {
 
             public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_FLUIDSTACKS =
-                    BUILDER_LIST.appendKind("fluid").handle(new IAspectValuePropagator<INetworkMaster, ValueTypeList.ValueList>() {
+                    BUILDER_LIST.appendKind("fluid").handle(new IAspectValuePropagator<INetwork, ValueTypeList.ValueList>() {
                         @Override
-                        public ValueTypeList.ValueList getOutput(INetworkMaster networkMaster) {
+                        public ValueTypeList.ValueList getOutput(INetwork networkMaster) {
                             if (networkMaster != null) {
                                 return ValueTypeList.ValueList.ofFactory(
                                         new ValueTypeListProxyPositionedNetworkMasterFluidInventory(
-                                                DimPos.of(networkMaster.getNetworkWorld(), networkMaster.getPosition())));
+                                                DimPos.of(networkMaster.world(), networkMaster.getPosition())));
                             }
                             return ValueTypeList.ValueList.ofList(ValueTypes.OBJECT_FLUIDSTACK, Collections.<ValueObjectTypeFluidStack.ValueFluidStack>emptyList());
                         }
@@ -202,7 +200,7 @@ public class RefinedStorageAspects {
             CRAFTING_PROPERTIES.setValue(PROPERTY_SKIPSTORAGE, ValueTypeBoolean.ValueBoolean.of(false));
         }
 
-        protected static Void triggerItemStackCrafting(IAspectProperties aspectProperties, INetworkMaster networkMaster, ItemStack itemStack) {
+        protected static Void triggerItemStackCrafting(IAspectProperties aspectProperties, INetwork networkMaster, ItemStack itemStack) {
             int compareFlags = IComparer.COMPARE_DAMAGE | IComparer.COMPARE_NBT;
             ICraftingPattern craftingPattern = networkMaster.getCraftingManager().getPattern(itemStack);
             if (craftingPattern != null) {
@@ -245,7 +243,7 @@ public class RefinedStorageAspects {
                                     DimPos pos = input.getLeft().getTarget().getPos();
                                     INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
                                     if (networkNode != null) {
-                                        INetworkMaster networkMaster = networkNode.getNetwork();
+                                        INetwork networkMaster = networkNode.getNetwork();
                                         if (networkMaster != null) {
                                             ItemStack itemStack = input.getRight().getRawValue();
                                             return triggerItemStackCrafting(input.getMiddle(), networkMaster, itemStack);
@@ -266,7 +264,7 @@ public class RefinedStorageAspects {
                                 DimPos pos = input.getLeft().getTarget().getPos();
                                 INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
                                 if (networkNode != null) {
-                                    INetworkMaster networkMaster = networkNode.getNetwork();
+                                    INetwork networkMaster = networkNode.getNetwork();
                                     if (networkMaster != null) {
                                         if (input.getRight().getRawValue().getValueType() == ValueTypes.OBJECT_ITEMSTACK) {
                                             for (IValue value : (Iterable<IValue>) input.getRight().getRawValue()) {
@@ -294,7 +292,7 @@ public class RefinedStorageAspects {
                                     DimPos pos = input.getLeft().getTarget().getPos();
                                     INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
                                     if (networkNode != null) {
-                                        INetworkMaster networkMaster = networkNode.getNetwork();
+                                        INetwork networkMaster = networkNode.getNetwork();
                                         if (networkMaster != null) {
                                             List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
                                             for (ICraftingTask craftingTask : craftingTasks) {
@@ -318,7 +316,7 @@ public class RefinedStorageAspects {
                                     DimPos pos = input.getLeft().getTarget().getPos();
                                     INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
                                     if (networkNode != null) {
-                                        INetworkMaster networkMaster = networkNode.getNetwork();
+                                        INetwork networkMaster = networkNode.getNetwork();
                                         if (networkMaster != null) {
                                             ItemStack itemStack = input.getRight().getRawValue();
                                             List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
@@ -348,7 +346,7 @@ public class RefinedStorageAspects {
                                 DimPos pos = input.getLeft().getTarget().getPos();
                                 INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
                                 if (networkNode != null) {
-                                    INetworkMaster networkMaster = networkNode.getNetwork();
+                                    INetwork networkMaster = networkNode.getNetwork();
                                     if (networkMaster != null) {
                                         if (input.getRight().getRawValue().getValueType() == ValueTypes.OBJECT_ITEMSTACK) {
                                             List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
