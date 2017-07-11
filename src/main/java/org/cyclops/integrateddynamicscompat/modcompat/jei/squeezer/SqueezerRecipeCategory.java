@@ -20,6 +20,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecip
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Category for the Squeezer recipes.
@@ -52,6 +53,11 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
     @Override
     public String getTitle() {
         return L10NHelpers.localize(BlockSqueezer.getInstance().getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getModName() {
+        return Reference.MOD_NAME;
     }
 
     @Nonnull
@@ -92,5 +98,10 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
                 recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
             }
         }
+    }
+
+    @Override
+    public List<String> getTooltipStrings(int mouseX, int mouseY) {
+        return null;
     }
 }

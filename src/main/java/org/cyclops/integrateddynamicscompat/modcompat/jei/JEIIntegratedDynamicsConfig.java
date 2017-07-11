@@ -2,6 +2,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei;
 
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
+import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 import org.cyclops.integrateddynamics.block.BlockDryingBasin;
 import org.cyclops.integrateddynamics.block.BlockSqueezer;
@@ -35,6 +36,11 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registry) {
+
+    }
+
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registry) {
 
     }
 

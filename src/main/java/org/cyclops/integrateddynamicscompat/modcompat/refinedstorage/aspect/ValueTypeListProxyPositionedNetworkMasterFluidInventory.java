@@ -3,7 +3,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
-import com.raoulvdberge.refinedstorage.api.network.INetworkMaster;
+import com.raoulvdberge.refinedstorage.api.network.node.INetworkNode;
 import com.raoulvdberge.refinedstorage.api.storage.IStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -15,9 +15,9 @@ import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeFlui
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyPositioned;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypes;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.*;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,23 +34,24 @@ public class ValueTypeListProxyPositionedNetworkMasterFluidInventory extends Val
         super(RefinedStorageModCompat.POSITIONED_MASTERFLUIDINVENTORY.getName(), ValueTypes.OBJECT_FLUIDSTACK, pos, EnumFacing.NORTH);
     }
 
-    protected Optional<INetworkMaster> getNetworkMaster() {
-        return Optional.fromNullable(TileHelpers.getSafeTile(getPos(), INetworkMaster.class));
+    protected Optional<INetworkNode> getNetworkMaster() {
+        return Optional.fromNullable(TileHelpers.getSafeTile(getPos(), INetworkNode.class));
     }
 
     protected Optional<List<FluidStack>> getInventory() {
-        return getNetworkMaster().transform(new Function<INetworkMaster, List<FluidStack>>() {
+        return getNetworkMaster().transform(new Function<INetworkNode, List<FluidStack>>() {
             @Nullable
             @Override
-            public List<FluidStack> apply(@Nullable INetworkMaster networkMaster) {
+            public List<FluidStack> apply(@Nullable INetworkNode networkMaster) {
                 if (networkMaster == null) {
                     return null;
                 }
-                List<List<FluidStack>> fluidStacksLists = Lists.transform(networkMaster.getFluidStorageCache().getStorages(), new Function<IStorage<FluidStack>, List<FluidStack>>() {
+                List<List<FluidStack>> fluidStacksLists = Lists.transform(networkMaster.getNetwork().getFluidStorageCache().getStorages(), new Function<IStorage<FluidStack>, List<FluidStack>>() {
                     @Nullable
                     @Override
                     public List<FluidStack> apply(@Nullable IStorage<FluidStack> fluidStorage) {
-                        return fluidStorage.getStacks();
+                        Collection<FluidStack> stacks = fluidStorage.getStacks();
+                        return stacks instanceof List ? (List<FluidStack>) stacks : Lists.newArrayList(stacks);
                     }
                 });
                 return new org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.LazyCompositeList<>(fluidStacksLists);

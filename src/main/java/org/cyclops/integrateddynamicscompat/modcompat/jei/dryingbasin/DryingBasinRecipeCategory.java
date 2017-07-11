@@ -16,11 +16,10 @@ import org.cyclops.integrateddynamics.IntegratedDynamics;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.block.BlockDryingBasin;
 import org.cyclops.integrateddynamics.block.BlockDryingBasinConfig;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.*;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeJEI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Category for the Drying Basin recipes.
@@ -55,6 +54,11 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
     @Override
     public String getTitle() {
         return L10NHelpers.localize(BlockDryingBasin.getInstance().getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getModName() {
+        return Reference.MOD_NAME;
     }
 
     @Nonnull
@@ -99,5 +103,10 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
                 recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
             }
         }
+    }
+
+    @Override
+    public List<String> getTooltipStrings(int mouseX, int mouseY) {
+        return null;
     }
 }
