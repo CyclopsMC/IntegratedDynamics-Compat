@@ -9,6 +9,7 @@ import org.cyclops.cyclopscore.recipe.custom.component.DummyPropertiesComponent;
 import org.cyclops.cyclopscore.recipe.custom.component.IngredientAndFluidStackRecipeComponent;
 import org.cyclops.cyclopscore.recipe.custom.component.IngredientRecipeComponent;
 import org.cyclops.integrateddynamics.block.BlockSqueezer;
+import org.cyclops.integrateddynamics.fluid.FluidLiquidChorus;
 import org.cyclops.integrateddynamics.fluid.FluidMenrilResin;
 
 /**
@@ -18,15 +19,28 @@ import org.cyclops.integrateddynamics.fluid.FluidMenrilResin;
  */
 public class ImmersiveEngineeringRecipeManager {
     public static void register() {
-        IRecipe<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> recipe = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
+        IRecipe<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> recipeMenril = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
                 new IngredientAndFluidStackRecipeComponent(
                         (ItemStack) null, new FluidStack(FluidMenrilResin.getInstance(), Fluid.BUCKET_VOLUME)));
 
         // Register Menril Resin squeezer recipe.
-        if(recipe != null) {
+        if(recipeMenril != null) {
             int energy = 10000;
-            ItemStack[] input = {recipe.getInput().getFirstItemStack()};
-            FluidStack fluidStack = recipe.getOutput().getFluidStack();
+            ItemStack[] input = {recipeMenril.getInput().getFirstItemStack()};
+            FluidStack fluidStack = recipeMenril.getOutput().getFluidStack();
+            SqueezerRecipe squeezerRecipe = new SqueezerRecipe(fluidStack, null, input, energy);
+            SqueezerRecipe.recipeList.add(squeezerRecipe);
+        }
+
+        IRecipe<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> recipeChorus = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
+                new IngredientAndFluidStackRecipeComponent(
+                        (ItemStack) null, new FluidStack(FluidLiquidChorus.getInstance(), 125)));
+
+        // Register Liquid Chorus squeezer recipe.
+        if(recipeChorus != null) {
+            int energy = 10000;
+            ItemStack[] input = {recipeChorus.getInput().getFirstItemStack()};
+            FluidStack fluidStack = recipeChorus.getOutput().getFluidStack();
             SqueezerRecipe squeezerRecipe = new SqueezerRecipe(fluidStack, null, input, energy);
             SqueezerRecipe.recipeList.add(squeezerRecipe);
         }
