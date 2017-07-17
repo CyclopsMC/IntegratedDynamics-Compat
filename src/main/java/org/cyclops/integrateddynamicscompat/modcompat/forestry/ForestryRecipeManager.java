@@ -10,7 +10,9 @@ import org.cyclops.cyclopscore.recipe.custom.component.DummyPropertiesComponent;
 import org.cyclops.cyclopscore.recipe.custom.component.ItemAndFluidStackRecipeComponent;
 import org.cyclops.cyclopscore.recipe.custom.component.ItemStackRecipeComponent;
 import org.cyclops.integrateddynamics.block.BlockSqueezer;
+import org.cyclops.integrateddynamics.fluid.FluidLiquidChorus;
 import org.cyclops.integrateddynamics.fluid.FluidMenrilResin;
+import org.cyclops.integrateddynamics.item.ItemCrystalizedChorusChunkConfig;
 import org.cyclops.integrateddynamics.item.ItemCrystalizedMenrilChunkConfig;
 
 /**
@@ -24,17 +26,32 @@ public class ForestryRecipeManager {
      * Register {@link RecipeManagers} calls.
      */
     public static void register() {
-        IRecipe<ItemStackRecipeComponent, ItemAndFluidStackRecipeComponent, DummyPropertiesComponent> recipe = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
+        IRecipe<ItemStackRecipeComponent, ItemAndFluidStackRecipeComponent, DummyPropertiesComponent> recipeMenril = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
                 new ItemAndFluidStackRecipeComponent(
                         ItemStack.EMPTY, new FluidStack(FluidMenrilResin.getInstance(), Fluid.BUCKET_VOLUME)));
 
         // Register Menril Resin squeezer recipe.
-        if(recipe != null) {
+        if(recipeMenril != null) {
             int time = 20;
             NonNullList<ItemStack> input = NonNullList.create();
-            input.add(recipe.getInput().getItemStack());
-            FluidStack fluidStack = recipe.getOutput().getFluidStack();
+            input.add(recipeMenril.getInput().getItemStack());
+            FluidStack fluidStack = recipeMenril.getOutput().getFluidStack();
             ItemStack output = new ItemStack(ItemCrystalizedMenrilChunkConfig._instance.getItemInstance());
+            int outputChance = 5; // Out of 100
+            RecipeManagers.squeezerManager.addRecipe(time, input, fluidStack, output, outputChance);
+        }
+
+        IRecipe<ItemStackRecipeComponent, ItemAndFluidStackRecipeComponent, DummyPropertiesComponent> recipeChorus = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
+                new ItemAndFluidStackRecipeComponent(
+                        ItemStack.EMPTY, new FluidStack(FluidLiquidChorus.getInstance(), Fluid.BUCKET_VOLUME)));
+
+        // Register Liquid Chorus squeezer recipe.
+        if(recipeChorus != null) {
+            int time = 20;
+            NonNullList<ItemStack> input = NonNullList.create();
+            input.add(recipeChorus.getInput().getItemStack());
+            FluidStack fluidStack = recipeChorus.getOutput().getFluidStack();
+            ItemStack output = new ItemStack(ItemCrystalizedChorusChunkConfig._instance.getItemInstance());
             int outputChance = 5; // Out of 100
             RecipeManagers.squeezerManager.addRecipe(time, input, fluidStack, output, outputChance);
         }
