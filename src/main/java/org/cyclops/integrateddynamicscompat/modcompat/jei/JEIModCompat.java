@@ -3,6 +3,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei;
 import org.cyclops.cyclopscore.modcompat.IModCompat;
 import org.cyclops.integrateddynamics.IntegratedDynamics;
 import org.cyclops.integrateddynamics.Reference;
+import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
 
 /**
  * Config for the JEI integration of this mod.
@@ -19,7 +20,7 @@ public class JEIModCompat implements IModCompat {
 	@Override
 	public void onInit(Step initStep) {
 		if(initStep == Step.PREINIT) {
-			canBeUsed = IntegratedDynamics._instance.getModCompatLoader().shouldLoadModCompat(this);
+			canBeUsed = IntegratedDynamicsCompat._instance.getModCompatLoader().shouldLoadModCompat(this);
 		}
 	}
 
