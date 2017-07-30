@@ -21,27 +21,27 @@ public class ImmersiveEngineeringRecipeManager {
     public static void register() {
         IRecipe<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> recipeMenril = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
                 new IngredientAndFluidStackRecipeComponent(
-                        (ItemStack) null, new FluidStack(FluidMenrilResin.getInstance(), Fluid.BUCKET_VOLUME)));
+                        ItemStack.EMPTY, new FluidStack(FluidMenrilResin.getInstance(), Fluid.BUCKET_VOLUME)));
 
         // Register Menril Resin squeezer recipe.
         if(recipeMenril != null) {
             int energy = 10000;
             ItemStack[] input = {recipeMenril.getInput().getFirstItemStack()};
             FluidStack fluidStack = recipeMenril.getOutput().getFluidStack();
-            SqueezerRecipe squeezerRecipe = new SqueezerRecipe(fluidStack, null, input, energy);
+            SqueezerRecipe squeezerRecipe = new SqueezerRecipe(fluidStack, ItemStack.EMPTY, input, energy);
             SqueezerRecipe.recipeList.add(squeezerRecipe);
         }
 
         IRecipe<IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> recipeChorus = BlockSqueezer.getInstance().getRecipeRegistry().findRecipeByOutput(
                 new IngredientAndFluidStackRecipeComponent(
-                        (ItemStack) null, new FluidStack(FluidLiquidChorus.getInstance(), 125)));
+                        ItemStack.EMPTY, new FluidStack(FluidLiquidChorus.getInstance(), 125)));
 
         // Register Liquid Chorus squeezer recipe.
         if(recipeChorus != null) {
             int energy = 10000;
             ItemStack[] input = {recipeChorus.getInput().getFirstItemStack()};
             FluidStack fluidStack = recipeChorus.getOutput().getFluidStack();
-            SqueezerRecipe squeezerRecipe = new SqueezerRecipe(fluidStack, null, input, energy);
+            SqueezerRecipe squeezerRecipe = new SqueezerRecipe(fluidStack, ItemStack.EMPTY, input, energy);
             SqueezerRecipe.recipeList.add(squeezerRecipe);
         }
     }
