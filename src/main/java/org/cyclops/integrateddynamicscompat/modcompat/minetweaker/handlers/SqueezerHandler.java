@@ -1,8 +1,9 @@
 package org.cyclops.integrateddynamicscompat.modcompat.minetweaker.handlers;
 
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.liquid.ILiquidStack;
-import org.cyclops.cyclopscore.modcompat.minetweaker.handlers.RecipeRegistryHandler;
+import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.liquid.ILiquidStack;
+import org.cyclops.cyclopscore.modcompat.crafttweaker.handlers.RecipeRegistryHandler;
 import org.cyclops.cyclopscore.recipe.custom.Recipe;
 import org.cyclops.cyclopscore.recipe.custom.component.DummyPropertiesComponent;
 import org.cyclops.cyclopscore.recipe.custom.component.IngredientAndFluidStackRecipeComponent;
@@ -13,6 +14,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.integrateddynamics.Squeezer")
+@ZenRegister
 public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, IngredientRecipeComponent, IngredientAndFluidStackRecipeComponent, DummyPropertiesComponent> {
 
     private static final SqueezerHandler INSTANCE = new SqueezerHandler();

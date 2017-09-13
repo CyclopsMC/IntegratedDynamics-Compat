@@ -25,7 +25,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.forestry.ForestryModCompat
 import org.cyclops.integrateddynamicscompat.modcompat.ic2.Ic2ModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.immersiveengineering.ImmersiveEngineeringModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIModCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.minetweaker.MineTweakerModCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.minetweaker.CraftTweakerModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.TeslaApiCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.*;
@@ -86,7 +86,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
         modCompatLoader.addModCompat(new TeslaApiCompat());
         modCompatLoader.addModCompat(new RefinedStorageModCompat());
         modCompatLoader.addModCompat(new ImmersiveEngineeringModCompat());
-        modCompatLoader.addModCompat(new MineTweakerModCompat());
+        modCompatLoader.addModCompat(new CraftTweakerModCompat());
     }
 
     /**
