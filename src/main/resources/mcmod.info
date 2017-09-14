@@ -10,8 +10,9 @@
   "updateUrl": "https://minecraft.curseforge.com/projects/270145",
   "authorList": [ "rubensworks (aka kroeserr)" ],
   "credits": "rubensworks (aka kroeserr)",
-  "parent": "",
+  "parent": "integrateddynamics",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": [],
+  "requiredMods": [ "forge", "cyclopscore", "integrateddynamics" ]
 }
 ]
