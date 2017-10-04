@@ -8,16 +8,19 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.cyclopscore.init.ModBase;
-import org.cyclops.integrateddynamics.IntegratedDynamics;
-import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.block.BlockSqueezer;
 import org.cyclops.integrateddynamics.block.BlockSqueezerConfig;
+import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import org.cyclops.integrateddynamicscompat.Reference;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Category for the Squeezer recipes.
@@ -28,15 +31,15 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
     public static final String NAME = Reference.MOD_ID + ":squeezer";
 
     private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
-    private static final int FLUIDOUTPUT_SLOT = 2;
+    private static final int FLUIDOUTPUT_SLOT = 1;
+    private static final int OUTPUT_SLOT = 2;
 
     private final IDrawable background;
     private final IDrawableStatic arrowDrawable;
 
     public SqueezerRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID + ":"
-                + IntegratedDynamics._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
+                + IntegratedDynamicsCompat._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
                 + BlockSqueezerConfig._instance.getNamedId() + "_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 93, 53);
         this.arrowDrawable = guiHelper.createDrawable(resourceLocation, 41, 32, 12, 2);
@@ -79,17 +82,32 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 17);
-        recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 75, 7);
-        recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 75, 30);
-
         if(recipeWrapper instanceof SqueezerRecipeJEI) {
             SqueezerRecipeJEI recipe = (SqueezerRecipeJEI) recipeWrapper;
+
+            recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 17);
+            int offset = 0;
+            for (int i = 0; i < recipe.getOutputItems().size(); i++) {
+                final int index = OUTPUT_SLOT + i;
+                recipeLayout.getItemStacks().init(OUTPUT_SLOT + i, false, 75 + (i > 0 ? 22 : 0), 7 + offset + (i > 1 ? 22 : 0));
+
+                float chance = recipe.getOutputChances().get(i);
+                if (chance != 1.0F) {
+                    recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+                        if (slotIndex == index) {
+                            tooltip.add(TextFormatting.GRAY + "Chance: " + chance + "%");
+                        }
+                    });
+                }
+            }
+            recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 75, 30);
+
             if(!recipe.getInputItem().isEmpty()) {
                 recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
             }
-            if(!recipe.getOutputItem().isEmpty()) {
-                recipeLayout.getItemStacks().set(OUTPUT_SLOT, recipe.getOutputItem());
+            int i = 0;
+            for (List<ItemStack> outputItem : recipe.getOutputItems()) {
+                recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem);
             }
 
             recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, true, 76, 30, 16, 16, 1000, false, null);
