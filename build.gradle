@@ -68,6 +68,7 @@ idea {
 sourceSets {
     main {
         java {
+            exclude '**/modcompat/charset/**'
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/mcmultipart/**'
         }
