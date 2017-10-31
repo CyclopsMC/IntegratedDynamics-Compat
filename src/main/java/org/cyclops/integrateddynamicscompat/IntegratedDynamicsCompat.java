@@ -20,7 +20,6 @@ import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGeneratorTileCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinTileCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerTileCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.charset.CharsetPipesModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.forestry.ForestryModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.ic2.Ic2ModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.immersiveengineering.ImmersiveEngineeringModCompat;
@@ -75,7 +74,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
         super.loadModCompats(modCompatLoader);
         // TODO: temporarily disable some mod compats
         // Mod compats
-        modCompatLoader.addModCompat(new CharsetPipesModCompat());
+        //modCompatLoader.addModCompat(new CharsetPipesModCompat());
         //modCompatLoader.addModCompat(new McMultiPartModCompat());
         modCompatLoader.addModCompat(new WailaModCompat());
         //modCompatLoader.addModCompat(new ThaumcraftModCompat());
