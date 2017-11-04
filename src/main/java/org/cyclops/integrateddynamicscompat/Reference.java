@@ -36,6 +36,7 @@ public class Reference {
     public static final String MOD_CYCLOPSCORE_VERSION_MIN = "0.10.22";
     public static final String MOD_INTEGRATEDDYNAMICS = "integrateddynamics";
     public static final String MOD_CRAFTTWEAKER = "crafttweaker";
+    public static final String MOD_RFTOOLS = "rftools";
     
     // Dependencies
     public static final String MOD_DEPENDENCIES =

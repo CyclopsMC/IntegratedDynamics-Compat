@@ -27,6 +27,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.minetweaker.CraftTweakerModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tconstruct.TConstructModCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.rftools.RFToolsModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.TeslaApiCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.*;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
@@ -87,6 +88,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
         modCompatLoader.addModCompat(new RefinedStorageModCompat());
         modCompatLoader.addModCompat(new ImmersiveEngineeringModCompat());
         modCompatLoader.addModCompat(new CraftTweakerModCompat());
+        modCompatLoader.addModCompat(new RFToolsModCompat());
     }
 
     /**
