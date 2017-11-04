@@ -49,6 +49,10 @@ repositories {
         name 'K4 maven'
         url "http://maven.k-4u.nl/"
     }
+    maven {
+        name 'OC Repo'
+        url "http://maven.cil.li/"
+    }
 }
 dependencies {
     // Add something like 'integrateddynamics_version_local=0.1.0-DEV' to your gradle.properties if you want to use a custom local Integrated Dynamics version.
@@ -83,6 +87,8 @@ dependencies {
     deobfCompile "refinedstorage:refinedstorage:${config.refinedstorage_version}" // https://dl.bintray.com/raoulvdberge/dev/refinedstorage/refinedstorage/
     deobfCompile "blusunrize:ImmersiveEngineering:${config.ie_version}"// http://maven.blamejared.com/blusunrize/ImmersiveEngineering/
     deobfCompile "CraftTweaker2:CraftTweaker2-API:${config.crafttweakerapi_version}"; // http://maven.blamejared.com/CraftTweaker2/CraftTweaker2-API/
+    deobfCompile "com.github.mcjty:mcjtylib:${config.mcjtylib_version}"; // http://maven.k-4u.nl/com/github/mcjty/mcjtylib/
+    deobfCompile "com.github.mcjty:rftools:${config.rftools_version}"; // http://maven.k-4u.nl/com/github/mcjty/rftools/
 
     // Only needed for testing
     //deobfCompile "pl.asie.charset:charset-lib:${config.charset_version}" // http://charset.asie.pl/maven/pl/asie/charset/charset-lib/maven-metadata.xml
