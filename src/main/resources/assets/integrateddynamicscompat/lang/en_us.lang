@@ -200,3 +200,11 @@ aspect.aspects.integrateddynamics.write.itemstack.refinedstorage.cancelcraft.nam
 aspect.aspects.integrateddynamics.write.itemstack.refinedstorage.cancelcraft.info=Cancel all running crafting jobs for the given item in the RS network.
 aspect.aspects.integrateddynamics.write.list.refinedstorage.cancelcraft.name=RS cancel crafting jobs
 aspect.aspects.integrateddynamics.write.list.refinedstorage.cancelcraft.info=Cancel all running crafting jobs for the given items in the RS network.
+
+## ----- Signals ----- ##
+
+## Aspects
+aspect.aspects.integrateddynamics.write.list.signals.destinations.name=Signals Minecart Destinations
+aspect.aspects.integrateddynamics.write.list.signals.destinations.info=Set a new destination list on a minecart.
+aspect.aspects.integrateddynamics.write.integer.signals.destindex.name=Signals Minecart Destination Index
+aspect.aspects.integrateddynamics.write.integer.signals.destindex.info=Set the (zero-based) index of a minecart's next destination.
