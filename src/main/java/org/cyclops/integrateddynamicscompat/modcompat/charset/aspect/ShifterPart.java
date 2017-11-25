@@ -89,7 +89,7 @@ public class ShifterPart<P extends IPartTypeWriter<P, S>, S extends IPartStateWr
         if(filterItem != null) {
             for(ValueObjectTypeItemStack.ValueItemStack itemStack : filterItem) {
                 if(!itemStack.getRawValue().isEmpty()
-                        && ItemStackHelpers.areItemStacksIdentical(itemStack.getRawValue(), source)) {
+                        && ItemStack.areItemStacksEqual(itemStack.getRawValue(), source)) {
                     return true;
                 }
             }
