@@ -41,7 +41,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID + ":"
                 + IntegratedDynamicsCompat._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
                 + BlockSqueezerConfig._instance.getNamedId() + "_gui_jei.png");
-        this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 93, 53);
+        this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
         this.arrowDrawable = guiHelper.createDrawable(resourceLocation, 41, 32, 12, 2);
     }
 
