@@ -60,7 +60,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory {
 
     @Override
     public String getModName() {
-        return Reference.MOD_NAME;
+        return org.cyclops.integrateddynamics.Reference.MOD_NAME;
     }
 
     @Nonnull
