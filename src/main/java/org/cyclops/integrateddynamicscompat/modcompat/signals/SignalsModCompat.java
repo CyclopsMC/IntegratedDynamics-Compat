@@ -8,14 +8,30 @@ import org.cyclops.integrateddynamicscompat.Reference;
 import org.cyclops.integrateddynamicscompat.modcompat.signals.aspect.SignalsAspects;
 
 import com.google.common.collect.Lists;
+import com.minemaarten.signals.api.access.ISignalsAccessor;
+import com.minemaarten.signals.api.access.SignalsAccessorProvidingEvent;
 import com.minemaarten.signals.capabilities.CapabilityMinecartDestination;
+
+import lombok.Getter;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class SignalsModCompat implements IModCompat {
 
     @CapabilityInject(CapabilityMinecartDestination.class)
     public static final Capability<CapabilityMinecartDestination> CAPABILITY_MINECART_DESTINATION = null;
+
+    @Getter private static ISignalsAccessor accessor;
+
+    @SubscribeEvent
+    @Optional.Method(modid = Reference.MOD_SIGNALS)
+    public static void onSignalsAccessorProvided(SignalsAccessorProvidingEvent event) {
+        accessor = event.accessor;
+        MinecraftForge.EVENT_BUS.unregister(SignalsModCompat.class);
+    }
 
     @Override
     public void onInit(Step initStep) {
@@ -24,6 +40,7 @@ public class SignalsModCompat implements IModCompat {
                     SignalsAspects.Write.LIST_DESTINATIONS,
                     SignalsAspects.Write.INTEGER_DESTINDEX
             ));
+            MinecraftForge.EVENT_BUS.register(SignalsModCompat.class);
         }
     }
 
