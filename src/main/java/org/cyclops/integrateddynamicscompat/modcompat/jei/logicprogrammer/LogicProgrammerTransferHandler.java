@@ -58,7 +58,6 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 if (doTransfer) {
                     int slotId = container.inventorySlots.size() - 37; // Player inventory - 1
                     container.putStackInSlot(slotId, itemStack.copy());
-                    IntegratedDynamics._instance.getPacketHandler().sendToServer(new LogicProgrammerValueTypeSlottedValueChangedPacket(itemStack));
                 }
             } else {
                 return new IRecipeTransferError() {
