@@ -56,7 +56,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         if (element != null && itemStack != null) {
             if (element.isItemValidForSlot(0, itemStack)) {
                 if (doTransfer) {
-                    int slotId = container.inventorySlots.size() - 1;
+                    int slotId = container.inventorySlots.size() - 37; // Player inventory - 1
                     container.putStackInSlot(slotId, itemStack.copy());
                     IntegratedDynamics._instance.getPacketHandler().sendToServer(new LogicProgrammerValueTypeSlottedValueChangedPacket(itemStack));
                 }
