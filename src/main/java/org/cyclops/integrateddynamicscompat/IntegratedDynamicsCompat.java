@@ -17,7 +17,10 @@ import org.cyclops.cyclopscore.init.ModBaseVersionable;
 import org.cyclops.cyclopscore.init.RecipeHandler;
 import org.cyclops.cyclopscore.modcompat.ModCompatLoader;
 import org.cyclops.cyclopscore.proxy.ICommonProxy;
+import org.cyclops.cyclopscore.recipe.xml.IRecipeConditionHandler;
+import org.cyclops.cyclopscore.recipe.xml.IRecipeTypeHandler;
 import org.cyclops.integrateddynamics.core.item.ItemBlockEnergyContainer;
+import org.cyclops.integrateddynamics.core.recipe.xml.MechanicalDryingBasinRecipeTypeHandler;
 import org.cyclops.integrateddynamics.tileentity.TileCoalGenerator;
 import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
 import org.cyclops.integrateddynamics.tileentity.TileEnergyBattery;
@@ -45,6 +48,8 @@ import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaPr
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaProducerEnergyContainerItemCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.waila.WailaModCompat;
+
+import java.util.Map;
 
 /**
  * The main mod class of this mod.
@@ -80,7 +85,14 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
 
     @Override
     protected RecipeHandler constructRecipeHandler() {
-        return new RecipeHandler(this);
+        return new RecipeHandler(this,
+                "mechanical_dryingbasin_metalfluids.xml") {
+            @Override
+            protected void registerHandlers(Map<String, IRecipeTypeHandler> recipeTypeHandlers, Map<String, IRecipeConditionHandler> recipeConditionHandlers) {
+                super.registerHandlers(recipeTypeHandlers, recipeConditionHandlers);
+                recipeTypeHandlers.put("integrateddynamics:mechanical_dryingbasin", new MechanicalDryingBasinRecipeTypeHandler());
+            }
+        };
     }
 
     @Override
