@@ -1,4 +1,4 @@
-package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
+package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
 import lombok.Data;
 import mezz.jei.api.ingredients.IIngredients;
@@ -8,26 +8,27 @@ import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.cyclopscore.recipe.custom.api.IRecipe;
 import org.cyclops.cyclopscore.recipe.custom.api.IRecipeRegistry;
 import org.cyclops.cyclopscore.recipe.custom.component.DummyPropertiesComponent;
+import org.cyclops.cyclopscore.recipe.custom.component.DurationRecipeProperties;
 import org.cyclops.cyclopscore.recipe.custom.component.IngredientRecipeComponent;
 import org.cyclops.cyclopscore.recipe.custom.component.IngredientsAndFluidStackRecipeComponent;
-import org.cyclops.integrateddynamics.block.BlockSqueezer;
+import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezer;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Recipe wrapper for Squeezer recipes
+ * Recipe wrapper for MechanicalSqueezer recipes
  * @author rubensworks
  */
 @Data
-public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<BlockSqueezer, IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DummyPropertiesComponent, SqueezerRecipeJEI> {
+public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<BlockMechanicalSqueezer, IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DurationRecipeProperties, MechanicalSqueezerRecipeJEI> {
 
     private final List<ItemStack> inputItem;
     private final List<List<ItemStack>> outputItems;
     private final FluidStack outputFluid;
     private final List<Float> outputChances;
 
-    public SqueezerRecipeJEI(IRecipe<IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DummyPropertiesComponent> recipe) {
+    public MechanicalSqueezerRecipeJEI(IRecipe<IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DurationRecipeProperties> recipe) {
         super(recipe);
         this.inputItem = recipe.getInput().getItemStacks();
         this.outputItems = recipe.getOutput().getSubIngredientComponents().stream()
@@ -37,7 +38,7 @@ public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<BlockSquee
                 .map(IngredientRecipeComponent::getChance).collect(Collectors.toList());
     }
 
-    protected SqueezerRecipeJEI() {
+    protected MechanicalSqueezerRecipeJEI() {
         super(null);
         this.inputItem = null;
         this.outputItems = null;
@@ -46,13 +47,13 @@ public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<BlockSquee
     }
 
     @Override
-    protected IRecipeRegistry<BlockSqueezer, IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DummyPropertiesComponent> getRecipeRegistry() {
-        return BlockSqueezer.getInstance().getRecipeRegistry();
+    protected IRecipeRegistry<BlockMechanicalSqueezer, IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DurationRecipeProperties> getRecipeRegistry() {
+        return BlockMechanicalSqueezer.getInstance().getRecipeRegistry();
     }
 
     @Override
-    protected SqueezerRecipeJEI newInstance(IRecipe<IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DummyPropertiesComponent> input) {
-        return new SqueezerRecipeJEI(input);
+    protected MechanicalSqueezerRecipeJEI newInstance(IRecipe<IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DurationRecipeProperties> input) {
+        return new MechanicalSqueezerRecipeJEI(input);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<BlockSquee
         ingredients.setOutput(FluidStack.class, getOutputFluid());
     }
 
-    public static List<SqueezerRecipeJEI> getAllRecipes() {
-        return new SqueezerRecipeJEI().createAllRecipes();
+    public static List<MechanicalSqueezerRecipeJEI> getAllRecipes() {
+        return new MechanicalSqueezerRecipeJEI().createAllRecipes();
     }
 }

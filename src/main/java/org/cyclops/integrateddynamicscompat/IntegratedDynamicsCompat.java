@@ -5,20 +5,31 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.apache.logging.log4j.Level;
 import org.cyclops.cyclopscore.config.ConfigHandler;
 import org.cyclops.cyclopscore.init.ModBaseVersionable;
 import org.cyclops.cyclopscore.init.RecipeHandler;
 import org.cyclops.cyclopscore.modcompat.ModCompatLoader;
 import org.cyclops.cyclopscore.proxy.ICommonProxy;
+import org.cyclops.cyclopscore.recipe.xml.IRecipeConditionHandler;
+import org.cyclops.cyclopscore.recipe.xml.IRecipeTypeHandler;
 import org.cyclops.integrateddynamics.core.item.ItemBlockEnergyContainer;
+import org.cyclops.integrateddynamics.core.recipe.xml.MechanicalDryingBasinRecipeTypeHandler;
 import org.cyclops.integrateddynamics.tileentity.TileCoalGenerator;
 import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
 import org.cyclops.integrateddynamics.tileentity.TileEnergyBattery;
+import org.cyclops.integrateddynamics.tileentity.TileMechanicalDryingBasin;
+import org.cyclops.integrateddynamics.tileentity.TileMechanicalSqueezer;
 import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGeneratorTileCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinTileCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineTileCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerTileCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.forestry.ForestryModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.ic2.Ic2ModCompat;
@@ -29,9 +40,17 @@ import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStor
 import org.cyclops.integrateddynamicscompat.modcompat.signals.SignalsModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tconstruct.TConstructModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.TeslaApiCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.*;
+import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaConsumerEnergyBatteryTileCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaConsumerEnergyContainerItemCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaHolderEnergyBatteryTileCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaHolderEnergyContainerItemCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaProducerCoalGeneratorTileCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaProducerEnergyBatteryTileCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.tesla.capabilities.TeslaProducerEnergyContainerItemCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.waila.WailaModCompat;
+
+import java.util.Map;
 
 /**
  * The main mod class of this mod.
@@ -67,7 +86,14 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
 
     @Override
     protected RecipeHandler constructRecipeHandler() {
-        return new RecipeHandler(this);
+        return new RecipeHandler(this,
+                "mechanical_dryingbasin_metalfluids.xml") {
+            @Override
+            protected void registerHandlers(Map<String, IRecipeTypeHandler> recipeTypeHandlers, Map<String, IRecipeConditionHandler> recipeConditionHandlers) {
+                super.registerHandlers(recipeTypeHandlers, recipeConditionHandlers);
+                recipeTypeHandlers.put("integrateddynamics:mechanical_dryingbasin", new MechanicalDryingBasinRecipeTypeHandler());
+            }
+        };
     }
 
     @Override
@@ -102,6 +128,8 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
         getCapabilityConstructorRegistry().registerTile(TileDryingBasin.class, new WorkerDryingBasinTileCompat());
         getCapabilityConstructorRegistry().registerTile(TileSqueezer.class, new WorkerSqueezerTileCompat());
         getCapabilityConstructorRegistry().registerTile(TileCoalGenerator.class, new WorkerCoalGeneratorTileCompat());
+        getCapabilityConstructorRegistry().registerTile(TileMechanicalDryingBasin.class, new WorkerMechanicalMachineTileCompat<>());
+        getCapabilityConstructorRegistry().registerTile(TileMechanicalSqueezer.class, new WorkerMechanicalMachineTileCompat<>());
         getCapabilityConstructorRegistry().registerTile(TileCoalGenerator.class, new TeslaProducerCoalGeneratorTileCompat());
         getCapabilityConstructorRegistry().registerTile(TileEnergyBattery.class, new TeslaConsumerEnergyBatteryTileCompat());
         getCapabilityConstructorRegistry().registerTile(TileEnergyBattery.class, new TeslaProducerEnergyBatteryTileCompat());

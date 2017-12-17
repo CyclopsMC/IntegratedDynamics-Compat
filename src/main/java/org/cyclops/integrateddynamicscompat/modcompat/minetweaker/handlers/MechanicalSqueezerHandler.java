@@ -5,39 +5,39 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
 import org.cyclops.cyclopscore.modcompat.crafttweaker.handlers.RecipeRegistryHandler;
 import org.cyclops.cyclopscore.recipe.custom.Recipe;
 import org.cyclops.cyclopscore.recipe.custom.component.DummyPropertiesComponent;
+import org.cyclops.cyclopscore.recipe.custom.component.DurationRecipeProperties;
 import org.cyclops.cyclopscore.recipe.custom.component.IngredientRecipeComponent;
 import org.cyclops.cyclopscore.recipe.custom.component.IngredientsAndFluidStackRecipeComponent;
-import org.cyclops.integrateddynamics.block.BlockSqueezer;
+import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezer;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.List;
 
-@ZenClass("mods.integrateddynamics.Squeezer")
+@ZenClass("mods.integrateddynamics.MechanicalSqueezer")
 @ZenRegister
-public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DummyPropertiesComponent> {
+public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechanicalSqueezer, IngredientRecipeComponent, IngredientsAndFluidStackRecipeComponent, DurationRecipeProperties> {
 
-    private static final SqueezerHandler INSTANCE = new SqueezerHandler();
+    private static final MechanicalSqueezerHandler INSTANCE = new MechanicalSqueezerHandler();
 
     @Override
-    protected BlockSqueezer getMachine() {
-        return BlockSqueezer.getInstance();
+    protected BlockMechanicalSqueezer getMachine() {
+        return BlockMechanicalSqueezer.getInstance();
     }
 
     @Override
     protected String getRegistryName() {
-        return "Squeezer";
+        return "MechanicalSqueezer";
     }
 
     @ZenMethod
     public static void addRecipe(IItemStack inputStack,
-                           @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
-        addRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid);
+                           @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
+        addRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid, duration);
     }
 
     @ZenMethod
@@ -45,7 +45,7 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
                                  @Optional IItemStack outputStack1, @Optional float outputStackChance1,
                                  @Optional IItemStack outputStack2, @Optional float outputStackChance2,
                                  @Optional IItemStack outputStack3, @Optional float outputStackChance3,
-                                 @Optional ILiquidStack outputFluid) {
+                                 @Optional ILiquidStack outputFluid, int duration) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {
             IngredientRecipeComponent outputComponent1 = new IngredientRecipeComponent(Ingredient.fromStacks(RecipeRegistryHandler.toStack(outputStack1)));
@@ -66,13 +66,13 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
         INSTANCE.add(new Recipe<>(
                 new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
                 new IngredientsAndFluidStackRecipeComponent(outputComponents, RecipeRegistryHandler.toFluid(outputFluid)),
-                new DummyPropertiesComponent()));
+                new DurationRecipeProperties(duration)));
     }
 
     @ZenMethod
     public static void removeRecipe(IItemStack inputStack,
-                              @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
-        removeRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid);
+                              @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
+        removeRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid, duration);
     }
 
     @ZenMethod
@@ -80,7 +80,7 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
                                     @Optional IItemStack outputStack1, @Optional float outputStackChance1,
                                     @Optional IItemStack outputStack2, @Optional float outputStackChance2,
                                     @Optional IItemStack outputStack3, @Optional float outputStackChance3,
-                                    @Optional ILiquidStack outputFluid) {
+                                    @Optional ILiquidStack outputFluid, int duration) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {
             IngredientRecipeComponent outputComponent1 = new IngredientRecipeComponent(Ingredient.fromStacks(RecipeRegistryHandler.toStack(outputStack1)));
@@ -101,7 +101,7 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
         INSTANCE.remove(new Recipe<>(
                 new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
                 new IngredientsAndFluidStackRecipeComponent(outputComponents, RecipeRegistryHandler.toFluid(outputFluid)),
-                new DummyPropertiesComponent()));
+                new DurationRecipeProperties(duration)));
     }
 
     @ZenMethod

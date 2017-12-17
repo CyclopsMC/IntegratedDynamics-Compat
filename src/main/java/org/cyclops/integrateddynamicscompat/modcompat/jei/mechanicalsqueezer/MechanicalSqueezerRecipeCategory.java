@@ -1,7 +1,8 @@
-package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
+package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
@@ -13,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.cyclopscore.init.ModBase;
-import org.cyclops.integrateddynamics.block.BlockSqueezer;
-import org.cyclops.integrateddynamics.block.BlockSqueezerConfig;
+import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezer;
+import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezerConfig;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
 import org.cyclops.integrateddynamicscompat.Reference;
 
@@ -23,26 +24,26 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Category for the Squeezer recipes.
+ * Category for the MechanicalSqueezer recipes.
  * @author rubensworks
  */
-public class SqueezerRecipeCategory implements IRecipeCategory {
+public class MechanicalSqueezerRecipeCategory implements IRecipeCategory {
 
-    public static final String NAME = Reference.MOD_ID + ":squeezer";
+    public static final String NAME = Reference.MOD_ID + ":mechanicalSqueezer";
 
     private static final int INPUT_SLOT = 0;
     private static final int FLUIDOUTPUT_SLOT = 1;
     private static final int OUTPUT_SLOT = 2;
 
     private final IDrawable background;
-    private final IDrawableStatic arrowDrawable;
+    private final IDrawableAnimated arrowDrawable;
 
-    public SqueezerRecipeCategory(IGuiHelper guiHelper) {
+    public MechanicalSqueezerRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID + ":"
                 + IntegratedDynamicsCompat._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
-                + BlockSqueezerConfig._instance.getNamedId() + "_gui_jei.png");
+                + BlockMechanicalSqueezerConfig._instance.getNamedId() + "_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
-        this.arrowDrawable = guiHelper.createDrawable(resourceLocation, 41, 32, 12, 2);
+        this.arrowDrawable = guiHelper.createAnimatedDrawable(guiHelper.createDrawable(resourceLocation, 116, 0, 4, 11), 20, IDrawableAnimated.StartDirection.TOP, false);
     }
 
     @Nonnull
@@ -54,7 +55,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
     @Nonnull
     @Override
     public String getTitle() {
-        return L10NHelpers.localize(BlockSqueezer.getInstance().getUnlocalizedName() + ".name");
+        return L10NHelpers.localize(BlockMechanicalSqueezer.getInstance().getUnlocalizedName() + ".name");
     }
 
     @Override
@@ -76,14 +77,13 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
 
     @Override
     public void drawExtras(Minecraft minecraft) {
-        int height = (int) ((minecraft.world.getTotalWorldTime() / 4) % 7);
-        arrowDrawable.draw(minecraft, 41, 18 + height * 2);
+        arrowDrawable.draw(minecraft, 45, 21);
     }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        if(recipeWrapper instanceof SqueezerRecipeJEI) {
-            SqueezerRecipeJEI recipe = (SqueezerRecipeJEI) recipeWrapper;
+        if(recipeWrapper instanceof MechanicalSqueezerRecipeJEI) {
+            MechanicalSqueezerRecipeJEI recipe = (MechanicalSqueezerRecipeJEI) recipeWrapper;
 
             recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 17);
             int offset = 0;

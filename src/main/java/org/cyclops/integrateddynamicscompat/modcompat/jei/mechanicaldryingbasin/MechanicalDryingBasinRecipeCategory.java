@@ -1,4 +1,4 @@
-package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
+package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -12,8 +12,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.cyclopscore.init.ModBase;
-import org.cyclops.integrateddynamics.block.BlockDryingBasin;
 import org.cyclops.integrateddynamics.block.BlockDryingBasinConfig;
+import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasin;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
 import org.cyclops.integrateddynamicscompat.Reference;
 
@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
  * Category for the Drying Basin recipes.
  * @author rubensworks
  */
-public class DryingBasinRecipeCategory implements IRecipeCategory {
+public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory {
 
-    public static final String NAME = Reference.MOD_ID + ":dryingBasin";
+    public static final String NAME = Reference.MOD_ID + ":mechanicalDryingBasin";
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
@@ -36,7 +36,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
     private final IDrawable background;
     private final IDrawableAnimated arrow;
 
-    public DryingBasinRecipeCategory(IGuiHelper guiHelper) {
+    public MechanicalDryingBasinRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID + ":"
                 + IntegratedDynamicsCompat._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
                 + BlockDryingBasinConfig._instance.getNamedId() + "_gui_jei.png");
@@ -54,7 +54,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
     @Nonnull
     @Override
     public String getTitle() {
-        return L10NHelpers.localize(BlockDryingBasin.getInstance().getUnlocalizedName() + ".name");
+        return L10NHelpers.localize(BlockMechanicalDryingBasin.getInstance().getUnlocalizedName() + ".name");
     }
 
     @Override
@@ -86,8 +86,8 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
         recipeLayout.getItemStacks().init(FLUIDINPUT_SLOT, true, 6, 28);
         recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28);
 
-        if(recipeWrapper instanceof DryingBasinRecipeJEI) {
-            DryingBasinRecipeJEI recipe = (DryingBasinRecipeJEI) recipeWrapper;
+        if(recipeWrapper instanceof MechanicalDryingBasinRecipeJEI) {
+            MechanicalDryingBasinRecipeJEI recipe = (MechanicalDryingBasinRecipeJEI) recipeWrapper;
             if(!recipe.getInputItem().isEmpty()) {
                 recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
             }

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<recipes>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">iron</condition>
+		<condition type="oredict">ingotIron</condition>
+		<input>
+			<fluid amount="144">iron</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotIron</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">gold</condition>
+		<condition type="oredict">ingotGold</condition>
+		<input>
+			<fluid amount="144">gold</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotGold</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">pigiron</condition>
+		<condition type="oredict">ingotPigiron</condition>
+		<input>
+			<fluid amount="144">pigiron</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotPigiron</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">ardite</condition>
+		<condition type="oredict">ingotArdite</condition>
+		<input>
+			<fluid amount="144">ardite</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotArdite</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">cobalt</condition>
+		<condition type="oredict">ingotCobalt</condition>
+		<input>
+			<fluid amount="144">cobalt</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotCobalt</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">manyullyn</condition>
+		<condition type="oredict">ingotManyullyn</condition>
+		<input>
+			<fluid amount="144">manyullyn</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotManyullyn</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">copper</condition>
+		<condition type="oredict">ingotCopper</condition>
+		<input>
+			<fluid amount="144">copper</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotCopper</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">bronze</condition>
+		<condition type="oredict">ingotBronze</condition>
+		<input>
+			<fluid amount="144">bronze</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotBronze</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">lead</condition>
+		<condition type="oredict">ingotLead</condition>
+		<input>
+			<fluid amount="144">lead</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotLead</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">silver</condition>
+		<condition type="oredict">ingotSilver</condition>
+		<input>
+			<fluid amount="144">silver</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotSilver</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">electrum</condition>
+		<condition type="oredict">ingotElectrum</condition>
+		<input>
+			<fluid amount="144">electrum</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotElectrum</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">steel</condition>
+		<condition type="oredict">ingotSteel</condition>
+		<input>
+			<fluid amount="144">steel</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotSteel</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">alubrass</condition>
+		<condition type="oredict">ingotAlubrass</condition>
+		<input>
+			<fluid amount="144">alubrass</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotAlubrass</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">brass</condition>
+		<condition type="oredict">ingotBrass</condition>
+		<input>
+			<fluid amount="144">brass</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotBrass</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">tin</condition>
+		<condition type="oredict">ingotTin</condition>
+		<input>
+			<fluid amount="144">tin</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotTin</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">zinc</condition>
+		<condition type="oredict">ingotZinc</condition>
+		<input>
+			<fluid amount="144">zinc</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotZinc</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">nickel</condition>
+		<condition type="oredict">ingotNickel</condition>
+		<input>
+			<fluid amount="144">nickel</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotNickel</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">aluminum</condition>
+		<condition type="oredict">ingotAluminum</condition>
+		<input>
+			<fluid amount="144">aluminum</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotAluminum</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">emerald</condition>
+		<condition type="oredict">gemEmerald</condition>
+		<input>
+			<fluid amount="666">emerald</fluid>
+		</input>
+		<output>
+			<item type="oredict">gemEmerald</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">glass</condition>
+		<input>
+			<fluid amount="1000">glass</fluid>
+		</input>
+		<output>
+			<item>minecraft:glass</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">knightslime</condition>
+		<condition type="oredict">ingotKnightslime</condition>
+		<input>
+			<fluid amount="144">knightslime</fluid>
+		</input>
+		<output>
+			<item type="oredict">ingotKnightslime</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+	<recipe type="integrateddynamics:mechanical_dryingbasin">
+		<tag>convenience</tag>
+		<condition type="fluid">obsidian</condition>
+		<input>
+			<fluid amount="288">obsidian</fluid>
+		</input>
+		<output>
+			<item>minecraft:obsidian</item>
+		</output>
+		<properties>
+			<duration>10</duration>
+		</properties>
+	</recipe>
+
+</recipes>
