@@ -83,6 +83,7 @@ dependencies {
     deobfCompile "refinedstorage:refinedstorage:${config.refinedstorage_version}" // https://dl.bintray.com/raoulvdberge/dev/refinedstorage/refinedstorage/
     deobfCompile "blusunrize:ImmersiveEngineering:${config.ie_version}"// http://maven.blamejared.com/blusunrize/ImmersiveEngineering/
     deobfCompile "CraftTweaker2:CraftTweaker2-API:${config.crafttweakerapi_version}"; // http://maven.blamejared.com/CraftTweaker2/CraftTweaker2-API/
+    deobfCompile "signals:Signals-${config.signals_version}:universal"; // http://maven.k-4u.nl/signals/Signals-1.12.2/maven-metadata.xml
 
     // Only needed for testing
     //deobfCompile "pl.asie.charset:charset-lib:${config.charset_version}" // http://charset.asie.pl/maven/pl/asie/charset/charset-lib/maven-metadata.xml
