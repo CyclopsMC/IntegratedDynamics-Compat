@@ -1,12 +1,12 @@
 ## IntegratedDynamics-Compat
 
 [![Build Status](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat.svg?branch=master-1.11)](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat)
-[![Download](https://img.shields.io/maven-metadata/v/http/cyclopsmc.jfrog.io/cyclopsmc/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/maven-metadata.xml.svg) ](https://cyclopsmc.jfrog.io/cyclopsmc/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/)
+[![Download](https://img.shields.io/maven-metadata/v/https/oss.jfrog.org/artifactory/simple/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/maven-metadata.xml.svg) ](https://oss.jfrog.org/artifactory/simple/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/)
 
 [Integrated Dynamics](https://github.com/CyclopsMC/IntegratedDynamics) compatibility with other mods.
 This mod is automatically packaged with [Integrated Dynamics](https://github.com/CyclopsMC/IntegratedDynamics).
 
-[Development builds](https://cyclopsmc.jfrog.io/cyclopsmc/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/) are hosted by [JFrog Artifactory](https://www.jfrog.com/artifactory/).
+[Development builds](https://oss.jfrog.org/artifactory/simple/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/) are hosted by [JFrog Artifactory](https://www.jfrog.com/artifactory/).
 
 ### Contributing
 * Before submitting a pull request containing a new feature, please discuss this first with one of the lead developers.
