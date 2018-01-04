@@ -85,13 +85,17 @@ dependencies {
     deobfCompile "com.github.mcjty:compatlayer:${config.compatlayer_version}" // http://maven.k-4u.nl/com/github/mcjty/compatlayer/
     deobfCompile "refinedstorage:refinedstorage:${config.refinedstorage_version}" // https://dl.bintray.com/raoulvdberge/dev/refinedstorage/refinedstorage/
     deobfCompile "blusunrize:ImmersiveEngineering:${config.ie_version}"// http://maven.blamejared.com/blusunrize/ImmersiveEngineering/
-    deobfCompile "CraftTweaker2:CraftTweaker2-API:${config.crafttweakerapi_version}"; // http://maven.blamejared.com/CraftTweaker2/CraftTweaker2-API/
+    deobfCompile ("CraftTweaker2:CraftTweaker2-API:${config.crafttweakerapi_version}") { // http://maven.blamejared.com/CraftTweaker2/CraftTweaker2-API/
+        exclude group: 'org.ow2.asm', module: 'asm-debug-all'
+    }
     deobfCompile "signals:Signals-${config.signals_version}:universal"; // http://maven.k-4u.nl/signals/Signals-1.12.2/maven-metadata.xml
 
     // Only needed for testing
     //deobfCompile "pl.asie.charset:charset-lib:${config.charset_version}" // http://charset.asie.pl/maven/pl/asie/charset/charset-lib/maven-metadata.xml
     //deobfCompile "pl.asie.charset:charset-pipes:${config.charset_version}" // http://charset.asie.pl/maven/pl/asie/charset/charset-pipes/maven-metadata.xml
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:${config.crafttweakermain_version}" // http://maven.blamejared.com/CraftTweaker2/CraftTweaker2-MC1120-Main/
+    deobfCompile ("CraftTweaker2:CraftTweaker2-MC1120-Main:${config.crafttweakermain_version}") { // http://maven.blamejared.com/CraftTweaker2/CraftTweaker2-MC1120-Main/
+        exclude group: 'org.ow2.asm', module: 'asm-debug-all'
+    }
 
     // Project lombok
     compile "org.projectlombok:lombok:1.14.4"
