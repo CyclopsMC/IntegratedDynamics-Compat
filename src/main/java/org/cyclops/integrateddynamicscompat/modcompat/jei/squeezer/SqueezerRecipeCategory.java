@@ -95,7 +95,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
                 if (chance != 1.0F) {
                     recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
                         if (slotIndex == index) {
-                            tooltip.add(TextFormatting.GRAY + "Chance: " + chance + "%");
+                            tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
                         }
                     });
                 }
