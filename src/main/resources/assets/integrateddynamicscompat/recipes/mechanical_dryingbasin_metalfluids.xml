@@ -3,6 +3,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">iron</condition>
 		<condition type="oredict">ingotIron</condition>
 		<input>
@@ -18,6 +19,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">gold</condition>
 		<condition type="oredict">ingotGold</condition>
 		<input>
@@ -33,6 +35,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">pigiron</condition>
 		<condition type="oredict">ingotPigiron</condition>
 		<input>
@@ -48,6 +51,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">ardite</condition>
 		<condition type="oredict">ingotArdite</condition>
 		<input>
@@ -63,6 +67,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">cobalt</condition>
 		<condition type="oredict">ingotCobalt</condition>
 		<input>
@@ -78,6 +83,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">manyullyn</condition>
 		<condition type="oredict">ingotManyullyn</condition>
 		<input>
@@ -93,6 +99,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">copper</condition>
 		<condition type="oredict">ingotCopper</condition>
 		<input>
@@ -108,6 +115,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">bronze</condition>
 		<condition type="oredict">ingotBronze</condition>
 		<input>
@@ -123,6 +131,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">lead</condition>
 		<condition type="oredict">ingotLead</condition>
 		<input>
@@ -138,6 +147,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">silver</condition>
 		<condition type="oredict">ingotSilver</condition>
 		<input>
@@ -153,6 +163,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">electrum</condition>
 		<condition type="oredict">ingotElectrum</condition>
 		<input>
@@ -168,6 +179,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">steel</condition>
 		<condition type="oredict">ingotSteel</condition>
 		<input>
@@ -183,6 +195,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">alubrass</condition>
 		<condition type="oredict">ingotAlubrass</condition>
 		<input>
@@ -198,6 +211,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">brass</condition>
 		<condition type="oredict">ingotBrass</condition>
 		<input>
@@ -213,6 +227,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">tin</condition>
 		<condition type="oredict">ingotTin</condition>
 		<input>
@@ -228,6 +243,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">zinc</condition>
 		<condition type="oredict">ingotZinc</condition>
 		<input>
@@ -243,6 +259,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">nickel</condition>
 		<condition type="oredict">ingotNickel</condition>
 		<input>
@@ -258,6 +275,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">aluminum</condition>
 		<condition type="oredict">ingotAluminum</condition>
 		<input>
@@ -273,6 +291,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">emerald</condition>
 		<condition type="oredict">gemEmerald</condition>
 		<input>
@@ -288,6 +307,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">glass</condition>
 		<input>
 			<fluid amount="1000">glass</fluid>
@@ -302,6 +322,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">knightslime</condition>
 		<condition type="oredict">ingotKnightslime</condition>
 		<input>
@@ -317,6 +338,7 @@
 
 	<recipe type="integrateddynamics:mechanical_dryingbasin">
 		<tag>convenience</tag>
+		<condition type="config">mechanical_drying_basin</condition>
 		<condition type="fluid">obsidian</condition>
 		<input>
 			<fluid amount="288">obsidian</fluid>
