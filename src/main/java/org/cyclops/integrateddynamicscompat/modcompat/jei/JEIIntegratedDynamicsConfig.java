@@ -6,16 +6,23 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
+import org.cyclops.cyclopscore.config.ConfigHandler;
 import org.cyclops.integrateddynamics.block.BlockDryingBasin;
+import org.cyclops.integrateddynamics.block.BlockDryingBasinConfig;
+import org.cyclops.integrateddynamics.block.BlockLogicProgrammerConfig;
 import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasin;
+import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
 import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezer;
+import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezerConfig;
 import org.cyclops.integrateddynamics.block.BlockSqueezer;
+import org.cyclops.integrateddynamics.block.BlockSqueezerConfig;
 import org.cyclops.integrateddynamics.client.gui.GuiMechanicalDryingBasin;
 import org.cyclops.integrateddynamics.client.gui.GuiMechanicalSqueezer;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammer;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerPortable;
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalDryingBasin;
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalSqueezer;
+import org.cyclops.integrateddynamics.item.ItemPortableLogicProgrammerConfig;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeCategory;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeJEI;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer.LogicProgrammerTransferHandler;
@@ -38,40 +45,50 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
-        registry.addRecipeCategories(new DryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new MechanicalDryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new MechanicalSqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (ConfigHandler.isEnabled(BlockDryingBasinConfig.class)) registry.addRecipeCategories(new DryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (ConfigHandler.isEnabled(BlockSqueezerConfig.class)) registry.addRecipeCategories(new SqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (ConfigHandler.isEnabled(BlockMechanicalDryingBasinConfig.class)) registry.addRecipeCategories(new MechanicalDryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (ConfigHandler.isEnabled(BlockMechanicalSqueezerConfig.class)) registry.addRecipeCategories(new MechanicalSqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
         if(JEIModCompat.canBeUsed) {
             // Drying Basin
-            registry.addRecipes(DryingBasinRecipeJEI.getAllRecipes(), DryingBasinRecipeCategory.NAME);
-            registry.addRecipeCatalyst(new ItemStack(BlockDryingBasin.getInstance()), DryingBasinRecipeCategory.NAME);
+            if (ConfigHandler.isEnabled(BlockDryingBasinConfig.class)) {
+                registry.addRecipes(DryingBasinRecipeJEI.getAllRecipes(), DryingBasinRecipeCategory.NAME);
+                registry.addRecipeCatalyst(new ItemStack(BlockDryingBasin.getInstance()), DryingBasinRecipeCategory.NAME);
+            }
 
             // Squeezer
-            registry.addRecipes(SqueezerRecipeJEI.getAllRecipes(), SqueezerRecipeCategory.NAME);
-            registry.addRecipeCatalyst(new ItemStack(BlockSqueezer.getInstance()), SqueezerRecipeCategory.NAME);
+            if (ConfigHandler.isEnabled(BlockSqueezerConfig.class)) {
+                registry.addRecipes(SqueezerRecipeJEI.getAllRecipes(), SqueezerRecipeCategory.NAME);
+                registry.addRecipeCatalyst(new ItemStack(BlockSqueezer.getInstance()), SqueezerRecipeCategory.NAME);
+            }
 
             // Mechanical Drying Basin
-            registry.addRecipes(MechanicalDryingBasinRecipeJEI.getAllRecipes(), MechanicalDryingBasinRecipeCategory.NAME);
-            registry.addRecipeCatalyst(new ItemStack(BlockMechanicalDryingBasin.getInstance()), MechanicalDryingBasinRecipeCategory.NAME);
-            registry.addRecipeClickArea(GuiMechanicalDryingBasin.class, 84, 31, 10, 27, MechanicalDryingBasinRecipeCategory.NAME);
-            registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerMechanicalDryingBasin.class, MechanicalDryingBasinRecipeCategory.NAME, 0, 1, 5, 36);
+            if (ConfigHandler.isEnabled(BlockMechanicalDryingBasinConfig.class)) {
+                registry.addRecipes(MechanicalDryingBasinRecipeJEI.getAllRecipes(), MechanicalDryingBasinRecipeCategory.NAME);
+                registry.addRecipeCatalyst(new ItemStack(BlockMechanicalDryingBasin.getInstance()), MechanicalDryingBasinRecipeCategory.NAME);
+                registry.addRecipeClickArea(GuiMechanicalDryingBasin.class, 84, 31, 10, 27, MechanicalDryingBasinRecipeCategory.NAME);
+                registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerMechanicalDryingBasin.class, MechanicalDryingBasinRecipeCategory.NAME, 0, 1, 5, 36);
+            }
 
             // Mechanical Squeezer
-            registry.addRecipes(MechanicalSqueezerRecipeJEI.getAllRecipes(), MechanicalSqueezerRecipeCategory.NAME);
-            registry.addRecipeCatalyst(new ItemStack(BlockMechanicalSqueezer.getInstance()), MechanicalSqueezerRecipeCategory.NAME);
-            registry.addRecipeClickArea(GuiMechanicalSqueezer.class, 73, 36, 12, 18, MechanicalSqueezerRecipeCategory.NAME);
-            registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerMechanicalSqueezer.class, MechanicalSqueezerRecipeCategory.NAME, 0, 1, 5, 36);
+            if (ConfigHandler.isEnabled(BlockMechanicalSqueezerConfig.class)) {
+                registry.addRecipes(MechanicalSqueezerRecipeJEI.getAllRecipes(), MechanicalSqueezerRecipeCategory.NAME);
+                registry.addRecipeCatalyst(new ItemStack(BlockMechanicalSqueezer.getInstance()), MechanicalSqueezerRecipeCategory.NAME);
+                registry.addRecipeClickArea(GuiMechanicalSqueezer.class, 73, 36, 12, 18, MechanicalSqueezerRecipeCategory.NAME);
+                registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerMechanicalSqueezer.class, MechanicalSqueezerRecipeCategory.NAME, 0, 1, 5, 36);
+            }
 
             // Logic programmer
-            registry.getRecipeTransferRegistry().addUniversalRecipeTransferHandler(
+            if (ConfigHandler.isEnabled(BlockLogicProgrammerConfig.class))
+                registry.getRecipeTransferRegistry().addUniversalRecipeTransferHandler(
                     new LogicProgrammerTransferHandler<>(ContainerLogicProgrammer.class));
-            registry.getRecipeTransferRegistry().addUniversalRecipeTransferHandler(
-                    new LogicProgrammerTransferHandler<>(ContainerLogicProgrammerPortable.class));
+            if (ConfigHandler.isEnabled(ItemPortableLogicProgrammerConfig.class))
+                registry.getRecipeTransferRegistry().addUniversalRecipeTransferHandler(
+                        new LogicProgrammerTransferHandler<>(ContainerLogicProgrammerPortable.class));
         }
     }
 
