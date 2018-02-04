@@ -33,7 +33,7 @@ public class TopPartData implements IProbeInfoProvider {
     public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
             BlockPos pos = data.getPos();
-            IPartContainer partContainer = PartHelpers.getPartContainer(world, pos);
+            IPartContainer partContainer = PartHelpers.getPartContainer(world, pos, null);
             if (partContainer != null) {
                 EnumFacing side = partContainer.getWatchingSide(world, pos, player);
                 if (side != null && partContainer.hasPart(side)) {

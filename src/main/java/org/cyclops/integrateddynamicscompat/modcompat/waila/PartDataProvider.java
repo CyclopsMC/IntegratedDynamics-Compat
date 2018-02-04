@@ -43,7 +43,7 @@ public class PartDataProvider implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         if(config.getConfig(org.cyclops.integrateddynamicscompat.modcompat.waila.Waila.getPartConfigId())) {
-            IPartContainer partContainer = PartHelpers.getPartContainer(accessor.getWorld(), accessor.getPosition());
+            IPartContainer partContainer = PartHelpers.getPartContainer(accessor.getWorld(), accessor.getPosition(), null);
             if (partContainer != null) {
                 EnumFacing side = partContainer.getWatchingSide(accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
                 if (side != null && partContainer.hasPart(side)) {
