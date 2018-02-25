@@ -88,18 +88,14 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
             recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 17);
             int offset = 0;
             for (int i = 0; i < recipe.getOutputItems().size(); i++) {
-                final int index = OUTPUT_SLOT + i;
                 recipeLayout.getItemStacks().init(OUTPUT_SLOT + i, false, 75 + (i > 0 ? 22 : 0), 7 + offset + (i > 1 ? 22 : 0));
-
-                float chance = recipe.getOutputChances().get(i);
-                if (chance != 1.0F) {
-                    recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-                        if (slotIndex == index) {
-                            tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
-                        }
-                    });
-                }
             }
+            recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+                if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
+                    float chance = recipe.getOutputChances().get(slotIndex - OUTPUT_SLOT);
+                    tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
+                }
+            });
             recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 75, 30);
 
             if(!recipe.getInputItem().isEmpty()) {
