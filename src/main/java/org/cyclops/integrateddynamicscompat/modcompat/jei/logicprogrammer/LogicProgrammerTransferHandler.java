@@ -9,12 +9,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import org.cyclops.integrateddynamics.IntegratedDynamics;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
-import org.cyclops.integrateddynamics.network.packet.LogicProgrammerValueTypeSlottedValueChangedPacket;
+import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import org.cyclops.integrateddynamicscompat.network.packet.CPacketSetSlot;
 
 import javax.annotation.Nullable;
 
@@ -58,6 +57,8 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 if (doTransfer) {
                     int slotId = container.inventorySlots.size() - 37; // Player inventory - 1
                     container.putStackInSlot(slotId, itemStack.copy());
+                    IntegratedDynamicsCompat._instance.getPacketHandler().sendToServer(
+                            new CPacketSetSlot(container.windowId, slotId, itemStack));
                 }
             } else {
                 return new IRecipeTransferError() {
