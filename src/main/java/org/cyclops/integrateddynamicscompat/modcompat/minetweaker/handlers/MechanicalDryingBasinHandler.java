@@ -30,7 +30,7 @@ public class MechanicalDryingBasinHandler extends RecipeRegistryHandler<BlockMec
 
     @ZenMethod
     public static void addRecipe(@Optional IItemStack inputStack, @Optional ILiquidStack inputFluid,
-                           @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
+                           @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         INSTANCE.add(new Recipe<>(
                 new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
                 new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
@@ -39,7 +39,7 @@ public class MechanicalDryingBasinHandler extends RecipeRegistryHandler<BlockMec
 
     @ZenMethod
     public static void removeRecipe(@Optional IItemStack inputStack, @Optional ILiquidStack inputFluid,
-                              @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
+                              @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         INSTANCE.remove(new Recipe<>(
                 new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
                 new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),

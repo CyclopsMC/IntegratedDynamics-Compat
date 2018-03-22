@@ -62,7 +62,7 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
             outputComponent3.setChance(outputStackChance3);
             outputComponents.add(outputComponent3);
         }
-        
+
         INSTANCE.add(new Recipe<>(
                 new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
                 new IngredientsAndFluidStackRecipeComponent(outputComponents, RecipeRegistryHandler.toFluid(outputFluid)),

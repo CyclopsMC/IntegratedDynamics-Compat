@@ -45,7 +45,7 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
                                  @Optional IItemStack outputStack1, @Optional float outputStackChance1,
                                  @Optional IItemStack outputStack2, @Optional float outputStackChance2,
                                  @Optional IItemStack outputStack3, @Optional float outputStackChance3,
-                                 @Optional ILiquidStack outputFluid, int duration) {
+                                 @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {
             IngredientRecipeComponent outputComponent1 = new IngredientRecipeComponent(Ingredient.fromStacks(RecipeRegistryHandler.toStack(outputStack1)));
@@ -62,7 +62,7 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
             outputComponent3.setChance(outputStackChance3);
             outputComponents.add(outputComponent3);
         }
-        
+
         INSTANCE.add(new Recipe<>(
                 new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
                 new IngredientsAndFluidStackRecipeComponent(outputComponents, RecipeRegistryHandler.toFluid(outputFluid)),
@@ -71,7 +71,7 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
 
     @ZenMethod
     public static void removeRecipe(IItemStack inputStack,
-                              @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
+                              @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         removeRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid, duration);
     }
 
@@ -80,7 +80,7 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
                                     @Optional IItemStack outputStack1, @Optional float outputStackChance1,
                                     @Optional IItemStack outputStack2, @Optional float outputStackChance2,
                                     @Optional IItemStack outputStack3, @Optional float outputStackChance3,
-                                    @Optional ILiquidStack outputFluid, int duration) {
+                                    @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {
             IngredientRecipeComponent outputComponent1 = new IngredientRecipeComponent(Ingredient.fromStacks(RecipeRegistryHandler.toStack(outputStack1)));
