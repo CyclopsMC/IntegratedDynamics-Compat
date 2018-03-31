@@ -36,7 +36,7 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
 
     @ZenMethod
     public static void addRecipe(IItemStack inputStack,
-                           @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, int duration) {
+                           @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         addRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid, duration);
     }
 
