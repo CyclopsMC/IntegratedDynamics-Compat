@@ -241,9 +241,9 @@ public class RefinedStorageAspects {
                                     throws EvaluationException {
                                 if (!input.getRight().getRawValue().isEmpty()) {
                                     DimPos pos = input.getLeft().getTarget().getPos();
-                                    INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
-                                    if (networkNode != null) {
-                                        INetwork networkMaster = networkNode.getNetwork();
+                                    INetworkNodeProxy networkNodeProxy = TileHelpers.getSafeTile(pos, INetworkNodeProxy.class);
+                                    if (networkNodeProxy != null) {
+                                        INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                         if (networkMaster != null) {
                                             ItemStack itemStack = input.getRight().getRawValue();
                                             return triggerItemStackCrafting(input.getMiddle(), networkMaster, itemStack);
@@ -262,9 +262,9 @@ public class RefinedStorageAspects {
                             public Void getOutput(Triple<PartTarget, IAspectProperties, ValueTypeList.ValueList> input)
                                     throws EvaluationException {
                                 DimPos pos = input.getLeft().getTarget().getPos();
-                                INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
-                                if (networkNode != null) {
-                                    INetwork networkMaster = networkNode.getNetwork();
+                                INetworkNodeProxy networkNodeProxy = TileHelpers.getSafeTile(pos, INetworkNodeProxy.class);
+                                if (networkNodeProxy != null) {
+                                    INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                     if (networkMaster != null) {
                                         if (input.getRight().getRawValue().getValueType() == ValueTypes.OBJECT_ITEMSTACK) {
                                             for (IValue value : (Iterable<IValue>) input.getRight().getRawValue()) {
@@ -290,9 +290,9 @@ public class RefinedStorageAspects {
                                     throws EvaluationException {
                                 if (input.getRight().getRawValue()) {
                                     DimPos pos = input.getLeft().getTarget().getPos();
-                                    INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
-                                    if (networkNode != null) {
-                                        INetwork networkMaster = networkNode.getNetwork();
+                                    INetworkNodeProxy networkNodeProxy = TileHelpers.getSafeTile(pos, INetworkNodeProxy.class);
+                                    if (networkNodeProxy != null) {
+                                        INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                         if (networkMaster != null) {
                                             List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
                                             for (ICraftingTask craftingTask : craftingTasks) {
@@ -314,9 +314,9 @@ public class RefinedStorageAspects {
                                     throws EvaluationException {
                                 if (!input.getRight().getRawValue().isEmpty()) {
                                     DimPos pos = input.getLeft().getTarget().getPos();
-                                    INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
-                                    if (networkNode != null) {
-                                        INetwork networkMaster = networkNode.getNetwork();
+                                    INetworkNodeProxy networkNodeProxy = TileHelpers.getSafeTile(pos, INetworkNodeProxy.class);
+                                    if (networkNodeProxy != null) {
+                                        INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                         if (networkMaster != null) {
                                             ItemStack itemStack = input.getRight().getRawValue();
                                             List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
@@ -344,9 +344,9 @@ public class RefinedStorageAspects {
                             public Void getOutput(Triple<PartTarget, IAspectProperties, ValueTypeList.ValueList> input)
                                     throws EvaluationException {
                                 DimPos pos = input.getLeft().getTarget().getPos();
-                                INetworkNode networkNode = TileHelpers.getSafeTile(pos, INetworkNode.class);
-                                if (networkNode != null) {
-                                    INetwork networkMaster = networkNode.getNetwork();
+                                INetworkNodeProxy networkNodeProxy = TileHelpers.getSafeTile(pos, INetworkNodeProxy.class);
+                                if (networkNodeProxy != null) {
+                                    INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                     if (networkMaster != null) {
                                         if (input.getRight().getRawValue().getValueType() == ValueTypes.OBJECT_ITEMSTACK) {
                                             List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
