@@ -8,8 +8,8 @@ import org.cyclops.integrateddynamics.core.evaluate.IOperatorValuePropagator;
 import org.cyclops.integrateddynamics.core.evaluate.build.OperatorBuilder;
 import org.cyclops.integrateddynamics.core.evaluate.operator.IterativeFunction;
 import org.cyclops.integrateddynamics.core.evaluate.operator.OperatorBase;
-import org.cyclops.integrateddynamics.modcompat.thaumcraft.ThaumcraftModCompat;
-import org.cyclops.integrateddynamics.modcompat.thaumcraft.evaluate.variable.ValueObjectTypeAspect;
+import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.ThaumcraftModCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueObjectTypeAspect;
 import thaumcraft.api.aspects.Aspect;
 
 /**

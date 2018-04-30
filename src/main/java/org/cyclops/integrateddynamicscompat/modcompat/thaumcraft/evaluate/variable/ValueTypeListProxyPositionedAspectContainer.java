@@ -7,7 +7,7 @@ import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
 import org.cyclops.cyclopscore.persist.nbt.NBTPersist;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyBase;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyFactories;
-import org.cyclops.integrateddynamics.modcompat.thaumcraft.ThaumcraftModCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.ThaumcraftModCompat;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;

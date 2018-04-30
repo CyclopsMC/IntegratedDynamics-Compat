@@ -2,12 +2,19 @@ package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.varia
 
 import com.google.common.base.Optional;
 import lombok.ToString;
+import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
+import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValueTypeNamed;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeBase;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueOptionalBase;
-import org.cyclops.integrateddynamics.modcompat.thaumcraft.ThaumcraftModCompat;
+import org.cyclops.integrateddynamics.core.helper.L10NValues;
+import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeItemStackLPElement;
+import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeLPElementBase;
+import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.ThaumcraftModCompat;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectHelper;
+import thaumcraft.api.aspects.AspectList;
 
 import java.util.Objects;
 
@@ -64,6 +71,29 @@ public class ValueObjectTypeAspect extends ValueObjectTypeBase<ValueObjectTypeAs
             return aspect.get().getKey().getName();
         }
         return "";
+    }
+
+    @Override
+    public ValueTypeLPElementBase createLogicProgrammerElement() {
+        return new ValueTypeItemStackLPElement<>(this, new ValueTypeItemStackLPElement.IItemStackToValue<ValueObjectTypeAspect.ValueAspect>() {
+            @Override
+            public boolean isNullable() {
+                return true;
+            }
+
+            @Override
+            public L10NHelpers.UnlocalizedString validate(ItemStack itemStack) {
+                AspectList aspectList = AspectHelper.getObjectAspects(itemStack);
+                return aspectList.size() != 0 ? null : new L10NHelpers.UnlocalizedString(L10NValues.VALUETYPE_OBJECT_THAUMCRAFTASPECT_ERROR_NOASPECT);
+            }
+
+            @Override
+            public ValueObjectTypeAspect.ValueAspect getValue(ItemStack itemStack) {
+                AspectList aspectList = AspectHelper.getObjectAspects(itemStack);
+                Aspect[] aspectArray = aspectList.getAspectsSortedByAmount();
+                return ValueObjectTypeAspect.ValueAspect.of(aspectArray[0], aspectList.getAmount(aspectArray[0]));
+            }
+        });
     }
 
     @ToString

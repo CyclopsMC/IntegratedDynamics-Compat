@@ -64,12 +64,11 @@ idea {
     }
 }
 
-// TODO: temporarily disable some mod compats
 sourceSets {
     main {
         java {
+            // TODO: temporarily disable some mod compats
             exclude '**/modcompat/charset/**'
-            exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/mcmultipart/**'
         }
     }

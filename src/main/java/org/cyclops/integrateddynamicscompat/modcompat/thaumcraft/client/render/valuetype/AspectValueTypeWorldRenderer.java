@@ -1,9 +1,9 @@
 package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.client.render.valuetype;
 
 import com.google.common.base.Optional;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
@@ -15,7 +15,7 @@ import org.cyclops.integrateddynamics.api.client.render.valuetype.IValueTypeWorl
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValue;
 import org.cyclops.integrateddynamics.api.part.IPartContainer;
 import org.cyclops.integrateddynamics.api.part.IPartType;
-import org.cyclops.integrateddynamics.modcompat.thaumcraft.evaluate.variable.ValueObjectTypeAspect;
+import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueObjectTypeAspect;
 import thaumcraft.api.aspects.Aspect;
 
 /**
@@ -48,7 +48,7 @@ public class AspectValueTypeWorldRenderer implements IValueTypeWorldRenderer {
 
             // Render aspect
             GlStateManager.pushMatrix();
-            VertexBuffer worldRenderer = Tessellator.getInstance().getWorldRenderer();
+            BufferBuilder worldRenderer = Tessellator.getInstance().getBuffer();
             worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
             rendererDispatcher.renderEngine.bindTexture(resourceLocation);
             float u1 = (float)sheetX / sheetWidth;
