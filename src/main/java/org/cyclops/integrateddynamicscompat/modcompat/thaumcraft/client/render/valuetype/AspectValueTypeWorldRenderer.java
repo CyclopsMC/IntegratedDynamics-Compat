@@ -63,9 +63,11 @@ public class AspectValueTypeWorldRenderer implements IValueTypeWorldRenderer {
             GlStateManager.popMatrix();
 
             // Render aspect size
-            GlStateManager.translate(7F, 8.5F, 0.1F);
-            GlStateManager.scale(0.5F, 0.5F, 1F);
-            rendererDispatcher.getFontRenderer().drawString(String.valueOf(optional.get().getValue()), 0, 0, Helpers.RGBAToInt(200, 200, 200, (int) (alpha * 255F)));
+            GlStateManager.translate(7F, 8.5F, 0.3F);
+            String label = String.valueOf(optional.get().getValue());
+            float scale = 1F / ((float) label.length() + 1F);
+            GlStateManager.scale(scale, scale, 1F);
+            rendererDispatcher.getFontRenderer().drawString(label, 0, 0, Helpers.RGBAToInt(200, 200, 200, (int) (alpha * 255F)));
 
             GlStateManager.disableRescaleNormal();
             GlStateManager.popMatrix();
