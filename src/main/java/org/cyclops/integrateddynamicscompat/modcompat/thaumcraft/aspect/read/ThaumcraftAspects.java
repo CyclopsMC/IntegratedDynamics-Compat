@@ -4,6 +4,8 @@ import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.TileHelpers;
 import org.cyclops.integrateddynamics.api.part.aspect.IAspectRead;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeBoolean;
+import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeDouble;
+import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeInteger;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeList;
 import org.cyclops.integrateddynamics.core.part.aspect.build.AspectBuilder;
 import org.cyclops.integrateddynamics.part.aspect.read.AspectReadBuilders;
@@ -12,6 +14,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variab
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueTypeListProxyPositionedAspectContainer;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aura.AuraHelper;
 
 /**
  * Builders for thaumcraft aspects
@@ -48,6 +51,24 @@ public class ThaumcraftAspects {
                                     return ValueObjectTypeAspect.ValueAspect.of(aspect, aspectList.getAmount(aspect));
                                 }
                             }).appendKind("aspectcontainer").buildRead();
+
+            public static final IAspectRead<ValueTypeDouble.ValueDouble, ValueTypeDouble> DOUBLE_AURA_VIS =
+                    AspectReadBuilders.BUILDER_DOUBLE.appendKind("thaumcraft").handle(input -> {
+                        DimPos dimPos = input.getLeft().getTarget().getPos();
+                        return (double) AuraHelper.getVis(dimPos.getWorld(), dimPos.getBlockPos());
+                    }).handle(AspectReadBuilders.PROP_GET_DOUBLE, "auravis").buildRead();
+
+            public static final IAspectRead<ValueTypeDouble.ValueDouble, ValueTypeDouble> DOUBLE_AURA_FLUX =
+                    AspectReadBuilders.BUILDER_DOUBLE.appendKind("thaumcraft").handle(input -> {
+                        DimPos dimPos = input.getLeft().getTarget().getPos();
+                        return (double) AuraHelper.getFlux(dimPos.getWorld(), dimPos.getBlockPos());
+                    }).handle(AspectReadBuilders.PROP_GET_DOUBLE, "auraflux").buildRead();
+
+            public static final IAspectRead<ValueTypeInteger.ValueInteger, ValueTypeInteger> INTEGER_AURA_BASE =
+                    AspectReadBuilders.BUILDER_INTEGER.appendKind("thaumcraft").handle(input -> {
+                        DimPos dimPos = input.getLeft().getTarget().getPos();
+                        return AuraHelper.getAuraBase(dimPos.getWorld(), dimPos.getBlockPos());
+                    }).handle(AspectReadBuilders.PROP_GET_INTEGER, "aurabase").buildRead();
 
         }
 

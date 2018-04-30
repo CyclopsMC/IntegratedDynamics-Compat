@@ -23,12 +23,9 @@ public class OperatorBuilders {
     public static final OperatorBuilder<OperatorBase.SafeVariablesGetter> ASPECT_1_SUFFIX_LONG = ASPECT.inputTypes(1, ThaumcraftModCompat.OBJECT_ASPECT).renderPattern(IConfigRenderPattern.SUFFIX_1_LONG);
     public static final OperatorBuilder<OperatorBase.SafeVariablesGetter> ASPECT_2 = ASPECT.inputTypes(2, ThaumcraftModCompat.OBJECT_ASPECT).renderPattern(IConfigRenderPattern.INFIX);
     public static final IterativeFunction.PrePostBuilder<Pair<Aspect, Integer>, IValue> FUNCTION_ASPECT = IterativeFunction.PrePostBuilder.begin()
-            .appendPre(new IOperatorValuePropagator<OperatorBase.SafeVariablesGetter, Pair<Aspect, Integer>>() {
-                @Override
-                public Pair<Aspect, Integer> getOutput(OperatorBase.SafeVariablesGetter input) throws EvaluationException {
-                    ValueObjectTypeAspect.ValueAspect a = input.getValue(0);
-                    return a.getRawValue().isPresent() ? a.getRawValue().get() : null;
-                }
+            .appendPre(input -> {
+                ValueObjectTypeAspect.ValueAspect a = input.getValue(0);
+                return a.getRawValue().isPresent() ? a.getRawValue().get() : null;
             });
     public static final IterativeFunction.PrePostBuilder<Pair<Aspect, Integer>, Integer> FUNCTION_ASPECT_TO_INT =
             FUNCTION_ASPECT.appendPost(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.PROPAGATOR_INTEGER_VALUE);

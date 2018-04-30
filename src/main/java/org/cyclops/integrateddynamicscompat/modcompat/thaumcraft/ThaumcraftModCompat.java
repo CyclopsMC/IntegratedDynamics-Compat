@@ -60,6 +60,11 @@ public class ThaumcraftModCompat implements IModCompat {
 					ThaumcraftAspects.Read.Aspect.LIST_ASPECTCONTAINER,
 					ThaumcraftAspects.Read.Aspect.ASPECT
 			));
+			Aspects.REGISTRY.register(PartTypes.WORLD_READER, Sets.<IAspect>newHashSet(
+					ThaumcraftAspects.Read.Aspect.DOUBLE_AURA_VIS,
+					ThaumcraftAspects.Read.Aspect.DOUBLE_AURA_FLUX,
+					ThaumcraftAspects.Read.Aspect.INTEGER_AURA_BASE
+			));
 
 			// List proxy factories
 			POSITIONED_ASPECTCONTAINER = ValueTypeListProxyFactories.REGISTRY.register(new ValueTypeListProxyNBTFactory<>("positionedAspectContainer", ValueTypeListProxyPositionedAspectContainer.class));

@@ -40,6 +40,12 @@ aspect.aspects.integrateddynamics.read.list.thaumcraft.aspectcontainer.name=Aspe
 aspect.aspects.integrateddynamics.read.list.thaumcraft.aspectcontainer.info=All aspects in the given aspect container.
 aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.aspectcontainer.name=Aspect Container Aspect
 aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.aspectcontainer.info=The selected aspect in the given aspect container.
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auravis.name=Aura Vis
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auravis.info=How much vis is in the aura at the target location.
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auraflux.name=Aura Flux
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auraflux.info=How much flux is in the aura at the target location.
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.aurabase.name=Aura Base
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.aurabase.info=The aura baseline at the target location.
 
 ## Operators
 operator.operators.integrateddynamics.itemstack.getitemthaumcraftaspects.name=Thaumcraft Aspects
