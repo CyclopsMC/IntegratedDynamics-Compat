@@ -3,6 +3,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -12,6 +13,7 @@ import org.cyclops.cyclopscore.modcompat.IModCompat;
 import org.cyclops.integrateddynamics.api.part.aspect.IAspect;
 import org.cyclops.integrateddynamics.client.render.valuetype.ValueTypeWorldRenderers;
 import org.cyclops.integrateddynamics.core.evaluate.operator.Operators;
+import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeEntity;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeItemStack;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeBoolean;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeList;
@@ -150,6 +152,23 @@ public class ThaumcraftModCompat implements IModCompat {
 					.output(ValueTypes.BOOLEAN).symbolOperator("isprimal")
 					.function(OperatorBuilders.FUNCTION_ASPECT_TO_BOOLEAN
 							.build(input -> input != null && input.getLeft().isPrimal())).build());
+			/* Get the list of aspects in the given entity */
+			Operators.REGISTRY.register(OperatorBuilders.ASPECT_1_SUFFIX_LONG
+					.inputType(ValueTypes.OBJECT_ENTITY).output(ValueTypes.LIST)
+					.symbol("entity aspects").operatorName("entityaspects")
+					.function(variables -> {
+						Optional<Entity> a = ((ValueObjectTypeEntity.ValueEntity) variables.getValue(0)).getRawValue();
+						List<ValueObjectTypeAspect.ValueAspect> aspects = Lists.newArrayList();
+						if(a.isPresent()) {
+							AspectList aspectList = AspectHelper.getEntityAspects(a.get());
+							if (aspectList != null) {
+								for (Aspect aspect : aspectList.getAspects()) {
+									aspects.add(ValueObjectTypeAspect.ValueAspect.of(aspect, aspectList.getAmount(aspect)));
+								}
+							}
+						}
+						return ValueTypeList.ValueList.ofList(ThaumcraftModCompat.OBJECT_ASPECT, aspects);
+					}).build());
 
 			if(MinecraftHelpers.isClientSide()) {
 				initClient();

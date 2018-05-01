@@ -65,6 +65,8 @@ operator.operators.integrateddynamics.thaumcraft.aspect.getcombinationaspect.nam
 operator.operators.integrateddynamics.thaumcraft.aspect.getcombinationaspect.info=Get the combination aspect of the two given aspects.
 operator.operators.integrateddynamics.thaumcraft.aspect.isprimal.name=Is Aspect Primal
 operator.operators.integrateddynamics.thaumcraft.aspect.isprimal.info=If the given aspect is a primal aspect.
+operator.operators.integrateddynamics.thaumcraft.aspect.entityaspects.name=Entity Aspects
+operator.operators.integrateddynamics.thaumcraft.aspect.entityaspects.info=Get the list of aspects in the given entity.
 
 ## ----- RF ----- ##
 
