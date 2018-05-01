@@ -131,6 +131,20 @@ public class ThaumcraftModCompat implements IModCompat {
                         }
                         return ValueTypeList.ValueList.ofList(OBJECT_ASPECT, Collections.emptyList());
                     }).build());
+			/* Get the combination aspects of the two given aspects */
+			Operators.REGISTRY.register(OperatorBuilders.ASPECT_2
+					.symbol("combination aspect").operatorName("getcombinationaspect")
+					.function(variables -> {
+						Optional<Pair<Aspect, Integer>> a = ((ValueObjectTypeAspect.ValueAspect) variables.getValue(0)).getRawValue();
+						Optional<Pair<Aspect, Integer>> b = ((ValueObjectTypeAspect.ValueAspect) variables.getValue(1)).getRawValue();
+						if(a.isPresent() && b.isPresent()) {
+							Aspect aspect = AspectHelper.getCombinationResult(a.get().getLeft(), b.get().getLeft());
+							if (aspect != null) {
+								return ValueObjectTypeAspect.ValueAspect.of(aspect, 1);
+							}
+						}
+						return ValueObjectTypeAspect.ValueAspect.ofNull();
+					}).build());
 			/* Check if the given aspect is primal */
 			Operators.REGISTRY.register(OperatorBuilders.ASPECT_1_SUFFIX_LONG
 					.output(ValueTypes.BOOLEAN).symbolOperator("isprimal")

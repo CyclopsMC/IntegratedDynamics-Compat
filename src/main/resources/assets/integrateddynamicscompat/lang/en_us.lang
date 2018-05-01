@@ -56,13 +56,15 @@ operator.operators.integrateddynamics.itemstack.getitemthaumcraftaspects.info=Th
 operator.operators.integrateddynamics.thaumcraft.aspect.name=Thaumcraft Aspect
 operator.operators.integrateddynamics.thaumcraft.aspect.basename=Thaumcraft Aspect %s
 operator.operators.integrateddynamics.thaumcraft.aspect.amount.name=Vis Amount
-operator.operators.integrateddynamics.thaumcraft.aspect.amount.info=The amount of vis in the aspect
+operator.operators.integrateddynamics.thaumcraft.aspect.amount.info=The amount of vis in the aspect.
 operator.operators.integrateddynamics.thaumcraft.aspect.israwaspectequal.name=Raw Aspect Equals
-operator.operators.integrateddynamics.thaumcraft.aspect.israwaspectequal.info=If the given raw aspects are equal
+operator.operators.integrateddynamics.thaumcraft.aspect.israwaspectequal.info=If the given raw aspects are equal.
 operator.operators.integrateddynamics.thaumcraft.aspect.getcompoundaspects.name=Compound Aspects
-operator.operators.integrateddynamics.thaumcraft.aspect.getcompoundaspects.info=The list of aspects this aspect is made up of
+operator.operators.integrateddynamics.thaumcraft.aspect.getcompoundaspects.info=The list of aspects this aspect is made up of.
+operator.operators.integrateddynamics.thaumcraft.aspect.getcombinationaspect.name=Combination Aspect
+operator.operators.integrateddynamics.thaumcraft.aspect.getcombinationaspect.info=Get the combination aspect of the two given aspects.
 operator.operators.integrateddynamics.thaumcraft.aspect.isprimal.name=Is Aspect Primal
-operator.operators.integrateddynamics.thaumcraft.aspect.isprimal.info=If the given aspect is a primal aspect
+operator.operators.integrateddynamics.thaumcraft.aspect.isprimal.info=If the given aspect is a primal aspect.
 
 ## ----- RF ----- ##
 
