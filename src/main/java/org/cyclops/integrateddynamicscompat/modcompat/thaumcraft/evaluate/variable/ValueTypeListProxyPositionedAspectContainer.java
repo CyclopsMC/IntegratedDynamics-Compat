@@ -25,7 +25,7 @@ public class ValueTypeListProxyPositionedAspectContainer extends ValueTypeListPr
     }
 
     public ValueTypeListProxyPositionedAspectContainer(DimPos pos) {
-        super(ValueTypeListProxyFactories.POSITIONED_INVENTORY.getName(), ThaumcraftModCompat.OBJECT_ASPECT);
+        super(ThaumcraftModCompat.POSITIONED_ASPECTCONTAINER.getName(), ThaumcraftModCompat.OBJECT_ASPECT);
         this.pos = pos;
     }
 

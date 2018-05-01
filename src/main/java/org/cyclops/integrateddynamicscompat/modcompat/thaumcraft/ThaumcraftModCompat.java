@@ -15,6 +15,7 @@ import org.cyclops.integrateddynamics.core.evaluate.operator.Operators;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeItemStack;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeBoolean;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeList;
+import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyBase;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyFactories;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyNBTFactory;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypes;
@@ -25,6 +26,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.aspect.read.Tha
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.client.render.valuetype.AspectValueTypeWorldRenderer;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.operator.OperatorBuilders;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueObjectTypeAspect;
+import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueTypeListAllAspects;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueTypeListProxyPositionedAspectContainer;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectHelper;
@@ -41,7 +43,9 @@ import java.util.List;
 public class ThaumcraftModCompat implements IModCompat {
 
 	public static ValueObjectTypeAspect OBJECT_ASPECT;
-	public static ValueTypeListProxyNBTFactory<ValueObjectTypeAspect, ValueObjectTypeAspect.ValueAspect, ValueTypeListProxyPositionedAspectContainer> POSITIONED_ASPECTCONTAINER;
+	public static ValueTypeListProxyNBTFactory<ValueObjectTypeAspect, ValueObjectTypeAspect.ValueAspect, ValueTypeListProxyPositionedAspectContainer>
+			POSITIONED_ASPECTCONTAINER;
+	public static ValueTypeListAllAspects.Factory ALL_ASPECTS;
 
     @Override
     public String getModID() {
@@ -55,19 +59,25 @@ public class ThaumcraftModCompat implements IModCompat {
 			OBJECT_ASPECT = ValueTypes.REGISTRY.register(new ValueObjectTypeAspect());
 
 			// Apects
-			Aspects.REGISTRY.register(PartTypes.MACHINE_READER, Sets.<IAspect>newHashSet(
+			Aspects.REGISTRY.register(PartTypes.MACHINE_READER, Sets.newHashSet(
 					ThaumcraftAspects.Read.Aspect.BOOLEAN_ISASPECTCONTAINER,
 					ThaumcraftAspects.Read.Aspect.LIST_ASPECTCONTAINER,
 					ThaumcraftAspects.Read.Aspect.ASPECT
 			));
-			Aspects.REGISTRY.register(PartTypes.WORLD_READER, Sets.<IAspect>newHashSet(
+			Aspects.REGISTRY.register(PartTypes.WORLD_READER, Sets.newHashSet(
 					ThaumcraftAspects.Read.Aspect.DOUBLE_AURA_VIS,
 					ThaumcraftAspects.Read.Aspect.DOUBLE_AURA_FLUX,
 					ThaumcraftAspects.Read.Aspect.INTEGER_AURA_BASE
 			));
+			Aspects.REGISTRY.register(PartTypes.EXTRADIMENSIONAL_READER, Sets.newHashSet(
+					ThaumcraftAspects.Read.Aspect.LIST_ALL_ASPECTS
+			));
 
 			// List proxy factories
-			POSITIONED_ASPECTCONTAINER = ValueTypeListProxyFactories.REGISTRY.register(new ValueTypeListProxyNBTFactory<>("positionedAspectContainer", ValueTypeListProxyPositionedAspectContainer.class));
+			POSITIONED_ASPECTCONTAINER = ValueTypeListProxyFactories.REGISTRY.register(
+					new ValueTypeListProxyNBTFactory<>(Reference.MOD_ID + ":thaumcraft:positionedAspectContainer",
+							ValueTypeListProxyPositionedAspectContainer.class));
+			ALL_ASPECTS = ValueTypeListProxyFactories.REGISTRY.register(new ValueTypeListAllAspects.Factory());
 
 			// Operators
 			/* Get aspects from item */

@@ -11,7 +11,9 @@ import org.cyclops.integrateddynamics.core.part.aspect.build.AspectBuilder;
 import org.cyclops.integrateddynamics.part.aspect.read.AspectReadBuilders;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.ThaumcraftModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueObjectTypeAspect;
+import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueTypeListAllAspects;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable.ValueTypeListProxyPositionedAspectContainer;
+import thaumcraft.api.aspects.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aura.AuraHelper;
@@ -69,6 +71,11 @@ public class ThaumcraftAspects {
                         DimPos dimPos = input.getLeft().getTarget().getPos();
                         return AuraHelper.getAuraBase(dimPos.getWorld(), dimPos.getBlockPos());
                     }).handle(AspectReadBuilders.PROP_GET_INTEGER, "aurabase").buildRead();
+
+            public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_ALL_ASPECTS =
+                    AspectReadBuilders.BUILDER_LIST.appendKind("thaumcraft")
+                            .handle(input -> ValueTypeList.ValueList.ofFactory(new ValueTypeListAllAspects()))
+                            .appendKind("allaspects").buildRead();
 
         }
 

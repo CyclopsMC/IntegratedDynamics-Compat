@@ -46,6 +46,8 @@ aspect.aspects.integrateddynamics.read.double.thaumcraft.auraflux.name=Aura Flux
 aspect.aspects.integrateddynamics.read.double.thaumcraft.auraflux.info=How much flux is in the aura at the target location.
 aspect.aspects.integrateddynamics.read.integer.thaumcraft.aurabase.name=Aura Base
 aspect.aspects.integrateddynamics.read.integer.thaumcraft.aurabase.info=The aura baseline at the target location.
+aspect.aspects.integrateddynamics.read.list.thaumcraft.allaspects.name=All Aspects
+aspect.aspects.integrateddynamics.read.list.thaumcraft.allaspects.info=Get a list of all available Thaumcraft Aspects in the game.
 
 ## Operators
 operator.operators.integrateddynamics.itemstack.getitemthaumcraftaspects.name=Thaumcraft Aspects
