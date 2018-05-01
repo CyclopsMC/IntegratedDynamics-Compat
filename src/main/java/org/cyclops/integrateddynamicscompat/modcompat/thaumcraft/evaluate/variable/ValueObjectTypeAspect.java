@@ -108,7 +108,7 @@ public class ValueObjectTypeAspect extends ValueObjectTypeBase<ValueObjectTypeAs
         }
 
         public static ValueAspect of(Aspect aspect, int amount) {
-            return new ValueAspect(aspect, amount);
+            return new ValueAspect(Objects.requireNonNull(aspect), amount);
         }
 
         public static ValueAspect ofNull() {

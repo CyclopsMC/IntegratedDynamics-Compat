@@ -61,17 +61,24 @@ public class ThaumcraftModCompat implements IModCompat {
 			OBJECT_ASPECT = ValueTypes.REGISTRY.register(new ValueObjectTypeAspect());
 
 			// Apects
-			Aspects.REGISTRY.register(PartTypes.MACHINE_READER, Sets.newHashSet(
+			Aspects.REGISTRY.register(PartTypes.MACHINE_READER, Lists.newArrayList(
 					ThaumcraftAspects.Read.Aspect.BOOLEAN_ISASPECTCONTAINER,
 					ThaumcraftAspects.Read.Aspect.LIST_ASPECTCONTAINER,
-					ThaumcraftAspects.Read.Aspect.ASPECT
+					ThaumcraftAspects.Read.Aspect.ASPECT,
+					ThaumcraftAspects.Read.Aspect.BOOLEAN_ISESSENTIATRANSPORT,
+					ThaumcraftAspects.Read.Aspect.BOOLEAN_ISESSENTIARECEIVER,
+					ThaumcraftAspects.Read.Aspect.BOOLEAN_ISESSENTIAPROVIDER,
+					ThaumcraftAspects.Read.Aspect.ASPECT_ESSENTIATRANSPORTSUCTION,
+					ThaumcraftAspects.Read.Aspect.ASPECT_ESSENTIATRANSPORTSUCTIONASPECT,
+					ThaumcraftAspects.Read.Aspect.ASPECT_ESSENTIATRANSPORTCONTENTS,
+					ThaumcraftAspects.Read.Aspect.INTEGER_ESSENTIATRANSPORT_MINSUCTION
 			));
-			Aspects.REGISTRY.register(PartTypes.WORLD_READER, Sets.newHashSet(
+			Aspects.REGISTRY.register(PartTypes.WORLD_READER, Lists.newArrayList(
 					ThaumcraftAspects.Read.Aspect.DOUBLE_AURA_VIS,
 					ThaumcraftAspects.Read.Aspect.DOUBLE_AURA_FLUX,
 					ThaumcraftAspects.Read.Aspect.INTEGER_AURA_BASE
 			));
-			Aspects.REGISTRY.register(PartTypes.EXTRADIMENSIONAL_READER, Sets.newHashSet(
+			Aspects.REGISTRY.register(PartTypes.EXTRADIMENSIONAL_READER, Lists.newArrayList(
 					ThaumcraftAspects.Read.Aspect.LIST_ALL_ASPECTS
 			));
 
