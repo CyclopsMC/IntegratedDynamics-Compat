@@ -8,7 +8,6 @@ import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValueTypeNamed;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeBase;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueOptionalBase;
-import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeItemStackLPElement;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeLPElementBase;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.ThaumcraftModCompat;
@@ -83,13 +82,15 @@ public class ValueObjectTypeAspect extends ValueObjectTypeBase<ValueObjectTypeAs
 
             @Override
             public L10NHelpers.UnlocalizedString validate(ItemStack itemStack) {
-                AspectList aspectList = AspectHelper.getObjectAspects(itemStack);
-                return aspectList.size() != 0 ? null : new L10NHelpers.UnlocalizedString(L10NValues.VALUETYPE_OBJECT_THAUMCRAFTASPECT_ERROR_NOASPECT);
+                return null;
             }
 
             @Override
             public ValueObjectTypeAspect.ValueAspect getValue(ItemStack itemStack) {
                 AspectList aspectList = AspectHelper.getObjectAspects(itemStack);
+                if (aspectList == null || aspectList.size() == 0) {
+                    return ValueAspect.ofNull();
+                }
                 Aspect[] aspectArray = aspectList.getAspectsSortedByAmount();
                 return ValueObjectTypeAspect.ValueAspect.of(aspectArray[0], aspectList.getAmount(aspectArray[0]));
             }
