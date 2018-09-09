@@ -85,7 +85,7 @@ dependencies {
     deobfCompile "the-one-probe:theoneprobe:${config.top_version}" // https://minecraft.curseforge.com/api/maven/
     //deobfCompile "mcjty.theoneprobe:TheOneProbe:${config.top_version}" // http://maven.tterrag.com/mcjty/theoneprobe/TheOneProbe/
     deobfCompile "com.github.mcjty:compatlayer:${config.compatlayer_version}" // http://maven.k-4u.nl/com/github/mcjty/compatlayer/
-    deobfCompile "refinedstorage:refinedstorage:${config.refinedstorage_version}" // https://dl.bintray.com/raoulvdberge/dev/refinedstorage/refinedstorage/
+    deobfCompile "refinedstorage:refinedstorage:${config.refinedstorage_version}" // https://repo.raoulvdberge.com/
     deobfCompile "blusunrize:ImmersiveEngineering:${config.ie_version}"// http://maven.blamejared.com/blusunrize/ImmersiveEngineering/
     deobfCompile ("CraftTweaker2:CraftTweaker2-API:${config.crafttweakerapi_version}") { // http://maven.blamejared.com/CraftTweaker2/CraftTweaker2-API/
         exclude group: 'org.ow2.asm', module: 'asm-debug-all'

@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.raoulvdberge.refinedstorage.api.IRSAPI;
 import com.raoulvdberge.refinedstorage.api.RSAPIInject;
 import com.raoulvdberge.refinedstorage.api.autocrafting.ICraftingPattern;
-import com.raoulvdberge.refinedstorage.api.autocrafting.task.ICraftingStep;
 import com.raoulvdberge.refinedstorage.api.autocrafting.task.ICraftingTask;
 import com.raoulvdberge.refinedstorage.api.network.INetwork;
 import com.raoulvdberge.refinedstorage.api.network.node.INetworkNode;
@@ -121,12 +120,6 @@ public class RefinedStorageAspects {
                             for (ItemStack itemStack : craftingPattern.getOutputs()) {
                                 itemStacks.add(ValueObjectTypeItemStack.ValueItemStack.of(itemStack));
                             }
-                            for (ICraftingStep step : craftingTask.getSteps()) {
-                                craftingPattern = step.getPattern();
-                                for (ItemStack itemStack : craftingPattern.getOutputs()) {
-                                    itemStacks.add(ValueObjectTypeItemStack.ValueItemStack.of(itemStack));
-                                }
-                            }
                         }
 
                         @Override
@@ -202,10 +195,8 @@ public class RefinedStorageAspects {
 
         protected static Void triggerItemStackCrafting(IAspectProperties aspectProperties, INetwork networkMaster, ItemStack itemStack) {
             int compareFlags = IComparer.COMPARE_DAMAGE | IComparer.COMPARE_NBT;
-            ICraftingPattern craftingPattern = networkMaster.getCraftingManager().getPattern(itemStack);
-            if (craftingPattern != null) {
-                ICraftingTask craftingTask = networkMaster.getCraftingManager().create(itemStack, craftingPattern, 1, true);
-
+            ICraftingTask craftingTask = networkMaster.getCraftingManager().create(itemStack, 1);
+            if (craftingTask != null) {
                 if (aspectProperties.getValue(PROPERTY_SKIPCRAFTING).getRawValue()) {
                     for (ICraftingTask task : networkMaster.getCraftingManager().getTasks()) {
                         for (ItemStack output : task.getPattern().getOutputs()) {
@@ -296,7 +287,7 @@ public class RefinedStorageAspects {
                                         if (networkMaster != null) {
                                             List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
                                             for (ICraftingTask craftingTask : craftingTasks) {
-                                                networkMaster.getCraftingManager().cancel(craftingTask);
+                                                networkMaster.getCraftingManager().cancel(craftingTask.getId());
                                             }
                                         }
                                     }
@@ -324,7 +315,7 @@ public class RefinedStorageAspects {
                                             for (ICraftingTask craftingTask : craftingTasks) {
                                                 for (ItemStack output : craftingTask.getPattern().getOutputs()) {
                                                     if (RS.getComparer().isEqual(output, itemStack, compareFlags)) {
-                                                        networkMaster.getCraftingManager().cancel(craftingTask);
+                                                        networkMaster.getCraftingManager().cancel(craftingTask.getId());
                                                         break;
                                                     }
                                                 }
@@ -357,7 +348,7 @@ public class RefinedStorageAspects {
                                                         ValueObjectTypeItemStack.ValueItemStack valueItemStack = (ValueObjectTypeItemStack.ValueItemStack) value;
                                                         if (!valueItemStack.getRawValue().isEmpty() &&
                                                                 RS.getComparer().isEqual(output, valueItemStack.getRawValue(), compareFlags)) {
-                                                            networkMaster.getCraftingManager().cancel(craftingTask);
+                                                            networkMaster.getCraftingManager().cancel(craftingTask.getId());
                                                             break;
                                                         }
                                                     }
