@@ -37,6 +37,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.immersiveengineering.Immer
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.minetweaker.CraftTweakerModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.opencomputers.OpenComputersModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.signals.SignalsModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tconstruct.TConstructModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.tesla.TeslaApiCompat;
@@ -116,6 +117,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable {
         modCompatLoader.addModCompat(new ImmersiveEngineeringModCompat());
         modCompatLoader.addModCompat(new CraftTweakerModCompat());
         modCompatLoader.addModCompat(new SignalsModCompat());
+        modCompatLoader.addModCompat(new OpenComputersModCompat());
     }
 
     /**

@@ -49,6 +49,10 @@ repositories {
         name 'K4 maven'
         url "http://maven.k-4u.nl/"
     }
+    maven {
+        name 'OC Repo'
+        url "http://maven.cil.li/"
+    }
 }
 dependencies {
     // Add something like 'integrateddynamics_version_local=0.1.0-DEV' to your gradle.properties if you want to use a custom local Integrated Dynamics version.
@@ -91,6 +95,7 @@ dependencies {
         exclude group: 'org.ow2.asm', module: 'asm-debug-all'
     }
     deobfCompile "signals:Signals-${config.signals_version}:universal"; // http://maven.k-4u.nl/signals/Signals-1.12.2/maven-metadata.xml
+    deobfCompile "li.cil.oc:OpenComputers:${config.oc_version}"; // http://maven.cil.li/li/cil/oc/OpenComputers/maven-metadata.xml
 
     // Only needed for testing
     //deobfCompile "pl.asie.charset:charset-lib:${config.charset_version}" // http://charset.asie.pl/maven/pl/asie/charset/charset-lib/maven-metadata.xml
