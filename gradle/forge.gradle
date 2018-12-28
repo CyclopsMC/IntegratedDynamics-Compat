@@ -23,7 +23,7 @@ repositories {
     }
     maven {
         name = "Dankhax"
-        url = "http://maven.epoxide.org"
+        url = "http://maven.mcmoddev.com"
     }
     maven {
         name 'Player Maven FS'
