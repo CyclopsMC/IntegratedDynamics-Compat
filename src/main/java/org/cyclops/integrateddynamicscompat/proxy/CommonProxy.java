@@ -4,6 +4,7 @@ import org.cyclops.cyclopscore.init.ModBase;
 import org.cyclops.cyclopscore.network.PacketHandler;
 import org.cyclops.cyclopscore.proxy.CommonProxyComponent;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecipeLPElementSetRecipe;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketSetSlot;
 
 /**
@@ -24,6 +25,7 @@ public class CommonProxy extends CommonProxyComponent {
 
         // Register packets.
         packetHandler.register(CPacketSetSlot.class);
+        packetHandler.register(CPacketValueTypeRecipeLPElementSetRecipe.class);
 
         IntegratedDynamicsCompat.clog("Registered packet handler.");
     }
