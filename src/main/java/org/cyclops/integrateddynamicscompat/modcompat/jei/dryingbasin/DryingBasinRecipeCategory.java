@@ -99,7 +99,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
             if(recipe.getInputFluid() != null) {
                 recipeLayout.getFluidStacks().set(FLUIDINPUT_SLOT, recipe.getInputFluid());
             }
-            recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, true, 80, 28, 8, 9, 1000, true, null);
+            recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28, 8, 9, 1000, true, null);
             if(recipe.getOutputFluid() != null) {
                 recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
             }

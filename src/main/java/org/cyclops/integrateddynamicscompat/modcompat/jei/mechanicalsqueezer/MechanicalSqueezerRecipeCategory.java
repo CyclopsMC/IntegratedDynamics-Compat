@@ -96,7 +96,6 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory {
                     tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
                 }
             });
-            recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30);
 
             if(!recipe.getInputItem().isEmpty()) {
                 recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
@@ -106,7 +105,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory {
                 recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem);
             }
 
-            recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, true, 98, 30, 16, 16, 1000, false, null);
+            recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30, 16, 16, 1000, false, null);
             if(recipe.getOutputFluid() != null) {
                 recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
             }
