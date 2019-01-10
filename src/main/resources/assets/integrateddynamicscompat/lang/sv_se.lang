@@ -1,0 +1,240 @@
+### ----- Mod Compats ----- ###
+
+## ----- JEI ----- ##
+
+error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc=För stort för logikprogrammerarens receptmönster.
+
+## ----- Charset ----- ##
+
+## Aspects
+aspect.aspects.integrateddynamics.read.itemstack.charsetpipe.content.name=Rörinnehåll
+aspect.aspects.integrateddynamics.read.itemstack.charsetpipe.content.info=Föremålet som för tillfället går igenom detta rör.
+aspect.aspects.integrateddynamics.read.list.charsetpipe.contents.name=Rörinnehåll
+aspect.aspects.integrateddynamics.read.list.charsetpipe.contents.info=Föremålen som för tillfället går igenom detta rör.
+aspect.aspects.integrateddynamics.read.boolean.charsetpipe.hascontents.name=Rör har innehåll
+aspect.aspects.integrateddynamics.read.boolean.charsetpipe.hascontents.info=Om ett föremål går igenom detta rör.
+aspect.aspects.integrateddynamics.read.boolean.charsetpipe.applicable.name=Är ett rör
+aspect.aspects.integrateddynamics.read.boolean.charsetpipe.applicable.info=Om målblocket är ett rör.
+
+aspect.aspects.integrateddynamics.write.boolean.charsetpipe.shifter.name=Rörförskjutning
+aspect.aspects.integrateddynamics.write.boolean.charsetpipe.shifter.info=Aktivera rörförskjutning av föremål
+aspect.aspects.integrateddynamics.write.itemstack.charsetpipe.shifter.name=Filtrerad rörförskjutning av föremål
+aspect.aspects.integrateddynamics.write.itemstack.charsetpipe.shifter.info=Aktivera rörförskjutning av föremål för det angivna föremålet
+aspect.aspects.integrateddynamics.write.fluidstack.charsetpipe.shifterfluid.name=Filtrerad rörförskjutning av vätska
+aspect.aspects.integrateddynamics.write.fluidstack.charsetpipe.shifterfluid.info=Aktivera rörförskjutning av vätska för den angivna vätskan
+aspect.aspects.integrateddynamics.write.list.charsetpipe.shifter.name=Filtrerad rörförskjutning av föremål
+aspect.aspects.integrateddynamics.write.list.charsetpipe.shifter.info=Aktivera rörförskjutning av föremål för den angivna föremålen
+aspect.aspects.integrateddynamics.write.list.charsetpipe.shifterfluid.name=Filtrerad rörförskjutning av vätska
+aspect.aspects.integrateddynamics.write.list.charsetpipe.shifterfluid.info=Aktivera rörförskjutning av vätska för det angivna föremålen
+aspect.aspects.integrateddynamics.write.operator.charsetpipe.shifter.name=Predikatrörförskjutning av föremål
+aspect.aspects.integrateddynamics.write.operator.charsetpipe.shifter.info=Aktivera rörförskjutning av föremål för föremålen som matchar det angivna predikatet
+aspect.aspects.integrateddynamics.write.operator.charsetpipe.shifterfluid.name=Predikatrörförskjutning av vätska
+aspect.aspects.integrateddynamics.write.operator.charsetpipe.shifterfluid.info=Aktivera rörförskjutning av vätska för alla vätskor som matchar det angivna predikatet
+
+## ----- Thaumcraft ----- ##
+
+## Value Types
+valuetype.valuetypes.integrateddynamics.thaumcraftaspect.name=Thaumcraft-aspekt
+valuetype.integrateddynamics.error.thaumcraftaspect.no_aspect=Det infogade föremålet innehåller inga aspekter.
+
+## Aspects
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isaspectcontainer.name=Är en aspektbehållare
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isaspectcontainer.info=Om det angivna blocket kan hålla aspekter.
+aspect.aspects.integrateddynamics.read.list.thaumcraft.aspectcontainer.name=Aspektbehållarens aspekt
+aspect.aspects.integrateddynamics.read.list.thaumcraft.aspectcontainer.info=Alla aspekter i den angivna aspektbehållaren.
+aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.aspectcontainer.name=Aspekter i aspektbehållare
+aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.aspectcontainer.info=Den markerade aspekten i den angivna aspektbehållaren.
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isessentiatransport.name=Är essentia-transport
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isessentiatransport.info=Om målet kan transportera essentia.
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isessentiareceiver.name=Är essentia-mottagare
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isessentiareceiver.info=Om målet kan ta emot essentia.
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isessentiaprovider.name=Är essentia-tillhandahållare
+aspect.aspects.integrateddynamics.read.boolean.thaumcraft.isessentiaprovider.info=Om målet kan tillhandahålla essentia.
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.suction.name=Transportutsug av essentia
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.suction.info=Det nuvarande utsuget i måltransporten av essentia.
+aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.suction.name=Aspektutsug för essentia-transport
+aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.suction.info=Det nuvarande aspektutsuget i måltransporten för essentia.
+aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.essentia.name=Essentia-transportinnehåll
+aspect.aspects.integrateddynamics.read.thaumcraftaspect.thaumcraft.essentia.info=Aspektet som finns i måltransporten av essentia.
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.essentiaminsuction.name=Minimalt essentia-utsug
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.essentiaminsuction.info=Det minimalt nödvändiga utsuget för måltransporten av essentia.
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auravis.name=Auravis
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auravis.info=Hur mycket vis som finns i auran på målplatsen.
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auraflux.name=Auraflux
+aspect.aspects.integrateddynamics.read.double.thaumcraft.auraflux.info=Hur mycket flux som finns i auran på målplatsen.
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.aurabase.name=Aurabas
+aspect.aspects.integrateddynamics.read.integer.thaumcraft.aurabase.info=Aurans baslinje på målplatsen.
+aspect.aspects.integrateddynamics.read.list.thaumcraft.allaspects.name=Alla aspekter
+aspect.aspects.integrateddynamics.read.list.thaumcraft.allaspects.info=Hämtar en lista över alla tillgängliga Thaumcraft-aspekter i spelet.
+
+## Operators
+operator.operators.integrateddynamics.itemstack.getitemthaumcraftaspects.name=Thaumcraft-aspekter
+operator.operators.integrateddynamics.itemstack.getitemthaumcraftaspects.info=Listan över Thaumcraft-aspekter som detta föremål har
+
+operator.operators.integrateddynamics.thaumcraft.aspect.name=Thaumcraft-aspekt
+operator.operators.integrateddynamics.thaumcraft.aspect.basename=Thaumcraft-aspekt %s
+operator.operators.integrateddynamics.thaumcraft.aspect.amount.name=Vismängd
+operator.operators.integrateddynamics.thaumcraft.aspect.amount.info=Mängden vis i denna aspekt.
+operator.operators.integrateddynamics.thaumcraft.aspect.israwaspectequal.name=Likadan rå aspekt
+operator.operators.integrateddynamics.thaumcraft.aspect.israwaspectequal.info=Om de angivna råa aspekterna är likadana.
+operator.operators.integrateddynamics.thaumcraft.aspect.getcompoundaspects.name=Compound-aspekt
+operator.operators.integrateddynamics.thaumcraft.aspect.getcompoundaspects.info=Listan över aspekter som detta aspekt består av.
+operator.operators.integrateddynamics.thaumcraft.aspect.getcombinationaspect.name=Kombinationsaspekt
+operator.operators.integrateddynamics.thaumcraft.aspect.getcombinationaspect.info=Hämtar kombinationsaspekten av de två angivna aspekterna.
+operator.operators.integrateddynamics.thaumcraft.aspect.isprimal.name=Är en primäraspekt
+operator.operators.integrateddynamics.thaumcraft.aspect.isprimal.info=Om den angivna aspekten är en primäraspekt.
+operator.operators.integrateddynamics.thaumcraft.aspect.entityaspects.name=Entitetaspekter
+operator.operators.integrateddynamics.thaumcraft.aspect.entityaspects.info=Hämtar listan över aspekter i den angivna entiteten.
+
+## ----- RF ----- ##
+
+## Aspects
+aspect.aspects.integrateddynamics.read.boolean.rf.applicable.name=Är RF-hanterare
+aspect.aspects.integrateddynamics.read.boolean.rf.applicable.info=Om målet hanterar RF på något sätt
+aspect.aspects.integrateddynamics.read.boolean.rf.isreceiver.name=Är RF-mottagare
+aspect.aspects.integrateddynamics.read.boolean.rf.isreceiver.info=Om målet kan ta emot RF
+aspect.aspects.integrateddynamics.read.boolean.rf.isprovider.name=Är RF-tillhandahållare
+aspect.aspects.integrateddynamics.read.boolean.rf.isprovider.info=Om målet kan tillhandahålla RF
+aspect.aspects.integrateddynamics.read.boolean.rf.canextract.name=Kan extrahera RF
+aspect.aspects.integrateddynamics.read.boolean.rf.canextract.info=Om RF verkligen kan extraheras från målet, tar med lagring i beräkningen
+aspect.aspects.integrateddynamics.read.boolean.rf.caninsert.name=Kan infoga RF
+aspect.aspects.integrateddynamics.read.boolean.rf.caninsert.info=Om RF verkligen kan infogas i målet, tar med lagring och kapacitet i beräkningen
+aspect.aspects.integrateddynamics.read.boolean.rf.isfull.name=Är RF-bufferten full
+aspect.aspects.integrateddynamics.read.boolean.rf.isfull.info=Om målets RF-buffert är helt full
+aspect.aspects.integrateddynamics.read.boolean.rf.isempty.name=Är RF-bufferten tom
+aspect.aspects.integrateddynamics.read.boolean.rf.isempty.info=Om målets RF-buffert är helt tom
+aspect.aspects.integrateddynamics.read.boolean.rf.isnonempty.name=Är RF-bufferten inte tom
+aspect.aspects.integrateddynamics.read.boolean.rf.isnonempty.info=Om målets RF-buffert inte är tom
+aspect.aspects.integrateddynamics.read.integer.rf.amount.name=Lagrad RF
+aspect.aspects.integrateddynamics.read.integer.rf.amount.info=Mängden RF som lagras i målet
+aspect.aspects.integrateddynamics.read.integer.rf.capacity.name=RF-kapacitet
+aspect.aspects.integrateddynamics.read.integer.rf.capacity.info=Målets RF-kapacitet
+aspect.aspects.integrateddynamics.read.double.rf.fillratio.name=RF-fyllningsförhållande
+aspect.aspects.integrateddynamics.read.double.rf.fillratio.info=Mängden RF i målet dividerat med dess kapacitet
+
+## Operators
+operator.operators.integrateddynamics.itemstack.isrfcontainer.name=Är RF-behållare
+operator.operators.integrateddynamics.itemstack.isrfcontainer.info=Om det angivna föremålet kan hålla RF
+operator.operators.integrateddynamics.itemstack.storedrf.name=Lagrad RF
+operator.operators.integrateddynamics.itemstack.storedrf.info=Mängden RF som lagras i detta föremål
+operator.operators.integrateddynamics.itemstack.rfcapacity.name=RF-kapacitet
+operator.operators.integrateddynamics.itemstack.rfcapacity.info=Den maximala mängden RF som kan lagras i detta föremål
+
+## ----- Tesla ----- ##
+
+## Aspects
+aspect.aspects.integrateddynamics.read.boolean.tesla.applicable.name=Är en Tesla-hanterare
+aspect.aspects.integrateddynamics.read.boolean.tesla.applicable.info=Om målet hanterar Tesla på något sätt
+aspect.aspects.integrateddynamics.read.boolean.tesla.isreceiver.name=Är Tesla-mottagare
+aspect.aspects.integrateddynamics.read.boolean.tesla.isreceiver.info=Om målet kan ta emot Tesla
+aspect.aspects.integrateddynamics.read.boolean.tesla.isprovider.name=Är Tesla-tillhandahållare
+aspect.aspects.integrateddynamics.read.boolean.tesla.isprovider.info=Om målet kan tillhandahålla Tesla
+aspect.aspects.integrateddynamics.read.boolean.tesla.canextract.name=Kan extrahera Tesla
+aspect.aspects.integrateddynamics.read.boolean.tesla.canextract.info=Om Tesla verkligen kan extraheras från målet, tar med lagring i beräkningen
+aspect.aspects.integrateddynamics.read.boolean.tesla.caninsert.name=Kan infoga Tesla
+aspect.aspects.integrateddynamics.read.boolean.tesla.caninsert.info=Om Tesla verkligen kan infogas i målet, tar med lagring och kapacitet i beräkningen
+aspect.aspects.integrateddynamics.read.boolean.tesla.isfull.name=Är Tesla-bufferten full
+aspect.aspects.integrateddynamics.read.boolean.tesla.isfull.info=Om målets Tesla-buffert är helt full
+aspect.aspects.integrateddynamics.read.boolean.tesla.isempty.name=Är Tesla-bufferten tom
+aspect.aspects.integrateddynamics.read.boolean.tesla.isempty.info=Om målets Tesla-buffert är helt tom
+aspect.aspects.integrateddynamics.read.boolean.tesla.isnonempty.name=Är Tesla-bufferten inte tom
+aspect.aspects.integrateddynamics.read.boolean.tesla.isnonempty.info=Om målets Tesla-buffert inte är tom
+aspect.aspects.integrateddynamics.read.long.tesla.amount.name=Lagrad Tesla
+aspect.aspects.integrateddynamics.read.long.tesla.amount.info=Mängden Tesla som lagras i målet
+aspect.aspects.integrateddynamics.read.long.tesla.capacity.name=Tesla-kapacitet
+aspect.aspects.integrateddynamics.read.long.tesla.capacity.info=Målets Tesla-kapacitet
+aspect.aspects.integrateddynamics.read.double.tesla.fillratio.name=Tesla-fyllningsförhållande
+aspect.aspects.integrateddynamics.read.double.tesla.fillratio.info=Mängden Tesla i målet dividerat med dess kapacitet
+aspect.aspects.integrateddynamics.read.string.tesla.amount.name=Lagrad Tesla
+aspect.aspects.integrateddynamics.read.string.tesla.amount.info=Den formaterade mängden Tesla som har lagrats i målet
+aspect.aspects.integrateddynamics.read.string.tesla.capacity.name=Tesla-kapacitet
+aspect.aspects.integrateddynamics.read.string.tesla.capacity.info=Målets formaterade Tesla-kapacitet
+
+## Operators
+operator.operators.integrateddynamics.itemstack.isteslacontainer.name=Är en Tesla-behållare
+operator.operators.integrateddynamics.itemstack.isteslacontainer.info=Om det angivna föremålet kan hålla Tesla
+operator.operators.integrateddynamics.itemstack.teslastored.name=Lagrad Tesla
+operator.operators.integrateddynamics.itemstack.teslastored.info=Mängden Tesla som lagras i detta föremål
+operator.operators.integrateddynamics.itemstack.teslacapacity.name=Tesla-kapacitet
+operator.operators.integrateddynamics.itemstack.teslacapacity.info=Den maximala mängden Tesla som kan lagras i detta föremål
+operator.operators.integrateddynamics.itemstack.isteslareceiver.name=Är Tesla-mottagare
+operator.operators.integrateddynamics.itemstack.isteslareceiver.info=Om det angivna föremålet kan ta emot Tesla
+operator.operators.integrateddynamics.itemstack.isteslaprovider.name=Är Tesla-tillhandahållare
+operator.operators.integrateddynamics.itemstack.isteslaprovider.info=Om det angivna föremålet kan tillhandahålla Tesla
+operator.operators.integrateddynamics.itemstack.isteslafull.name=Är Tesla-bufferten full
+operator.operators.integrateddynamics.itemstack.isteslafull.info=Om det angivna föremålet är full med Tesla-energi
+operator.operators.integrateddynamics.itemstack.isteslaempty.name=Är Tesla-bufferten tom
+operator.operators.integrateddynamics.itemstack.isteslaempty.info=Om det angivna föremålet inte har någon Tesla-energi
+operator.operators.integrateddynamics.itemstack.isteslanonempty.name=Är Tesla-bufferten inte tom
+operator.operators.integrateddynamics.itemstack.isteslanonempty.info=Om det angivna föremålet har Tesla-energi
+operator.operators.integrateddynamics.itemstack.teslafillratio.name=Tesla-fyllningsförhållande
+operator.operators.integrateddynamics.itemstack.teslafillratio.info=Mängden Tesla i föremålet dividerat med dess kapacitet
+
+## ----- IC2 ----- ##
+
+## Aspects
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.applicable.name=Är EU-hanterare
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.applicable.info=Om målet hanterar EU på något sätt
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.canextract.name=Kan extrahera EU
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.canextract.info=Om EU verkligen kan extraheras från målet, tar med lagring i beräkningen
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.caninsert.name=Kan infoga EU
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.caninsert.info=Om EU verkligen kan infogas i målet, tar med lagring och kapacitet i beräkningen
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.isfull.name=Är EU-bufferten full
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.isfull.info=Om målets EU-buffert är helt full
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.isempty.name=Är EU-bufferten tom
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.isempty.info=Om målets EU-buffert är helt tom
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.isnonempty.name=Är EU-bufferten inte tom
+aspect.aspects.integrateddynamics.read.boolean.ic2.eu.isnonempty.info=Om målets EU-buffert inte är tom
+aspect.aspects.integrateddynamics.read.integer.ic2.eu.amount.name=Lagrad EU
+aspect.aspects.integrateddynamics.read.integer.ic2.eu.amount.info=Mängden EU som lagras i målet
+aspect.aspects.integrateddynamics.read.integer.ic2.eu.capacity.name=EU-kapacitet
+aspect.aspects.integrateddynamics.read.integer.ic2.eu.capacity.info=Målets EU-kapacitet
+aspect.aspects.integrateddynamics.read.double.ic2.eu.fillratio.name=EU-fyllningsförhållande
+aspect.aspects.integrateddynamics.read.double.ic2.eu.fillratio.info=Mängden EU i målet dividerat med dess kapacitet
+
+## Operators
+operator.operators.integrateddynamics.itemstack.isic2eucontainer.name=Är EU-behållare
+operator.operators.integrateddynamics.itemstack.isic2eucontainer.info=Om det angivna föremålet kan hålla EU
+operator.operators.integrateddynamics.itemstack.storedic2eu.name=Lagrad EU
+operator.operators.integrateddynamics.itemstack.storedic2eu.info=Mängden EU som har lagrats i detta föremål
+operator.operators.integrateddynamics.itemstack.ic2eucapacity.name=EU-kapacitet
+operator.operators.integrateddynamics.itemstack.ic2eucapacity.info=Den maximala mängden EU som kan lagras i detta föremål
+
+## ----- Refined Storage ----- ##
+
+# Aspect property types
+aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipcrafting.name=Hoppa över vid tillverkning
+aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipstorage.name=Hoppa över om det finns i lagring
+
+## Aspects
+aspect.aspects.integrateddynamics.read.boolean.refinedstorage.network.applicable.name=Är ett RS-nätverk
+aspect.aspects.integrateddynamics.read.boolean.refinedstorage.network.applicable.info=Om målet har ett Refined Storage-nätverk.
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.itemstacks.name=RS-nätverksföremål
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.itemstacks.info=En lista över alla föremål i RS-nätverket.
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.craftableitems.name=RS-tillverkningsbara föremål
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.craftableitems.info=En lista över alla tillverkningsbara föremål i RS-nätverket.
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.craftingitems.name=RS-tillverkade föremål
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.craftingitems.info=En lista över alla föremål som för närvarande tillverkas i RS-nätverket.
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.missingcraftingitems.name=Saknade RS-tillverkade föremål
+aspect.aspects.integrateddynamics.read.list.refinedstorage.inventory.missingcraftingitems.info=En lista över alla föremål som saknas i de nuvarande tillverkningsjobben för RS-nätverket.
+aspect.aspects.integrateddynamics.read.list.refinedstorage.fluid.fluidstacks.name=RS-nätverksvätskor
+aspect.aspects.integrateddynamics.read.list.refinedstorage.fluid.fluidstacks.info=En lista över alla vätskor i RS-nätverket.
+
+aspect.aspects.integrateddynamics.write.itemstack.refinedstorage.craft.name=Tillverka RS-föremål
+aspect.aspects.integrateddynamics.write.itemstack.refinedstorage.craft.info=Utlös ett tillverkningsjobb för det angivna föremålet.
+aspect.aspects.integrateddynamics.write.list.refinedstorage.craft.name=Tillverka alla RS-föremål
+aspect.aspects.integrateddynamics.write.list.refinedstorage.craft.info=Utlös ett tillverkningsjobb för alla föremål i den angivna listan.
+aspect.aspects.integrateddynamics.write.boolean.refinedstorage.cancelcraft.name=Avbryt alla RS-tillverkningsjobb
+aspect.aspects.integrateddynamics.write.boolean.refinedstorage.cancelcraft.info=Avbryt alla tillverkningsjobb som körs i RS-nätverket.
+aspect.aspects.integrateddynamics.write.itemstack.refinedstorage.cancelcraft.name=Avbryt RS-tillverkningsjobb
+aspect.aspects.integrateddynamics.write.itemstack.refinedstorage.cancelcraft.info=Avbryt alla tillverkningsjobb som körs för det angivna föremålet i RS-nätverket.
+aspect.aspects.integrateddynamics.write.list.refinedstorage.cancelcraft.name=Avbryt RS-tillverkningsjobb
+aspect.aspects.integrateddynamics.write.list.refinedstorage.cancelcraft.info=Avbryt alla körande jobb för de angivna föremålen i RS-nätverket.
+
+## ----- Signals ----- ##
+
+## Aspects
+aspect.aspects.integrateddynamics.write.list.signals.destinations.name=Signalera gruvvagndestinationer
+aspect.aspects.integrateddynamics.write.list.signals.destinations.info=Ange en ny destinationslista på en gruvvagn.
+aspect.aspects.integrateddynamics.write.integer.signals.destindex.name=Signalera index för gruvvagnsdestination
+aspect.aspects.integrateddynamics.write.integer.signals.destindex.info=Ändra det (nollbaserade) indexet för en gruvvagns nästa destination.
