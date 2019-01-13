@@ -48,23 +48,23 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
                                  @Optional ILiquidStack outputFluid) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {
-            IngredientRecipeComponent outputComponent1 = new IngredientRecipeComponent(Ingredient.fromStacks(RecipeRegistryHandler.toStack(outputStack1)));
+            IngredientRecipeComponent outputComponent1 = new IngredientRecipeComponent(RecipeRegistryHandler.toStack(outputStack1));
             outputComponent1.setChance(outputStackChance1);
             outputComponents.add(outputComponent1);
         }
         if (outputStack2 != null) {
-            IngredientRecipeComponent outputComponent2 = new IngredientRecipeComponent(Ingredient.fromStacks(RecipeRegistryHandler.toStack(outputStack2)));
+            IngredientRecipeComponent outputComponent2 = new IngredientRecipeComponent(RecipeRegistryHandler.toStack(outputStack2));
             outputComponent2.setChance(outputStackChance2);
             outputComponents.add(outputComponent2);
         }
         if (outputStack3 != null) {
-            IngredientRecipeComponent outputComponent3 = new IngredientRecipeComponent(Ingredient.fromStacks(RecipeRegistryHandler.toStack(outputStack3)));
+            IngredientRecipeComponent outputComponent3 = new IngredientRecipeComponent(RecipeRegistryHandler.toStack(outputStack3));
             outputComponent3.setChance(outputStackChance3);
             outputComponents.add(outputComponent3);
         }
 
         INSTANCE.add(new Recipe<>(
-                new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
+                new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack), true),
                 new IngredientsAndFluidStackRecipeComponent(outputComponents, RecipeRegistryHandler.toFluid(outputFluid)),
                 new DummyPropertiesComponent()));
     }

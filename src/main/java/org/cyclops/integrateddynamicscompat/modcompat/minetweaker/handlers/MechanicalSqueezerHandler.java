@@ -64,7 +64,7 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
         }
 
         INSTANCE.add(new Recipe<>(
-                new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack)),
+                new IngredientRecipeComponent(RecipeRegistryHandler.toStack(inputStack), true),
                 new IngredientsAndFluidStackRecipeComponent(outputComponents, RecipeRegistryHandler.toFluid(outputFluid)),
                 new DurationRecipeProperties(duration)));
     }

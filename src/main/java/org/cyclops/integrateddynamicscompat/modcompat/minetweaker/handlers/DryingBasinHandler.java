@@ -32,7 +32,7 @@ public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, 
     public static void addRecipe(@Optional IItemStack inputStack, @Optional ILiquidStack inputFluid,
                            @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         INSTANCE.add(new Recipe<>(
-                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), true, RecipeRegistryHandler.toFluid(inputFluid)),
                 new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
                 new DurationRecipeProperties(duration)));
     }
@@ -41,7 +41,7 @@ public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, 
     public static void removeRecipe(@Optional IItemStack inputStack, @Optional ILiquidStack inputFluid,
                               @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         INSTANCE.remove(new Recipe<>(
-                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), RecipeRegistryHandler.toFluid(inputFluid)),
+                new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(inputStack), true, RecipeRegistryHandler.toFluid(inputFluid)),
                 new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid)),
                 new DurationRecipeProperties(duration)));
     }
