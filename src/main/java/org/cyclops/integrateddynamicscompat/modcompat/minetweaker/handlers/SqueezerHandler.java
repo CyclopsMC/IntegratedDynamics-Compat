@@ -5,7 +5,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
 import org.cyclops.cyclopscore.modcompat.crafttweaker.handlers.RecipeRegistryHandler;
 import org.cyclops.cyclopscore.recipe.custom.Recipe;
 import org.cyclops.cyclopscore.recipe.custom.component.DummyPropertiesComponent;
@@ -36,8 +35,23 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
 
     @ZenMethod
     public static void addRecipe(IItemStack inputStack,
-                           @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
+                                 @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         addRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid);
+    }
+
+    @ZenMethod
+    public static void addRecipe(IItemStack inputStack,
+                                 @Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                 @Optional ILiquidStack outputFluid) {
+        addRecipe(inputStack, outputStack1, outputStackChance1, null, 1.0F, null, 1.0F, outputFluid);
+    }
+
+    @ZenMethod
+    public static void addRecipe(IItemStack inputStack,
+                                 @Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                 @Optional IItemStack outputStack2, @Optional float outputStackChance2,
+                                 @Optional ILiquidStack outputFluid) {
+        addRecipe(inputStack, outputStack1, outputStackChance1, outputStack2, outputStackChance2, null, 1.0F, outputFluid);
     }
 
     @ZenMethod
@@ -71,8 +85,23 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
 
     @ZenMethod
     public static void removeRecipe(IItemStack inputStack,
-                              @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
+                                    @Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         removeRecipe(inputStack, outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid);
+    }
+
+    @ZenMethod
+    public static void removeRecipe(IItemStack inputStack,
+                                    @Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                    @Optional ILiquidStack outputFluid) {
+        removeRecipe(inputStack, outputStack1, outputStackChance1, null, 1.0F, null, 1.0F, outputFluid);
+    }
+
+    @ZenMethod
+    public static void removeRecipe(IItemStack inputStack,
+                                    @Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                    @Optional IItemStack outputStack2, @Optional float outputStackChance2,
+                                    @Optional ILiquidStack outputFluid) {
+        removeRecipe(inputStack, outputStack1, outputStackChance1, outputStack2, outputStackChance2, null, 1.0F, outputFluid);
     }
 
     @ZenMethod
@@ -107,6 +136,19 @@ public class SqueezerHandler extends RecipeRegistryHandler<BlockSqueezer, Ingred
     @ZenMethod
     public static void removeRecipesWithOutput(@Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         removeRecipesWithOutput(outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid);
+    }
+
+    @ZenMethod
+    public static void removeRecipesWithOutput(@Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                               @Optional ILiquidStack outputFluid) {
+        removeRecipesWithOutput(outputStack1, outputStackChance1, null, 1.0F, null, 1.0F, outputFluid);
+    }
+
+    @ZenMethod
+    public static void removeRecipesWithOutput(@Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                               @Optional IItemStack outputStack2, @Optional float outputStackChance2,
+                                               @Optional ILiquidStack outputFluid) {
+        removeRecipesWithOutput(outputStack1, outputStackChance1, outputStack2, outputStackChance2, null, 1.0F, outputFluid);
     }
 
     @ZenMethod
