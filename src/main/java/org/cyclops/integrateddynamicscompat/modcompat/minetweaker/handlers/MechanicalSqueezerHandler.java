@@ -42,24 +42,24 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
 
     @ZenMethod
     public static void addRecipe(IItemStack inputStack,
-                                 @Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                 IItemStack outputStack1, float outputStackChance1,
                                  @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         addRecipe(inputStack, outputStack1, outputStackChance1, null, 1.0F, null, 1.0F, outputFluid, duration);
     }
 
     @ZenMethod
     public static void addRecipe(IItemStack inputStack,
-                                 @Optional IItemStack outputStack1, @Optional float outputStackChance1,
-                                 @Optional IItemStack outputStack2, @Optional float outputStackChance2,
+                                 IItemStack outputStack1, float outputStackChance1,
+                                 IItemStack outputStack2, float outputStackChance2,
                                  @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         addRecipe(inputStack, outputStack1, outputStackChance1, outputStack2, outputStackChance2, null, 1.0F, outputFluid, duration);
     }
 
     @ZenMethod
     public static void addRecipe(IItemStack inputStack,
-                                 @Optional IItemStack outputStack1, @Optional float outputStackChance1,
-                                 @Optional IItemStack outputStack2, @Optional float outputStackChance2,
-                                 @Optional IItemStack outputStack3, @Optional float outputStackChance3,
+                                 IItemStack outputStack1, float outputStackChance1,
+                                 IItemStack outputStack2, float outputStackChance2,
+                                 IItemStack outputStack3, float outputStackChance3,
                                  @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {
@@ -92,24 +92,24 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
 
     @ZenMethod
     public static void removeRecipe(IItemStack inputStack,
-                                    @Optional IItemStack outputStack1, @Optional float outputStackChance1,
+                                    IItemStack outputStack1, float outputStackChance1,
                                     @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         removeRecipe(inputStack, outputStack1, outputStackChance1, null, 1.0F, null, 1.0F, outputFluid, duration);
     }
 
     @ZenMethod
     public static void removeRecipe(IItemStack inputStack,
-                                    @Optional IItemStack outputStack1, @Optional float outputStackChance1,
-                                    @Optional IItemStack outputStack2, @Optional float outputStackChance2,
+                                    IItemStack outputStack1, float outputStackChance1,
+                                    IItemStack outputStack2, float outputStackChance2,
                                     @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         removeRecipe(inputStack, outputStack1, outputStackChance1, outputStack2, outputStackChance2, null, 1.0F, outputFluid, duration);
     }
 
     @ZenMethod
     public static void removeRecipe(IItemStack inputStack,
-                                    @Optional IItemStack outputStack1, @Optional float outputStackChance1,
-                                    @Optional IItemStack outputStack2, @Optional float outputStackChance2,
-                                    @Optional IItemStack outputStack3, @Optional float outputStackChance3,
+                                    IItemStack outputStack1, float outputStackChance1,
+                                    IItemStack outputStack2, float outputStackChance2,
+                                    IItemStack outputStack3, float outputStackChance3,
                                     @Optional ILiquidStack outputFluid, @Optional(valueLong = 10) int duration) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {
@@ -135,27 +135,27 @@ public class MechanicalSqueezerHandler extends RecipeRegistryHandler<BlockMechan
     }
 
     @ZenMethod
-    public static void removeRecipesWithOutput(@Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
+    public static void removeRecipesWithOutput(IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         removeRecipesWithOutput(outputStack, 1.0F, null, 1.0F, null, 1.0F, outputFluid);
     }
 
     @ZenMethod
-    public static void removeRecipesWithOutput(@Optional IItemStack outputStack1, @Optional float outputStackChance1,
+    public static void removeRecipesWithOutput(IItemStack outputStack1, float outputStackChance1,
                                                @Optional ILiquidStack outputFluid) {
         removeRecipesWithOutput(outputStack1, outputStackChance1, null, 1.0F, null, 1.0F, outputFluid);
     }
 
     @ZenMethod
-    public static void removeRecipesWithOutput(@Optional IItemStack outputStack1, @Optional float outputStackChance1,
-                                               @Optional IItemStack outputStack2, @Optional float outputStackChance2,
+    public static void removeRecipesWithOutput(IItemStack outputStack1, float outputStackChance1,
+                                               IItemStack outputStack2, float outputStackChance2,
                                                @Optional ILiquidStack outputFluid) {
         removeRecipesWithOutput(outputStack1, outputStackChance1, outputStack2, outputStackChance2, null, 1.0F, outputFluid);
     }
 
     @ZenMethod
-    public static void removeRecipesWithOutput(@Optional IItemStack outputStack1, @Optional float outputStackChance1,
-                                               @Optional IItemStack outputStack2, @Optional float outputStackChance2,
-                                               @Optional IItemStack outputStack3, @Optional float outputStackChance3,
+    public static void removeRecipesWithOutput(IItemStack outputStack1, float outputStackChance1,
+                                               IItemStack outputStack2, float outputStackChance2,
+                                               IItemStack outputStack3, float outputStackChance3,
                                                @Optional ILiquidStack outputFluid) {
         List<IngredientRecipeComponent> outputComponents = Lists.newArrayList();
         if (outputStack1 != null) {

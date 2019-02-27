@@ -47,7 +47,7 @@ public class DryingBasinHandler extends RecipeRegistryHandler<BlockDryingBasin, 
     }
 
     @ZenMethod
-    public static void removeRecipesWithOutput(@Optional IItemStack outputStack, @Optional ILiquidStack outputFluid) {
+    public static void removeRecipesWithOutput(IItemStack outputStack, @Optional ILiquidStack outputFluid) {
         INSTANCE.remove(
                 new IngredientAndFluidStackRecipeComponent(RecipeRegistryHandler.toStack(outputStack), RecipeRegistryHandler.toFluid(outputFluid))
         );
