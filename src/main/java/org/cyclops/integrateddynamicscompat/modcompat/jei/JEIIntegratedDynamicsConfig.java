@@ -7,6 +7,7 @@ import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 import org.cyclops.cyclopscore.config.ConfigHandler;
+import org.cyclops.integrateddynamics.IntegratedDynamics;
 import org.cyclops.integrateddynamics.block.BlockDryingBasin;
 import org.cyclops.integrateddynamics.block.BlockDryingBasinConfig;
 import org.cyclops.integrateddynamics.block.BlockLogicProgrammerConfig;
@@ -45,29 +46,29 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
-        if (ConfigHandler.isEnabled(BlockDryingBasinConfig.class)) registry.addRecipeCategories(new DryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        if (ConfigHandler.isEnabled(BlockSqueezerConfig.class)) registry.addRecipeCategories(new SqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        if (ConfigHandler.isEnabled(BlockMechanicalDryingBasinConfig.class)) registry.addRecipeCategories(new MechanicalDryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        if (ConfigHandler.isEnabled(BlockMechanicalSqueezerConfig.class)) registry.addRecipeCategories(new MechanicalSqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockDryingBasinConfig.class)) registry.addRecipeCategories(new DryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockSqueezerConfig.class)) registry.addRecipeCategories(new SqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockMechanicalDryingBasinConfig.class)) registry.addRecipeCategories(new MechanicalDryingBasinRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockMechanicalSqueezerConfig.class)) registry.addRecipeCategories(new MechanicalSqueezerRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
         if(JEIModCompat.canBeUsed) {
             // Drying Basin
-            if (ConfigHandler.isEnabled(BlockDryingBasinConfig.class)) {
+            if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockDryingBasinConfig.class)) {
                 registry.addRecipes(DryingBasinRecipeJEI.getAllRecipes(), DryingBasinRecipeCategory.NAME);
                 registry.addRecipeCatalyst(new ItemStack(BlockDryingBasin.getInstance()), DryingBasinRecipeCategory.NAME);
             }
 
             // Squeezer
-            if (ConfigHandler.isEnabled(BlockSqueezerConfig.class)) {
+            if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockSqueezerConfig.class)) {
                 registry.addRecipes(SqueezerRecipeJEI.getAllRecipes(), SqueezerRecipeCategory.NAME);
                 registry.addRecipeCatalyst(new ItemStack(BlockSqueezer.getInstance()), SqueezerRecipeCategory.NAME);
             }
 
             // Mechanical Drying Basin
-            if (ConfigHandler.isEnabled(BlockMechanicalDryingBasinConfig.class)) {
+            if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockMechanicalDryingBasinConfig.class)) {
                 registry.addRecipes(MechanicalDryingBasinRecipeJEI.getAllRecipes(), MechanicalDryingBasinRecipeCategory.NAME);
                 registry.addRecipeCatalyst(new ItemStack(BlockMechanicalDryingBasin.getInstance()), MechanicalDryingBasinRecipeCategory.NAME);
                 registry.addRecipeClickArea(GuiMechanicalDryingBasin.class, 84, 31, 10, 27, MechanicalDryingBasinRecipeCategory.NAME);
@@ -75,7 +76,7 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
             }
 
             // Mechanical Squeezer
-            if (ConfigHandler.isEnabled(BlockMechanicalSqueezerConfig.class)) {
+            if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockMechanicalSqueezerConfig.class)) {
                 registry.addRecipes(MechanicalSqueezerRecipeJEI.getAllRecipes(), MechanicalSqueezerRecipeCategory.NAME);
                 registry.addRecipeCatalyst(new ItemStack(BlockMechanicalSqueezer.getInstance()), MechanicalSqueezerRecipeCategory.NAME);
                 registry.addRecipeClickArea(GuiMechanicalSqueezer.class, 73, 36, 12, 18, MechanicalSqueezerRecipeCategory.NAME);
@@ -83,10 +84,10 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
             }
 
             // Logic programmer
-            if (ConfigHandler.isEnabled(BlockLogicProgrammerConfig.class))
+            if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(BlockLogicProgrammerConfig.class))
                 registry.getRecipeTransferRegistry().addUniversalRecipeTransferHandler(
                     new LogicProgrammerTransferHandler<>(ContainerLogicProgrammer.class));
-            if (ConfigHandler.isEnabled(ItemPortableLogicProgrammerConfig.class))
+            if (IntegratedDynamics._instance.getConfigHandler().isConfigEnabled(ItemPortableLogicProgrammerConfig.class))
                 registry.getRecipeTransferRegistry().addUniversalRecipeTransferHandler(
                         new LogicProgrammerTransferHandler<>(ContainerLogicProgrammerPortable.class));
         }
