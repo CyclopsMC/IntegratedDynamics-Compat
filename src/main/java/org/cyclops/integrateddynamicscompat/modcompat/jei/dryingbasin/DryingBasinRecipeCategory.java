@@ -54,7 +54,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory {
     @Nonnull
     @Override
     public String getTitle() {
-        return L10NHelpers.localize(BlockDryingBasin.getInstance().getUnlocalizedName() + ".name");
+        return L10NHelpers.localize(BlockDryingBasin.getInstance().getTranslationKey() + ".name");
     }
 
     @Override

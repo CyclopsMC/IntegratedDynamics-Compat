@@ -55,7 +55,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory {
     @Nonnull
     @Override
     public String getTitle() {
-        return L10NHelpers.localize(BlockMechanicalSqueezer.getInstance().getUnlocalizedName() + ".name");
+        return L10NHelpers.localize(BlockMechanicalSqueezer.getInstance().getTranslationKey() + ".name");
     }
 
     @Override
