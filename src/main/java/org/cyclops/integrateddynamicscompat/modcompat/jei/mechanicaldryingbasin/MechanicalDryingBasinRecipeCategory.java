@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
  * Category for the Drying Basin recipes.
  * @author rubensworks
  */
-public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory {
+public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<MechanicalDryingBasinRecipeJEI> {
 
     public static final String NAME = Reference.MOD_ID + ":mechanicalDryingBasin";
 
@@ -80,29 +80,26 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, MechanicalDryingBasinRecipeJEI recipe, IIngredients ingredients) {
         recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 7);
         recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 75, 7);
         recipeLayout.getItemStacks().init(FLUIDINPUT_SLOT, true, 6, 28);
         recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28);
 
-        if(recipeWrapper instanceof MechanicalDryingBasinRecipeJEI) {
-            MechanicalDryingBasinRecipeJEI recipe = (MechanicalDryingBasinRecipeJEI) recipeWrapper;
-            if(!recipe.getInputItem().isEmpty()) {
-                recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
-            }
-            if(!recipe.getOutputItem().isEmpty()) {
-                recipeLayout.getItemStacks().set(OUTPUT_SLOT, recipe.getOutputItem());
-            }
+        if(!recipe.getInputItem().isEmpty()) {
+            recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
+        }
+        if(!recipe.getOutputItem().isEmpty()) {
+            recipeLayout.getItemStacks().set(OUTPUT_SLOT, recipe.getOutputItem());
+        }
 
-            recipeLayout.getFluidStacks().init(FLUIDINPUT_SLOT, true, 6, 28, 8, 9, 1000, true, null);
-            if(recipe.getInputFluid() != null) {
-                recipeLayout.getFluidStacks().set(FLUIDINPUT_SLOT, recipe.getInputFluid());
-            }
-            recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28, 8, 9, 1000, true, null);
-            if(recipe.getOutputFluid() != null) {
-                recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
-            }
+        recipeLayout.getFluidStacks().init(FLUIDINPUT_SLOT, true, 6, 28, 8, 9, 1000, true, null);
+        if(recipe.getInputFluid() != null) {
+            recipeLayout.getFluidStacks().set(FLUIDINPUT_SLOT, recipe.getInputFluid());
+        }
+        recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28, 8, 9, 1000, true, null);
+        if(recipe.getOutputFluid() != null) {
+            recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
         }
     }
 }

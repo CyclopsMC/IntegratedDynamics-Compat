@@ -26,7 +26,7 @@ import java.util.List;
  * Category for the Squeezer recipes.
  * @author rubensworks
  */
-public class SqueezerRecipeCategory implements IRecipeCategory {
+public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI> {
 
     public static final String NAME = Reference.MOD_ID + ":squeezer";
 
@@ -81,34 +81,30 @@ public class SqueezerRecipeCategory implements IRecipeCategory {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        if(recipeWrapper instanceof SqueezerRecipeJEI) {
-            SqueezerRecipeJEI recipe = (SqueezerRecipeJEI) recipeWrapper;
+    public void setRecipe(IRecipeLayout recipeLayout, SqueezerRecipeJEI recipe, IIngredients ingredients) {
+        recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 17);
+        int offset = 0;
+        for (int i = 0; i < recipe.getOutputItems().size(); i++) {
+            recipeLayout.getItemStacks().init(OUTPUT_SLOT + i, false, 75 + (i % 2 > 0 ? 22 : 0), 7 + offset + (i > 1 ? 22 : 0));
+        }
+        recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+            if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
+                float chance = recipe.getOutputChances().get(slotIndex - OUTPUT_SLOT);
+                tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
+            }
+        });
 
-            recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 17);
-            int offset = 0;
-            for (int i = 0; i < recipe.getOutputItems().size(); i++) {
-                recipeLayout.getItemStacks().init(OUTPUT_SLOT + i, false, 75 + (i % 2 > 0 ? 22 : 0), 7 + offset + (i > 1 ? 22 : 0));
-            }
-            recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-                if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
-                    float chance = recipe.getOutputChances().get(slotIndex - OUTPUT_SLOT);
-                    tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
-                }
-            });
+        if(!recipe.getInputItem().isEmpty()) {
+            recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
+        }
+        int i = 0;
+        for (List<ItemStack> outputItem : recipe.getOutputItems()) {
+            recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem);
+        }
 
-            if(!recipe.getInputItem().isEmpty()) {
-                recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
-            }
-            int i = 0;
-            for (List<ItemStack> outputItem : recipe.getOutputItems()) {
-                recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem);
-            }
-
-            recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30, 16, 16, 1000, false, null);
-            if(recipe.getOutputFluid() != null) {
-                recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
-            }
+        recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30, 16, 16, 1000, false, null);
+        if(recipe.getOutputFluid() != null) {
+            recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
         }
     }
 }
