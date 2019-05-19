@@ -54,7 +54,7 @@ public class TeslaApiCompat implements IModCompat {
 			// Operators
 			/* Check if the item is a Tesla container item */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.BOOLEAN).symbolOperator("isteslacontainer")
+					.output(ValueTypes.BOOLEAN).symbol("is_tesla_container").operatorName("isteslacontainer")
 					.function(OperatorBuilders.FUNCTION_HOLDER_TO_BOOLEAN.build(new IOperatorValuePropagator<ITeslaHolder, Boolean>() {
 						@Override
 						public Boolean getOutput(ITeslaHolder input) throws EvaluationException {
@@ -64,7 +64,7 @@ public class TeslaApiCompat implements IModCompat {
 
 			/* Get the storage energy */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.LONG).symbolOperator("teslastored")
+					.output(ValueTypes.LONG).symbol("stored_tesla").operatorName("teslastored")
 					.function(OperatorBuilders.FUNCTION_HOLDER_TO_LONG.build(new IOperatorValuePropagator<ITeslaHolder, Long>() {
 						@Override
 						public Long getOutput(ITeslaHolder input) throws EvaluationException {
@@ -73,7 +73,7 @@ public class TeslaApiCompat implements IModCompat {
 					})).build());
 			/* Get the energy capacity */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.LONG).symbolOperator("teslacapacity")
+					.output(ValueTypes.LONG).symbol("capacity_tesla").operatorName("teslacapacity")
 					.function(OperatorBuilders.FUNCTION_HOLDER_TO_LONG.build(new IOperatorValuePropagator<ITeslaHolder, Long>() {
 						@Override
 						public Long getOutput(ITeslaHolder input) throws EvaluationException {
@@ -82,7 +82,7 @@ public class TeslaApiCompat implements IModCompat {
 					})).build());
 			/* If the item is an energy receiver */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.BOOLEAN).symbolOperator("isteslareceiver")
+					.output(ValueTypes.BOOLEAN).symbol("is_tesla_receiver").operatorName("isteslareceiver")
 					.function(OperatorBuilders.FUNCTION_CONSUMER_TO_BOOLEAN.build(new IOperatorValuePropagator<ITeslaConsumer, Boolean>() {
 						@Override
 						public Boolean getOutput(ITeslaConsumer input) throws EvaluationException {
@@ -91,7 +91,7 @@ public class TeslaApiCompat implements IModCompat {
 					})).build());
 			/* If the item is an energy provider */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.BOOLEAN).symbolOperator("isteslaprovider")
+					.output(ValueTypes.BOOLEAN).symbol("is_tesla_provider").operatorName("isteslaprovider")
 					.function(OperatorBuilders.FUNCTION_PRODUCER_TO_BOOLEAN.build(new IOperatorValuePropagator<ITeslaProducer, Boolean>() {
 						@Override
 						public Boolean getOutput(ITeslaProducer input) throws EvaluationException {
@@ -100,7 +100,7 @@ public class TeslaApiCompat implements IModCompat {
 					})).build());
 			/* If the item is full */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.BOOLEAN).symbolOperator("isteslafull")
+					.output(ValueTypes.BOOLEAN).symbol("is_tesla_full").operatorName("isteslafull")
 					.function(OperatorBuilders.FUNCTION_HOLDER_TO_BOOLEAN.build(new IOperatorValuePropagator<ITeslaHolder, Boolean>() {
 						@Override
 						public Boolean getOutput(ITeslaHolder input) throws EvaluationException {
@@ -109,7 +109,7 @@ public class TeslaApiCompat implements IModCompat {
 					})).build());
 			/* If the item is empty */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.BOOLEAN).symbolOperator("isteslaempty")
+					.output(ValueTypes.BOOLEAN).symbol("is_tesla_empty").operatorName("isteslaempty")
 					.function(OperatorBuilders.FUNCTION_HOLDER_TO_BOOLEAN.build(new IOperatorValuePropagator<ITeslaHolder, Boolean>() {
 						@Override
 						public Boolean getOutput(ITeslaHolder input) throws EvaluationException {
@@ -118,7 +118,7 @@ public class TeslaApiCompat implements IModCompat {
 					})).build());
 			/* If the item is not empty */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.BOOLEAN).symbolOperator("isteslanonempty")
+					.output(ValueTypes.BOOLEAN).symbol("is_tesla_nonempty").operatorName("isteslanonempty")
 					.function(OperatorBuilders.FUNCTION_HOLDER_TO_BOOLEAN.build(new IOperatorValuePropagator<ITeslaHolder, Boolean>() {
 						@Override
 						public Boolean getOutput(ITeslaHolder input) throws EvaluationException {
@@ -127,7 +127,7 @@ public class TeslaApiCompat implements IModCompat {
 					})).build());
 			/* The fill ratio */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.DOUBLE).symbolOperator("teslafillratio")
+					.output(ValueTypes.DOUBLE).symbol("tesla_fill_ratio").operatorName("teslafillratio")
 					.function(OperatorBuilders.FUNCTION_HOLDER_TO_DOUBLE.build(new IOperatorValuePropagator<ITeslaHolder, Double>() {
 						@Override
 						public Double getOutput(ITeslaHolder input) throws EvaluationException {

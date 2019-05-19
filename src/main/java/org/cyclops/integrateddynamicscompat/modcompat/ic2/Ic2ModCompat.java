@@ -48,7 +48,7 @@ public class Ic2ModCompat implements IModCompat {
 			// Operators
 			/* Check if the item is an RF container item */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.BOOLEAN).symbolOperator("isic2eucontainer")
+					.output(ValueTypes.BOOLEAN).symbol("is_ic2eu_container").operatorName("isic2eucontainer")
 					.function(OperatorBuilders.FUNCTION_CONTAINERITEM_TO_BOOLEAN.build(new IOperatorValuePropagator<Pair<IElectricItem, ItemStack>, Boolean>() {
 						@Override
 						public Boolean getOutput(Pair<IElectricItem, ItemStack> input) throws EvaluationException {
@@ -58,7 +58,7 @@ public class Ic2ModCompat implements IModCompat {
 
 			/* Get the storage energy */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.INTEGER).symbolOperator("storedic2eu")
+					.output(ValueTypes.INTEGER).symbol("stored_ic2eu").operatorName("storedic2eu")
 					.function(OperatorBuilders.FUNCTION_CONTAINERITEM_TO_INT.build(new IOperatorValuePropagator<Pair<IElectricItem, ItemStack>, Integer>() {
 						@Override
 						public Integer getOutput(Pair<IElectricItem, ItemStack> input) throws EvaluationException {
@@ -67,7 +67,7 @@ public class Ic2ModCompat implements IModCompat {
 					})).build());
 			/* Get the energy capacity */
 			Operators.REGISTRY.register(org.cyclops.integrateddynamics.core.evaluate.OperatorBuilders.ITEMSTACK_1_SUFFIX_LONG
-					.output(ValueTypes.INTEGER).symbolOperator("ic2eucapacity")
+					.output(ValueTypes.INTEGER).symbol("capacity_ic2eu").operatorName("ic2eucapacity")
 					.function(OperatorBuilders.FUNCTION_CONTAINERITEM_TO_INT.build(new IOperatorValuePropagator<Pair<IElectricItem, ItemStack>, Integer>() {
 						@Override
 						public Integer getOutput(Pair<IElectricItem, ItemStack> input) throws EvaluationException {

@@ -127,7 +127,7 @@ public class ThaumcraftModCompat implements IModCompat {
                     }).build());
 			/* Get the aspects this aspect is made up of */
 			Operators.REGISTRY.register(OperatorBuilders.ASPECT_1_SUFFIX_LONG
-					.output(ValueTypes.LIST).symbol("compound aspects").operatorName("getcompoundaspects")
+					.output(ValueTypes.LIST).symbol("compound_aspects").operatorName("getcompoundaspects")
 					.function(variables -> {
                         Optional<Pair<Aspect, Integer>> a = ((ValueObjectTypeAspect.ValueAspect) variables.getValue(0)).getRawValue();
                         if(a.isPresent()) {
@@ -142,7 +142,7 @@ public class ThaumcraftModCompat implements IModCompat {
                     }).build());
 			/* Get the combination aspects of the two given aspects */
 			Operators.REGISTRY.register(OperatorBuilders.ASPECT_2
-					.symbol("combination aspect").operatorName("getcombinationaspect")
+					.symbol("combination_aspect").operatorName("getcombinationaspect")
 					.function(variables -> {
 						Optional<Pair<Aspect, Integer>> a = ((ValueObjectTypeAspect.ValueAspect) variables.getValue(0)).getRawValue();
 						Optional<Pair<Aspect, Integer>> b = ((ValueObjectTypeAspect.ValueAspect) variables.getValue(1)).getRawValue();
@@ -162,7 +162,7 @@ public class ThaumcraftModCompat implements IModCompat {
 			/* Get the list of aspects in the given entity */
 			Operators.REGISTRY.register(OperatorBuilders.ASPECT_1_SUFFIX_LONG
 					.inputType(ValueTypes.OBJECT_ENTITY).output(ValueTypes.LIST)
-					.symbol("entity aspects").operatorName("entityaspects")
+					.symbol("entity_aspects").operatorName("entityaspects")
 					.function(variables -> {
 						Optional<Entity> a = ((ValueObjectTypeEntity.ValueEntity) variables.getValue(0)).getRawValue();
 						List<ValueObjectTypeAspect.ValueAspect> aspects = Lists.newArrayList();
