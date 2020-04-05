@@ -26,7 +26,7 @@ public class ValueObjectTypeAspect extends ValueObjectTypeBase<ValueObjectTypeAs
     private static final String DELIMITER = ";";
 
     public ValueObjectTypeAspect() {
-        super("thaumcraftaspect");
+        super("thaumcraftaspect", ValueAspect.class);
     }
 
     @Override
