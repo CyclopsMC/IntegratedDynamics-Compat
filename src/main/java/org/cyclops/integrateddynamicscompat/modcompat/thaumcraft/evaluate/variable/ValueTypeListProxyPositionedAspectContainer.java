@@ -1,12 +1,11 @@
 package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.TileHelpers;
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
 import org.cyclops.cyclopscore.persist.nbt.NBTPersist;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyBase;
-import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyFactories;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.ThaumcraftModCompat;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -52,12 +51,12 @@ public class ValueTypeListProxyPositionedAspectContainer extends ValueTypeListPr
     }
 
     @Override
-    public void writeGeneratedFieldsToNBT(NBTTagCompound tag) {
+    public void writeGeneratedFieldsToNBT(CompoundNBT tag) {
 
     }
 
     @Override
-    public void readGeneratedFieldsFromNBT(NBTTagCompound tag) {
+    public void readGeneratedFieldsFromNBT(CompoundNBT tag) {
 
     }
 }

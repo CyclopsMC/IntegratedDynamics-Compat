@@ -1,7 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.aspect.read;
 
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraft.util.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.TileHelpers;
@@ -12,7 +11,6 @@ import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeBoolean;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeDouble;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeInteger;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeList;
-import org.cyclops.integrateddynamics.core.helper.EnergyHelpers;
 import org.cyclops.integrateddynamics.core.part.aspect.build.AspectBuilder;
 import org.cyclops.integrateddynamics.core.part.aspect.build.IAspectValuePropagator;
 import org.cyclops.integrateddynamics.part.aspect.read.AspectReadBuilders;
@@ -26,8 +24,6 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.aura.AuraHelper;
-
-import java.util.Objects;
 
 /**
  * Builders for thaumcraft aspects
@@ -68,7 +64,7 @@ public class ThaumcraftAspects {
                                 }
                             }).appendKind("aspectcontainer").buildRead();
 
-            public static final IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, Pair<EnumFacing, IEssentiaTransport>>
+            public static final IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, Pair<Direction, IEssentiaTransport>>
                     PROP_GET_ESSENTIA_TRANSPORT = input -> Pair.of(input.getLeft().getTarget().getSide(),
                     TileHelpers.getSafeTile(input.getLeft().getTarget().getPos().getWorld(),
                             input.getLeft().getTarget().getPos().getBlockPos(),

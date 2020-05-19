@@ -5,8 +5,8 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.raoulvdberge.refinedstorage.api.network.node.INetworkNode;
 import com.raoulvdberge.refinedstorage.api.storage.IStorage;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.TileHelpers;
@@ -31,7 +31,7 @@ public class ValueTypeListProxyPositionedNetworkMasterFluidInventory extends Val
     }
 
     public ValueTypeListProxyPositionedNetworkMasterFluidInventory(DimPos pos) {
-        super(RefinedStorageModCompat.POSITIONED_MASTERFLUIDINVENTORY.getName(), ValueTypes.OBJECT_FLUIDSTACK, pos, EnumFacing.NORTH);
+        super(RefinedStorageModCompat.POSITIONED_MASTERFLUIDINVENTORY.getName(), ValueTypes.OBJECT_FLUIDSTACK, pos, Direction.NORTH);
     }
 
     protected Optional<INetworkNode> getNetworkMaster() {
@@ -70,12 +70,12 @@ public class ValueTypeListProxyPositionedNetworkMasterFluidInventory extends Val
     }
 
     @Override
-    public void writeGeneratedFieldsToNBT(NBTTagCompound tag) {
+    public void writeGeneratedFieldsToNBT(CompoundNBT tag) {
 
     }
 
     @Override
-    public void readGeneratedFieldsFromNBT(NBTTagCompound tag) {
+    public void readGeneratedFieldsFromNBT(CompoundNBT tag) {
 
     }
 }

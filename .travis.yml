@@ -7,8 +7,7 @@ env:
   global:
   - TERM=dumb
 
-install: ./gradlew setupCIWorkspace -S
-script: ./gradlew build -S
+install: ./gradlew build -S
 
 cache:
   directories:
@@ -18,14 +17,6 @@ before_cache:
     - rm -f $HOME/.gradle/caches/*/*.lock
 
 deploy:
-  - provider: releases
-    skip_cleanup: true
-    api_key:
-      secure: TODO
-    on:
-      all_branches: true
-      repo: CyclopsMC/IntegratedDynamics-Compat
-      tags: true
   - provider: script
     skip_cleanup: true
     script: ./gradlew uploadArchives -S

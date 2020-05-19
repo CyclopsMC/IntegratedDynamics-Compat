@@ -8,8 +8,8 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.gui.TooltipRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -47,7 +47,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     @Nullable
     @Override
     public IRecipeTransferError transferRecipe(T container, IRecipeLayout recipeLayout,
-                                               EntityPlayer player, boolean maxTransfer, boolean doTransfer) {
+                                               PlayerEntity player, boolean maxTransfer, boolean doTransfer) {
         ILogicProgrammerElement element = container.getActiveElement();
 
         if (element != null) {

@@ -6,8 +6,8 @@ import mcmultipart.multipart.IMultipartContainer;
 import mcmultipart.multipart.MultipartHelper;
 import mcmultipart.multipart.PartSlot;
 import mcmultipart.raytrace.RayTraceUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -30,7 +30,7 @@ public class PartContainerPartCable extends PartContainerDefault {
         this.partCable = partCable;
     }
 
-    protected PartPartType getPartPart(EnumFacing side) {
+    protected PartPartType getPartPart(Direction side) {
         IMultipartContainer container = partCable.getContainer();
         if(container != null) {
             IMultipart multipart = container.getPartInSlot(PartSlot.getFaceSlot(side));
@@ -42,19 +42,19 @@ public class PartContainerPartCable extends PartContainerDefault {
     }
 
     @Override
-    public <P extends IPartType<P, S>, S extends IPartState<P>> boolean canAddPart(EnumFacing side, IPartType<P, S> part) {
+    public <P extends IPartType<P, S>, S extends IPartState<P>> boolean canAddPart(Direction side, IPartType<P, S> part) {
         return super.canAddPart(side, part) && MultipartHelper.canAddPart(getWorld(), getPos(), new PartPartType(side, part));
     }
 
     @Override
-    public <P extends IPartType<P, S>, S extends IPartState<P>> void setPart(final EnumFacing side, IPartType<P, S> part, IPartState<P> partState) {
+    public <P extends IPartType<P, S>, S extends IPartState<P>> void setPart(final Direction side, IPartType<P, S> part, IPartState<P> partState) {
         final PartPartType partPart = new PartPartType(side, part);
         super.setPart(side, part, partState);
         MultipartHelper.addPart(getWorld(), getPos(), partPart);
     }
 
     @Override
-    public IPartType removePart(EnumFacing side, EntityPlayer player, boolean dropMainElement) {
+    public IPartType removePart(Direction side, PlayerEntity player, boolean dropMainElement) {
         PartPartType partPartType = getPartPart(side);
         IPartType removed = super.removePart(side, player, dropMainElement);
         if (removed != null && partPartType != null) {
@@ -90,7 +90,7 @@ public class PartContainerPartCable extends PartContainerDefault {
 
     @Nullable
     @Override
-    public EnumFacing getWatchingSide(World world, BlockPos pos, EntityPlayer player) {
+    public Direction getWatchingSide(World world, BlockPos pos, PlayerEntity player) {
         Vec3d start = RayTraceUtils.getStart(player);
         Vec3d end = RayTraceUtils.getEnd(player);
         RayTraceUtils.AdvancedRayTraceResultPart result = ((TileMultipartContainer) world.getTileEntity(pos)).getPartContainer().collisionRayTrace(start, end);

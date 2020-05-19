@@ -1,11 +1,11 @@
 package org.cyclops.integrateddynamicscompat.modcompat.mcmultipart;
 
 import com.google.common.base.Optional;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import org.cyclops.cyclopscore.helper.BlockHelpers;
 import org.cyclops.integrateddynamics.api.part.PartRenderPosition;
@@ -19,11 +19,11 @@ import org.cyclops.integrateddynamics.client.model.IRenderState;
  */
 public class PartCableModel extends CableModelBase {
 
-    public PartCableModel(IBlockState blockState, EnumFacing facing, long rand) {
+    public PartCableModel(BlockState blockState, Direction facing, long rand) {
         super(blockState, facing, rand);
     }
 
-    public PartCableModel(ItemStack itemStack, World world, EntityLivingBase entity) {
+    public PartCableModel(ItemStack itemStack, World world, LivingEntity entity) {
         super(itemStack, world, entity);
     }
 
@@ -37,22 +37,22 @@ public class PartCableModel extends CableModelBase {
     }
 
     @Override
-    protected Optional<IBlockState> getFacade() {
+    protected Optional<BlockState> getFacade() {
         return Optional.absent();
     }
 
     @Override
-    protected boolean isConnected(EnumFacing side) {
+    protected boolean isConnected(Direction side) {
         return BlockHelpers.getSafeBlockStateProperty(getState(), BlockCable.CONNECTED[side.ordinal()], false);
     }
 
     @Override
-    protected boolean hasPart(EnumFacing side) {
+    protected boolean hasPart(Direction side) {
         return getPartRenderPosition(side) != PartRenderPosition.NONE;
     }
 
     @Override
-    protected PartRenderPosition getPartRenderPosition(EnumFacing side) {
+    protected PartRenderPosition getPartRenderPosition(Direction side) {
         return BlockHelpers.getSafeBlockStateProperty(getState(), BlockCable.PART_RENDERPOSITIONS[side.ordinal()], PartRenderPosition.NONE);
     }
 
@@ -62,7 +62,7 @@ public class PartCableModel extends CableModelBase {
     }
 
     @Override
-    protected IBakedModel getPartModel(EnumFacing side) {
+    protected IBakedModel getPartModel(Direction side) {
         return null;
     }
 
@@ -72,12 +72,12 @@ public class PartCableModel extends CableModelBase {
     }
 
     @Override
-    public IBakedModel handleBlockState(IBlockState state, EnumFacing side, long rand) {
+    public IBakedModel handleBlockState(BlockState state, Direction side, long rand) {
         return new PartCableModel(state, side, rand);
     }
 
     @Override
-    public IBakedModel handleItemState(ItemStack stack, World world, EntityLivingBase entity) {
+    public IBakedModel handleItemState(ItemStack stack, World world, LivingEntity entity) {
         return new PartCableModel(stack, world, entity);
     }
 }

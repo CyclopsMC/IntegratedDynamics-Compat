@@ -5,8 +5,8 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.cyclops.commoncapabilities.api.capability.work.IWorker;
 import org.cyclops.cyclopscore.modcompat.capabilities.DefaultCapabilityProvider;
 import org.cyclops.cyclopscore.modcompat.capabilities.SimpleCapabilityConstructor;
-import org.cyclops.integrateddynamicscompat.Capabilities;
 import org.cyclops.integrateddynamics.tileentity.TileCoalGenerator;
+import org.cyclops.integrateddynamicscompat.Capabilities;
 
 import javax.annotation.Nullable;
 
@@ -38,7 +38,7 @@ public class WorkerCoalGeneratorTileCompat extends SimpleCapabilityConstructor<I
         @SuppressWarnings("unchecked")
         @Override
         public boolean hasWork() {
-            return provider.getStackInSlot(TileCoalGenerator.SLOT_FUEL) != null || provider.isBurning();
+            return provider.getInventory().getStackInSlot(TileCoalGenerator.SLOT_FUEL) != null || provider.isBurning();
         }
 
         @Override

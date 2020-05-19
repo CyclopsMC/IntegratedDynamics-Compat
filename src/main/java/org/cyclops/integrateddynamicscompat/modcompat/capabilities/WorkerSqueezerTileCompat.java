@@ -38,7 +38,7 @@ public class WorkerSqueezerTileCompat extends SimpleCapabilityConstructor<IWorke
         @SuppressWarnings("unchecked")
         @Override
         public boolean hasWork() {
-            return provider.getCurrentRecipe() != null;
+            return provider.getCurrentRecipe().isPresent();
         }
 
         @Override

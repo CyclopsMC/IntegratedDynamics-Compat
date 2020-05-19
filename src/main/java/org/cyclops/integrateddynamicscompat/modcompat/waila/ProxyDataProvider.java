@@ -3,16 +3,15 @@ package org.cyclops.integrateddynamicscompat.modcompat.waila;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.cyclopscore.helper.TileHelpers;
 import org.cyclops.integrateddynamics.core.helper.L10NValues;
-import org.cyclops.integrateddynamicscompat.modcompat.waila.*;
 import org.cyclops.integrateddynamics.tileentity.TileProxy;
 
 import java.util.List;
@@ -51,7 +50,7 @@ public class ProxyDataProvider implements IWailaDataProvider {
     }
 
     @Override
-    public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
+    public CompoundNBT getNBTData(ServerPlayerEntity player, TileEntity te, CompoundNBT tag, World world, BlockPos pos) {
         return tag;
     }
 

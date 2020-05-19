@@ -2,6 +2,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.signals.aspect;
 
 import java.util.List;
 
+import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.integrateddynamics.api.evaluate.EvaluationException;
@@ -15,7 +16,6 @@ import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import org.cyclops.integrateddynamics.part.aspect.write.AspectWriteBuilders;
 import org.cyclops.integrateddynamicscompat.modcompat.signals.SignalsModCompat;
 
-import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.math.AxisAlignedBB;
 
 public class SignalsAspects {
@@ -31,7 +31,7 @@ public class SignalsAspects {
                         throw new EvaluationException(error.localize());
                     }
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    List<EntityMinecart> carts = pos.getWorld().getEntitiesWithinAABB(EntityMinecart.class,
+                    List<AbstractMinecartEntity> carts = pos.getWorld().getEntitiesWithinAABB(AbstractMinecartEntity.class,
                             new AxisAlignedBB(pos.getBlockPos()));
                     if(!carts.isEmpty()) {
                         IValueTypeListProxy list = input.getRight().getRawValue();
@@ -40,7 +40,7 @@ public class SignalsAspects {
                         for (Object value : list) {
                             destinations[i++] = ((ValueTypeString.ValueString)value).getRawValue();
                         }
-                        for(EntityMinecart cart : carts) {
+                        for(AbstractMinecartEntity cart : carts) {
                             SignalsModCompat.getAccessor().getDestinationAccessor(cart).setDestinations(destinations);
                         }
                     }
@@ -51,10 +51,10 @@ public class SignalsAspects {
                 INTEGER_DESTINDEX = AspectWriteBuilders.BUILDER_INTEGER.appendKind("signals")
                 .handle(input -> {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    List<EntityMinecart> carts = pos.getWorld().getEntitiesWithinAABB(EntityMinecart.class,
+                    List<AbstractMinecartEntity> carts = pos.getWorld().getEntitiesWithinAABB(AbstractMinecartEntity.class,
                             new AxisAlignedBB(pos.getBlockPos()));
                     int index = input.getRight().getRawValue();
-                    for(EntityMinecart cart : carts) {
+                    for(AbstractMinecartEntity cart : carts) {
                         SignalsModCompat.getAccessor().getDestinationAccessor(cart).setCurrentDestinationIndex(index);
                     }
                     return null;

@@ -1,19 +1,9 @@
 package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.variable;
 
-import net.minecraft.nbt.NBTTagCompound;
-import org.cyclops.cyclopscore.datastructure.DimPos;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import net.minecraft.nbt.CompoundNBT;
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
-import org.cyclops.cyclopscore.persist.nbt.NBTPersist;
-import org.cyclops.integrateddynamics.api.evaluate.EvaluationException;
-import org.cyclops.integrateddynamics.api.evaluate.variable.IValue;
-import org.cyclops.integrateddynamics.api.evaluate.variable.IValueType;
-import org.cyclops.integrateddynamics.api.evaluate.variable.IValueTypeListProxy;
-import org.cyclops.integrateddynamics.api.evaluate.variable.IValueTypeListProxyFactoryTypeRegistry;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyBase;
-import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyFactories;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyNBTFactorySimple;
-import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyTail;
 import org.cyclops.integrateddynamicscompat.Reference;
 import org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.ThaumcraftModCompat;
 import thaumcraft.api.aspects.Aspect;
@@ -47,12 +37,12 @@ public class ValueTypeListAllAspects extends ValueTypeListProxyBase<ValueObjectT
     }
 
     @Override
-    public void writeGeneratedFieldsToNBT(NBTTagCompound tag) {
+    public void writeGeneratedFieldsToNBT(CompoundNBT tag) {
 
     }
 
     @Override
-    public void readGeneratedFieldsFromNBT(NBTTagCompound tag) {
+    public void readGeneratedFieldsFromNBT(CompoundNBT tag) {
 
     }
 
@@ -64,12 +54,12 @@ public class ValueTypeListAllAspects extends ValueTypeListProxyBase<ValueObjectT
         }
 
         @Override
-        protected void serializeNbt(ValueTypeListAllAspects value, NBTTagCompound tag) {
+        protected void serializeNbt(ValueTypeListAllAspects value, CompoundNBT tag) {
 
         }
 
         @Override
-        protected ValueTypeListAllAspects deserializeNbt(NBTTagCompound tag) {
+        protected ValueTypeListAllAspects deserializeNbt(CompoundNBT tag) {
             return new ValueTypeListAllAspects();
         }
     }

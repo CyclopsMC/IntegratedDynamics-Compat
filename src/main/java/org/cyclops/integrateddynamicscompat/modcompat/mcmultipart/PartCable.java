@@ -9,13 +9,13 @@ import mcmultipart.multipart.IMultipartContainer;
 import mcmultipart.multipart.PartSlot;
 import mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -92,7 +92,7 @@ public class PartCable extends MultipartBase implements ITickable {
     private final INetworkCarrier networkCarrier;
     private final EnumFacingMap<IDynamicLight> dynamicLights;
 
-    private IBlockState cachedState = null;
+    private BlockState cachedState = null;
 
     private boolean addSilent = false;
     private boolean sendFurtherUpdates = true;
@@ -113,7 +113,7 @@ public class PartCable extends MultipartBase implements ITickable {
         addCapabilityInternal(PathElementConfig.CAPABILITY, new PathElementPart(this, cable));
         this.forceDisconnected = forceDisconnected;
         dynamicLights = EnumFacingMap.newMap();
-        for (EnumFacing facing : EnumFacing.VALUES) {
+        for (Direction facing : Direction.VALUES) {
             IDynamicLight dynamicLight = new DynamicLightPart(this);
             dynamicLights.put(facing, dynamicLight);
             addCapabilitySided(DynamicLightConfig.CAPABILITY, facing, dynamicLight);
@@ -134,12 +134,12 @@ public class PartCable extends MultipartBase implements ITickable {
     }
 
     @Override
-    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public BlockState getExtendedState(BlockState state, IBlockAccess world, BlockPos pos) {
         if (cachedState != null) {
             return cachedState;
         }
         ExtendedBlockStateBuilder builder = ExtendedBlockStateBuilder.builder((IExtendedBlockState) state);
-        for(EnumFacing side : EnumFacing.VALUES) {
+        for(Direction side : Direction.VALUES) {
             builder.withProperty(BlockCable.CONNECTED[side.ordinal()], cable.isConnected(side));
             boolean hasPart = hasPart(side);
             if(hasPart) {
@@ -184,7 +184,7 @@ public class PartCable extends MultipartBase implements ITickable {
     @Override
     public void addSelectionBoxes(List<AxisAlignedBB> list) {
         list.add(BlockCable.getInstance().getCableBoundingBox(null));
-        for(EnumFacing side : EnumFacing.VALUES) {
+        for(Direction side : Direction.VALUES) {
             if(cable.isConnected(side)) {
                 list.add(BlockCable.getInstance().getCableBoundingBox(side));
             } else if(hasPart(side)) {
@@ -193,24 +193,24 @@ public class PartCable extends MultipartBase implements ITickable {
         }
     }
 
-    protected void addCollisionBoxConditional(AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity, EnumFacing side) {
+    protected void addCollisionBoxConditional(AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity, Direction side) {
         AxisAlignedBB box = BlockCable.getInstance().getCableBoundingBox(side);
         if(box.intersectsWith(mask)) {
             list.add(box);
         }
     }
 
-    protected void addCollisionBoxWithPartConditional(AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity, EnumFacing side) {
+    protected void addCollisionBoxWithPartConditional(AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity, Direction side) {
         AxisAlignedBB box = getPart(side).getPartRenderPosition().getSidedCableBoundingBox(side);
         if(box.intersectsWith(mask)) {
             list.add(box);
         }
     }
 
-    protected EnumFacing getSubHitSide(int subHit) {
+    protected Direction getSubHitSide(int subHit) {
         if(subHit == -1) return null;
         int i = 0;
-        for(EnumFacing side : EnumFacing.VALUES) {
+        for(Direction side : Direction.VALUES) {
             if(cable.isConnected(side)) {
                 if(i == subHit) {
                     return side;
@@ -230,7 +230,7 @@ public class PartCable extends MultipartBase implements ITickable {
     @Override
     public void addCollisionBoxes(AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         addCollisionBoxConditional(mask, list, collidingEntity, null);
-        for(EnumFacing side : EnumFacing.VALUES) {
+        for(Direction side : Direction.VALUES) {
             if(cable.isConnected(side)) {
                 addCollisionBoxConditional(mask, list, collidingEntity, side);
             } else if(hasPart(side)) {
@@ -280,7 +280,7 @@ public class PartCable extends MultipartBase implements ITickable {
     }
 
     @Override
-    public void harvest(EntityPlayer player, PartMOP hit) {
+    public void harvest(PlayerEntity player, PartMOP hit) {
         CableHelpers.onCableRemoving(getWorld(), getPos(), false);
         super.harvest(player, hit);
     }
@@ -292,8 +292,8 @@ public class PartCable extends MultipartBase implements ITickable {
     }
 
     @Override
-    public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack stack, PartMOP hit) {
-        EnumFacing cableConnectionHit = getSubHitSide(hit.subHit);
+    public boolean onActivated(PlayerEntity player, Hand hand, ItemStack stack, PartMOP hit) {
+        Direction cableConnectionHit = getSubHitSide(hit.subHit);
         if (!getWorld().isRemote) {
             return CableHelpers.onCableActivated(getWorld(), getPos(), BlockCable.getInstance().getDefaultState(),
                     player, player.getHeldItem(hand), hit.sideHit, cableConnectionHit);
@@ -311,14 +311,14 @@ public class PartCable extends MultipartBase implements ITickable {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+    public CompoundNBT writeToNBT(CompoundNBT tag) {
         tag = super.writeToNBT(tag);
         tag.setTag("partContainer", partContainer.serializeNBT());
         return tag;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag) {
+    public void readFromNBT(CompoundNBT tag) {
         if (tag.hasKey("parts", MinecraftHelpers.NBTTag_Types.NBTTagList.ordinal())
                 && !tag.hasKey("partContainer", MinecraftHelpers.NBTTag_Types.NBTTagCompound.ordinal())) {
             // Backwards compatibility with old part saving.
@@ -335,11 +335,11 @@ public class PartCable extends MultipartBase implements ITickable {
         return networkCarrier.getNetwork();
     }
 
-    protected boolean hasPart(EnumFacing side) {
+    protected boolean hasPart(Direction side) {
         return partContainer.hasPart(side);
     }
 
-    protected IPartType getPart(EnumFacing side) {
+    protected IPartType getPart(Direction side) {
         return partContainer.getPart(side);
     }
 
@@ -372,12 +372,12 @@ public class PartCable extends MultipartBase implements ITickable {
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(Capability<?> capability, Direction facing) {
         return super.hasCapability(capability, facing) || partContainer.hasCapability(capability, facing);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, Direction facing) {
         T value = super.getCapability(capability, facing);
         if (value != null) {
             return value;
@@ -394,7 +394,7 @@ public class PartCable extends MultipartBase implements ITickable {
     @Override
     public int getLightValue() {
         int light = 0;
-        for(EnumFacing side : EnumFacing.values()) {
+        for(Direction side : Direction.values()) {
             IDynamicLight dynamicLight = dynamicLights.get(side);
             if (dynamicLight != null) {
                 light = Math.max(light, dynamicLight.getLightLevel());

@@ -1,6 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.mcmultipart;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import org.cyclops.cyclopscore.datastructure.EnumFacingMap;
 import org.cyclops.integrateddynamics.api.block.cable.ICable;
 
@@ -30,7 +30,7 @@ public class CablePartCable extends CablePart<PartCable> {
     }
 
     @Override
-    public boolean isForceDisconnected(EnumFacing side) {
+    public boolean isForceDisconnected(Direction side) {
         if(part.getPartContainer().hasPart(side)) return true;
         return super.isForceDisconnected(side);
     }

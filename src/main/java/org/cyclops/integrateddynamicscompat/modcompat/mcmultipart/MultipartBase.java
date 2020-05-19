@@ -10,11 +10,11 @@ import mcmultipart.multipart.ISlottedPart;
 import mcmultipart.multipart.Multipart;
 import mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,12 +36,12 @@ public abstract class MultipartBase extends Multipart implements ISlottedPart, I
 
     @Delegate
     private final INBTProvider nbtProvider = new NBTProviderComponent(this);
-    private Map<Pair<Capability<?>, EnumFacing>, Object> capabilities = Maps.newHashMap();
+    private Map<Pair<Capability<?>, Direction>, Object> capabilities = Maps.newHashMap();
 
     protected abstract ItemStack getItemStack();
 
     @Override
-    public ItemStack getPickBlock(EntityPlayer player, PartMOP hit) {
+    public ItemStack getPickBlock(PlayerEntity player, PartMOP hit) {
         return getItemStack();
     }
 
@@ -67,13 +67,13 @@ public abstract class MultipartBase extends Multipart implements ISlottedPart, I
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag) {
+    public void readFromNBT(CompoundNBT tag) {
         super.readFromNBT(tag);
         nbtProvider.readGeneratedFieldsFromNBT(tag);
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+    public CompoundNBT writeToNBT(CompoundNBT tag) {
         tag = super.writeToNBT(tag);
         nbtProvider.writeGeneratedFieldsToNBT(tag);
         return tag;
@@ -81,7 +81,7 @@ public abstract class MultipartBase extends Multipart implements ISlottedPart, I
 
     @Override
     public void writeUpdatePacket(PacketBuffer buf) {
-        NBTTagCompound tag = new NBTTagCompound();
+        CompoundNBT tag = new CompoundNBT();
         writeToNBT(tag);
         buf.writeNBTTagCompoundToBuffer(tag);
     }
@@ -114,18 +114,18 @@ public abstract class MultipartBase extends Multipart implements ISlottedPart, I
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return (capabilities != null && capabilities.containsKey(Pair.<Capability<?>, EnumFacing>of(capability, facing)))
-                || (facing != null && capabilities != null && capabilities.containsKey(Pair.<Capability<?>, EnumFacing>of(capability, null)))
+    public boolean hasCapability(Capability<?> capability, Direction facing) {
+        return (capabilities != null && capabilities.containsKey(Pair.<Capability<?>, Direction>of(capability, facing)))
+                || (facing != null && capabilities != null && capabilities.containsKey(Pair.<Capability<?>, Direction>of(capability, null)))
                 || super.hasCapability(capability, facing);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, Direction facing) {
         if (capabilities != null) {
-            Object value = capabilities.get(Pair.<Capability<?>, EnumFacing>of(capability, facing));
+            Object value = capabilities.get(Pair.<Capability<?>, Direction>of(capability, facing));
             if (value == null && facing != null) {
-                value = capabilities.get(Pair.<Capability<?>, EnumFacing>of(capability, null));
+                value = capabilities.get(Pair.<Capability<?>, Direction>of(capability, null));
             }
             if (value != null) {
                 return (T) value;
@@ -142,7 +142,7 @@ public abstract class MultipartBase extends Multipart implements ISlottedPart, I
      * @param <T> The capability type.
      */
     public <T> void addCapabilityInternal(Capability<T> capability, T value) {
-        capabilities.put(Pair.<Capability<?>, EnumFacing>of(capability, null), value);
+        capabilities.put(Pair.<Capability<?>, Direction>of(capability, null), value);
     }
 
     /**
@@ -153,11 +153,11 @@ public abstract class MultipartBase extends Multipart implements ISlottedPart, I
      * @param value The capability.
      * @param <T> The capability type.
      */
-    public <T> void addCapabilitySided(Capability<T> capability, EnumFacing facing, T value) {
-        capabilities.put(Pair.<Capability<?>, EnumFacing>of(capability, facing), value);
+    public <T> void addCapabilitySided(Capability<T> capability, Direction facing, T value) {
+        capabilities.put(Pair.<Capability<?>, Direction>of(capability, facing), value);
     }
 
-    protected Map<Pair<Capability<?>, EnumFacing>, Object> getCapabilities() {
+    protected Map<Pair<Capability<?>, Direction>, Object> getCapabilities() {
         return capabilities;
     }
 }

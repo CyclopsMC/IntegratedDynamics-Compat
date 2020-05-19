@@ -1,9 +1,8 @@
 package org.cyclops.integrateddynamicscompat.modcompat.charset.aspect;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.fluids.FluidStack;
-import org.cyclops.cyclopscore.helper.ItemStackHelpers;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.integrateddynamics.api.evaluate.EvaluationException;
 import org.cyclops.integrateddynamics.api.evaluate.operator.IOperator;
@@ -22,7 +21,7 @@ import pl.asie.charset.api.pipes.IShifter;
  */
 public class ShifterPart<P extends IPartTypeWriter<P, S>, S extends IPartStateWriter<P>> implements IShifter {
 
-    private final EnumFacing direction;
+    private final Direction direction;
     private final P partType;
     private final S partState;
     private boolean shifting;
@@ -31,7 +30,7 @@ public class ShifterPart<P extends IPartTypeWriter<P, S>, S extends IPartStateWr
     private IOperator filterItemPredicate;
     private IOperator filterFluidPredicate;
 
-    public ShifterPart(EnumFacing direction, P partType, S partState) {
+    public ShifterPart(Direction direction, P partType, S partState) {
         this.direction = direction;
         this.partType = partType;
         this.partState = partState;
@@ -44,7 +43,7 @@ public class ShifterPart<P extends IPartTypeWriter<P, S>, S extends IPartStateWr
     }
 
     @Override
-    public EnumFacing getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 

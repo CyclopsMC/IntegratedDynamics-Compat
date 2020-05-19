@@ -4,9 +4,9 @@ import com.google.common.collect.Lists;
 import mcmultipart.multipart.IMultipart;
 import mcmultipart.multipart.IPartConverter;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import org.cyclops.cyclopscore.datastructure.EnumFacingMap;
@@ -42,7 +42,7 @@ public class BlockCableConverter implements IPartConverter {
         // Add parts
         EnumFacingMap<PartHelpers.PartStateHolder<?, ?>> partData = EnumFacingMap.newMap(tile.getPartContainer().getPartData());
         EnumFacingMap<Boolean> forceDisconnected = EnumFacingMap.newMap(tile.getForceDisconnected());
-        for(Map.Entry<EnumFacing, PartHelpers.PartStateHolder<?, ?>> entry : partData.entrySet()) {
+        for(Map.Entry<Direction, PartHelpers.PartStateHolder<?, ?>> entry : partData.entrySet()) {
             parts.add(new PartPartType(entry.getKey(), entry.getValue().getPart()));
         }
         boolean wasRealCable = tile.getCableFakeable().isRealCable();
@@ -69,7 +69,7 @@ public class BlockCableConverter implements IPartConverter {
         IFacadeable facadeable = tile.hasCapability(FacadeableConfig.CAPABILITY, null)
                 ? tile.getCapability(FacadeableConfig.CAPABILITY, null) : null;
         if(facadeable != null && !simulate && facadeable.hasFacade()) {
-            IBlockState blockState = facadeable.getFacade();
+            BlockState blockState = facadeable.getFacade();
             ItemStack itemStack = new ItemStack(ItemFacade.getInstance());
             ItemFacade.getInstance().writeFacadeBlock(itemStack, blockState);
             ItemStackHelpers.spawnItemStack(tile.getWorld(), blockPos, itemStack);

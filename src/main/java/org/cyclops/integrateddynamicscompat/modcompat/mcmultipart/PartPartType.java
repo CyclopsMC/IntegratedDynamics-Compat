@@ -6,15 +6,15 @@ import mcmultipart.multipart.IMultipart;
 import mcmultipart.multipart.IMultipartContainer;
 import mcmultipart.multipart.PartSlot;
 import mcmultipart.raytrace.PartMOP;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -43,19 +43,19 @@ import java.util.List;
  */
 public class PartPartType extends MultipartBase {
 
-    private EnumFacing facing;
+    private Direction facing;
     private IPartType partType;
 
     public PartPartType() {
 
     }
 
-    public PartPartType(EnumFacing facing, IPartType partType) {
+    public PartPartType(Direction facing, IPartType partType) {
         this();
         init(facing, partType);
     }
 
-    public void init(EnumFacing facing, IPartType partType) {
+    public void init(Direction facing, IPartType partType) {
         this.facing = facing;
         this.partType = partType;
     }
@@ -88,10 +88,10 @@ public class PartPartType extends MultipartBase {
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag) {
+    public void readFromNBT(CompoundNBT tag) {
         super.readFromNBT(tag);
         if(!tag.getKeySet().isEmpty()) {
-            Pair<EnumFacing, IPartType> part = PartHelpers.readPartTypeFromNBT(getNetwork(), getPos(), tag.getCompoundTag("part"));
+            Pair<Direction, IPartType> part = PartHelpers.readPartTypeFromNBT(getNetwork(), getPos(), tag.getCompoundTag("part"));
             if (part != null) {
                 this.facing = part.getKey();
                 this.partType = part.getValue();
@@ -100,16 +100,16 @@ public class PartPartType extends MultipartBase {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+    public CompoundNBT writeToNBT(CompoundNBT tag) {
         tag = super.writeToNBT(tag);
-        NBTTagCompound partTag = new NBTTagCompound();
+        CompoundNBT partTag = new CompoundNBT();
         PartHelpers.writePartTypeToNBT(partTag, getFacing(), getPartType());
         tag.setTag("part", partTag);
         return tag;
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state) {
+    public BlockState getActualState(BlockState state) {
         return getPartType().getBlockState(getPartContainer(), getFacing());
     }
 
@@ -172,7 +172,7 @@ public class PartPartType extends MultipartBase {
     }
 
     @Override
-    public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack heldItem, PartMOP hit) {
+    public boolean onActivated(PlayerEntity player, Hand hand, ItemStack heldItem, PartMOP hit) {
         World world = player.worldObj;
         BlockPos pos = hit.getBlockPos();
         if(!world.isRemote && WrenchHelpers.isWrench(player, heldItem, world, pos, hit.sideHit)) {
@@ -204,7 +204,7 @@ public class PartPartType extends MultipartBase {
         return false;
     }
 
-    public EnumFacing getFacing() {
+    public Direction getFacing() {
         return this.facing;
     }
 

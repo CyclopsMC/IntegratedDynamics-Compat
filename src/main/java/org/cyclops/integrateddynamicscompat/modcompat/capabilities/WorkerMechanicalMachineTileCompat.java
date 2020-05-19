@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
  * Compatibility for a mechanical machine worker capability.
  * @author rubensworks
  */
-public class WorkerMechanicalMachineTileCompat<T extends TileMechanicalMachine<?, ?, ?, ?, ?>> extends SimpleCapabilityConstructor<IWorker, T> {
+public class WorkerMechanicalMachineTileCompat<T extends TileMechanicalMachine<?, ?>> extends SimpleCapabilityConstructor<IWorker, T> {
 
     @Override
     public Capability<IWorker> getCapability() {
@@ -27,7 +27,7 @@ public class WorkerMechanicalMachineTileCompat<T extends TileMechanicalMachine<?
         return new DefaultCapabilityProvider<>(Capabilities.WORKER, new Worker<>(host));
     }
 
-    public static class Worker<T extends TileMechanicalMachine<?, ?, ?, ?, ?>> implements IWorker {
+    public static class Worker<T extends TileMechanicalMachine<?, ?>> implements IWorker {
 
         private final T provider;
 

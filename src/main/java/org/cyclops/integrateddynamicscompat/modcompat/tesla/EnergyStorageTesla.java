@@ -4,7 +4,7 @@ import net.darkhax.tesla.api.ITeslaConsumer;
 import net.darkhax.tesla.api.ITeslaHolder;
 import net.darkhax.tesla.api.ITeslaProducer;
 import net.darkhax.tesla.capability.TeslaCapabilities;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -18,13 +18,13 @@ public class EnergyStorageTesla implements IEnergyStorage {
 
     private final IBlockAccess world;
     private final BlockPos pos;
-    private final EnumFacing facing;
+    private final Direction facing;
 
     private ITeslaHolder energyStorage = null;
     private ITeslaConsumer energyReceiver = null;
     private ITeslaProducer energyProvider = null;
 
-    public EnergyStorageTesla(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+    public EnergyStorageTesla(IBlockAccess world, BlockPos pos, Direction facing) {
         this.world = world;
         this.pos = pos;
         this.facing = facing;

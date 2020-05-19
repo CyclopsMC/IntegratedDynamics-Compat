@@ -3,11 +3,11 @@ package org.cyclops.integrateddynamicscompat.modcompat.mcmultipart;
 import mcmultipart.client.multipart.MultipartRegistryClient;
 import mcmultipart.client.multipart.MultipartSpecialRenderer;
 import mcmultipart.multipart.*;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -49,7 +49,7 @@ public class McMultiPartHelpers {
                 @Override
                 public IMultipart createPart(ResourceLocation s, boolean b) {
                     PartPartType partPart = new PartPartType();
-                    partPart.init(EnumFacing.NORTH, partType);
+                    partPart.init(Direction.NORTH, partType);
                     return partPart;
                 }
             }, PartPartType.getType(partType).toString());
@@ -92,7 +92,7 @@ public class McMultiPartHelpers {
         });
         ItemPart.addUseAction(new ItemPart.IUseAction() {
             @Override
-            public boolean attempItemUseTarget(ItemPart itemPart, ItemStack itemStack, World world, BlockPos pos, EnumFacing sideHit) {
+            public boolean attempItemUseTarget(ItemPart itemPart, ItemStack itemStack, World world, BlockPos pos, Direction sideHit) {
                 PartPartType partPart = new PartPartType(sideHit.getOpposite(), itemPart.getPart());
                 pos = pos.offset(sideHit);
                 if(MultipartHelper.getPartContainer(world, pos) != null && MultipartHelper.canAddPart(world, pos, partPart)) {
@@ -120,7 +120,7 @@ public class McMultiPartHelpers {
         MinecraftForge.EVENT_BUS.register(new McMultiPartEventListener());
         final ModelResourceLocation blockLocation = new ModelResourceLocation(getModelPathCable(), "multipart");
         ModelLoader.setCustomStateMapper(BlockCable.getInstance(), new StateMapperBase() {
-            protected ModelResourceLocation getModelResourceLocation(IBlockState blockState) {
+            protected ModelResourceLocation getModelResourceLocation(BlockState blockState) {
                 return blockLocation;
             }
         });

@@ -6,8 +6,8 @@ import com.google.common.collect.Lists;
 import com.raoulvdberge.refinedstorage.api.network.node.INetworkNode;
 import com.raoulvdberge.refinedstorage.api.storage.IStorage;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.TileHelpers;
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
@@ -31,7 +31,7 @@ public class ValueTypeListProxyPositionedNetworkMasterItemInventory extends Valu
     }
 
     public ValueTypeListProxyPositionedNetworkMasterItemInventory(DimPos pos) {
-        super(RefinedStorageModCompat.POSITIONED_MASTERITEMINVENTORY.getName(), ValueTypes.OBJECT_ITEMSTACK, pos, EnumFacing.NORTH);
+        super(RefinedStorageModCompat.POSITIONED_MASTERITEMINVENTORY.getName(), ValueTypes.OBJECT_ITEMSTACK, pos, Direction.NORTH);
     }
 
     protected Optional<INetworkNode> getNetworkMaster() {
@@ -70,12 +70,12 @@ public class ValueTypeListProxyPositionedNetworkMasterItemInventory extends Valu
     }
 
     @Override
-    public void writeGeneratedFieldsToNBT(NBTTagCompound tag) {
+    public void writeGeneratedFieldsToNBT(CompoundNBT tag) {
 
     }
 
     @Override
-    public void readGeneratedFieldsFromNBT(NBTTagCompound tag) {
+    public void readGeneratedFieldsFromNBT(CompoundNBT tag) {
 
     }
 }

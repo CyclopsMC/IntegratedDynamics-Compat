@@ -1,0 +1,37 @@
+modLoader="javafml"
+loaderVersion="[31.1,)"
+issueTrackerURL="https://github.com/CyclopsMC/IntegratedDynamics-Compat/issues"
+[[mods]]
+modId="integrateddynamicscompat"
+version="${file.jarVersion}"
+displayName="IntegratedDynamics-Compat"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/integrateddynamicscompat"
+logoFile="logo.png"
+authors="rubensworks (aka kroeser)"
+description='''
+Integrated Dynamics compatibility with other mods.
+'''
+[[dependencies.integrateddynamicscompat]]
+    modId="cyclopscore"
+    mandatory=true
+    versionRange="[1.6.1,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.integrateddynamicscompat]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31.1,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.integrateddynamicscompat]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.integrateddynamicscompat]]
+    modId="integrateddynamics"
+    mandatory=true
+    versionRange="[1.1.6]"
+    ordering="NONE"
+    side="BOTH"

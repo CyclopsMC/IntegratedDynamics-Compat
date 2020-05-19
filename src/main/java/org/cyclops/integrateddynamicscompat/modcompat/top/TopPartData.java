@@ -5,9 +5,9 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.cyclops.integrateddynamics.Reference;
@@ -30,12 +30,12 @@ public class TopPartData implements IProbeInfoProvider {
     }
 
     @Override
-    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
             BlockPos pos = data.getPos();
             IPartContainer partContainer = PartHelpers.getPartContainer(world, pos, null);
             if (partContainer != null) {
-                EnumFacing side = partContainer.getWatchingSide(world, pos, player);
+                Direction side = partContainer.getWatchingSide(world, pos, player);
                 if (side != null && partContainer.hasPart(side)) {
                     IPartType partType = partContainer.getPart(side);
                     IPartState partState = partContainer.getPartState(side);

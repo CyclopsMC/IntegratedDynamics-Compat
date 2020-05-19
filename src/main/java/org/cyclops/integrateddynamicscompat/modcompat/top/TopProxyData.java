@@ -4,8 +4,8 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.cyclopscore.helper.TileHelpers;
@@ -24,7 +24,7 @@ public class TopProxyData implements IProbeInfoProvider {
     }
 
     @Override
-    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
             TileProxy tile = TileHelpers.getSafeTile(world, data.getPos(), TileProxy.class);
             if (tile != null) {
