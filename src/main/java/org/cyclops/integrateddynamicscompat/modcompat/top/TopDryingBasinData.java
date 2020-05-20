@@ -18,23 +18,23 @@ import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
 public class TopDryingBasinData implements IProbeInfoProvider {
     @Override
     public String getID() {
-        return Reference.MOD_ID + ":dryingBasinData";
+        return Reference.MOD_ID + ":drying_basin_data";
     }
 
     @Override
     public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
-            TileDryingBasin tile = TileHelpers.getSafeTile(world, data.getPos(), TileDryingBasin.class);
-            if (tile != null) {
-                if(tile.getStackInSlot(0) != null) {
-                    probeInfo.item(tile.getStackInSlot(0));
-                }
-                if(!tile.getTank().isEmpty()) {
-                    probeInfo.horizontal()
-                        .text(tile.getTank().getFluid().getLocalizedName())
-                        .progress(tile.getTank().getFluidAmount(), tile.getTank().getCapacity());
-                }
-            }
+            TileHelpers.getSafeTile(world, data.getPos(), TileDryingBasin.class)
+                    .ifPresent(tile -> {
+                        if (!tile.getInventory().getStackInSlot(0).isEmpty()) {
+                            probeInfo.item(tile.getInventory().getStackInSlot(0));
+                        }
+                        if (!tile.getTank().isEmpty()) {
+                            probeInfo.horizontal()
+                                    .text(tile.getTank().getFluid().getDisplayName().getFormattedText())
+                                    .progress(tile.getTank().getFluidAmount(), tile.getTank().getCapacity());
+                        }
+                    });
         }
     }
 }

@@ -18,23 +18,23 @@ import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
 public class TopSqueezerData implements IProbeInfoProvider {
     @Override
     public String getID() {
-        return Reference.MOD_ID + ":squeezerData";
+        return Reference.MOD_ID + ":squeezer_data";
     }
 
     @Override
     public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
-            TileSqueezer tile = TileHelpers.getSafeTile(world, data.getPos(), TileSqueezer.class);
-            if (tile != null) {
-                if(tile.getStackInSlot(0) != null) {
-                    probeInfo.item(tile.getStackInSlot(0));
-                }
-                if(!tile.getTank().isEmpty()) {
-                    probeInfo.horizontal()
-                            .text(tile.getTank().getFluid().getLocalizedName())
-                            .progress(tile.getTank().getFluidAmount(), tile.getTank().getCapacity());
-                }
-            }
+            TileHelpers.getSafeTile(world, data.getPos(), TileSqueezer.class)
+                    .ifPresent(tile -> {
+                        if (!tile.getInventory().getStackInSlot(0).isEmpty()) {
+                            probeInfo.item(tile.getInventory().getStackInSlot(0));
+                        }
+                        if (!tile.getTank().isEmpty()) {
+                            probeInfo.horizontal()
+                                    .text(tile.getTank().getFluid().getDisplayName().getFormattedText())
+                                    .progress(tile.getTank().getFluidAmount(), tile.getTank().getCapacity());
+                        }
+                    });
         }
     }
 }
