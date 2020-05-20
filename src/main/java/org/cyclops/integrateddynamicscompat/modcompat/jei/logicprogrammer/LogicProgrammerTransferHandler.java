@@ -2,17 +2,17 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import mezz.jei.api.gui.IGuiIngredient;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.ingredient.IGuiIngredient;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.gui.TooltipRenderer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
@@ -95,10 +95,10 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 }
 
                 @Override
-                public void showError(Minecraft minecraft, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
-                    TooltipRenderer.drawHoveringText(minecraft,
+                public void showError(int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
+                    TooltipRenderer.drawHoveringText(
                             Collections.singletonList(L10NHelpers.localize("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc")),
-                            mouseX, mouseY, minecraft.fontRenderer);
+                            mouseX, mouseY);
                 }
             };
         }
@@ -120,8 +120,10 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
             itemStack = (ItemStack) focusElement;
         } else if (focusElement instanceof FluidStack) {
             itemStack = new ItemStack(Items.BUCKET);
-            IFluidHandlerItem fluidHandler = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-            fluidHandler.fill((FluidStack) focusElement, true);
+            IFluidHandlerItem fluidHandler = itemStack
+                    .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+                    .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
+            fluidHandler.fill((FluidStack) focusElement, IFluidHandler.FluidAction.EXECUTE);
             itemStack = fluidHandler.getContainer();
         }
         if (itemStack != null) {
@@ -137,7 +139,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                     }
 
                     @Override
-                    public void showError(Minecraft minecraft, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
+                    public void showError(int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
 
                     }
                 };

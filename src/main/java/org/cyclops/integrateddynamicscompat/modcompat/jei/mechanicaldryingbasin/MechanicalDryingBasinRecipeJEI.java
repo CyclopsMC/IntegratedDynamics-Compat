@@ -1,65 +1,72 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin;
 
-import lombok.Data;
-import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
-import org.cyclops.cyclopscore.recipe.custom.api.IRecipe;
-import org.cyclops.cyclopscore.recipe.custom.api.IRecipeRegistry;
-import org.cyclops.cyclopscore.recipe.custom.component.DurationRecipeProperties;
-import org.cyclops.cyclopscore.recipe.custom.component.IngredientAndFluidStackRecipeComponent;
-import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasin;
+import org.cyclops.cyclopscore.recipe.type.IInventoryFluid;
+import org.cyclops.integrateddynamics.RegistryEntries;
+import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalDryingBasin;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Recipe wrapper for Mechanical Drying Basin recipes
  * @author rubensworks
  */
-@Data
-public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<BlockMechanicalDryingBasin, IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties, MechanicalDryingBasinRecipeJEI> {
+public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInventoryFluid, RecipeMechanicalDryingBasin, MechanicalDryingBasinRecipeJEI> {
 
     private final List<ItemStack> inputItem;
     private final FluidStack inputFluid;
-    private final List<ItemStack> outputItem;
+    private final ItemStack outputItem;
     private final FluidStack outputFluid;
 
-    public MechanicalDryingBasinRecipeJEI(IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> recipe) {
-        super(recipe);
-        this.inputItem = recipe.getInput().getItemStacks();
-        this.inputFluid = recipe.getInput().getFluidStack();
-        this.outputItem = recipe.getOutput().getItemStacks();
-        this.outputFluid = recipe.getOutput().getFluidStack();
+    public MechanicalDryingBasinRecipeJEI(RecipeMechanicalDryingBasin recipe) {
+        super(RegistryEntries.RECIPETYPE_MECHANICAL_DRYING_BASIN, recipe);
+        this.inputItem = Arrays.stream(recipe.getInputIngredient().getMatchingStacks()).collect(Collectors.toList());
+        this.inputFluid = recipe.getInputFluid();
+        this.outputItem = recipe.getOutputItem();
+        this.outputFluid = recipe.getOutputFluid();
     }
 
     protected MechanicalDryingBasinRecipeJEI() {
-        super(null);
+        super(RegistryEntries.RECIPETYPE_MECHANICAL_DRYING_BASIN, null);
         this.inputItem = null;
         this.inputFluid = null;
         this.outputItem = null;
         this.outputFluid = null;
     }
 
-    @Override
-    protected IRecipeRegistry<BlockMechanicalDryingBasin, IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> getRecipeRegistry() {
-        return BlockMechanicalDryingBasin.getInstance().getRecipeRegistry();
+    public List<ItemStack> getInputItem() {
+        return inputItem;
+    }
+
+    public FluidStack getInputFluid() {
+        return inputFluid;
+    }
+
+    public ItemStack getOutputItem() {
+        return outputItem;
+    }
+
+    public FluidStack getOutputFluid() {
+        return outputFluid;
     }
 
     @Override
-    protected MechanicalDryingBasinRecipeJEI newInstance(IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> input) {
-        return new MechanicalDryingBasinRecipeJEI(input);
+    protected IRecipeType<RecipeMechanicalDryingBasin> getRecipeType() {
+        return RegistryEntries.RECIPETYPE_MECHANICAL_DRYING_BASIN;
     }
 
     @Override
-    public void getIngredients(IIngredients ingredients) {
-        ingredients.setInputs(ItemStack.class, getInputItem());
-        ingredients.setOutputs(ItemStack.class, getOutputItem());
-        ingredients.setInput(FluidStack.class, getInputFluid());
-        ingredients.setOutput(FluidStack.class, getOutputFluid());
+    protected MechanicalDryingBasinRecipeJEI newInstance(RecipeMechanicalDryingBasin recipe) {
+        return new MechanicalDryingBasinRecipeJEI(recipe);
     }
 
-    public static List<MechanicalDryingBasinRecipeJEI> getAllRecipes() {
+    public static Collection<MechanicalDryingBasinRecipeJEI> getAllRecipes() {
         return new MechanicalDryingBasinRecipeJEI().createAllRecipes();
     }
 }

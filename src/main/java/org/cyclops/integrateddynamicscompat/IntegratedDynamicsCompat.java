@@ -44,7 +44,6 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
 //        modCompatLoader.addModCompat(new McMultiPartModCompat());
 //        modCompatLoader.addModCompat(new WailaModCompat());
 //        modCompatLoader.addModCompat(new ThaumcraftModCompat());
-//        modCompatLoader.addModCompat(new JEIModCompat());
 //        modCompatLoader.addModCompat(new TConstructModCompat());
 //        modCompatLoader.addModCompat(new ForestryModCompat());
 //        modCompatLoader.addModCompat(new Ic2ModCompat());

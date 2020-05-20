@@ -1,65 +1,73 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
-import lombok.Data;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
-import org.cyclops.cyclopscore.recipe.custom.api.IRecipe;
-import org.cyclops.cyclopscore.recipe.custom.api.IRecipeRegistry;
-import org.cyclops.cyclopscore.recipe.custom.component.DurationRecipeProperties;
-import org.cyclops.cyclopscore.recipe.custom.component.IngredientAndFluidStackRecipeComponent;
-import org.cyclops.integrateddynamics.block.BlockDryingBasin;
+import org.cyclops.cyclopscore.recipe.type.IInventoryFluid;
+import org.cyclops.integrateddynamics.RegistryEntries;
+import org.cyclops.integrateddynamics.core.recipe.type.RecipeDryingBasin;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Recipe wrapper for Drying Basin recipes
  * @author rubensworks
  */
-@Data
-public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<BlockDryingBasin, IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties, DryingBasinRecipeJEI> {
+public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInventoryFluid, RecipeDryingBasin, DryingBasinRecipeJEI> {
 
     private final List<ItemStack> inputItem;
     private final FluidStack inputFluid;
-    private final List<ItemStack> outputItem;
+    private final ItemStack outputItem;
     private final FluidStack outputFluid;
 
-    public DryingBasinRecipeJEI(IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> recipe) {
-        super(recipe);
-        this.inputItem = recipe.getInput().getItemStacks();
-        this.inputFluid = recipe.getInput().getFluidStack();
-        this.outputItem = recipe.getOutput().getItemStacks();
-        this.outputFluid = recipe.getOutput().getFluidStack();
+    public DryingBasinRecipeJEI(RecipeDryingBasin recipe) {
+        super(RegistryEntries.RECIPETYPE_DRYING_BASIN, recipe);
+        this.inputItem = Arrays.stream(recipe.getInputIngredient().getMatchingStacks()).collect(Collectors.toList());
+        this.inputFluid = recipe.getInputFluid();
+        this.outputItem = recipe.getOutputItem();
+        this.outputFluid = recipe.getOutputFluid();
     }
 
     protected DryingBasinRecipeJEI() {
-        super(null);
+        super(RegistryEntries.RECIPETYPE_DRYING_BASIN, null);
         this.inputItem = null;
         this.inputFluid = null;
         this.outputItem = null;
         this.outputFluid = null;
     }
 
-    @Override
-    protected IRecipeRegistry<BlockDryingBasin, IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> getRecipeRegistry() {
-        return BlockDryingBasin.getInstance().getRecipeRegistry();
+    public List<ItemStack> getInputItem() {
+        return inputItem;
+    }
+
+    public FluidStack getInputFluid() {
+        return inputFluid;
+    }
+
+    public ItemStack getOutputItem() {
+        return outputItem;
+    }
+
+    public FluidStack getOutputFluid() {
+        return outputFluid;
     }
 
     @Override
-    protected DryingBasinRecipeJEI newInstance(IRecipe<IngredientAndFluidStackRecipeComponent, IngredientAndFluidStackRecipeComponent, DurationRecipeProperties> input) {
-        return new DryingBasinRecipeJEI(input);
+    protected IRecipeType<RecipeDryingBasin> getRecipeType() {
+        return RegistryEntries.RECIPETYPE_DRYING_BASIN;
     }
 
     @Override
-    public void getIngredients(IIngredients ingredients) {
-        ingredients.setInputs(ItemStack.class, getInputItem());
-        ingredients.setOutputs(ItemStack.class, getOutputItem());
-        ingredients.setInput(FluidStack.class, getInputFluid());
-        ingredients.setOutput(FluidStack.class, getOutputFluid());
+    protected DryingBasinRecipeJEI newInstance(RecipeDryingBasin recipe) {
+        return new DryingBasinRecipeJEI(recipe);
     }
 
-    public static List<DryingBasinRecipeJEI> getAllRecipes() {
+    public static Collection<DryingBasinRecipeJEI> getAllRecipes() {
         return new DryingBasinRecipeJEI().createAllRecipes();
     }
 }

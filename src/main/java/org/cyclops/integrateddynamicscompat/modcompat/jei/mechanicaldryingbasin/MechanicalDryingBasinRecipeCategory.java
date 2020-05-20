@@ -1,24 +1,20 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
+import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.cyclopscore.init.ModBase;
-import org.cyclops.integrateddynamics.block.BlockDryingBasinConfig;
-import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasin;
-import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import net.minecraft.util.text.TranslationTextComponent;
+import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamicscompat.Reference;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Category for the Drying Basin recipes.
@@ -26,7 +22,7 @@ import javax.annotation.Nullable;
  */
 public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<MechanicalDryingBasinRecipeJEI> {
 
-    public static final String NAME = Reference.MOD_ID + ":mechanicalDryingBasin";
+    public static final ResourceLocation NAME = new ResourceLocation(Reference.MOD_ID, "mechanical_drying_basin");
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
@@ -34,32 +30,32 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     private static final int FLUIDOUTPUT_SLOT = 3;
 
     private final IDrawable background;
+    private final IDrawable icon;
     private final IDrawableAnimated arrow;
 
     public MechanicalDryingBasinRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID + ":"
-                + IntegratedDynamicsCompat._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
-                + BlockDryingBasinConfig._instance.getNamedId() + "_gui_jei.png");
+        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/drying_basin_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 93, 53);
+        this.icon = guiHelper.createDrawableIngredient(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN));
         IDrawableStatic arrowDrawable = guiHelper.createDrawable(resourceLocation, 94, 0, 11, 28);
         this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
     }
 
     @Nonnull
     @Override
-    public String getUid() {
+    public ResourceLocation getUid() {
         return NAME;
+    }
+
+    @Override
+    public Class<? extends MechanicalDryingBasinRecipeJEI> getRecipeClass() {
+        return MechanicalDryingBasinRecipeJEI.class;
     }
 
     @Nonnull
     @Override
     public String getTitle() {
-        return L10NHelpers.localize(BlockMechanicalDryingBasin.getInstance().getTranslationKey() + ".name");
-    }
-
-    @Override
-    public String getModName() {
-        return org.cyclops.integrateddynamics.Reference.MOD_NAME;
+        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.getTranslationKey()).getString();
     }
 
     @Nonnull
@@ -68,15 +64,17 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
         return background;
     }
 
-    @Nullable
     @Override
     public IDrawable getIcon() {
-        return null;
+        return icon;
     }
 
     @Override
-    public void drawExtras(Minecraft minecraft) {
-        arrow.draw(minecraft, 43, 11);
+    public void setIngredients(MechanicalDryingBasinRecipeJEI recipe, IIngredients ingredients) {
+        ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItem());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutputItem());
+        ingredients.setInput(VanillaTypes.FLUID, recipe.getInputFluid());
+        ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutputFluid());
     }
 
     @Override
@@ -101,5 +99,10 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
         if(recipe.getOutputFluid() != null) {
             recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
         }
+    }
+
+    @Override
+    public void draw(MechanicalDryingBasinRecipeJEI recipe, double mouseX, double mouseY) {
+        arrow.draw(43, 11);
     }
 }

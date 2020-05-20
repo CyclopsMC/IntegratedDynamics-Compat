@@ -1,27 +1,22 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
+import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.cyclopscore.init.ModBase;
-import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezer;
-import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezerConfig;
-import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import net.minecraft.util.text.TranslationTextComponent;
+import org.cyclops.integrateddynamics.RegistryEntries;
+import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Category for the MechanicalSqueezer recipes.
@@ -29,38 +24,38 @@ import java.util.List;
  */
 public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<MechanicalSqueezerRecipeJEI> {
 
-    public static final String NAME = Reference.MOD_ID + ":mechanicalSqueezer";
+    public static final ResourceLocation NAME = new ResourceLocation(Reference.MOD_ID, "mechanical_squeezer");
 
     private static final int INPUT_SLOT = 0;
     private static final int FLUIDOUTPUT_SLOT = 1;
     private static final int OUTPUT_SLOT = 2;
 
     private final IDrawable background;
+    private final IDrawable icon;
     private final IDrawableAnimated arrowDrawable;
 
     public MechanicalSqueezerRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID + ":"
-                + IntegratedDynamicsCompat._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
-                + BlockMechanicalSqueezerConfig._instance.getNamedId() + "_gui_jei.png");
+        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/mechanical_squeezer_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
+        this.icon = guiHelper.createDrawableIngredient(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER));
         this.arrowDrawable = guiHelper.createAnimatedDrawable(guiHelper.createDrawable(resourceLocation, 116, 0, 4, 11), 20, IDrawableAnimated.StartDirection.TOP, false);
     }
 
     @Nonnull
     @Override
-    public String getUid() {
+    public ResourceLocation getUid() {
         return NAME;
+    }
+
+    @Override
+    public Class<? extends MechanicalSqueezerRecipeJEI> getRecipeClass() {
+        return MechanicalSqueezerRecipeJEI.class;
     }
 
     @Nonnull
     @Override
     public String getTitle() {
-        return L10NHelpers.localize(BlockMechanicalSqueezer.getInstance().getTranslationKey() + ".name");
-    }
-
-    @Override
-    public String getModName() {
-        return org.cyclops.integrateddynamics.Reference.MOD_NAME;
+        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.getTranslationKey()).getString();
     }
 
     @Nonnull
@@ -69,15 +64,16 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         return background;
     }
 
-    @Nullable
     @Override
     public IDrawable getIcon() {
-        return null;
+        return icon;
     }
 
     @Override
-    public void drawExtras(Minecraft minecraft) {
-        arrowDrawable.draw(minecraft, 45, 21);
+    public void setIngredients(MechanicalSqueezerRecipeJEI recipe, IIngredients ingredients) {
+        ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItem());
+        ingredients.setOutputs(VanillaTypes.ITEM, recipe.getOutputItems().stream().map(RecipeSqueezer.ItemStackChance::getItemStack).collect(Collectors.toList()));
+        ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutputFluid());
     }
 
     @Override
@@ -89,7 +85,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         }
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
-                float chance = recipe.getOutputChances().get(slotIndex - OUTPUT_SLOT);
+                float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
                 tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
             }
         });
@@ -98,13 +94,18 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
             recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
         }
         int i = 0;
-        for (List<ItemStack> outputItem : recipe.getOutputItems()) {
-            recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem);
+        for (RecipeSqueezer.ItemStackChance outputItem : recipe.getOutputItems()) {
+            recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem.getItemStack());
         }
 
         recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30, 16, 16, 1000, false, null);
         if(recipe.getOutputFluid() != null) {
             recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
         }
+    }
+
+    @Override
+    public void draw(MechanicalSqueezerRecipeJEI recipe, double mouseX, double mouseY) {
+        arrowDrawable.draw(45, 21);
     }
 }

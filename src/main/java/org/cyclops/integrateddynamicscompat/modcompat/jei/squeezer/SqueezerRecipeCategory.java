@@ -1,26 +1,25 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.util.Translator;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.cyclopscore.init.ModBase;
-import org.cyclops.integrateddynamics.block.BlockSqueezer;
-import org.cyclops.integrateddynamics.block.BlockSqueezerConfig;
-import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import net.minecraft.util.text.TranslationTextComponent;
+import org.cyclops.integrateddynamics.RegistryEntries;
+import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Category for the Squeezer recipes.
@@ -28,38 +27,38 @@ import java.util.List;
  */
 public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI> {
 
-    public static final String NAME = Reference.MOD_ID + ":squeezer";
+    public static final ResourceLocation NAME = new ResourceLocation(Reference.MOD_ID, "squeezer");
 
     private static final int INPUT_SLOT = 0;
     private static final int FLUIDOUTPUT_SLOT = 1;
     private static final int OUTPUT_SLOT = 2;
 
     private final IDrawable background;
+    private final IDrawable icon;
     private final IDrawableStatic arrowDrawable;
 
     public SqueezerRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID + ":"
-                + IntegratedDynamicsCompat._instance.getReferenceValue(ModBase.REFKEY_TEXTURE_PATH_GUI)
-                + BlockSqueezerConfig._instance.getNamedId() + "_gui_jei.png");
+        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/squeezer_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
+        this.icon = guiHelper.createDrawableIngredient(new ItemStack(RegistryEntries.BLOCK_SQUEEZER));
         this.arrowDrawable = guiHelper.createDrawable(resourceLocation, 41, 32, 12, 2);
     }
 
     @Nonnull
     @Override
-    public String getUid() {
+    public ResourceLocation getUid() {
         return NAME;
+    }
+
+    @Override
+    public Class<? extends SqueezerRecipeJEI> getRecipeClass() {
+        return SqueezerRecipeJEI.class;
     }
 
     @Nonnull
     @Override
     public String getTitle() {
-        return L10NHelpers.localize(BlockSqueezer.getInstance().getTranslationKey() + ".name");
-    }
-
-    @Override
-    public String getModName() {
-        return org.cyclops.integrateddynamics.Reference.MOD_NAME;
+        return new TranslationTextComponent(RegistryEntries.BLOCK_SQUEEZER.getTranslationKey()).getString();
     }
 
     @Nonnull
@@ -68,16 +67,16 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
         return background;
     }
 
-    @Nullable
     @Override
     public IDrawable getIcon() {
-        return null;
+        return icon;
     }
 
     @Override
-    public void drawExtras(Minecraft minecraft) {
-        int height = (int) ((minecraft.world.getTotalWorldTime() / 4) % 7);
-        arrowDrawable.draw(minecraft, 41, 18 + height * 2);
+    public void setIngredients(SqueezerRecipeJEI recipe, IIngredients ingredients) {
+        ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItem());
+        ingredients.setOutputs(VanillaTypes.ITEM, recipe.getOutputItems().stream().map(RecipeSqueezer.ItemStackChance::getItemStack).collect(Collectors.toList()));
+        ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutputFluid());
     }
 
     @Override
@@ -89,7 +88,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
         }
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
-                float chance = recipe.getOutputChances().get(slotIndex - OUTPUT_SLOT);
+                float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
                 tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
             }
         });
@@ -98,13 +97,19 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
             recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
         }
         int i = 0;
-        for (List<ItemStack> outputItem : recipe.getOutputItems()) {
-            recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem);
+        for (RecipeSqueezer.ItemStackChance outputItem : recipe.getOutputItems()) {
+            recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem.getItemStack());
         }
 
         recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30, 16, 16, 1000, false, null);
         if(recipe.getOutputFluid() != null) {
             recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
         }
+    }
+
+    @Override
+    public void draw(SqueezerRecipeJEI recipe, double mouseX, double mouseY) {
+        int height = (int) ((Minecraft.getInstance().world.getGameTime() / 4) % 7);
+        arrowDrawable.draw(41, 18 + height * 2);
     }
 }

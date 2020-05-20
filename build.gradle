@@ -63,6 +63,10 @@ repositories {
         name "Cyclops Repo"
         url "https://oss.jfrog.org/artifactory/simple/libs-release/"
     }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'https://dvs1.progwml6.com/files/maven/'
+    }
 }
 
 dependencies {
@@ -89,6 +93,8 @@ dependencies {
     compile("org.cyclops.commoncapabilities:CommonCapabilities:${config.commoncapabilities_version}:deobf") { // https://dl.bintray.com/cyclopsmc/dev/org/cyclops/commoncapabilities/CommonCapabilities/
         exclude group: 'org.cyclops.cyclopscore', module: 'CyclopsCore'
     }
+
+    compile fg.deobf("mezz.jei:jei-${config.jei_version}") // https://dvs1.progwml6.com/jenkins/
 }
 
 minecraft {
@@ -274,7 +280,6 @@ sourceSets {
             exclude '**/modcompat/forestry/**'
             exclude '**/modcompat/ic2/**'
             exclude '**/modcompat/immersiveengineering/**'
-            exclude '**/modcompat/jei/**'
             exclude '**/modcompat/mcmultipart/**'
             exclude '**/modcompat/minetweaker/**'
             exclude '**/modcompat/refinedstorage/**'
