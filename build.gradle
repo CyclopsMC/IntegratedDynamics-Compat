@@ -72,6 +72,10 @@ repositories {
         url 'https://maven.tterrag.com/'
     }
     maven {
+        name 'Tehnut'
+        url 'https://tehnut.info/maven/'
+    }
+    maven {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
@@ -104,6 +108,7 @@ dependencies {
 
     compile fg.deobf("mezz.jei:jei-${config.jei_version}") // https://dvs1.progwml6.com/jenkins/
     compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${config.theoneprobe_version}") // https://maven.tterrag.com/mcjty/theoneprobe/
+    compile fg.deobf("mcp.mobius.waila:Hwyla:${config.waila_version}") // https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
 }
 
 minecraft {
@@ -296,7 +301,6 @@ sourceSets {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/waila/**'
         }
     }
 }

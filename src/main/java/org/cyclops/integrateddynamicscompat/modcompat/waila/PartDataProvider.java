@@ -1,19 +1,23 @@
 package org.cyclops.integrateddynamicscompat.modcompat.waila;
 
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
-import mcp.mobius.waila.api.IWailaDataProvider;
+import com.google.common.collect.Lists;
+import mcp.mobius.waila.api.IComponentProvider;
+import mcp.mobius.waila.api.IDataAccessor;
+import mcp.mobius.waila.api.IPluginConfig;
+import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import org.cyclops.integrateddynamics.api.part.IPartContainer;
+import org.cyclops.cyclopscore.persist.nbt.NBTClassType;
 import org.cyclops.integrateddynamics.api.part.IPartState;
 import org.cyclops.integrateddynamics.api.part.IPartType;
 import org.cyclops.integrateddynamics.core.helper.PartHelpers;
+import org.cyclops.integrateddynamics.core.tileentity.TileMultipartTicking;
+import org.cyclops.integrateddynamicscompat.Reference;
 
 import java.util.List;
 
@@ -22,42 +26,29 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class PartDataProvider implements IWailaDataProvider {
+public class PartDataProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
+
+    public static final ResourceLocation ID = new ResourceLocation(Reference.MOD_ID, "part");
 
     @Override
-    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return null;
-    }
-
-    @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return currenttip;
-    }
-
-    @Override
-    public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return currenttip;
-    }
-
-    @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if(config.getConfig(org.cyclops.integrateddynamicscompat.modcompat.waila.Waila.getPartConfigId())) {
-            IPartContainer partContainer = PartHelpers.getPartContainer(accessor.getWorld(), accessor.getPosition(), null);
-            if (partContainer != null) {
-                Direction side = partContainer.getWatchingSide(accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
-                if (side != null && partContainer.hasPart(side)) {
-                    IPartType partType = partContainer.getPart(side);
-                    IPartState partState = partContainer.getPartState(side);
-                    partType.loadTooltip(partState, currenttip);
-                }
-            }
+    public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
+        if(config.get(PartDataProvider.ID)) {
+            tooltip.addAll(NBTClassType.getClassType(List.class).readPersistedField("tooltip", accessor.getServerData()));
         }
-        return currenttip;
     }
 
     @Override
-    public CompoundNBT getNBTData(ServerPlayerEntity player, TileEntity te, CompoundNBT tag, World world, BlockPos pos) {
-        return tag;
+    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity tile) {
+        PartHelpers.getPartContainer(world, tile.getPos(), null)
+                .ifPresent(partContainer -> {
+                    Direction side = partContainer.getWatchingSide(world, tile.getPos(), player);
+                    if (side != null && partContainer.hasPart(side)) {
+                        IPartType partType = partContainer.getPart(side);
+                        IPartState partState = partContainer.getPartState(side);
+                        List<ITextComponent> tooltip = Lists.newArrayList();
+                        partType.loadTooltip(partState, tooltip);
+                        NBTClassType.getClassType(List.class).writePersistedField("tooltip", tooltip, tag);
+                    }
+                });
     }
-
 }

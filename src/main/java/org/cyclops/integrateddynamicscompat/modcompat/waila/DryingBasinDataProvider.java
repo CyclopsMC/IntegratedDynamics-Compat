@@ -1,16 +1,18 @@
 package org.cyclops.integrateddynamicscompat.modcompat.waila;
 
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
-import mcp.mobius.waila.api.IWailaDataProvider;
+import com.google.common.collect.Lists;
+import mcp.mobius.waila.api.IComponentProvider;
+import mcp.mobius.waila.api.IDataAccessor;
+import mcp.mobius.waila.api.IPluginConfig;
+import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.persist.nbt.NBTClassType;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
 
@@ -21,44 +23,30 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class DryingBasinDataProvider implements IWailaDataProvider {
+public class DryingBasinDataProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
+
+    public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "drying_basin");
 
     @Override
-    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return null;
-    }
-
-    @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return currenttip;
-    }
-
-    @Override
-    public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return currenttip;
-    }
-
-    @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if(config.getConfig(org.cyclops.integrateddynamicscompat.modcompat.waila.Waila.getProxyConfigId())) {
-            TileDryingBasin tile = TileHelpers.getSafeTile(accessor.getWorld(), accessor.getPosition(), TileDryingBasin.class);
-            if (tile != null) {
-                if(tile.getStackInSlot(0) != null) {
-                    currenttip.add(L10NHelpers.localize("gui." + Reference.MOD_ID + ".waila.item",
-                            tile.getStackInSlot(0).getDisplayName()));
-                }
-                if(!tile.getTank().isEmpty()) {
-                    currenttip.add(L10NHelpers.localize("gui." + Reference.MOD_ID + ".waila.fluid",
-                            tile.getTank().getFluid().getLocalizedName(), tile.getTank().getFluidAmount()));
-                }
-            }
+    public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
+        if(config.get(DryingBasinDataProvider.ID)) {
+            tooltip.addAll(NBTClassType.getClassType(List.class).readPersistedField("tooltip", accessor.getServerData()));
         }
-        return currenttip;
     }
 
     @Override
-    public CompoundNBT getNBTData(ServerPlayerEntity player, TileEntity te, CompoundNBT tag, World world, BlockPos pos) {
-        return tag;
+    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity tileEntity) {
+        TileDryingBasin tile = (TileDryingBasin) tileEntity;
+        List<ITextComponent> tooltip = Lists.newArrayList();
+        if (!tile.getInventory().getStackInSlot(0).isEmpty()) {
+            tooltip.add(new TranslationTextComponent("gui." + Reference.MOD_ID + ".waila.item",
+                    tile.getInventory().getStackInSlot(0).getDisplayName()));
+        }
+        if (!tile.getTank().isEmpty()) {
+            tooltip.add(new TranslationTextComponent("gui." + Reference.MOD_ID + ".waila.fluid",
+                    tile.getTank().getFluid().getDisplayName(), tile.getTank().getFluidAmount()));
+        }
+        NBTClassType.getClassType(List.class).writePersistedField("tooltip", tooltip, tag);
     }
 
 }

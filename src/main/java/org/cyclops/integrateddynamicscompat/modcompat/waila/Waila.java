@@ -1,14 +1,13 @@
 package org.cyclops.integrateddynamicscompat.modcompat.waila;
 
-import mcp.mobius.waila.api.IWailaRegistrar;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.integrateddynamics.Reference;
+import mcp.mobius.waila.api.IRegistrar;
+import mcp.mobius.waila.api.IWailaPlugin;
+import mcp.mobius.waila.api.TooltipPosition;
+import mcp.mobius.waila.api.WailaPlugin;
 import org.cyclops.integrateddynamics.core.tileentity.TileMultipartTicking;
-import org.cyclops.integrateddynamicscompat.modcompat.waila.DryingBasinDataProvider;
-import org.cyclops.integrateddynamicscompat.modcompat.waila.PartDataProvider;
-import org.cyclops.integrateddynamicscompat.modcompat.waila.ProxyDataProvider;
-import org.cyclops.integrateddynamicscompat.modcompat.waila.SqueezerDataProvider;
 import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
+import org.cyclops.integrateddynamics.tileentity.TileMechanicalDryingBasin;
+import org.cyclops.integrateddynamics.tileentity.TileMechanicalSqueezer;
 import org.cyclops.integrateddynamics.tileentity.TileProxy;
 import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
 
@@ -17,45 +16,41 @@ import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
  * @author rubensworks
  *
  */
-public class Waila {
-    
-    /**
-     * Waila callback.
-     * @param registrar The Waila registrar.
-     */
-    public static void callbackRegister(IWailaRegistrar registrar){
-        registrar.addConfig(Reference.MOD_NAME, getPartConfigId(), L10NHelpers.localize("gui." + Reference.MOD_ID + ".waila.partConfig"));
-        registrar.addConfig(Reference.MOD_NAME, getProxyConfigId(), L10NHelpers.localize("gui." + Reference.MOD_ID + ".waila.proxyConfig"));
-        registrar.addConfig(Reference.MOD_NAME, getDryingBasinConfigId(), L10NHelpers.localize("gui." + Reference.MOD_ID + ".waila.dryingBasinConfig"));
-        registrar.registerBodyProvider(new PartDataProvider(), TileMultipartTicking.class);
-        //registrar.registerBodyProvider(new PartDataProvider(), IMultipartContainer.class); // TODO: enable when MCMP is back
-        registrar.registerBodyProvider(new ProxyDataProvider(), TileProxy.class);
-        registrar.registerBodyProvider(new DryingBasinDataProvider(), TileDryingBasin.class);
-        registrar.registerBodyProvider(new SqueezerDataProvider(), TileSqueezer.class);
-    }
-    
-    /**
-     * Part config ID.
-     * @return The config ID.
-     */
-    public static String getPartConfigId() {
-        return Reference.MOD_ID + ".part";
+@WailaPlugin
+public class Waila implements IWailaPlugin {
+
+    @Override
+    public void register(IRegistrar registrar) {
+        registrar.addConfig(PartDataProvider.ID, true);
+        registrar.addConfig(SqueezerDataProvider.ID, true);
+        registrar.addConfig(DryingBasinDataProvider.ID, true);
+        registrar.addConfig(MechanicalSqueezerDataProvider.ID, true);
+        registrar.addConfig(MechanicalDryingBasinDataProvider.ID, true);
+        registrar.addConfig(ProxyDataProvider.ID, true);
+
+        PartDataProvider partDataProvider = new PartDataProvider();
+        registrar.registerBlockDataProvider(partDataProvider, TileMultipartTicking.class);
+        registrar.registerComponentProvider(partDataProvider, TooltipPosition.BODY, TileMultipartTicking.class);
+
+        SqueezerDataProvider squeezerDataProvider = new SqueezerDataProvider();
+        registrar.registerBlockDataProvider(squeezerDataProvider, TileSqueezer.class);
+        registrar.registerComponentProvider(squeezerDataProvider, TooltipPosition.BODY, TileSqueezer.class);
+
+        DryingBasinDataProvider dryingBasinDataProvider = new DryingBasinDataProvider();
+        registrar.registerBlockDataProvider(dryingBasinDataProvider, TileDryingBasin.class);
+        registrar.registerComponentProvider(dryingBasinDataProvider, TooltipPosition.BODY, TileDryingBasin.class);
+
+        MechanicalSqueezerDataProvider mechanicalSqueezerDataProvider = new MechanicalSqueezerDataProvider();
+        registrar.registerBlockDataProvider(mechanicalSqueezerDataProvider, TileMechanicalSqueezer.class);
+        registrar.registerComponentProvider(mechanicalSqueezerDataProvider, TooltipPosition.BODY, TileMechanicalSqueezer.class);
+
+        MechanicalDryingBasinDataProvider mechanicalDryingBasinDataProvider = new MechanicalDryingBasinDataProvider();
+        registrar.registerBlockDataProvider(mechanicalDryingBasinDataProvider, TileMechanicalDryingBasin.class);
+        registrar.registerComponentProvider(mechanicalDryingBasinDataProvider, TooltipPosition.BODY, TileMechanicalDryingBasin.class);
+
+        ProxyDataProvider proxyDataProvider = new ProxyDataProvider();
+        registrar.registerBlockDataProvider(proxyDataProvider, TileProxy.class);
+        registrar.registerComponentProvider(proxyDataProvider, TooltipPosition.BODY, TileProxy.class);
     }
 
-    /**
-     * Proxy config ID.
-     * @return The config ID.
-     */
-    public static String getProxyConfigId() {
-        return Reference.MOD_ID + ".proxy";
-    }
-
-    /**
-     * Proxy config ID.
-     * @return The config ID.
-     */
-    public static String getDryingBasinConfigId() {
-        return Reference.MOD_ID + ".dryingBasin";
-    }
-    
 }

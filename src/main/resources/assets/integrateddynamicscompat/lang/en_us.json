@@ -1,6 +1,23 @@
 {
     "_comment": "## ----- Mod Compats ----- ###",
 
+    "_comment": "# ----- WAILA ----- ##",
+
+    "gui.integrateddynamics.waila.part_config": "Part Information",
+    "gui.integrateddynamics.waila.proxy_config": "Proxy Information",
+    "gui.integrateddynamics.waila.squeezer_config": "Squeezer Information",
+    "gui.integrateddynamics.waila.drying_basin_config": "Drying Basin Information",
+    "gui.integrateddynamics.waila.mechanical_squeezer_config": "Mechanical Squeezer Information",
+    "gui.integrateddynamics.waila.mechanical_drying_basin_config": "Mechanical Drying Basin Information",
+    "gui.integrateddynamics.waila.energy": "Energy: %s / %s FE",
+    "gui.integrateddynamics.waila.item": "Item: %s",
+    "gui.integrateddynamics.waila.item.in": "Input Item: %s",
+    "gui.integrateddynamics.waila.item.out": "Output Item: %s",
+    "gui.integrateddynamics.waila.fluid": "Fluid: %s (%s mB)",
+    "gui.integrateddynamics.waila.fluid.in": "Input Fluid: %s (%s mB)",
+    "gui.integrateddynamics.waila.fluid.out": "Input Fluid: %s (%s mB)",
+    "gui.integrateddynamics.waila.progress": "Progress: %s / 100",
+
     "_comment": "# ----- JEI ----- ##",
 
     "error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc": "Too big for the Logic Programmer recipe pattern.",

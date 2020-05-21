@@ -1,16 +1,16 @@
 package org.cyclops.integrateddynamicscompat.modcompat.waila;
 
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
-import mcp.mobius.waila.api.IWailaDataProvider;
+import mcp.mobius.waila.api.IComponentProvider;
+import mcp.mobius.waila.api.IDataAccessor;
+import mcp.mobius.waila.api.IPluginConfig;
+import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.cyclopscore.helper.TileHelpers;
 import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import org.cyclops.integrateddynamics.tileentity.TileProxy;
 
@@ -21,37 +21,21 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class ProxyDataProvider implements IWailaDataProvider {
+public class ProxyDataProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
+
+    public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "proxy");
 
     @Override
-    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return null;
-    }
-
-    @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return currenttip;
-    }
-
-    @Override
-    public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return currenttip;
-    }
-
-    @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if(config.getConfig(org.cyclops.integrateddynamicscompat.modcompat.waila.Waila.getProxyConfigId())) {
-            TileProxy tile = TileHelpers.getSafeTile(accessor.getWorld(), accessor.getPosition(), TileProxy.class);
-            if (tile != null) {
-                currenttip.add(L10NHelpers.localize(L10NValues.GENERAL_ITEM_ID, tile.getProxyId()));
-            }
+    public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
+        if(config.get(ProxyDataProvider.ID)) {
+            tooltip.add(new TranslationTextComponent(L10NValues.GENERAL_ITEM_ID, accessor.getServerData().getInt("id")));
         }
-        return currenttip;
     }
 
     @Override
-    public CompoundNBT getNBTData(ServerPlayerEntity player, TileEntity te, CompoundNBT tag, World world, BlockPos pos) {
-        return tag;
+    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity tileEntity) {
+        TileProxy tile = (TileProxy) tileEntity;
+        tag.putInt("id", tile.getProxyId());
     }
 
 }
