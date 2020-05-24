@@ -38,7 +38,7 @@ public class WorkerDryingBasinTileCompat extends SimpleCapabilityConstructor<IWo
         @SuppressWarnings("unchecked")
         @Override
         public boolean hasWork() {
-            return provider.getCurrentRecipe() != null;
+            return provider.getCurrentRecipe().isPresent();
         }
 
         @Override
