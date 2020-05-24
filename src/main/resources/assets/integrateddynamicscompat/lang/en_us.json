@@ -223,6 +223,7 @@
     "_comment": "Aspect property types",
     "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipcrafting": "Skip If Crafting",
     "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipstorage": "Skip If In Storage",
+    "aspect.aspecttypes.integrateddynamics.integer.refinedstorage.craftcount": "Crafting Count",
 
     "_comment": "# Aspects",
     "aspect.integrateddynamics.read.boolean.refinedstorage.network.applicable": "Is RS Network",
