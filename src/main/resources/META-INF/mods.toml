@@ -33,5 +33,5 @@ Integrated Dynamics compatibility with other mods.
     modId="integrateddynamics"
     mandatory=true
     versionRange="[1.1.6]"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"

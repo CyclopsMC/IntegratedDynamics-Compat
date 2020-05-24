@@ -76,6 +76,10 @@ repositories {
         url 'https://tehnut.info/maven/'
     }
     maven {
+        name "Raoulvdberge Repo"
+        url "https://repo.raoulvdberge.com/"
+    }
+    maven {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
@@ -109,6 +113,7 @@ dependencies {
     compile fg.deobf("mezz.jei:jei-${config.jei_version}") // https://dvs1.progwml6.com/jenkins/
     compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${config.theoneprobe_version}") // https://maven.tterrag.com/mcjty/theoneprobe/
     compile fg.deobf("mcp.mobius.waila:Hwyla:${config.waila_version}") // https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
+    compile fg.deobf("com.raoulvdberge:refinedstorage:${config.refinedstorage_version}") // https://repo.raoulvdberge.com/com/raoulvdberge/refinedstorage/
 }
 
 minecraft {
@@ -296,7 +301,6 @@ sourceSets {
             exclude '**/modcompat/immersiveengineering/**'
             exclude '**/modcompat/mcmultipart/**'
             exclude '**/modcompat/minetweaker/**'
-            exclude '**/modcompat/refinedstorage/**'
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/tesla/**'
