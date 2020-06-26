@@ -32,6 +32,6 @@ Integrated Dynamics compatibility with other mods.
 [[dependencies.integrateddynamicscompat]]
     modId="integrateddynamics"
     mandatory=true
-    versionRange="[1.1.6]"
+    versionRange="[1.1.6,]"
     ordering="AFTER"
     side="BOTH"
