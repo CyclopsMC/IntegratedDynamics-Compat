@@ -71,10 +71,10 @@ repositories {
         name 'tterrag'
         url 'https://maven.tterrag.com/'
     }
-    maven {
+    /*maven {
         name 'Tehnut'
         url 'https://tehnut.info/maven/'
-    }
+    }*/
     maven {
         name "Raoulvdberge Repo"
         url "https://repo.refinedmods.com/"
@@ -112,7 +112,7 @@ dependencies {
 
     compile fg.deobf("mezz.jei:jei-${config.jei_version}") // https://dvs1.progwml6.com/jenkins/
     compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${config.theoneprobe_version}") // https://maven.tterrag.com/mcjty/theoneprobe/
-    compile fg.deobf("mcp.mobius.waila:Hwyla:${config.waila_version}") // https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
+    //compile fg.deobf("hwyla:Hwyla-forge-${config.waila_version}") // https://www.curseforge.com/minecraft/mc-mods/hwyla/files/ https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
     compile fg.deobf("com.raoulvdberge:refinedstorage:${config.refinedstorage_version}") // https://repo.raoulvdberge.com/com/raoulvdberge/refinedstorage/
 }
 
@@ -305,6 +305,7 @@ sourceSets {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
+            exclude '**/modcompat/waila/**'
         }
     }
 }
