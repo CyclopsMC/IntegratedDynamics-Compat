@@ -77,7 +77,7 @@ repositories {
     }
     maven {
         name "Raoulvdberge Repo"
-        url "https://repo.raoulvdberge.com/"
+        url "https://repo.refinedmods.com/"
     }
     maven {
         name = "CurseForge"
