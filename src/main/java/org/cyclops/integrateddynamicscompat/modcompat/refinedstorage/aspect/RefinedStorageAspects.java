@@ -2,15 +2,15 @@ package org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.raoulvdberge.refinedstorage.api.IRSAPI;
-import com.raoulvdberge.refinedstorage.api.RSAPIInject;
-import com.raoulvdberge.refinedstorage.api.autocrafting.ICraftingPattern;
-import com.raoulvdberge.refinedstorage.api.autocrafting.task.ICraftingTask;
-import com.raoulvdberge.refinedstorage.api.network.INetwork;
-import com.raoulvdberge.refinedstorage.api.network.node.INetworkNode;
-import com.raoulvdberge.refinedstorage.api.network.node.INetworkNodeProxy;
-import com.raoulvdberge.refinedstorage.api.util.IComparer;
-import com.raoulvdberge.refinedstorage.api.util.StackListEntry;
+import com.refinedmods.refinedstorage.api.IRSAPI;
+import com.refinedmods.refinedstorage.api.RSAPIInject;
+import com.refinedmods.refinedstorage.api.autocrafting.ICraftingPattern;
+import com.refinedmods.refinedstorage.api.autocrafting.task.ICraftingTask;
+import com.refinedmods.refinedstorage.api.network.INetwork;
+import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
+import com.refinedmods.refinedstorage.api.network.node.INetworkNodeProxy;
+import com.refinedmods.refinedstorage.api.util.IComparer;
+import com.refinedmods.refinedstorage.api.util.StackListEntry;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
@@ -201,7 +201,7 @@ public class RefinedStorageAspects {
                 // Once we get here, we are certain that we want to shedule the task.
                 craftingTask.calculate();
                 if (!craftingTask.hasMissing()) {
-                    networkMaster.getCraftingManager().add(craftingTask);
+                    networkMaster.getCraftingManager().start(craftingTask);
                 }
             }
             return null;
