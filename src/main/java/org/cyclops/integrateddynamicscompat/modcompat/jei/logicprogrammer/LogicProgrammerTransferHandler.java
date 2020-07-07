@@ -46,11 +46,11 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
     @Nullable
     @Override
-    public IRecipeTransferError transferRecipe(T container, IRecipeLayout recipeLayout,
+    public IRecipeTransferError transferRecipe(T container, @Nullable IRecipeLayout recipeLayout,
                                                EntityPlayer player, boolean maxTransfer, boolean doTransfer) {
         ILogicProgrammerElement element = container.getActiveElement();
 
-        if (element != null) {
+        if (element != null && recipeLayout != null) {
             if (element instanceof ValueTypeRecipeLPElement) {
                 return handleRecipeElement((ValueTypeRecipeLPElement) element, container, recipeLayout, doTransfer);
             } else {
