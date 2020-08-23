@@ -8,6 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.cyclops.cyclopscore.network.CodecField;
 import org.cyclops.cyclopscore.network.PacketCodec;
+import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
 
 /**
  * @author rubensworks
@@ -44,7 +45,7 @@ public class CPacketSetSlot extends PacketCodec {
 
     @Override
     public void actionServer(World world, EntityPlayerMP player) {
-        if(player.openContainer.windowId == windowId) {
+        if(player.openContainer instanceof ContainerLogicProgrammerBase && player.openContainer.windowId == windowId) {
             player.openContainer.putStackInSlot(slot, itemStack.copy());
         }
     }
