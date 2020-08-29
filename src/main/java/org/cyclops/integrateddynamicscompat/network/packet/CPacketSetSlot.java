@@ -2,10 +2,12 @@ package org.cyclops.integrateddynamicscompat.network.packet;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.cyclops.cyclopscore.inventory.slot.SlotExtended;
 import org.cyclops.cyclopscore.network.CodecField;
 import org.cyclops.cyclopscore.network.PacketCodec;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
@@ -46,7 +48,10 @@ public class CPacketSetSlot extends PacketCodec {
     @Override
     public void actionServer(World world, EntityPlayerMP player) {
         if(player.openContainer instanceof ContainerLogicProgrammerBase && player.openContainer.windowId == windowId) {
-            player.openContainer.putStackInSlot(slot, itemStack.copy());
+            if (player.openContainer.inventorySlots.size() <= slot) return;
+            final Slot itemSlot = player.openContainer.getSlot(slot);
+
+            if (itemSlot instanceof SlotExtended && ((SlotExtended) itemSlot).isPhantom()) itemSlot.putStack(itemStack.copy());
         }
     }
 
