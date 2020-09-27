@@ -1,6 +1,6 @@
 ## IntegratedDynamics-Compat
 
-[![Build Status](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat.svg?branch=master-1.15)](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat)
+[![Build Status](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat.svg)](https://travis-ci.org/CyclopsMC/IntegratedDynamics-Compat)
 [![Download](https://img.shields.io/maven-metadata/v/https/oss.jfrog.org/artifactory/simple/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/maven-metadata.xml.svg) ](https://oss.jfrog.org/artifactory/simple/libs-release/org/cyclops/integrateddynamicscompat/IntegratedDynamicsCompat/)
 
 [Integrated Dynamics](https://github.com/CyclopsMC/IntegratedDynamics) compatibility with other mods.
