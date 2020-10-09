@@ -7,7 +7,7 @@ env:
   global:
   - TERM=dumb
 
-install: ./gradlew build -S
+install: ./gradlew build -S --max-workers 1
 
 cache:
   directories:
