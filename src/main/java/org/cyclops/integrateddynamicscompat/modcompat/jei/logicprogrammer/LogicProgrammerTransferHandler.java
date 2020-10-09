@@ -79,7 +79,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
         // Collect fluids
         for (Map.Entry<Integer, ? extends IGuiIngredient<FluidStack>> entry : recipeLayout.getFluidStacks().getGuiIngredients().entrySet()) {
-            FluidStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), null);
+            FluidStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), FluidStack.EMPTY);
             if (entry.getValue().isInput()) {
                 fluidInputs.add(stack);
             } else {
