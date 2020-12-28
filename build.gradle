@@ -110,8 +110,8 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'CyclopsCore'
     }
 
-    compile fg.deobf("mezz.jei:jei-${config.jei_version}") // https://dvs1.progwml6.com/jenkins/
-    compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${config.theoneprobe_version}") // https://maven.tterrag.com/mcjty/theoneprobe/
+    compile fg.deobf("mezz.jei:jei-${config.jei_version}") // w
+    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${config.theoneprobe_version}") // https://maven.tterrag.com/mcjty/theoneprobe/
     //compile fg.deobf("hwyla:Hwyla-forge-${config.waila_version}") // https://www.curseforge.com/minecraft/mc-mods/hwyla/files/ https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
     compile fg.deobf("com.refinedmods:refinedstorage:${config.refinedstorage_version}") // https://repo.refinedmods.com/com/raoulvdberge/refinedstorage/
 }

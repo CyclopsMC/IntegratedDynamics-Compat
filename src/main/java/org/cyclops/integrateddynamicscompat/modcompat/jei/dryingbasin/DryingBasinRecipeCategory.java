@@ -1,5 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -102,7 +103,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
     }
 
     @Override
-    public void draw(DryingBasinRecipeJEI recipe, double mouseX, double mouseY) {
-        arrow.draw(43, 11);
+    public void draw(DryingBasinRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        arrow.draw(matrixStack, 43, 11);
     }
 }

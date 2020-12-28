@@ -2,6 +2,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredient;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
@@ -10,11 +11,11 @@ import mezz.jei.gui.TooltipRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
@@ -95,10 +96,10 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 }
 
                 @Override
-                public void showError(int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
+                public void showError(MatrixStack matrixStack, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
                     TooltipRenderer.drawHoveringText(
-                            Collections.singletonList(L10NHelpers.localize("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc")),
-                            mouseX, mouseY);
+                            Collections.singletonList(new TranslationTextComponent("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc")),
+                            mouseX, mouseY, matrixStack);
                 }
             };
         }
@@ -139,7 +140,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                     }
 
                     @Override
-                    public void showError(int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
+                    public void showError(MatrixStack matrixStack, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
 
                     }
                 };

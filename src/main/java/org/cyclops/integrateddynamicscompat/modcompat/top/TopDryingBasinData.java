@@ -31,7 +31,7 @@ public class TopDryingBasinData implements IProbeInfoProvider {
                         }
                         if (!tile.getTank().isEmpty()) {
                             probeInfo.horizontal()
-                                    .text(tile.getTank().getFluid().getDisplayName().getFormattedText())
+                                    .text(tile.getTank().getFluid().getDisplayName())
                                     .progress(tile.getTank().getFluidAmount(), tile.getTank().getCapacity());
                         }
                     });

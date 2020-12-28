@@ -43,7 +43,7 @@ public class TopPartData implements IProbeInfoProvider {
                             List<ITextComponent> lines = Lists.newArrayList();
                             partType.loadTooltip(partState, lines);
                             for (ITextComponent line : lines) {
-                                probeInfo.text(line.getFormattedText());
+                                probeInfo.text(line);
                             }
                         }
                     });

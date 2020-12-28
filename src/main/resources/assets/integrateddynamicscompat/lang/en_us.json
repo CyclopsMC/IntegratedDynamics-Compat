@@ -234,8 +234,6 @@
     "aspect.integrateddynamics.read.list.refinedstorage.inventory.craftableitems.info": "A list of all the craftable items in the RS network.",
     "aspect.integrateddynamics.read.list.refinedstorage.inventory.craftingitems": "RS crafting items",
     "aspect.integrateddynamics.read.list.refinedstorage.inventory.craftingitems.info": "A list of all the items that are currently being crafted in the RS network.",
-    "aspect.integrateddynamics.read.list.refinedstorage.inventory.missingcraftingitems": "RS missing crafting items",
-    "aspect.integrateddynamics.read.list.refinedstorage.inventory.missingcraftingitems.info": "A list of all the missing items in the current crafting jobs for the RS network.",
     "aspect.integrateddynamics.read.list.refinedstorage.fluid.fluidstacks": "RS network fluids",
     "aspect.integrateddynamics.read.list.refinedstorage.fluid.fluidstacks.info": "A list of all the fluids in the RS network.",
 

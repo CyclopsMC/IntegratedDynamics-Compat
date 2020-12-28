@@ -38,8 +38,7 @@ public class RefinedStorageInitializer implements ICompatInitializer {
         Aspects.REGISTRY.register(PartTypes.INVENTORY_READER, Lists.newArrayList(
                 RefinedStorageAspects.Read.Inventory.LIST_ITEMSTACKS,
                 RefinedStorageAspects.Read.Inventory.LIST_CRAFTABLEITEMS,
-                RefinedStorageAspects.Read.Inventory.LIST_CRAFTINGITEMS,
-                RefinedStorageAspects.Read.Inventory.LIST_MISSINGCRAFTINGITEMS
+                RefinedStorageAspects.Read.Inventory.LIST_CRAFTINGITEMS
         ));
         Aspects.REGISTRY.register(PartTypes.FLUID_READER, Lists.newArrayList(
                 RefinedStorageAspects.Read.Fluid.LIST_FLUIDSTACKS

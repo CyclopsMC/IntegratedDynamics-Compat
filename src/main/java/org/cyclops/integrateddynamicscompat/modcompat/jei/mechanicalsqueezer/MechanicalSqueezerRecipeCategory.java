@@ -1,5 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -9,6 +10,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.cyclops.integrateddynamics.RegistryEntries;
@@ -86,7 +88,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
                 float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
-                tooltip.add(TextFormatting.GRAY + "Chance: " + (chance * 100.0F) + "%");
+                tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").mergeStyle(TextFormatting.GRAY));
             }
         });
 
@@ -105,7 +107,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
     }
 
     @Override
-    public void draw(MechanicalSqueezerRecipeJEI recipe, double mouseX, double mouseY) {
-        arrowDrawable.draw(45, 21);
+    public void draw(MechanicalSqueezerRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        arrowDrawable.draw(matrixStack, 45, 21);
     }
 }

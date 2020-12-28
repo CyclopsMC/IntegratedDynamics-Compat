@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.refinedmods.refinedstorage.api.IRSAPI;
 import com.refinedmods.refinedstorage.api.RSAPIInject;
 import com.refinedmods.refinedstorage.api.autocrafting.ICraftingPattern;
+import com.refinedmods.refinedstorage.api.autocrafting.task.ICalculationResult;
 import com.refinedmods.refinedstorage.api.autocrafting.task.ICraftingTask;
 import com.refinedmods.refinedstorage.api.network.INetwork;
 import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
@@ -117,30 +118,6 @@ public class RefinedStorageAspects {
                                     .orElseGet(() -> ValueTypeList.ValueList.ofList(ValueTypes.OBJECT_ITEMSTACK, Collections.emptyList()));
                         }
                     }, "craftingitems").buildRead();
-
-            public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_MISSINGCRAFTINGITEMS =
-                    BUILDER_LIST.appendKind("inventory").handle(new IAspectValuePropagator<Optional<INetwork>, ValueTypeList.ValueList>() {
-
-                        protected void addPatternItemStacksMissing(List<ValueObjectTypeItemStack.ValueItemStack> itemStacks, ICraftingTask craftingTask) {
-                            for (StackListEntry<ItemStack> itemStack : craftingTask.getMissing().getStacks()) {
-                                itemStacks.add(ValueObjectTypeItemStack.ValueItemStack.of(itemStack.getStack()));
-                            }
-                        }
-
-                        @Override
-                        public ValueTypeList.ValueList getOutput(Optional<INetwork> networkMaster) {
-                            return networkMaster
-                                    .map(network -> {
-                                        List<ValueObjectTypeItemStack.ValueItemStack> itemStacks = Lists.newArrayList();
-                                        for (ICraftingTask craftingTask : network.getCraftingManager().getTasks()) {
-                                            addPatternItemStacksMissing(itemStacks, craftingTask);
-                                        }
-                                        return ValueTypeList.ValueList.ofList(ValueTypes.OBJECT_ITEMSTACK, itemStacks);
-                                    })
-                                    .orElseGet(() -> ValueTypeList.ValueList.ofList(ValueTypes.OBJECT_ITEMSTACK, Collections.emptyList()));
-                        }
-                    }, "missingcraftingitems").buildRead();
-
         }
 
         public static final class Fluid {
@@ -176,7 +153,7 @@ public class RefinedStorageAspects {
 
         protected static Void triggerItemStackCrafting(IAspectProperties aspectProperties, INetwork networkMaster, ItemStack itemStack) {
             int compareFlags = IComparer.COMPARE_NBT;
-            ICraftingTask craftingTask = networkMaster.getCraftingManager().create(itemStack,
+            ICalculationResult craftingTask = networkMaster.getCraftingManager().create(itemStack,
                     aspectProperties.getValue(PROPERTY_CRAFTCOUNT).getRawValue());
             if (craftingTask != null) {
                 if (aspectProperties.getValue(PROPERTY_SKIPCRAFTING).getRawValue()) {
@@ -199,9 +176,8 @@ public class RefinedStorageAspects {
                 }
 
                 // Once we get here, we are certain that we want to shedule the task.
-                craftingTask.calculate();
-                if (!craftingTask.hasMissing()) {
-                    networkMaster.getCraftingManager().start(craftingTask);
+                if (craftingTask.isOk()) {
+                    networkMaster.getCraftingManager().start(craftingTask.getTask());
                 }
             }
             return null;

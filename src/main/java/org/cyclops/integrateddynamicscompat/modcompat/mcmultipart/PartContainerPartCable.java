@@ -9,7 +9,7 @@ import mcmultipart.raytrace.RayTraceUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.cyclops.integrateddynamics.api.network.INetwork;
 import org.cyclops.integrateddynamics.api.part.IPartState;
@@ -91,8 +91,8 @@ public class PartContainerPartCable extends PartContainerDefault {
     @Nullable
     @Override
     public Direction getWatchingSide(World world, BlockPos pos, PlayerEntity player) {
-        Vec3d start = RayTraceUtils.getStart(player);
-        Vec3d end = RayTraceUtils.getEnd(player);
+        Vector3d start = RayTraceUtils.getStart(player);
+        Vector3d end = RayTraceUtils.getEnd(player);
         RayTraceUtils.AdvancedRayTraceResultPart result = ((TileMultipartContainer) world.getTileEntity(pos)).getPartContainer().collisionRayTrace(start, end);
         if(result == null || result.hit == null) return null;
         IMultipart multipart = result.hit.partHit;
