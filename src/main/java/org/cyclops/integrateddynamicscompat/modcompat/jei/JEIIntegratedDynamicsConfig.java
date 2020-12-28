@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalDryingBasin;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalSqueezer;
+import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenOnTheDynamicsOfIntegration;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammer;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerPortable;
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalDryingBasin;
@@ -71,6 +72,7 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registry) {
         registry.addRecipeClickArea(ContainerScreenMechanicalDryingBasin.class, 84, 31, 10, 27, MechanicalDryingBasinRecipeCategory.NAME);
         registry.addRecipeClickArea(ContainerScreenMechanicalSqueezer.class, 73, 36, 12, 18, MechanicalSqueezerRecipeCategory.NAME);
+        registry.addGuiScreenHandler(ContainerScreenOnTheDynamicsOfIntegration.class, (screen) -> null);
     }
 
     @Override
