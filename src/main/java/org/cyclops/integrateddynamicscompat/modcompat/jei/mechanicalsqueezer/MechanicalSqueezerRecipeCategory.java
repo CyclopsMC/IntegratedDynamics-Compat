@@ -8,14 +8,19 @@ import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.cyclops.integrateddynamics.RegistryEntries;
+import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
+import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
 
 import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
@@ -109,5 +114,14 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
     @Override
     public void draw(MechanicalSqueezerRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         arrowDrawable.draw(matrixStack, 45, 21);
+
+        // Draw energy and duration
+        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        IFormattableTextComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
+        fontRenderer.func_243248_b(matrixStack, energy,
+                (background.getWidth() - fontRenderer.getStringPropertyWidth(energy)) / 2 - 10, 0, 0xFF808080);
+        IFormattableTextComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
+        fontRenderer.func_243248_b(matrixStack, duration,
+                (background.getWidth() - fontRenderer.getStringPropertyWidth(duration)) / 2 - 10, 42, 0xFF808080);
     }
 }

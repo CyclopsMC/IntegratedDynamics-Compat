@@ -1,6 +1,5 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
-import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fluids.FluidStack;
@@ -24,6 +23,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
     private final FluidStack inputFluid;
     private final ItemStack outputItem;
     private final FluidStack outputFluid;
+    private final int duration;
 
     public DryingBasinRecipeJEI(RecipeDryingBasin recipe) {
         super(RegistryEntries.RECIPETYPE_DRYING_BASIN, recipe);
@@ -31,6 +31,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
         this.inputFluid = recipe.getInputFluid();
         this.outputItem = recipe.getOutputItem();
         this.outputFluid = recipe.getOutputFluid();
+        this.duration = recipe.getDuration();
     }
 
     protected DryingBasinRecipeJEI() {
@@ -39,6 +40,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
         this.inputFluid = null;
         this.outputItem = null;
         this.outputFluid = null;
+        this.duration = 0;
     }
 
     public List<ItemStack> getInputItem() {
@@ -55,6 +57,10 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
 
     public FluidStack getOutputFluid() {
         return outputFluid;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 
     @Override

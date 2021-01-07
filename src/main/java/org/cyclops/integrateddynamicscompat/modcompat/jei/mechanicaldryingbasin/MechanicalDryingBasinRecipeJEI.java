@@ -23,6 +23,7 @@ public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapp
     private final FluidStack inputFluid;
     private final ItemStack outputItem;
     private final FluidStack outputFluid;
+    private final int duration;
 
     public MechanicalDryingBasinRecipeJEI(RecipeMechanicalDryingBasin recipe) {
         super(RegistryEntries.RECIPETYPE_MECHANICAL_DRYING_BASIN, recipe);
@@ -30,6 +31,7 @@ public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapp
         this.inputFluid = recipe.getInputFluid();
         this.outputItem = recipe.getOutputItem();
         this.outputFluid = recipe.getOutputFluid();
+        this.duration = recipe.getDuration();
     }
 
     protected MechanicalDryingBasinRecipeJEI() {
@@ -38,6 +40,7 @@ public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapp
         this.inputFluid = null;
         this.outputItem = null;
         this.outputFluid = null;
+        this.duration = 0;
     }
 
     public List<ItemStack> getInputItem() {
@@ -54,6 +57,10 @@ public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapp
 
     public FluidStack getOutputFluid() {
         return outputFluid;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 
     @Override

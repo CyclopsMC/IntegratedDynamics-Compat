@@ -9,10 +9,16 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import org.cyclops.cyclopscore.helper.MinecraftHelpers;
 import org.cyclops.integrateddynamics.RegistryEntries;
+import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalDryingBasin;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalSqueezer;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenOnTheDynamicsOfIntegration;
+import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammer;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerPortable;
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalDryingBasin;
@@ -27,6 +33,8 @@ import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer.Mec
 import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer.MechanicalSqueezerRecipeJEI;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeCategory;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeJEI;
+
+import java.text.DecimalFormat;
 
 /**
  * Helper for registering JEI manager.
@@ -78,5 +86,15 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(Reference.MOD_ID, "main");
+    }
+
+    public static IFormattableTextComponent getDurationSecondsTextComponent(int durationTicks) {
+        String seconds = new DecimalFormat("#.##").format((double) durationTicks / MinecraftHelpers.SECOND_IN_TICKS);
+        return new TranslationTextComponent("gui.jei.category.smelting.time.seconds", seconds);
+    }
+
+    public static IFormattableTextComponent getEnergyTextComponent(int durationTicks, int energyPerTick) {
+        return new StringTextComponent(String.format("%,d", durationTicks * energyPerTick))
+                .append(new TranslationTextComponent(L10NValues.GENERAL_ENERGY_UNIT));
     }
 }

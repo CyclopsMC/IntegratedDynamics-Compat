@@ -9,11 +9,17 @@ import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.cyclops.integrateddynamics.RegistryEntries;
+import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
+import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import org.cyclops.integrateddynamicscompat.Reference;
+import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
 
 import javax.annotation.Nonnull;
 
@@ -105,5 +111,14 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     @Override
     public void draw(MechanicalDryingBasinRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         arrow.draw(matrixStack, 43, 11);
+
+        // Draw energy and duration
+        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        IFormattableTextComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
+        fontRenderer.func_243248_b(matrixStack, energy,
+                (background.getWidth() - fontRenderer.getStringPropertyWidth(energy)) / 2 + 3, 0, 0xFF808080);
+        IFormattableTextComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
+        fontRenderer.func_243248_b(matrixStack, duration,
+                (background.getWidth() - fontRenderer.getStringPropertyWidth(duration)) / 2 + 3, 42, 0xFF808080);
     }
 }

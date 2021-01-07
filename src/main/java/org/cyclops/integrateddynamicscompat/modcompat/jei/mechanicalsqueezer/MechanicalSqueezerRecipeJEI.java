@@ -24,12 +24,14 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
     private final List<ItemStack> inputItem;
     private final NonNullList<RecipeSqueezer.ItemStackChance> outputItems;
     private final FluidStack outputFluid;
+    private final int duration;
 
     public MechanicalSqueezerRecipeJEI(RecipeMechanicalSqueezer recipe) {
         super(RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER, recipe);
         this.inputItem = Arrays.stream(recipe.getInputIngredient().getMatchingStacks()).collect(Collectors.toList());
         this.outputItems = recipe.getOutputItems();
         this.outputFluid = recipe.getOutputFluid();
+        this.duration = recipe.getDuration();
     }
 
     protected MechanicalSqueezerRecipeJEI() {
@@ -37,6 +39,7 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
         this.inputItem = null;
         this.outputItems = null;
         this.outputFluid = null;
+        this.duration = 0;
     }
 
     public List<ItemStack> getInputItem() {
@@ -49,6 +52,10 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
 
     public FluidStack getOutputFluid() {
         return outputFluid;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 
     @Override
