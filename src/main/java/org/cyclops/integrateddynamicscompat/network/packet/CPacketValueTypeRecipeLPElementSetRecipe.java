@@ -9,6 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.network.CodecField;
 import org.cyclops.cyclopscore.network.PacketCodec;
+import org.cyclops.integrateddynamics.core.ingredient.ItemMatchProperties;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
 
@@ -22,7 +23,7 @@ public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec {
     @CodecField
     private int windowId;
     @CodecField
-    private List<ItemStack> itemInputs;
+    private List<ItemMatchProperties> itemInputs;
     @CodecField
     private List<FluidStack> fluidInputs;
     @CodecField
@@ -34,7 +35,7 @@ public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec {
 
     }
 
-    public CPacketValueTypeRecipeLPElementSetRecipe(int windowId, List<ItemStack> itemInputs, List<FluidStack> fluidInputs,
+    public CPacketValueTypeRecipeLPElementSetRecipe(int windowId, List<ItemMatchProperties> itemInputs, List<FluidStack> fluidInputs,
                                                     List<ItemStack> itemOutputs, List<FluidStack> fluidOutputs) {
         this.windowId = windowId;
         this.itemInputs = itemInputs;

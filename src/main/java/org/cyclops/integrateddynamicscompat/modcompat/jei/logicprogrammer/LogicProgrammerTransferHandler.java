@@ -9,16 +9,22 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.gui.TooltipRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
+import org.cyclops.integrateddynamics.core.ingredient.ItemMatchProperties;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
+import org.cyclops.integrateddynamicscompat.GeneralConfig;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketSetSlot;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecipeLPElementSetRecipe;
@@ -27,6 +33,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Allows recipe transferring to Logic Programmer elements with slots.
@@ -62,8 +69,26 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         return null;
     }
 
+    @Nullable
+    protected ResourceLocation getHeuristicItemsTag(IGuiIngredient<ItemStack> jeiIngredient) {
+        // Allow disabling this heuristic
+        if (!GeneralConfig.jeiHeuristicTags) {
+            return null;
+        }
+
+        List<Item> items = jeiIngredient.getAllIngredients().stream().map(ItemStack::getItem).collect(Collectors.toList());
+        if (items.size() > 1) {
+            for (Map.Entry<ResourceLocation, ITag<Item>> entry : ItemTags.getCollection().getIDTagMap().entrySet()) {
+                if (entry.getValue().getAllElements().equals(items)) {
+                    return entry.getKey();
+                }
+            }
+        }
+        return null;
+    }
+
     protected IRecipeTransferError handleRecipeElement(ValueTypeRecipeLPElement element, T container, IRecipeLayout recipeLayout, boolean doTransfer) {
-        List<ItemStack> itemInputs = Lists.newArrayList();
+        List<ItemMatchProperties> itemInputs = Lists.newArrayList();
         List<FluidStack> fluidInputs = Lists.newArrayList();
         List<ItemStack> itemOutputs = Lists.newArrayList();
         List<FluidStack> fluidOutputs = Lists.newArrayList();
@@ -72,7 +97,12 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         for (Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> entry : recipeLayout.getItemStacks().getGuiIngredients().entrySet()) {
             ItemStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), ItemStack.EMPTY);
             if (entry.getValue().isInput()) {
-                itemInputs.add(stack);
+                ResourceLocation heuristicTag = getHeuristicItemsTag(entry.getValue());
+                if (heuristicTag != null) {
+                    itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), 1));
+                } else {
+                    itemInputs.add(new ItemMatchProperties(stack));
+                }
             } else {
                 itemOutputs.add(stack);
             }

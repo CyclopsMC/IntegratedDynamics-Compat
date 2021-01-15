@@ -14,6 +14,9 @@ public class GeneralConfig extends DummyConfig {
     @ConfigurableProperty(category = "core", comment = "If mod compatibility loader should crash hard if errors occur in that process.", requiresMcRestart = true)
     public static boolean crashOnModCompatCrash = false;
 
+    @ConfigurableProperty(category = "core", comment = "If JEI recipe filling should heuristically try to determine item tags from recipes.", requiresMcRestart = true)
+    public static boolean jeiHeuristicTags = true;
+
     /**
      * Create a new instance.
      */
