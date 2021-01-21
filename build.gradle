@@ -45,7 +45,8 @@ def loadProperties() {
         project.buildnumber = System.getenv().BUILD_NUMBER
     if (System.getenv().TRAVIS_BUILD_NUMBER)
         project.buildnumber = System.getenv().TRAVIS_BUILD_NUMBER
-
+    if (System.getenv().GITHUB_RUN_ID)
+        project.buildnumber = System.getenv().GITHUB_RUN_NUMBER
     if (System.getenv().RELEASE || System.getenv().TRAVIS_TAG)
         project.buildnumber = "RELEASE"
     logger.lifecycle "BUILDING VERSION: " + project.buildnumber
