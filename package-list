@@ -1,0 +1,13 @@
+org.cyclops.integrateddynamicscompat
+org.cyclops.integrateddynamicscompat.modcompat.capabilities
+org.cyclops.integrateddynamicscompat.modcompat.jei
+org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin
+org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer
+org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin
+org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer
+org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer
+org.cyclops.integrateddynamicscompat.modcompat.refinedstorage
+org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect
+org.cyclops.integrateddynamicscompat.modcompat.top
+org.cyclops.integrateddynamicscompat.network.packet
+org.cyclops.integrateddynamicscompat.proxy
