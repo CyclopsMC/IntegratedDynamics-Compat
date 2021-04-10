@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredient;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.gui.TooltipRenderer;
@@ -146,16 +147,19 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     protected IRecipeTransferError handleDefaultElement(ILogicProgrammerElement element, T container, IRecipeLayout recipeLayout, boolean doTransfer) {
         // Always work with ItemStacks
         ItemStack itemStack = null;
-        Object focusElement = recipeLayout.getFocus().getValue();
-        if (focusElement instanceof ItemStack) {
-            itemStack = (ItemStack) focusElement;
-        } else if (focusElement instanceof FluidStack) {
-            itemStack = new ItemStack(Items.BUCKET);
-            IFluidHandlerItem fluidHandler = itemStack
-                    .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-                    .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
-            fluidHandler.fill((FluidStack) focusElement, IFluidHandler.FluidAction.EXECUTE);
-            itemStack = fluidHandler.getContainer();
+        IFocus<?> focus = recipeLayout.getFocus();
+        if (focus != null) {
+            Object focusElement = focus.getValue();
+            if (focusElement instanceof ItemStack) {
+                itemStack = (ItemStack) focusElement;
+            } else if (focusElement instanceof FluidStack) {
+                itemStack = new ItemStack(Items.BUCKET);
+                IFluidHandlerItem fluidHandler = itemStack
+                        .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+                        .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
+                fluidHandler.fill((FluidStack) focusElement, IFluidHandler.FluidAction.EXECUTE);
+                itemStack = fluidHandler.getContainer();
+            }
         }
         if (itemStack != null) {
             if (element.isItemValidForSlot(0, itemStack)) {
