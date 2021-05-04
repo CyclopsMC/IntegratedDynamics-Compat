@@ -62,7 +62,11 @@ repositories {
 	mavenLocal()
     maven {
         name "Cyclops Repo"
-        url "https://oss.jfrog.org/artifactory/simple/libs-release/"
+        url "https://maven.pkg.github.com/CyclopsMC/packages"
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("MAVEN_KEY")
+        }
     }
     maven {
         name 'DVS1 Maven FS'
@@ -91,24 +95,24 @@ dependencies {
 
 	// Add something like 'integrateddynamics_version_local=0.1.0-DEV' to your gradle.properties if you want to use a custom local Integrated Dynamics version.
     if(project.hasProperty("integrateddynamics_version_local")) {
-        compile "org.cyclops.integrateddynamics:IntegratedDynamics:${config.minecraft_version}-${project.integrateddynamics_version_local}:deobf"
+        compile "org.cyclops.integrateddynamics:integrateddynamics:${project.integrateddynamics_version_local}:deobf"
         runtime "com.google.re2j:re2j:1.1"
     } else {
-        compile("org.cyclops.integrateddynamics:IntegratedDynamics:${config.minecraft_version}-${config.integrateddynamics_version}:deobf") {
-            exclude group: 'org.cyclops.cyclopscore', module: 'CyclopsCore'
-            exclude group: 'org.cyclops.commoncapabilities', module: 'CommonCapabilities'
+        compile("org.cyclops.integrateddynamics:integrateddynamics:${config.integrateddynamics_version}:deobf") {
+            exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
+            exclude group: 'org.cyclops.commoncapabilities', module: 'commoncapabilities'
         }
         runtime "com.google.re2j:re2j:1.1"
     }
     // Add something like 'cyclopscore_version_local=0.1.0-DEV' to your gradle.properties if you want to use a custom local CyclopsCore version.
     if(project.hasProperty("cyclopscore_version_local")) {
-        compile "org.cyclops.cyclopscore:CyclopsCore:${config.minecraft_version}-${project.cyclopscore_version_local}:deobf"
+        compile "org.cyclops.cyclopscore:cyclopscore:${config.minecraft_version}-${project.cyclopscore_version_local}:deobf"
     } else {
-        compile "org.cyclops.cyclopscore:CyclopsCore:${config.minecraft_version}-${config.cyclopscore_version}:deobf"
+        compile "org.cyclops.cyclopscore:cyclopscore:${config.minecraft_version}-${config.cyclopscore_version}:deobf"
     }
 
-    compile("org.cyclops.commoncapabilities:CommonCapabilities:${config.commoncapabilities_version}:deobf") { // https://dl.bintray.com/cyclopsmc/dev/org/cyclops/commoncapabilities/CommonCapabilities/
-        exclude group: 'org.cyclops.cyclopscore', module: 'CyclopsCore'
+    compile("org.cyclops.commoncapabilities:commoncapabilities:${config.commoncapabilities_version}:deobf") { // https://dl.bintray.com/cyclopsmc/dev/org/cyclops/commoncapabilities/CommonCapabilities/
+        exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
     compile fg.deobf("mezz.jei:jei-${config.jei_version}") // https://dvs1.progwml6.com/files/maven/mezz/jei/
@@ -252,7 +256,7 @@ uploadArchives {
         pom {
             groupId = project.group
             version = project.version
-            artifactId = project.archivesBaseName
+            artifactId = project.archivesBaseName.toLowerCase()
         }
         pom.project {
             name project.archivesBaseName
