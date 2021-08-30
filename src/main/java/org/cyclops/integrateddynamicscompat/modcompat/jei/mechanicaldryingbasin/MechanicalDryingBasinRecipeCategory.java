@@ -99,11 +99,11 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
         }
 
         recipeLayout.getFluidStacks().init(FLUIDINPUT_SLOT, true, 6, 28, 8, 9, 1000, true, null);
-        if(recipe.getInputFluid() != null) {
+        if(!recipe.getInputFluid().isEmpty()) {
             recipeLayout.getFluidStacks().set(FLUIDINPUT_SLOT, recipe.getInputFluid());
         }
         recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28, 8, 9, 1000, true, null);
-        if(recipe.getOutputFluid() != null) {
+        if(!recipe.getOutputFluid().isEmpty()) {
             recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
         }
     }
