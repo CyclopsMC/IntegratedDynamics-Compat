@@ -96,7 +96,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
         // Collect items
         for (Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> entry : recipeLayout.getItemStacks().getGuiIngredients().entrySet()) {
-            ItemStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), ItemStack.EMPTY);
+            ItemStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), ItemStack.EMPTY).copy();
             if (entry.getValue().isInput()) {
                 ResourceLocation heuristicTag = getHeuristicItemsTag(entry.getValue());
                 if (heuristicTag != null) {
@@ -111,7 +111,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
         // Collect fluids
         for (Map.Entry<Integer, ? extends IGuiIngredient<FluidStack>> entry : recipeLayout.getFluidStacks().getGuiIngredients().entrySet()) {
-            FluidStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), FluidStack.EMPTY);
+            FluidStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), FluidStack.EMPTY).copy();
             if (entry.getValue().isInput()) {
                 fluidInputs.add(stack);
             } else {
