@@ -47,12 +47,12 @@ public class CPacketSetSlot extends PacketCodec {
 
     @Override
     public void actionServer(World world, ServerPlayerEntity player) {
-        if(player.openContainer instanceof ContainerLogicProgrammerBase
-                && player.openContainer.windowId == windowId
-                && slot < player.openContainer.inventorySlots.size()) {
-            final Slot itemSlot = player.openContainer.getSlot(slot);
+        if(player.containerMenu instanceof ContainerLogicProgrammerBase
+                && player.containerMenu.containerId == windowId
+                && slot < player.containerMenu.slots.size()) {
+            final Slot itemSlot = player.containerMenu.getSlot(slot);
             if (itemSlot instanceof SlotExtended && ((SlotExtended) itemSlot).isPhantom()) {
-                player.openContainer.putStackInSlot(slot, itemStack.copy());
+                player.containerMenu.setItem(slot, itemStack.copy());
             }
         }
     }

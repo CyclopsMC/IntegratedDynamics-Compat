@@ -27,7 +27,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
 
     public DryingBasinRecipeJEI(RecipeDryingBasin recipe) {
         super(RegistryEntries.RECIPETYPE_DRYING_BASIN, recipe);
-        this.inputItem = Arrays.stream(recipe.getInputIngredient().getMatchingStacks()).collect(Collectors.toList());
+        this.inputItem = Arrays.stream(recipe.getInputIngredient().getItems()).collect(Collectors.toList());
         this.inputFluid = recipe.getInputFluid();
         this.outputItem = recipe.getOutputItem();
         this.outputFluid = recipe.getOutputFluid();

@@ -26,8 +26,8 @@ public class TopMechanicalMachineData implements IProbeInfoProvider {
         if (world != null && blockState != null && data != null && player != null) {
             TileHelpers.getSafeTile(world, data.getPos(), TileMechanicalMachine.class)
                     .ifPresent(tile -> {
-                        if (!tile.getInventory().getStackInSlot(0).isEmpty()) {
-                            probeInfo.item(tile.getInventory().getStackInSlot(0));
+                        if (!tile.getInventory().getItem(0).isEmpty()) {
+                            probeInfo.item(tile.getInventory().getItem(0));
                         }
                     });
         }

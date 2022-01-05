@@ -6,6 +6,8 @@ import org.cyclops.integrateddynamics.api.block.cable.ICable;
 import org.cyclops.integrateddynamics.api.path.IPathElement;
 import org.cyclops.integrateddynamics.capability.path.PathElementCable;
 
+import IMultipart;
+
 /**
  * Implementation of {@link IPathElement} for {@link IMultipart}.
  * @author rubensworks

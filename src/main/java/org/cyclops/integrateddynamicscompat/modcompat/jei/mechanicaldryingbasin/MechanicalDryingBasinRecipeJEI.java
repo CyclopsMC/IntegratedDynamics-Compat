@@ -27,7 +27,7 @@ public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapp
 
     public MechanicalDryingBasinRecipeJEI(RecipeMechanicalDryingBasin recipe) {
         super(RegistryEntries.RECIPETYPE_MECHANICAL_DRYING_BASIN, recipe);
-        this.inputItem = Arrays.stream(recipe.getInputIngredient().getMatchingStacks()).collect(Collectors.toList());
+        this.inputItem = Arrays.stream(recipe.getInputIngredient().getItems()).collect(Collectors.toList());
         this.inputFluid = recipe.getInputFluid();
         this.outputItem = recipe.getOutputItem();
         this.outputFluid = recipe.getOutputFluid();

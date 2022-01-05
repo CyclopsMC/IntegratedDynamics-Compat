@@ -10,6 +10,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.cyclops.cyclopscore.helper.TileHelpers;
 
+import IBlockAccess;
+import ITeslaConsumer;
+import ITeslaHolder;
+import ITeslaProducer;
+
 /**
  * Energy Storage wrapper for Tesla.
  * @author rubensworks

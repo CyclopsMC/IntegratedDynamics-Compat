@@ -61,7 +61,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
     @Nonnull
     @Override
     public String getTitle() {
-        return new TranslationTextComponent(RegistryEntries.BLOCK_DRYING_BASIN.getTranslationKey()).getString();
+        return new TranslationTextComponent(RegistryEntries.BLOCK_DRYING_BASIN.getDescriptionId()).getString();
     }
 
     @Nonnull
@@ -112,9 +112,9 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
         arrow.draw(matrixStack, 43, 11);
 
         // Draw duration
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getInstance().font;
         IFormattableTextComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
-        fontRenderer.func_243248_b(matrixStack, duration,
-                (background.getWidth() - fontRenderer.getStringPropertyWidth(duration)) / 2 + 3, 42, 0xFF808080);
+        fontRenderer.draw(matrixStack, duration,
+                (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, 0xFF808080);
     }
 }

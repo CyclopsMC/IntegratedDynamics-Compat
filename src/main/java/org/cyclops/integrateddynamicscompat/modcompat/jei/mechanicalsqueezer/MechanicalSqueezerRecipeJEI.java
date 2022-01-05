@@ -28,7 +28,7 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
 
     public MechanicalSqueezerRecipeJEI(RecipeMechanicalSqueezer recipe) {
         super(RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER, recipe);
-        this.inputItem = Arrays.stream(recipe.getInputIngredient().getMatchingStacks()).collect(Collectors.toList());
+        this.inputItem = Arrays.stream(recipe.getInputIngredient().getItems()).collect(Collectors.toList());
         this.outputItems = recipe.getOutputItems();
         this.outputFluid = recipe.getOutputFluid();
         this.duration = recipe.getDuration();

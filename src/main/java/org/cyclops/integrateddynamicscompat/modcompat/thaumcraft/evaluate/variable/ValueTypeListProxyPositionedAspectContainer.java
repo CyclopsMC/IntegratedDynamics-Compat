@@ -11,6 +11,8 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 
+import IAspectContainer;
+
 /**
  * A list proxy for an aspect container at a certain position.
  */

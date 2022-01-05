@@ -3,6 +3,8 @@ package org.cyclops.integrateddynamicscompat.modcompat.ic2;
 import ic2.api.tile.IEnergyStorage;
 import org.cyclops.integrateddynamicscompat.modcompat.ic2.*;
 
+import IEnergyStorage;
+
 /**
  * @author rubensworks
  */

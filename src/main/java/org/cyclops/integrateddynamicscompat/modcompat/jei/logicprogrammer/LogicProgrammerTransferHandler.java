@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import mezz.jei.api.recipe.transfer.IRecipeTransferError.Type;
+
 /**
  * Allows recipe transferring to Logic Programmer elements with slots.
  * @author rubensworks
@@ -79,8 +81,8 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
         List<Item> items = jeiIngredient.getAllIngredients().stream().map(ItemStack::getItem).collect(Collectors.toList());
         if (items.size() > 1) {
-            for (Map.Entry<ResourceLocation, ITag<Item>> entry : ItemTags.getCollection().getIDTagMap().entrySet()) {
-                if (entry.getValue().getAllElements().equals(items)) {
+            for (Map.Entry<ResourceLocation, ITag<Item>> entry : ItemTags.getAllTags().getAllTags().entrySet()) {
+                if (entry.getValue().getValues().equals(items)) {
                     return entry.getKey();
                 }
             }
@@ -138,7 +140,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         if (doTransfer) {
             element.setRecipeGrid(container, itemInputs, fluidInputs, itemOutputs, fluidOutputs);
             IntegratedDynamicsCompat._instance.getPacketHandler().sendToServer(
-                    new CPacketValueTypeRecipeLPElementSetRecipe(container.windowId, itemInputs, fluidInputs, itemOutputs, fluidOutputs));
+                    new CPacketValueTypeRecipeLPElementSetRecipe(container.containerId, itemInputs, fluidInputs, itemOutputs, fluidOutputs));
         }
 
         return null;
@@ -184,10 +186,10 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     }
 
     protected void setStackInSlot(T container, int slot, ItemStack itemStack) {
-        int slotId = container.inventorySlots.size() - 37 + slot; // Player inventory - 1
-        container.putStackInSlot(slotId, itemStack.copy());
+        int slotId = container.slots.size() - 37 + slot; // Player inventory - 1
+        container.setItem(slotId, itemStack.copy());
         IntegratedDynamicsCompat._instance.getPacketHandler().sendToServer(
-                new CPacketSetSlot(container.windowId, slotId, itemStack));
+                new CPacketSetSlot(container.containerId, slotId, itemStack));
     }
 
 }

@@ -57,8 +57,8 @@ public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec {
 
     @Override
     public void actionServer(World world, ServerPlayerEntity player) {
-        if(player.openContainer.windowId == windowId) {
-            ContainerLogicProgrammerBase container = (ContainerLogicProgrammerBase) player.openContainer;
+        if(player.containerMenu.containerId == windowId) {
+            ContainerLogicProgrammerBase container = (ContainerLogicProgrammerBase) player.containerMenu;
             ValueTypeRecipeLPElement element = (ValueTypeRecipeLPElement) container.getActiveElement();
             element.setRecipeGrid(container, itemInputs, fluidInputs, itemOutputs, fluidOutputs);
         }

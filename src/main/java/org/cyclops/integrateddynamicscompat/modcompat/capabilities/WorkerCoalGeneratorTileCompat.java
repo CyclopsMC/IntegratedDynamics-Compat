@@ -38,7 +38,7 @@ public class WorkerCoalGeneratorTileCompat extends SimpleCapabilityConstructor<I
         @SuppressWarnings("unchecked")
         @Override
         public boolean hasWork() {
-            return provider.getInventory().getStackInSlot(TileCoalGenerator.SLOT_FUEL) != null || provider.isBurning();
+            return provider.getInventory().getItem(TileCoalGenerator.SLOT_FUEL) != null || provider.isBurning();
         }
 
         @Override

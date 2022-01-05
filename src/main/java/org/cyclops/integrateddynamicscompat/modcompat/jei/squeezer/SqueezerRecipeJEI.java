@@ -26,7 +26,7 @@ public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInventory
 
     public SqueezerRecipeJEI(RecipeSqueezer recipe) {
         super(RegistryEntries.RECIPETYPE_SQUEEZER, recipe);
-        this.inputItem = Arrays.stream(recipe.getInputIngredient().getMatchingStacks()).collect(Collectors.toList());
+        this.inputItem = Arrays.stream(recipe.getInputIngredient().getItems()).collect(Collectors.toList());
         this.outputItems = recipe.getOutputItems();
         this.outputFluid = recipe.getOutputFluid();
     }

@@ -62,7 +62,7 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     @Nonnull
     @Override
     public String getTitle() {
-        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.getTranslationKey()).getString();
+        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.getDescriptionId()).getString();
     }
 
     @Nonnull
@@ -113,12 +113,12 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
         arrow.draw(matrixStack, 43, 11);
 
         // Draw energy and duration
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getInstance().font;
         IFormattableTextComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
-        fontRenderer.func_243248_b(matrixStack, energy,
-                (background.getWidth() - fontRenderer.getStringPropertyWidth(energy)) / 2 + 3, 0, 0xFF808080);
+        fontRenderer.draw(matrixStack, energy,
+                (background.getWidth() - fontRenderer.width(energy)) / 2 + 3, 0, 0xFF808080);
         IFormattableTextComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
-        fontRenderer.func_243248_b(matrixStack, duration,
-                (background.getWidth() - fontRenderer.getStringPropertyWidth(duration)) / 2 + 3, 42, 0xFF808080);
+        fontRenderer.draw(matrixStack, duration,
+                (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, 0xFF808080);
     }
 }

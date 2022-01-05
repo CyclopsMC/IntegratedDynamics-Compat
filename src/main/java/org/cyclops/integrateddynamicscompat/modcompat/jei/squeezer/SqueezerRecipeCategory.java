@@ -60,7 +60,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
     @Nonnull
     @Override
     public String getTitle() {
-        return new TranslationTextComponent(RegistryEntries.BLOCK_SQUEEZER.getTranslationKey()).getString();
+        return new TranslationTextComponent(RegistryEntries.BLOCK_SQUEEZER.getDescriptionId()).getString();
     }
 
     @Nonnull
@@ -91,7 +91,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
                 float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
-                tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").mergeStyle(TextFormatting.GRAY));
+                tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").withStyle(TextFormatting.GRAY));
             }
         });
 
@@ -111,7 +111,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
 
     @Override
     public void draw(SqueezerRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-        int height = (int) ((Minecraft.getInstance().world.getGameTime() / 4) % 7);
+        int height = (int) ((Minecraft.getInstance().level.getGameTime() / 4) % 7);
         arrowDrawable.draw(matrixStack, 41, 18 + height * 2);
     }
 }

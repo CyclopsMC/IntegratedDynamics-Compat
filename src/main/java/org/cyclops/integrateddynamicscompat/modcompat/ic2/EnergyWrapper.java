@@ -4,6 +4,8 @@ import ic2.core.block.TileEntityBlock;
 import ic2.core.block.comp.Energy;
 import org.cyclops.integrateddynamicscompat.modcompat.ic2.IEnergyWrapper;
 
+import Energy;
+
 /**
  * @author rubensworks
  */

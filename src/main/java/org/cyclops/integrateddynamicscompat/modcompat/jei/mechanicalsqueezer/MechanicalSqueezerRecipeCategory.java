@@ -62,7 +62,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
     @Nonnull
     @Override
     public String getTitle() {
-        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.getTranslationKey()).getString();
+        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.getDescriptionId()).getString();
     }
 
     @Nonnull
@@ -93,7 +93,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
                 float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
-                tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").mergeStyle(TextFormatting.GRAY));
+                tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").withStyle(TextFormatting.GRAY));
             }
         });
 
@@ -116,12 +116,12 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         arrowDrawable.draw(matrixStack, 45, 21);
 
         // Draw energy and duration
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getInstance().font;
         IFormattableTextComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
-        fontRenderer.func_243248_b(matrixStack, energy,
-                (background.getWidth() - fontRenderer.getStringPropertyWidth(energy)) / 2 - 10, 0, 0xFF808080);
+        fontRenderer.draw(matrixStack, energy,
+                (background.getWidth() - fontRenderer.width(energy)) / 2 - 10, 0, 0xFF808080);
         IFormattableTextComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
-        fontRenderer.func_243248_b(matrixStack, duration,
-                (background.getWidth() - fontRenderer.getStringPropertyWidth(duration)) / 2 - 10, 42, 0xFF808080);
+        fontRenderer.draw(matrixStack, duration,
+                (background.getWidth() - fontRenderer.width(duration)) / 2 - 10, 42, 0xFF808080);
     }
 }
