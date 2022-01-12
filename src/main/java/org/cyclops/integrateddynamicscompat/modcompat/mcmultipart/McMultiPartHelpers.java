@@ -16,7 +16,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.api.client.render.part.IPartOverlayRenderer;
 import org.cyclops.integrateddynamics.api.part.IPartContainer;
@@ -57,7 +57,7 @@ public class McMultiPartHelpers {
         Helpers.addInterfaceRetriever(new Helpers.IInterfaceRetriever() {
             @Override
             public <C> C getInterface(IBlockAccess world, BlockPos pos, Class<C> clazz) {
-                IMultipartContainer multipartContainer = TileHelpers.getSafeTile(world, pos, IMultipartContainer.class);
+                IMultipartContainer multipartContainer = BlockEntityHelpers.get(world, pos, IMultipartContainer.class);
                 if (multipartContainer != null) {
                     for (IMultipart part : multipartContainer.getParts()) {
                         if (clazz.isInstance(part)) {

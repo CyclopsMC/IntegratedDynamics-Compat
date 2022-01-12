@@ -6,7 +6,7 @@ import mcmultipart.multipart.OcclusionHelper;
 import mcmultipart.multipart.PartSlot;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import org.cyclops.integrateddynamics.api.block.cable.ICable;
 import org.cyclops.integrateddynamics.block.BlockCable;
 import org.cyclops.integrateddynamics.capability.cable.CableDefault;
@@ -37,7 +37,7 @@ public abstract class CablePart<T extends MultipartBase> extends CableDefault {
     }
 
     @Override
-    protected World getWorld() {
+    protected Level getWorld() {
         return part.getWorld();
     }
 

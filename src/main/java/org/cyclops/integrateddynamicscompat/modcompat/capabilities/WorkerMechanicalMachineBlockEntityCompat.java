@@ -5,16 +5,16 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.cyclops.commoncapabilities.api.capability.work.IWorker;
 import org.cyclops.cyclopscore.modcompat.capabilities.DefaultCapabilityProvider;
 import org.cyclops.cyclopscore.modcompat.capabilities.SimpleCapabilityConstructor;
+import org.cyclops.integrateddynamics.core.blockentity.BlockEntityMechanicalMachine;
 import org.cyclops.integrateddynamicscompat.Capabilities;
-import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
 
 import javax.annotation.Nullable;
 
 /**
- * Compatibility for squeezer worker capability.
+ * Compatibility for a mechanical machine worker capability.
  * @author rubensworks
  */
-public class WorkerSqueezerTileCompat extends SimpleCapabilityConstructor<IWorker, TileSqueezer> {
+public class WorkerMechanicalMachineBlockEntityCompat<T extends BlockEntityMechanicalMachine<?, ?>> extends SimpleCapabilityConstructor<IWorker, T> {
 
     @Override
     public Capability<IWorker> getCapability() {
@@ -23,27 +23,27 @@ public class WorkerSqueezerTileCompat extends SimpleCapabilityConstructor<IWorke
 
     @Nullable
     @Override
-    public ICapabilityProvider createProvider(TileSqueezer host) {
-        return new DefaultCapabilityProvider<>(Capabilities.WORKER, new Worker(host));
+    public ICapabilityProvider createProvider(T host) {
+        return new DefaultCapabilityProvider<>(Capabilities.WORKER, new Worker<>(host));
     }
 
-    public static class Worker implements IWorker {
+    public static class Worker<T extends BlockEntityMechanicalMachine<?, ?>> implements IWorker {
 
-        private final TileSqueezer provider;
+        private final T provider;
 
-        public Worker(TileSqueezer provider) {
+        public Worker(T provider) {
             this.provider = provider;
         }
 
         @SuppressWarnings("unchecked")
         @Override
         public boolean hasWork() {
-            return provider.getCurrentRecipe().isPresent();
+            return provider.hasWork();
         }
 
         @Override
         public boolean canWork() {
-            return false;
+            return provider.canWork();
         }
     }
 }

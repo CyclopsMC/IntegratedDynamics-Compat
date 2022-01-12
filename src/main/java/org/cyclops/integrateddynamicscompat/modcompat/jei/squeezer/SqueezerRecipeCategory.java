@@ -1,6 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -8,14 +8,13 @@ import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.util.Translator;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
@@ -59,8 +58,8 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
 
     @Nonnull
     @Override
-    public String getTitle() {
-        return new TranslationTextComponent(RegistryEntries.BLOCK_SQUEEZER.getDescriptionId()).getString();
+    public Component getTitle() {
+        return new TranslatableComponent(RegistryEntries.BLOCK_SQUEEZER.getDescriptionId());
     }
 
     @Nonnull
@@ -91,7 +90,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
                 float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
-                tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").withStyle(TextFormatting.GRAY));
+                tooltip.add(new TextComponent("Chance: " + (chance * 100.0F) + "%").withStyle(ChatFormatting.GRAY));
             }
         });
 
@@ -110,7 +109,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
     }
 
     @Override
-    public void draw(SqueezerRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(SqueezerRecipeJEI recipe, PoseStack matrixStack, double mouseX, double mouseY) {
         int height = (int) ((Minecraft.getInstance().level.getGameTime() / 4) % 7);
         arrowDrawable.draw(matrixStack, 41, 18 + height * 2);
     }

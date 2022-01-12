@@ -3,7 +3,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.aspect.read;
 import net.minecraft.util.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.cyclopscore.datastructure.DimPos;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.api.part.PartTarget;
 import org.cyclops.integrateddynamics.api.part.aspect.IAspectRead;
 import org.cyclops.integrateddynamics.api.part.aspect.property.IAspectProperties;
@@ -41,7 +41,7 @@ public class ThaumcraftAspects {
             public static final IAspectRead<ValueTypeBoolean.ValueBoolean, ValueTypeBoolean> BOOLEAN_ISASPECTCONTAINER =
                     AspectReadBuilders.BUILDER_BOOLEAN.appendKind("thaumcraft").handle(input -> {
                         DimPos dimPos = input.getLeft().getTarget().getPos();
-                        return TileHelpers.getSafeTile(dimPos.getWorld(), dimPos.getBlockPos(), IAspectContainer.class) != null;
+                        return BlockEntityHelpers.get(dimPos.getWorld(), dimPos.getBlockPos(), IAspectContainer.class) != null;
                     }).handle(AspectReadBuilders.PROP_GET_BOOLEAN, "isaspectcontainer").buildRead();
 
             public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_ASPECTCONTAINER =
@@ -54,7 +54,7 @@ public class ThaumcraftAspects {
                             .handle(input -> {
                                 int i = input.getRight().getValue(AspectReadBuilders.PROPERTY_LISTINDEX).getRawValue();
                                 DimPos dimPos = input.getLeft().getTarget().getPos();
-                                IAspectContainer aspectContainer = TileHelpers.getSafeTile(dimPos, IAspectContainer.class);
+                                IAspectContainer aspectContainer = BlockEntityHelpers.get(dimPos, IAspectContainer.class);
                                 AspectList aspectList;
                                 if (aspectContainer == null || i >= (aspectList = aspectContainer.getAspects()).size()) {
                                     return ValueObjectTypeAspect.ValueAspect.ofNull();
@@ -66,7 +66,7 @@ public class ThaumcraftAspects {
 
             public static final IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, Pair<Direction, IEssentiaTransport>>
                     PROP_GET_ESSENTIA_TRANSPORT = input -> Pair.of(input.getLeft().getTarget().getSide(),
-                    TileHelpers.getSafeTile(input.getLeft().getTarget().getPos().getWorld(),
+                    BlockEntityHelpers.get(input.getLeft().getTarget().getPos().getWorld(),
                             input.getLeft().getTarget().getPos().getBlockPos(),
                             IEssentiaTransport.class));
 

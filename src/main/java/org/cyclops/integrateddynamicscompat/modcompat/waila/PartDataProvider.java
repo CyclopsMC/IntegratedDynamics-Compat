@@ -7,7 +7,7 @@ import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.BlockEntityEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -16,7 +16,7 @@ import org.cyclops.cyclopscore.persist.nbt.NBTClassType;
 import org.cyclops.integrateddynamics.api.part.IPartState;
 import org.cyclops.integrateddynamics.api.part.IPartType;
 import org.cyclops.integrateddynamics.core.helper.PartHelpers;
-import org.cyclops.integrateddynamics.core.tileentity.TileMultipartTicking;
+import org.cyclops.integrateddynamics.core.tileentity.BlockEntityMultipartTicking;
 import org.cyclops.integrateddynamicscompat.Reference;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class PartDataProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
+public class PartDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
     public static final ResourceLocation ID = new ResourceLocation(Reference.MOD_ID, "part");
 
@@ -38,7 +38,7 @@ public class PartDataProvider implements IComponentProvider, IServerDataProvider
     }
 
     @Override
-    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity tile) {
+    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, BlockEntityEntity tile) {
         PartHelpers.getPartContainer(world, tile.getPos(), null)
                 .ifPresent(partContainer -> {
                     Direction side = partContainer.getWatchingSide(world, tile.getPos(), player);

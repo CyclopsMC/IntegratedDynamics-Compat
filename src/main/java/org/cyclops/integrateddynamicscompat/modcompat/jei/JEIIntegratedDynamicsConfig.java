@@ -7,11 +7,11 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.cyclops.cyclopscore.helper.MinecraftHelpers;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
@@ -88,13 +88,13 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
         return new ResourceLocation(Reference.MOD_ID, "main");
     }
 
-    public static IFormattableTextComponent getDurationSecondsTextComponent(int durationTicks) {
+    public static MutableComponent getDurationSecondsTextComponent(int durationTicks) {
         String seconds = new DecimalFormat("#.##").format((double) durationTicks / MinecraftHelpers.SECOND_IN_TICKS);
-        return new TranslationTextComponent("gui.jei.category.smelting.time.seconds", seconds);
+        return new TranslatableComponent("gui.jei.category.smelting.time.seconds", seconds);
     }
 
-    public static IFormattableTextComponent getEnergyTextComponent(int durationTicks, int energyPerTick) {
-        return new StringTextComponent(String.format("%,d", durationTicks * energyPerTick))
-                .append(new TranslationTextComponent(L10NValues.GENERAL_ENERGY_UNIT));
+    public static MutableComponent getEnergyTextComponent(int durationTicks, int energyPerTick) {
+        return new TextComponent(String.format("%,d", durationTicks * energyPerTick))
+                .append(new TranslatableComponent(L10NValues.GENERAL_ENERGY_UNIT));
     }
 }

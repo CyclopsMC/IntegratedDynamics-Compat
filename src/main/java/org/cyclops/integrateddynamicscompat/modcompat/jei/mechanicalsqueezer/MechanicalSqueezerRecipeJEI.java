@@ -1,9 +1,9 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.NonNullList;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.integrateddynamics.RegistryEntries;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Recipe wrapper for MechanicalSqueezer recipes
  * @author rubensworks
  */
-public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInventory, RecipeMechanicalSqueezer, MechanicalSqueezerRecipeJEI> {
+public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<Container, RecipeMechanicalSqueezer, MechanicalSqueezerRecipeJEI> {
 
     private final List<ItemStack> inputItem;
     private final NonNullList<RecipeSqueezer.ItemStackChance> outputItems;
@@ -59,7 +59,7 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
     }
 
     @Override
-    protected IRecipeType<RecipeMechanicalSqueezer> getRecipeType() {
+    protected RecipeType<RecipeMechanicalSqueezer> getRecipeType() {
         return RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER;
     }
 

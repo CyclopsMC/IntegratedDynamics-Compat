@@ -5,12 +5,13 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.api.part.IPartState;
 import org.cyclops.integrateddynamics.api.part.IPartType;
@@ -25,12 +26,12 @@ import java.util.List;
 public class TopPartData implements IProbeInfoProvider {
 
     @Override
-    public String getID() {
-        return Reference.MOD_ID + ":part_data";
+    public ResourceLocation getID() {
+        return new ResourceLocation(Reference.MOD_ID, "part_data");
     }
 
     @Override
-    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
             BlockPos pos = data.getPos();
             PartHelpers.getPartContainer(world, pos, null)
@@ -40,9 +41,9 @@ public class TopPartData implements IProbeInfoProvider {
                             IPartType partType = partContainer.getPart(side);
                             IPartState partState = partContainer.getPartState(side);
 
-                            List<ITextComponent> lines = Lists.newArrayList();
+                            List<Component> lines = Lists.newArrayList();
                             partType.loadTooltip(partState, lines);
-                            for (ITextComponent line : lines) {
+                            for (Component line : lines) {
                                 probeInfo.text(line);
                             }
                         }

@@ -4,11 +4,11 @@ import net.darkhax.tesla.api.ITeslaConsumer;
 import net.darkhax.tesla.api.ITeslaHolder;
 import net.darkhax.tesla.api.ITeslaProducer;
 import net.darkhax.tesla.capability.TeslaCapabilities;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 
 import IBlockAccess;
 import ITeslaConsumer;
@@ -37,17 +37,17 @@ public class EnergyStorageTesla implements IEnergyStorage {
 
     protected ITeslaHolder getEnergyStorage() {
         if (energyStorage != null) return energyStorage;
-        return energyStorage = TileHelpers.getCapability(world, pos, facing, TeslaCapabilities.CAPABILITY_HOLDER);
+        return energyStorage = BlockEntityHelpers.getCapability(world, pos, facing, TeslaCapabilities.CAPABILITY_HOLDER);
     }
 
     protected ITeslaConsumer getEnergyReceiver() {
         if (energyReceiver != null) return energyReceiver;
-        return energyReceiver = TileHelpers.getCapability(world, pos, facing, TeslaCapabilities.CAPABILITY_CONSUMER);
+        return energyReceiver = BlockEntityHelpers.getCapability(world, pos, facing, TeslaCapabilities.CAPABILITY_CONSUMER);
     }
 
     protected ITeslaProducer getEnergyProvider() {
         if (energyProvider != null) return energyProvider;
-        return energyProvider = TileHelpers.getCapability(world, pos, facing, TeslaCapabilities.CAPABILITY_PRODUCER);
+        return energyProvider = BlockEntityHelpers.getCapability(world, pos, facing, TeslaCapabilities.CAPABILITY_PRODUCER);
     }
 
     @Override

@@ -6,11 +6,11 @@ import mcmultipart.multipart.IReversePartConverter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.cyclops.cyclopscore.datastructure.EnumFacingMap;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.api.network.INetwork;
 import org.cyclops.integrateddynamics.block.BlockCable;
 import org.cyclops.integrateddynamics.core.helper.PartHelpers;
-import org.cyclops.integrateddynamics.core.tileentity.TileMultipartTicking;
+import org.cyclops.integrateddynamics.core.tileentity.BlockEntityMultipartTicking;
 
 import java.util.Collection;
 
@@ -47,7 +47,7 @@ public class BlockCableReverseConverter implements IReversePartConverter {
             World world = multipartContainer.getWorldIn();
             BlockPos pos = multipartContainer.getPosIn();
             world.setBlockState(pos, BlockCable.getInstance().getDefaultState());
-            TileMultipartTicking tile = TileHelpers.getSafeTile(world, pos, TileMultipartTicking.class);
+            BlockEntityMultipartTicking tile = BlockEntityHelpers.get(world, pos, BlockEntityMultipartTicking.class);
             if(partData == null) {
                 // The cable is not real
                 // We now have to check manually for disabled parts

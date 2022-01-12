@@ -4,12 +4,12 @@ import mcp.mobius.waila.api.IRegistrar;
 import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.TooltipPosition;
 import mcp.mobius.waila.api.WailaPlugin;
-import org.cyclops.integrateddynamics.core.tileentity.TileMultipartTicking;
-import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
-import org.cyclops.integrateddynamics.tileentity.TileMechanicalDryingBasin;
-import org.cyclops.integrateddynamics.tileentity.TileMechanicalSqueezer;
-import org.cyclops.integrateddynamics.tileentity.TileProxy;
-import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
+import org.cyclops.integrateddynamics.core.tileentity.BlockEntityMultipartTicking;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityDryingBasin;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityMechanicalDryingBasin;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityMechanicalSqueezer;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityProxy;
+import org.cyclops.integrateddynamics.tileentity.BlockEntitySqueezer;
 
 /**
  * Waila support class.
@@ -29,28 +29,28 @@ public class Waila implements IWailaPlugin {
         registrar.addConfig(ProxyDataProvider.ID, true);
 
         PartDataProvider partDataProvider = new PartDataProvider();
-        registrar.registerBlockDataProvider(partDataProvider, TileMultipartTicking.class);
-        registrar.registerComponentProvider(partDataProvider, TooltipPosition.BODY, TileMultipartTicking.class);
+        registrar.registerBlockDataProvider(partDataProvider, BlockEntityMultipartTicking.class);
+        registrar.registerComponentProvider(partDataProvider, TooltipPosition.BODY, BlockEntityMultipartTicking.class);
 
         SqueezerDataProvider squeezerDataProvider = new SqueezerDataProvider();
-        registrar.registerBlockDataProvider(squeezerDataProvider, TileSqueezer.class);
-        registrar.registerComponentProvider(squeezerDataProvider, TooltipPosition.BODY, TileSqueezer.class);
+        registrar.registerBlockDataProvider(squeezerDataProvider, BlockEntitySqueezer.class);
+        registrar.registerComponentProvider(squeezerDataProvider, TooltipPosition.BODY, BlockEntitySqueezer.class);
 
         DryingBasinDataProvider dryingBasinDataProvider = new DryingBasinDataProvider();
-        registrar.registerBlockDataProvider(dryingBasinDataProvider, TileDryingBasin.class);
-        registrar.registerComponentProvider(dryingBasinDataProvider, TooltipPosition.BODY, TileDryingBasin.class);
+        registrar.registerBlockDataProvider(dryingBasinDataProvider, BlockEntityDryingBasin.class);
+        registrar.registerComponentProvider(dryingBasinDataProvider, TooltipPosition.BODY, BlockEntityDryingBasin.class);
 
         MechanicalSqueezerDataProvider mechanicalSqueezerDataProvider = new MechanicalSqueezerDataProvider();
-        registrar.registerBlockDataProvider(mechanicalSqueezerDataProvider, TileMechanicalSqueezer.class);
-        registrar.registerComponentProvider(mechanicalSqueezerDataProvider, TooltipPosition.BODY, TileMechanicalSqueezer.class);
+        registrar.registerBlockDataProvider(mechanicalSqueezerDataProvider, BlockEntityMechanicalSqueezer.class);
+        registrar.registerComponentProvider(mechanicalSqueezerDataProvider, TooltipPosition.BODY, BlockEntityMechanicalSqueezer.class);
 
         MechanicalDryingBasinDataProvider mechanicalDryingBasinDataProvider = new MechanicalDryingBasinDataProvider();
-        registrar.registerBlockDataProvider(mechanicalDryingBasinDataProvider, TileMechanicalDryingBasin.class);
-        registrar.registerComponentProvider(mechanicalDryingBasinDataProvider, TooltipPosition.BODY, TileMechanicalDryingBasin.class);
+        registrar.registerBlockDataProvider(mechanicalDryingBasinDataProvider, BlockEntityMechanicalDryingBasin.class);
+        registrar.registerComponentProvider(mechanicalDryingBasinDataProvider, TooltipPosition.BODY, BlockEntityMechanicalDryingBasin.class);
 
         ProxyDataProvider proxyDataProvider = new ProxyDataProvider();
-        registrar.registerBlockDataProvider(proxyDataProvider, TileProxy.class);
-        registrar.registerComponentProvider(proxyDataProvider, TooltipPosition.BODY, TileProxy.class);
+        registrar.registerBlockDataProvider(proxyDataProvider, BlockEntityProxy.class);
+        registrar.registerComponentProvider(proxyDataProvider, TooltipPosition.BODY, BlockEntityProxy.class);
     }
 
 }

@@ -6,7 +6,7 @@ import net.darkhax.tesla.api.ITeslaProducer;
 import net.darkhax.tesla.lib.TeslaUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.cyclopscore.datastructure.DimPos;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamicscompat.Capabilities;
 import org.cyclops.integrateddynamics.api.part.PartTarget;
 import org.cyclops.integrateddynamics.api.part.aspect.IAspectRead;
@@ -33,21 +33,21 @@ public class TeslaAspects {
                 @Override
                 public ITeslaConsumer getOutput(Pair<PartTarget, IAspectProperties> input) {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    return TileHelpers.getCapability(pos, input.getLeft().getTarget().getSide(), Capabilities.TESLA_CONSUMER);
+                    return BlockEntityHelpers.getCapability(pos, input.getLeft().getTarget().getSide(), Capabilities.TESLA_CONSUMER);
                 }
             };
             public static final IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, ITeslaProducer> PROP_GET_PROVIDER = new IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, ITeslaProducer>() {
                 @Override
                 public ITeslaProducer getOutput(Pair<PartTarget, IAspectProperties> input) {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    return TileHelpers.getCapability(pos, input.getLeft().getTarget().getSide(), Capabilities.TESLA_PRODUCER);
+                    return BlockEntityHelpers.getCapability(pos, input.getLeft().getTarget().getSide(), Capabilities.TESLA_PRODUCER);
                 }
             };
             public static final IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, ITeslaHolder> PROP_GET_HOLDER = new IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, ITeslaHolder>() {
                 @Override
                 public ITeslaHolder getOutput(Pair<PartTarget, IAspectProperties> input) {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    return TileHelpers.getCapability(pos, input.getLeft().getTarget().getSide(), Capabilities.TESLA_HOLDER);
+                    return BlockEntityHelpers.getCapability(pos, input.getLeft().getTarget().getSide(), Capabilities.TESLA_HOLDER);
                 }
             };
 

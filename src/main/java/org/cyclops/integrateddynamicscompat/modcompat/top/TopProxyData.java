@@ -4,15 +4,15 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.Reference;
+import org.cyclops.integrateddynamics.blockentity.BlockEntityProxy;
 import org.cyclops.integrateddynamics.core.helper.L10NValues;
-import org.cyclops.integrateddynamics.tileentity.TileProxy;
 
 /**
  * Data provider for proxies.
@@ -20,15 +20,15 @@ import org.cyclops.integrateddynamics.tileentity.TileProxy;
  */
 public class TopProxyData implements IProbeInfoProvider {
     @Override
-    public String getID() {
-        return Reference.MOD_ID + ":proxy_data";
+    public ResourceLocation getID() {
+        return new ResourceLocation(Reference.MOD_ID, "proxy_data");
     }
 
     @Override
-    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
-            TileHelpers.getSafeTile(world, data.getPos(), TileProxy.class)
-                    .ifPresent(tile -> probeInfo.text(new TranslationTextComponent(L10NValues.GENERAL_ITEM_ID, tile.getProxyId())));
+            BlockEntityHelpers.get(world, data.getPos(), BlockEntityProxy.class)
+                    .ifPresent(tile -> probeInfo.text(new TranslatableComponent(L10NValues.GENERAL_ITEM_ID, tile.getProxyId())));
         }
     }
 }

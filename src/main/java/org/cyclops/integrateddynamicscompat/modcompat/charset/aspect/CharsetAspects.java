@@ -8,7 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.L10NHelpers;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.api.evaluate.EvaluationException;
 import org.cyclops.integrateddynamics.api.evaluate.operator.IOperator;
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValue;
@@ -50,7 +50,7 @@ public class CharsetAspects {
                 @Override
                 public IPipeView getOutput(Pair<PartTarget, IAspectProperties> input) {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    return TileHelpers.getCapability(pos, CharsetPipesModCompat.PIPE);
+                    return BlockEntityHelpers.getCapability(pos, CharsetPipesModCompat.PIPE);
                 }
             };
 
@@ -116,7 +116,7 @@ public class CharsetAspects {
                     @Override
                     public Pair<org.cyclops.integrateddynamicscompat.modcompat.charset.aspect.ShifterPart, O> getOutput(Triple<PartTarget, IAspectProperties, O> input) throws EvaluationException {
                         PartPos center = input.getLeft().getCenter();
-                        return Pair.of(((org.cyclops.integrateddynamicscompat.modcompat.charset.aspect.ShifterPart) TileHelpers.getCapability(center.getPos().getWorld(),
+                        return Pair.of(((org.cyclops.integrateddynamicscompat.modcompat.charset.aspect.ShifterPart) BlockEntityHelpers.getCapability(center.getPos().getWorld(),
                                 center.getPos().getBlockPos(), center.getSide(), CharsetPipesModCompat.SHIFTER)), input.getRight());
                     }
                 });

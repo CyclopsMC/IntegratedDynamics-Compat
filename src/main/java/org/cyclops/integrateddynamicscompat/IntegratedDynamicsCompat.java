@@ -1,6 +1,6 @@
 package org.cyclops.integrateddynamicscompat;
 
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Level;
@@ -9,15 +9,15 @@ import org.cyclops.cyclopscore.init.ModBaseVersionable;
 import org.cyclops.cyclopscore.modcompat.ModCompatLoader;
 import org.cyclops.cyclopscore.proxy.IClientProxy;
 import org.cyclops.cyclopscore.proxy.ICommonProxy;
-import org.cyclops.integrateddynamics.tileentity.TileCoalGenerator;
-import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
-import org.cyclops.integrateddynamics.tileentity.TileMechanicalDryingBasin;
-import org.cyclops.integrateddynamics.tileentity.TileMechanicalSqueezer;
-import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
-import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGeneratorTileCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinTileCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineTileCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerTileCompat;
+import org.cyclops.integrateddynamics.blockentity.BlockEntityCoalGenerator;
+import org.cyclops.integrateddynamics.blockentity.BlockEntityDryingBasin;
+import org.cyclops.integrateddynamics.blockentity.BlockEntityMechanicalDryingBasin;
+import org.cyclops.integrateddynamics.blockentity.BlockEntityMechanicalSqueezer;
+import org.cyclops.integrateddynamics.blockentity.BlockEntitySqueezer;
+import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGeneratorBlockEntityCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinBlockEntityCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineBlockEntityCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
 import org.cyclops.integrateddynamicscompat.proxy.ClientProxy;
@@ -59,11 +59,11 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         // Capabilities
-        getCapabilityConstructorRegistry().registerTile(TileDryingBasin.class, new WorkerDryingBasinTileCompat());
-        getCapabilityConstructorRegistry().registerTile(TileSqueezer.class, new WorkerSqueezerTileCompat());
-        getCapabilityConstructorRegistry().registerTile(TileCoalGenerator.class, new WorkerCoalGeneratorTileCompat());
-        getCapabilityConstructorRegistry().registerTile(TileMechanicalDryingBasin.class, new WorkerMechanicalMachineTileCompat<>());
-        getCapabilityConstructorRegistry().registerTile(TileMechanicalSqueezer.class, new WorkerMechanicalMachineTileCompat<>());
+        getCapabilityConstructorRegistry().registerTile(BlockEntityDryingBasin.class, new WorkerDryingBasinBlockEntityCompat());
+        getCapabilityConstructorRegistry().registerTile(BlockEntitySqueezer.class, new WorkerSqueezerBlockEntityCompat());
+        getCapabilityConstructorRegistry().registerTile(BlockEntityCoalGenerator.class, new WorkerCoalGeneratorBlockEntityCompat());
+        getCapabilityConstructorRegistry().registerTile(BlockEntityMechanicalDryingBasin.class, new WorkerMechanicalMachineBlockEntityCompat<>());
+        getCapabilityConstructorRegistry().registerTile(BlockEntityMechanicalSqueezer.class, new WorkerMechanicalMachineBlockEntityCompat<>());
 
         super.setup(event);
     }
@@ -79,7 +79,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
     }
 
     @Override
-    protected ItemGroup constructDefaultItemGroup() {
+    protected CreativeModeTab constructDefaultCreativeModeTab() {
         return null;
     }
 

@@ -1,10 +1,10 @@
 package org.cyclops.integrateddynamicscompat.modcompat.ic2.aspect;
 
 import ic2.api.tile.IEnergyStorage;
-import ic2.core.block.TileEntityBlock;
+import ic2.core.block.BlockEntityEntityBlock;
 import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.cyclopscore.datastructure.DimPos;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.api.part.PartTarget;
 import org.cyclops.integrateddynamics.api.part.aspect.IAspectRead;
 import org.cyclops.integrateddynamics.api.part.aspect.property.IAspectProperties;
@@ -32,11 +32,11 @@ public class Ic2Aspects {
                 @Override
                 public IEnergyWrapper getOutput(Pair<PartTarget, IAspectProperties> input) {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    IEnergyStorage energyStorage = TileHelpers.getSafeTile(pos, IEnergyStorage.class);
+                    IEnergyStorage energyStorage = BlockEntityHelpers.get(pos, IEnergyStorage.class);
                     if (energyStorage != null) {
                         return new EnergyStorageWrapper(energyStorage);
                     }
-                    TileEntityBlock tile = TileHelpers.getSafeTile(pos, TileEntityBlock.class);
+                    BlockEntityEntityBlock tile = BlockEntityHelpers.get(pos, BlockEntityEntityBlock.class);
                     if (tile != null && tile.hasComponent(ic2.core.block.comp.Energy.class)) {
                         return new EnergyWrapper(tile);
                     }

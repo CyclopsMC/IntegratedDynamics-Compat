@@ -6,7 +6,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.cyclops.cyclopscore.modcompat.capabilities.DefaultCapabilityProvider;
 import org.cyclops.cyclopscore.modcompat.capabilities.SimpleCapabilityConstructor;
 import org.cyclops.integrateddynamicscompat.Capabilities;
-import org.cyclops.integrateddynamics.tileentity.TileEnergyBattery;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityEnergyBattery;
 
 import javax.annotation.Nullable;
 
@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
  * Compatibility for energy battery tesla producer capability.
  * @author rubensworks
  */
-public class TeslaProducerEnergyBatteryTileCompat extends SimpleCapabilityConstructor<ITeslaProducer, TileEnergyBattery> {
+public class TeslaProducerEnergyBatteryBlockEntityCompat extends SimpleCapabilityConstructor<ITeslaProducer, BlockEntityEnergyBattery> {
 
     @Override
     public Capability<ITeslaProducer> getCapability() {
@@ -23,15 +23,15 @@ public class TeslaProducerEnergyBatteryTileCompat extends SimpleCapabilityConstr
 
     @Nullable
     @Override
-    public ICapabilityProvider createProvider(TileEnergyBattery host) {
+    public ICapabilityProvider createProvider(BlockEntityEnergyBattery host) {
         return new DefaultCapabilityProvider<>(Capabilities.TESLA_PRODUCER, new TeslaProducer(host));
     }
 
     public static class TeslaProducer implements ITeslaProducer {
 
-        private final TileEnergyBattery provider;
+        private final BlockEntityEnergyBattery provider;
 
-        public TeslaProducer(TileEnergyBattery provider) {
+        public TeslaProducer(BlockEntityEnergyBattery provider) {
             this.provider = provider;
         }
 

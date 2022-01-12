@@ -2,7 +2,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.thaumcraft.evaluate.varia
 
 import net.minecraft.nbt.CompoundNBT;
 import org.cyclops.cyclopscore.datastructure.DimPos;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
 import org.cyclops.cyclopscore.persist.nbt.NBTPersist;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyBase;
@@ -31,7 +31,7 @@ public class ValueTypeListProxyPositionedAspectContainer extends ValueTypeListPr
     }
 
     protected IAspectContainer getContainer() {
-        return TileHelpers.getSafeTile(pos.getWorld(), pos.getBlockPos(), IAspectContainer.class);
+        return BlockEntityHelpers.get(pos.getWorld(), pos.getBlockPos(), IAspectContainer.class);
     }
 
     @Override

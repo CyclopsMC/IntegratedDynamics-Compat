@@ -1,9 +1,9 @@
 package org.cyclops.integrateddynamicscompat.network.packet;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
@@ -51,12 +51,12 @@ public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void actionClient(World world, PlayerEntity player) {
+    public void actionClient(Level world, Player player) {
 
     }
 
     @Override
-    public void actionServer(World world, ServerPlayerEntity player) {
+    public void actionServer(Level world, ServerPlayer player) {
         if(player.containerMenu.containerId == windowId) {
             ContainerLogicProgrammerBase container = (ContainerLogicProgrammerBase) player.containerMenu;
             ValueTypeRecipeLPElement element = (ValueTypeRecipeLPElement) container.getActiveElement();

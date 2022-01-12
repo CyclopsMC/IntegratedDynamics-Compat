@@ -4,11 +4,11 @@ import com.google.common.collect.Lists;
 import com.refinedmods.refinedstorage.api.network.INetwork;
 import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
 import com.refinedmods.refinedstorage.api.network.node.INetworkNodeProxy;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
 import org.cyclops.cyclopscore.datastructure.DimPos;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeItemStack;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyPositioned;
@@ -35,7 +35,7 @@ public class ValueTypeListProxyPositionedNetworkMasterItemInventory extends Valu
     }
 
     protected Optional<INetworkNode> getNetworkMaster() {
-        return TileHelpers.getSafeTile(getPos(), INetworkNodeProxy.class)
+        return BlockEntityHelpers.get(getPos(), INetworkNodeProxy.class)
                 .map(INetworkNodeProxy::getNode);
     }
 
@@ -70,12 +70,12 @@ public class ValueTypeListProxyPositionedNetworkMasterItemInventory extends Valu
     }
 
     @Override
-    public void writeGeneratedFieldsToNBT(CompoundNBT tag) {
+    public void writeGeneratedFieldsToNBT(CompoundTag tag) {
 
     }
 
     @Override
-    public void readGeneratedFieldsFromNBT(CompoundNBT tag) {
+    public void readGeneratedFieldsFromNBT(CompoundTag tag) {
 
     }
 }

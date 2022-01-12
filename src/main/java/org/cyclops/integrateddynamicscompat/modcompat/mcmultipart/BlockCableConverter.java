@@ -11,13 +11,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import org.cyclops.cyclopscore.datastructure.EnumFacingMap;
 import org.cyclops.cyclopscore.helper.ItemStackHelpers;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.api.block.IFacadeable;
 import org.cyclops.integrateddynamics.api.network.INetwork;
 import org.cyclops.integrateddynamics.block.BlockCable;
 import org.cyclops.integrateddynamics.capability.facadeable.FacadeableConfig;
 import org.cyclops.integrateddynamics.core.helper.PartHelpers;
-import org.cyclops.integrateddynamics.core.tileentity.TileMultipartTicking;
+import org.cyclops.integrateddynamics.core.tileentity.BlockEntityMultipartTicking;
 import org.cyclops.integrateddynamics.item.ItemFacade;
 
 import java.util.Collection;
@@ -37,7 +37,7 @@ public class BlockCableConverter implements IPartConverter {
     @Override
     public Collection<? extends IMultipart> convertBlock(IBlockAccess world, BlockPos blockPos, boolean simulate) {
         Collection<IMultipart> parts = Lists.newLinkedList();
-        TileMultipartTicking tile = TileHelpers.getSafeTile(world, blockPos, TileMultipartTicking.class);
+        BlockEntityMultipartTicking tile = BlockEntityHelpers.get(world, blockPos, BlockEntityMultipartTicking.class);
 
         // Add parts
         EnumFacingMap<PartHelpers.PartStateHolder<?, ?>> partData = EnumFacingMap.newMap(tile.getPartContainer().getPartData());

@@ -2,21 +2,22 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredient;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
-import mezz.jei.gui.TooltipRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tags.ITag;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -36,13 +37,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import mezz.jei.api.recipe.transfer.IRecipeTransferError.Type;
-
 /**
  * Allows recipe transferring to Logic Programmer elements with slots.
  * @author rubensworks
  */
-public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IRecipeTransferHandler<T> {
+public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IRecipeTransferHandler<T, Object> {
 
     private final Class<T> clazz;
 
@@ -55,10 +54,15 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         return clazz;
     }
 
+    @Override
+    public Class<Object> getRecipeClass() {
+        return Object.class;
+    }
+
     @Nullable
     @Override
-    public IRecipeTransferError transferRecipe(T container, IRecipeLayout recipeLayout,
-                                               PlayerEntity player, boolean maxTransfer, boolean doTransfer) {
+    public IRecipeTransferError transferRecipe(T container, Object recipe, IRecipeLayout recipeLayout,
+                                               Player player, boolean maxTransfer, boolean doTransfer) {
         ILogicProgrammerElement element = container.getActiveElement();
 
         if (element != null) {
@@ -81,7 +85,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
         List<Item> items = jeiIngredient.getAllIngredients().stream().map(ItemStack::getItem).collect(Collectors.toList());
         if (items.size() > 1) {
-            for (Map.Entry<ResourceLocation, ITag<Item>> entry : ItemTags.getAllTags().getAllTags().entrySet()) {
+            for (Map.Entry<ResourceLocation, Tag<Item>> entry : ItemTags.getAllTags().getAllTags().entrySet()) {
                 if (entry.getValue().getValues().equals(items)) {
                     return entry.getKey();
                 }
@@ -129,10 +133,11 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 }
 
                 @Override
-                public void showError(MatrixStack matrixStack, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
-                    TooltipRenderer.drawHoveringText(
-                            Collections.singletonList(new TranslationTextComponent("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc")),
-                            mouseX, mouseY, matrixStack);
+                public void showError(PoseStack matrixStack, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
+                    Minecraft.getInstance().screen.renderComponentTooltip(
+                            matrixStack,
+                            Collections.singletonList(new TranslatableComponent("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc")),
+                            mouseX, mouseY);
                 }
             };
         }
@@ -149,19 +154,17 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     protected IRecipeTransferError handleDefaultElement(ILogicProgrammerElement element, T container, IRecipeLayout recipeLayout, boolean doTransfer) {
         // Always work with ItemStacks
         ItemStack itemStack = null;
-        IFocus<?> focus = recipeLayout.getFocus();
-        if (focus != null) {
-            Object focusElement = focus.getValue();
-            if (focusElement instanceof ItemStack) {
-                itemStack = (ItemStack) focusElement;
-            } else if (focusElement instanceof FluidStack) {
-                itemStack = new ItemStack(Items.BUCKET);
-                IFluidHandlerItem fluidHandler = itemStack
-                        .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-                        .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
-                fluidHandler.fill((FluidStack) focusElement, IFluidHandler.FluidAction.EXECUTE);
-                itemStack = fluidHandler.getContainer();
-            }
+        IFocus<ItemStack> focusItem = recipeLayout.getFocus(VanillaTypes.ITEM);
+        IFocus<FluidStack> focusFluid = recipeLayout.getFocus(VanillaTypes.FLUID);
+        if (focusItem != null) {
+            itemStack = focusItem.getValue();
+        } else if (focusFluid != null) {
+            itemStack = new ItemStack(Items.BUCKET);
+            IFluidHandlerItem fluidHandler = itemStack
+                    .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+                    .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
+            fluidHandler.fill(focusFluid.getValue(), IFluidHandler.FluidAction.EXECUTE);
+            itemStack = fluidHandler.getContainer();
         }
         if (itemStack != null) {
             if (element.isItemValidForSlot(0, itemStack)) {
@@ -176,7 +179,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                     }
 
                     @Override
-                    public void showError(MatrixStack matrixStack, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
+                    public void showError(PoseStack matrixStack, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
 
                     }
                 };
@@ -187,7 +190,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
     protected void setStackInSlot(T container, int slot, ItemStack itemStack) {
         int slotId = container.slots.size() - 37 + slot; // Player inventory - 1
-        container.setItem(slotId, itemStack.copy());
+        container.setItem(slotId, 0, itemStack.copy());
         IntegratedDynamicsCompat._instance.getPacketHandler().sendToServer(
                 new CPacketSetSlot(container.containerId, slotId, itemStack));
     }

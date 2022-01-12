@@ -11,12 +11,11 @@ import com.refinedmods.refinedstorage.api.network.INetwork;
 import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
 import com.refinedmods.refinedstorage.api.network.node.INetworkNodeProxy;
 import com.refinedmods.refinedstorage.api.util.IComparer;
-import com.refinedmods.refinedstorage.api.util.StackListEntry;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.cyclops.cyclopscore.datastructure.DimPos;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValue;
 import org.cyclops.integrateddynamics.api.part.PartTarget;
 import org.cyclops.integrateddynamics.api.part.aspect.IAspectRead;
@@ -52,7 +51,7 @@ public class RefinedStorageAspects {
 
         public static final IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, Optional<INetworkNode>> PROP_GET_NODE = input -> {
             DimPos pos = input.getLeft().getTarget().getPos();
-            return TileHelpers.getSafeTile(pos, INetworkNodeProxy.class)
+            return BlockEntityHelpers.get(pos, INetworkNodeProxy.class)
                     .map(INetworkNodeProxy::getNode);
         };
         public static final IAspectValuePropagator<Optional<INetworkNode>, Optional<INetwork>> PROP_GET_MASTER = input -> input.map(INetworkNode::getNetwork);
@@ -78,7 +77,7 @@ public class RefinedStorageAspects {
                     BUILDER_LIST.appendKind("inventory").handle(networkMaster -> networkMaster
                             .map(network -> ValueTypeList.ValueList.ofFactory(
                                     new ValueTypeListProxyPositionedNetworkMasterItemInventory(
-                                            DimPos.of(network.getWorld(), network.getPosition()))))
+                                            DimPos.of(network.getLevel(), network.getPosition()))))
                             .orElseGet(() -> ValueTypeList.ValueList.ofList(ValueTypes.OBJECT_ITEMSTACK, Collections.emptyList())), "itemstacks")
                             .buildRead();
 
@@ -126,7 +125,7 @@ public class RefinedStorageAspects {
                     BUILDER_LIST.appendKind("fluid").handle(networkMaster -> networkMaster
                             .map(network -> ValueTypeList.ValueList.ofFactory(
                                     new ValueTypeListProxyPositionedNetworkMasterFluidInventory(
-                                            DimPos.of(network.getWorld(), network.getPosition()))))
+                                            DimPos.of(network.getLevel(), network.getPosition()))))
                             .orElseGet(() -> ValueTypeList.ValueList.ofList(ValueTypes.OBJECT_FLUIDSTACK, Collections.emptyList())), "fluidstacks").buildRead();
         }
 
@@ -189,7 +188,7 @@ public class RefinedStorageAspects {
                         input -> {
                             if (!input.getRight().getRawValue().isEmpty()) {
                                 DimPos pos = input.getLeft().getTarget().getPos();
-                                return TileHelpers.getSafeTile(pos, INetworkNodeProxy.class)
+                                return BlockEntityHelpers.get(pos, INetworkNodeProxy.class)
                                         .map(networkNodeProxy -> {
                                             INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                             if (networkMaster != null) {
@@ -208,7 +207,7 @@ public class RefinedStorageAspects {
                 .withProperties(CRAFTING_PROPERTIES).handle(
                         (IAspectValuePropagator<Triple<PartTarget, IAspectProperties, ValueTypeList.ValueList>, Void>) input -> {
                             DimPos pos = input.getLeft().getTarget().getPos();
-                            TileHelpers.getSafeTile(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
+                            BlockEntityHelpers.get(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
                                 INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                 if (networkMaster != null) {
                                     if (input.getRight().getRawValue().getValueType() == ValueTypes.OBJECT_ITEMSTACK) {
@@ -231,7 +230,7 @@ public class RefinedStorageAspects {
                         (IAspectValuePropagator<Triple<PartTarget, IAspectProperties, ValueTypeBoolean.ValueBoolean>, Void>) input -> {
                             if (input.getRight().getRawValue()) {
                                 DimPos pos = input.getLeft().getTarget().getPos();
-                                TileHelpers.getSafeTile(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
+                                BlockEntityHelpers.get(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
                                     INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                     if (networkMaster != null) {
                                         List<ICraftingTask> craftingTasks = Lists.newArrayList(networkMaster.getCraftingManager().getTasks());
@@ -252,7 +251,7 @@ public class RefinedStorageAspects {
                             public Void getOutput(Triple<PartTarget, IAspectProperties, ValueObjectTypeItemStack.ValueItemStack> input) {
                                 if (!input.getRight().getRawValue().isEmpty()) {
                                     DimPos pos = input.getLeft().getTarget().getPos();
-                                    TileHelpers.getSafeTile(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
+                                    BlockEntityHelpers.get(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
                                         INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                         if (networkMaster != null) {
                                             ItemStack itemStack = input.getRight().getRawValue();
@@ -280,7 +279,7 @@ public class RefinedStorageAspects {
                             @Override
                             public Void getOutput(Triple<PartTarget, IAspectProperties, ValueTypeList.ValueList> input) {
                                 DimPos pos = input.getLeft().getTarget().getPos();
-                                TileHelpers.getSafeTile(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
+                                BlockEntityHelpers.get(pos, INetworkNodeProxy.class).ifPresent(networkNodeProxy -> {
                                     INetwork networkMaster = networkNodeProxy.getNode().getNetwork();
                                     if (networkMaster != null) {
                                         if (input.getRight().getRawValue().getValueType() == ValueTypes.OBJECT_ITEMSTACK) {

@@ -7,15 +7,15 @@ import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.BlockEntityEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import org.cyclops.cyclopscore.persist.nbt.NBTClassType;
 import org.cyclops.integrateddynamics.Reference;
-import org.cyclops.integrateddynamics.tileentity.TileMechanicalDryingBasin;
-import org.cyclops.integrateddynamics.tileentity.TileMechanicalSqueezer;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityMechanicalDryingBasin;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityMechanicalSqueezer;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class MechanicalDryingBasinDataProvider extends SqueezerDataProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
+public class MechanicalDryingBasinDataProvider extends SqueezerDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
     public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "mechanical_drying_basin");
 
@@ -36,8 +36,8 @@ public class MechanicalDryingBasinDataProvider extends SqueezerDataProvider impl
     }
 
     @Override
-    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity tileEntity) {
-        TileMechanicalDryingBasin tile = (TileMechanicalDryingBasin) tileEntity;
+    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, BlockEntityEntity tileEntity) {
+        BlockEntityMechanicalDryingBasin tile = (BlockEntityMechanicalDryingBasin) tileEntity;
         List<ITextComponent> tooltip = Lists.newArrayList();
         tooltip.add(new TranslationTextComponent("gui." + Reference.MOD_ID + ".waila.energy",
                 tile.getEnergyStored(), tile.getMaxEnergyStored()));

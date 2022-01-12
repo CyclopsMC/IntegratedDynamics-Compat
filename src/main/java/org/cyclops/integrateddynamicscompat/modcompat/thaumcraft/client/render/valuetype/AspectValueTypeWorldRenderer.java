@@ -4,9 +4,9 @@ import com.google.common.base.Optional;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
@@ -27,7 +27,7 @@ public class AspectValueTypeWorldRenderer implements IValueTypeWorldRenderer {
     @Override
     public void renderValue(IPartContainer partContainer, double x, double y, double z, float partialTick,
                             int destroyStage, Direction direction, IPartType partType, IValue value,
-                            TileEntityRendererDispatcher rendererDispatcher, float alpha) {
+                            BlockEntityRenderDispatcher rendererDispatcher, float alpha) {
         Optional<Pair<Aspect, Integer>> optional = ((ValueObjectTypeAspect.ValueAspect) value).getRawValue();
         if(optional.isPresent()) {
             ResourceLocation resourceLocation = optional.get().getKey().getImage();

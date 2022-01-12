@@ -1,6 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -9,13 +9,14 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
@@ -61,8 +62,8 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
 
     @Nonnull
     @Override
-    public String getTitle() {
-        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.getDescriptionId()).getString();
+    public Component getTitle() {
+        return new TranslatableComponent(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.getDescriptionId());
     }
 
     @Nonnull
@@ -93,7 +94,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
                 float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
-                tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").withStyle(TextFormatting.GRAY));
+                tooltip.add(new TextComponent("Chance: " + (chance * 100.0F) + "%").withStyle(ChatFormatting.GRAY));
             }
         });
 
@@ -112,15 +113,15 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
     }
 
     @Override
-    public void draw(MechanicalSqueezerRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(MechanicalSqueezerRecipeJEI recipe, PoseStack matrixStack, double mouseX, double mouseY) {
         arrowDrawable.draw(matrixStack, 45, 21);
 
         // Draw energy and duration
-        FontRenderer fontRenderer = Minecraft.getInstance().font;
-        IFormattableTextComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
+        Font fontRenderer = Minecraft.getInstance().font;
+        MutableComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
         fontRenderer.draw(matrixStack, energy,
                 (background.getWidth() - fontRenderer.width(energy)) / 2 - 10, 0, 0xFF808080);
-        IFormattableTextComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
+        MutableComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
         fontRenderer.draw(matrixStack, duration,
                 (background.getWidth() - fontRenderer.width(duration)) / 2 - 10, 42, 0xFF808080);
     }

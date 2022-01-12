@@ -5,16 +5,16 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.cyclops.commoncapabilities.api.capability.work.IWorker;
 import org.cyclops.cyclopscore.modcompat.capabilities.DefaultCapabilityProvider;
 import org.cyclops.cyclopscore.modcompat.capabilities.SimpleCapabilityConstructor;
+import org.cyclops.integrateddynamics.blockentity.BlockEntityCoalGenerator;
 import org.cyclops.integrateddynamicscompat.Capabilities;
-import org.cyclops.integrateddynamics.tileentity.TileDryingBasin;
 
 import javax.annotation.Nullable;
 
 /**
- * Compatibility for drying basin worker capability.
+ * Compatibility for coal generator worker capability.
  * @author rubensworks
  */
-public class WorkerDryingBasinTileCompat extends SimpleCapabilityConstructor<IWorker, TileDryingBasin> {
+public class WorkerCoalGeneratorBlockEntityCompat extends SimpleCapabilityConstructor<IWorker, BlockEntityCoalGenerator> {
 
     @Override
     public Capability<IWorker> getCapability() {
@@ -23,27 +23,27 @@ public class WorkerDryingBasinTileCompat extends SimpleCapabilityConstructor<IWo
 
     @Nullable
     @Override
-    public ICapabilityProvider createProvider(TileDryingBasin host) {
+    public ICapabilityProvider createProvider(BlockEntityCoalGenerator host) {
         return new DefaultCapabilityProvider<>(Capabilities.WORKER, new Worker(host));
     }
 
     public static class Worker implements IWorker {
 
-        private final TileDryingBasin provider;
+        private final BlockEntityCoalGenerator provider;
 
-        public Worker(TileDryingBasin provider) {
+        public Worker(BlockEntityCoalGenerator provider) {
             this.provider = provider;
         }
 
         @SuppressWarnings("unchecked")
         @Override
         public boolean hasWork() {
-            return provider.getCurrentRecipe().isPresent();
+            return provider.getInventory().getItem(BlockEntityCoalGenerator.SLOT_FUEL) != null || provider.isBurning();
         }
 
         @Override
         public boolean canWork() {
-            return true;
+            return provider.canAddEnergy(BlockEntityCoalGenerator.ENERGY_PER_TICK);
         }
     }
 }

@@ -6,13 +6,13 @@ import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.BlockEntityEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import org.cyclops.integrateddynamics.core.helper.L10NValues;
-import org.cyclops.integrateddynamics.tileentity.TileProxy;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityProxy;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class ProxyDataProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
+public class ProxyDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
     public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "proxy");
 
@@ -33,8 +33,8 @@ public class ProxyDataProvider implements IComponentProvider, IServerDataProvide
     }
 
     @Override
-    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity tileEntity) {
-        TileProxy tile = (TileProxy) tileEntity;
+    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, BlockEntityEntity tileEntity) {
+        BlockEntityProxy tile = (BlockEntityProxy) tileEntity;
         tag.putInt("id", tile.getProxyId());
     }
 

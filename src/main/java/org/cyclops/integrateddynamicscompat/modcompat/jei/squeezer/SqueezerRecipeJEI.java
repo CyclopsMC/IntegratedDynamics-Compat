@@ -1,9 +1,9 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.NonNullList;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.integrateddynamics.RegistryEntries;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Recipe wrapper for Squeezer recipes
  * @author rubensworks
  */
-public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInventory, RecipeSqueezer, SqueezerRecipeJEI> {
+public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<Container, RecipeSqueezer, SqueezerRecipeJEI> {
 
     private final List<ItemStack> inputItem;
     private final NonNullList<RecipeSqueezer.ItemStackChance> outputItems;
@@ -51,7 +51,7 @@ public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInventory
     }
 
     @Override
-    protected IRecipeType<RecipeSqueezer> getRecipeType() {
+    protected RecipeType<RecipeSqueezer> getRecipeType() {
         return RegistryEntries.RECIPETYPE_SQUEEZER;
     }
 

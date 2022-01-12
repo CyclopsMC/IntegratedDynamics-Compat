@@ -1,12 +1,12 @@
 package org.cyclops.integrateddynamicscompat.modcompat.mcmultipart;
 
 import com.google.common.base.Optional;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import org.cyclops.cyclopscore.helper.BlockHelpers;
 import org.cyclops.integrateddynamics.api.part.PartRenderPosition;
 import org.cyclops.integrateddynamics.block.BlockCable;
@@ -23,7 +23,7 @@ public class PartCableModel extends CableModelBase {
         super(blockState, facing, rand);
     }
 
-    public PartCableModel(ItemStack itemStack, World world, LivingEntity entity) {
+    public PartCableModel(ItemStack itemStack, Level world, LivingEntity entity) {
         super(itemStack, world, entity);
     }
 

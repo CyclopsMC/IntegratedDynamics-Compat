@@ -1,10 +1,10 @@
 package org.cyclops.integrateddynamicscompat.network.packet;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.cyclops.cyclopscore.inventory.slot.SlotExtended;
@@ -41,18 +41,18 @@ public class CPacketSetSlot extends PacketCodec {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void actionClient(World world, PlayerEntity player) {
+    public void actionClient(Level world, Player player) {
 
     }
 
     @Override
-    public void actionServer(World world, ServerPlayerEntity player) {
+    public void actionServer(Level world, ServerPlayer player) {
         if(player.containerMenu instanceof ContainerLogicProgrammerBase
                 && player.containerMenu.containerId == windowId
                 && slot < player.containerMenu.slots.size()) {
             final Slot itemSlot = player.containerMenu.getSlot(slot);
             if (itemSlot instanceof SlotExtended && ((SlotExtended) itemSlot).isPhantom()) {
-                player.containerMenu.setItem(slot, itemStack.copy());
+                player.containerMenu.setItem(slot, 0, itemStack.copy());
             }
         }
     }

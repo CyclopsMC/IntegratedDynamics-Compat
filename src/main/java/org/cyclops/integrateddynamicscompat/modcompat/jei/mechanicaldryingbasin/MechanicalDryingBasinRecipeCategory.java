@@ -1,6 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -10,14 +10,14 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
-import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import org.cyclops.integrateddynamicscompat.Reference;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
 
@@ -61,8 +61,8 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
 
     @Nonnull
     @Override
-    public String getTitle() {
-        return new TranslationTextComponent(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.getDescriptionId()).getString();
+    public Component getTitle() {
+        return new TranslatableComponent(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.getDescriptionId());
     }
 
     @Nonnull
@@ -109,15 +109,15 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     }
 
     @Override
-    public void draw(MechanicalDryingBasinRecipeJEI recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(MechanicalDryingBasinRecipeJEI recipe, PoseStack matrixStack, double mouseX, double mouseY) {
         arrow.draw(matrixStack, 43, 11);
 
         // Draw energy and duration
-        FontRenderer fontRenderer = Minecraft.getInstance().font;
-        IFormattableTextComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
+        Font fontRenderer = Minecraft.getInstance().font;
+        MutableComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
         fontRenderer.draw(matrixStack, energy,
                 (background.getWidth() - fontRenderer.width(energy)) / 2 + 3, 0, 0xFF808080);
-        IFormattableTextComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
+        MutableComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
         fontRenderer.draw(matrixStack, duration,
                 (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, 0xFF808080);
     }

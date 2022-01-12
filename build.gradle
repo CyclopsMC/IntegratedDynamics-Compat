@@ -31,8 +31,9 @@ group = "org.cyclops.integrateddynamicscompat"
 archivesBaseName = "IntegratedDynamicsCompat"
 
 // Set Java details
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+compileJava.options.compilerArgs << "-Xmaxerrs" << "9999"
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 // Load secrets
 def getSecrets() {
@@ -49,11 +50,15 @@ sourceSets {
     test
 }
 
+configurations {
+    modLib
+    implementation.extendsFrom modLib
+}
+
 repositories {
     mavenCentral()
 	mavenLocal()
     maven {
-        name "Cyclops Repo"
         url "https://maven.pkg.github.com/CyclopsMC/packages"
         credentials {
             username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME")
@@ -61,23 +66,26 @@ repositories {
         }
     }
     maven {
-        name 'DVS1 Maven FS'
         url 'https://dvs1.progwml6.com/files/maven/'
     }
     maven {
-        name 'tterrag'
-        url 'https://maven.tterrag.com/'
+        url 'https://maven.k-4u.nl'
     }
     /*maven {
         name 'Tehnut'
         url 'https://tehnut.info/maven/'
     }*/
     maven {
-        name "Raoulvdberge Repo"
         url "https://repo.refinedmods.com/"
     }
     maven {
-        name = "CurseForge"
+        url "https://maven.pkg.github.com/refinedmods/refinedstorage/"
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("MAVEN_KEY")
+        }
+    }
+    maven {
         url = "https://minecraft.curseforge.com/api/maven/"
     }
 }
@@ -88,13 +96,13 @@ dependencies {
 	// Add something like 'integrateddynamics_version_local=0.1.0-DEV' to your secrets.properties if you want to use a custom local Integrated Dynamics version.
     if(secrets.integrateddynamics_version_local) {
         implementation "org.cyclops.integrateddynamics:integrateddynamics:${secrets.integrateddynamics_version_local}:deobf"
-        implementation "com.google.re2j:re2j:1.1"
+        modLib "com.google.re2j:re2j:1.1"
     } else {
         implementation("org.cyclops.integrateddynamics:integrateddynamics:${project.integrateddynamics_version}:deobf") {
             exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
             exclude group: 'org.cyclops.commoncapabilities', module: 'commoncapabilities'
         }
-        implementation "com.google.re2j:re2j:1.1"
+        modLib "com.google.re2j:re2j:1.1"
     }
     // Add something like 'cyclopscore_version_local=0.1.0-DEV' to your secrets.properties if you want to use a custom local CyclopsCore version.
     if(secrets.cyclopscore_version_local) {
@@ -107,10 +115,20 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
-    implementation fg.deobf("mezz.jei:jei-${project.jei_version}") // https://dvs1.progwml6.com/files/maven/mezz/jei/
-    implementation fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${project.theoneprobe_version}") // https://maven.tterrag.com/mcjty/theoneprobe/
+    implementation(fg.deobf("mezz.jei:jei-${project.jei_version}")) { // https://dvs1.progwml6.com/files/maven/mezz/jei/
+        transitive = false
+    }
+    compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl
+    // TODO: for some reason using the following in runtime breaks ForgeGradle
+    /*runtimeOnly(fg.deobf("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}")) { // https://maven.k-4u.nl
+        transitive = false
+    }*/
     //implementation fg.deobf("hwyla:Hwyla-forge-${project.waila_version}") // https://www.curseforge.com/minecraft/mc-mods/hwyla/files/ https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
-    implementation fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}") // https://repo.refinedmods.com/com/raoulvdberge/refinedstorage/
+    compileOnly "com.refinedmods:refinedstorage:${project.refinedstorage_version}" // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
+    // TODO: for some reason using the following in runtime breaks ForgeGradle
+    /*runtimeOnly(fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}")) { // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
+        transitive = false
+    }*/
 }
 
 minecraft {
@@ -128,6 +146,10 @@ minecraft {
                     source sourceSets.main
                 }
             }
+
+            lazyToken('minecraft_classpath') {
+                configurations.modLib.copyRecursive().resolve().collect { it.absolutePath }.join(File.pathSeparator)
+            }
         }
 
         server {
@@ -137,6 +159,10 @@ minecraft {
                 integrateddynamics {
                     source sourceSets.main
                 }
+            }
+
+            lazyToken('minecraft_classpath') {
+                configurations.modLib.copyRecursive().resolve().collect { it.absolutePath }.join(File.pathSeparator)
             }
         }
 
@@ -148,6 +174,10 @@ minecraft {
                 integrateddynamics {
                     source sourceSets.main
                 }
+            }
+
+            lazyToken('minecraft_classpath') {
+                configurations.modLib.copyRecursive().resolve().collect { it.absolutePath }.join(File.pathSeparator)
             }
         }
     }

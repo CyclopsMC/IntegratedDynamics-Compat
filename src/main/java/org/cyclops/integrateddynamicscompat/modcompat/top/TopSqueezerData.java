@@ -4,12 +4,13 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
-import org.cyclops.cyclopscore.helper.TileHelpers;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.integrateddynamics.Reference;
-import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
+import org.cyclops.integrateddynamics.blockentity.BlockEntitySqueezer;
 
 /**
  * Data provider for Squeezers.
@@ -17,14 +18,14 @@ import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
  */
 public class TopSqueezerData implements IProbeInfoProvider {
     @Override
-    public String getID() {
-        return Reference.MOD_ID + ":squeezer_data";
+    public ResourceLocation getID() {
+        return new ResourceLocation(Reference.MOD_ID, "squeezer_data");
     }
 
     @Override
-    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
-            TileHelpers.getSafeTile(world, data.getPos(), TileSqueezer.class)
+            BlockEntityHelpers.get(world, data.getPos(), BlockEntitySqueezer.class)
                     .ifPresent(tile -> {
                         if (!tile.getInventory().getItem(0).isEmpty()) {
                             probeInfo.item(tile.getInventory().getItem(0));

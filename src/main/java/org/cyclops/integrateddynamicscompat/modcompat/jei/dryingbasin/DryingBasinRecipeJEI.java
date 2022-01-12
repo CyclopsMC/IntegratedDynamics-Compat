@@ -1,7 +1,7 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.cyclopscore.recipe.type.IInventoryFluid;
@@ -64,7 +64,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
     }
 
     @Override
-    protected IRecipeType<RecipeDryingBasin> getRecipeType() {
+    protected RecipeType<RecipeDryingBasin> getRecipeType() {
         return RegistryEntries.RECIPETYPE_DRYING_BASIN;
     }
 

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[39,)"
 issueTrackerURL="https://github.com/CyclopsMC/IntegratedDynamics-Compat/issues"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/integrateddynamicscompat"
 license="MIT"
@@ -15,24 +15,24 @@ Integrated Dynamics compatibility with other mods.
 [[dependencies.integrateddynamicscompat]]
     modId="cyclopscore"
     mandatory=true
-    versionRange="[1.11.6,)"
+    versionRange="[1.12.1,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[39,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2,]"
+    versionRange="[1.18.1,]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
     modId="integrateddynamics"
     mandatory=true
-    versionRange="[1.1.20,]"
+    versionRange="[1.10.6,]"
     ordering="AFTER"
     side="BOTH"

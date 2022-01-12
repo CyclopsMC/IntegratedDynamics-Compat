@@ -6,7 +6,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.cyclops.cyclopscore.modcompat.capabilities.DefaultCapabilityProvider;
 import org.cyclops.cyclopscore.modcompat.capabilities.SimpleCapabilityConstructor;
 import org.cyclops.integrateddynamicscompat.Capabilities;
-import org.cyclops.integrateddynamics.tileentity.TileCoalGenerator;
+import org.cyclops.integrateddynamics.tileentity.BlockEntityCoalGenerator;
 
 import javax.annotation.Nullable;
 
@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
  * Compatibility for coal generator tesla producer capability.
  * @author rubensworks
  */
-public class TeslaProducerCoalGeneratorTileCompat extends SimpleCapabilityConstructor<ITeslaProducer, TileCoalGenerator> {
+public class TeslaProducerCoalGeneratorBlockEntityCompat extends SimpleCapabilityConstructor<ITeslaProducer, BlockEntityCoalGenerator> {
 
     @Override
     public Capability<ITeslaProducer> getCapability() {
@@ -23,7 +23,7 @@ public class TeslaProducerCoalGeneratorTileCompat extends SimpleCapabilityConstr
 
     @Nullable
     @Override
-    public ICapabilityProvider createProvider(TileCoalGenerator host) {
+    public ICapabilityProvider createProvider(BlockEntityCoalGenerator host) {
         return new DefaultCapabilityProvider<>(Capabilities.TESLA_PRODUCER, new TeslaProducer());
     }
 

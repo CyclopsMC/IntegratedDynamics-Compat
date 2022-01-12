@@ -1,7 +1,7 @@
 package org.cyclops.integrateddynamicscompat.modcompat.refinedstorage;
 
 import com.google.common.collect.Lists;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.cyclops.cyclopscore.modcompat.ICompatInitializer;

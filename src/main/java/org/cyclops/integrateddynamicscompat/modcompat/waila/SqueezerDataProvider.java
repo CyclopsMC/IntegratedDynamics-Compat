@@ -7,14 +7,14 @@ import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.BlockEntityEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import org.cyclops.cyclopscore.persist.nbt.NBTClassType;
 import org.cyclops.integrateddynamics.Reference;
-import org.cyclops.integrateddynamics.tileentity.TileSqueezer;
+import org.cyclops.integrateddynamics.tileentity.BlockEntitySqueezer;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class SqueezerDataProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
+public class SqueezerDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
     public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "squeezer");
 
@@ -35,8 +35,8 @@ public class SqueezerDataProvider implements IComponentProvider, IServerDataProv
     }
 
     @Override
-    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity tileEntity) {
-        TileSqueezer tile = (TileSqueezer) tileEntity;
+    public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, BlockEntityEntity tileEntity) {
+        BlockEntitySqueezer tile = (BlockEntitySqueezer) tileEntity;
         List<ITextComponent> tooltip = Lists.newArrayList();
         if (!tile.getInventory().getStackInSlot(0).isEmpty()) {
             tooltip.add(new TranslationTextComponent("gui." + Reference.MOD_ID + ".waila.item",
