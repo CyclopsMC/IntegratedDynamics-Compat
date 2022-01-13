@@ -97,7 +97,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
     public static void clog(String message) {
         clog(Level.INFO, message);
     }
-    
+
     /**
      * Log a new message of the given level for this mod.
      * @param level The level in which the message must be shown.
@@ -106,5 +106,5 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
     public static void clog(Level level, String message) {
         IntegratedDynamicsCompat._instance.getLoggerHelper().log(level, message);
     }
-    
+
 }

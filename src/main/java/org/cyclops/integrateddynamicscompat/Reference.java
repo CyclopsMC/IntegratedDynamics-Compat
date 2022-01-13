@@ -8,10 +8,10 @@ package org.cyclops.integrateddynamicscompat;
  */
 @SuppressWarnings("javadoc")
 public class Reference {
-	
+
     // Mod info
     public static final String MOD_ID = "integrateddynamicscompat";
-    
+
     // MOD ID's
     public static final String MOD_JEI = "jei";
     public static final String MOD_TOP = "theoneprobe";

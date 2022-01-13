@@ -12,24 +12,24 @@ import org.cyclops.integrateddynamicscompat.Reference;
  */
 public class TopModCompat implements IModCompat {
 
-	@Override
-	public String getId() {
-		return Reference.MOD_TOP;
-	}
+    @Override
+    public String getId() {
+        return Reference.MOD_TOP;
+    }
 
-	@Override
-	public boolean isEnabledDefault() {
-		return true;
-	}
+    @Override
+    public boolean isEnabledDefault() {
+        return true;
+    }
 
-	@Override
-	public String getComment() {
-		return "TOP tooltips for parts.";
-	}
+    @Override
+    public String getComment() {
+        return "TOP tooltips for parts.";
+    }
 
-	@Override
-	public ICompatInitializer createInitializer() {
-		return () -> InterModComms.sendTo(getId(), "getTheOneProbe", () -> new TheOneProbe());
-	}
+    @Override
+    public ICompatInitializer createInitializer() {
+        return () -> InterModComms.sendTo(getId(), "getTheOneProbe", () -> new TheOneProbe());
+    }
 
 }

@@ -9,6 +9,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.diffplug.spotless' version '5.14.3'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
@@ -297,5 +301,30 @@ sourceSets {
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/waila/**'
         }
+    }
+}
+
+spotless {
+    java {
+        target project.fileTree(project.rootDir) {
+            include '**/java/org/cyclops/**/*.java'
+            // TODO: temporarily disable some mod compats
+            exclude '**/modcompat/charset/**'
+            exclude '**/modcompat/forestry/**'
+            exclude '**/modcompat/ic2/**'
+            exclude '**/modcompat/immersiveengineering/**'
+            exclude '**/modcompat/mcmultipart/**'
+            exclude '**/modcompat/minetweaker/**'
+            exclude '**/modcompat/signals/**'
+            exclude '**/modcompat/tconstruct/**'
+            exclude '**/modcompat/tesla/**'
+            exclude '**/modcompat/thaumcraft/**'
+            exclude '**/modcompat/waila/**'
+        }
+
+        endWithNewline()
+        trimTrailingWhitespace()
+        removeUnusedImports()
+        indentWithSpaces()
     }
 }

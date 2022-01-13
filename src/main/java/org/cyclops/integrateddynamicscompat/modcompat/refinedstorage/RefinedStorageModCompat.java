@@ -11,24 +11,24 @@ import org.cyclops.integrateddynamicscompat.Reference;
  */
 public class RefinedStorageModCompat implements IModCompat {
 
-	@Override
-	public String getId() {
-		return Reference.MOD_REFINEDSTORAGE;
-	}
+    @Override
+    public String getId() {
+        return Reference.MOD_REFINEDSTORAGE;
+    }
 
-	@Override
-	public boolean isEnabledDefault() {
-		return true;
-	}
+    @Override
+    public boolean isEnabledDefault() {
+        return true;
+    }
 
-	@Override
-	public String getComment() {
-		return "Refined Storage aspects.";
-	}
+    @Override
+    public String getComment() {
+        return "Refined Storage aspects.";
+    }
 
-	@Override
-	public ICompatInitializer createInitializer() {
-		return new RefinedStorageInitializer();
-	}
+    @Override
+    public ICompatInitializer createInitializer() {
+        return new RefinedStorageInitializer();
+    }
 
 }

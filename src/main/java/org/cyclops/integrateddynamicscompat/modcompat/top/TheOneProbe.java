@@ -11,13 +11,13 @@ import java.util.function.Function;
  */
 public class TheOneProbe implements Function<ITheOneProbe, Void> {
 
-	@Override
-	public Void apply(ITheOneProbe probe) {
-		probe.registerProvider(new TopPartData());
-		probe.registerProvider(new TopProxyData());
-		probe.registerProvider(new TopDryingBasinData());
-		probe.registerProvider(new TopSqueezerData());
-		probe.registerProvider(new TopMechanicalMachineData());
-		return null;
-	}
+    @Override
+    public Void apply(ITheOneProbe probe) {
+        probe.registerProvider(new TopPartData());
+        probe.registerProvider(new TopProxyData());
+        probe.registerProvider(new TopDryingBasinData());
+        probe.registerProvider(new TopSqueezerData());
+        probe.registerProvider(new TopMechanicalMachineData());
+        return null;
+    }
 }
