@@ -91,7 +91,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
             recipeLayout.getItemStacks().init(OUTPUT_SLOT + i, false, 75 + (i % 2 > 0 ? 22 : 0), 7 + offset + (i > 1 ? 22 : 0));
         }
         recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-            if (slotIndex > OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
+            if (slotIndex >= OUTPUT_SLOT && slotIndex < OUTPUT_SLOT + recipe.getOutputItems().size()) {
                 float chance = recipe.getOutputItems().get(slotIndex - OUTPUT_SLOT).getChance();
                 tooltip.add(new StringTextComponent("Chance: " + (chance * 100.0F) + "%").mergeStyle(TextFormatting.GRAY));
             }
