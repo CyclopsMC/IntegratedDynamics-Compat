@@ -12,8 +12,6 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +20,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.core.ingredient.ItemMatchProperties;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
@@ -35,6 +34,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -85,11 +85,17 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
         List<Item> items = jeiIngredient.getAllIngredients().stream().map(ItemStack::getItem).collect(Collectors.toList());
         if (items.size() > 1) {
-            for (Map.Entry<ResourceLocation, Tag<Item>> entry : ItemTags.getAllTags().getAllTags().entrySet()) {
-                if (entry.getValue().getValues().equals(items)) {
-                    return entry.getKey();
-                }
-            }
+            return ForgeRegistries.ITEMS.tags().stream()
+                            .map(tag -> {
+                                if (tag.stream().collect(Collectors.toList()).equals(items)) {
+                                    return Optional.of(tag.getKey().location());
+                                }
+                                return Optional.<ResourceLocation>empty();
+                            })
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .findFirst()
+                    .orElse(null);
         }
         return null;
     }
@@ -118,10 +124,12 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         // Collect fluids
         for (Map.Entry<Integer, ? extends IGuiIngredient<FluidStack>> entry : recipeLayout.getFluidStacks().getGuiIngredients().entrySet()) {
             FluidStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), FluidStack.EMPTY).copy();
-            if (entry.getValue().isInput()) {
-                fluidInputs.add(stack);
-            } else {
-                fluidOutputs.add(stack);
+            if (!stack.isEmpty()) {
+                if (entry.getValue().isInput()) {
+                    fluidInputs.add(stack);
+                } else {
+                    fluidOutputs.add(stack);
+                }
             }
         }
 
