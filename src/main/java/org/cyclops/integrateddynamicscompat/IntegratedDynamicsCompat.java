@@ -18,6 +18,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGen
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinTileCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineTileCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerTileCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.curios.CuriosModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
 import org.cyclops.integrateddynamicscompat.proxy.ClientProxy;
@@ -42,6 +43,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
         super.loadModCompats(modCompatLoader);
         modCompatLoader.addModCompat(new TopModCompat());
         modCompatLoader.addModCompat(new RefinedStorageModCompat());
+        modCompatLoader.addModCompat(new CuriosModCompat());
         // TODO: temporarily disable some mod compats
         // Mod compats
 //        modCompatLoader.addModCompat(new CharsetPipesModCompat());

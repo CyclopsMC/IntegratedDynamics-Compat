@@ -254,5 +254,11 @@
     "aspect.integrateddynamics.write.list.signals.destinations": "Signals Minecart Destinations",
     "aspect.integrateddynamics.write.list.signals.destinations.info": "Set a new destination list on a minecart.",
     "aspect.integrateddynamics.write.integer.signals.destindex": "Signals Minecart Destination Index",
-    "aspect.integrateddynamics.write.integer.signals.destindex.info": "Set the (zero-based) index of a minecart's next destination."
+    "aspect.integrateddynamics.write.integer.signals.destindex.info": "Set the (zero-based) index of a minecart's next destination.",
+
+	"_comment": "# ----- Curios ----- ##",
+	
+	"_comment": "# Operators",
+	"operator.integrateddynamics.entity.curiosinventory": "Curios Inventory",
+    "operator.integrateddynamics.entity.curiosinventory.info": "The list of items the entity is carrying as curios."
 }
