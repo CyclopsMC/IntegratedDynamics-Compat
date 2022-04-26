@@ -46,5 +46,11 @@ public class CuriosOperators {
             .output(ValueTypes.LIST).symbol("curios_inventory").operatorName("curiosinventory")
             .function(entityListFunctionFactory(ValueTypes.OBJECT_ITEMSTACK, ValueTypeListProxyEntityCuriosInventory::new)).build();
     
+    /**
+     * The list of strings of curios slot types from an entity
+     */
+    public static final IOperator OBJECT_ENTITY_CURIOSSLOTTYPES = OperatorBuilders.ENTITY_1_SUFFIX_LONG
+            .output(ValueTypes.LIST).symbol("curios_slot_types").operatorName("curiosslottypes")
+            .function(entityListFunctionFactory(ValueTypes.STRING, ValueTypeListProxyEntityCuriosSlotTypes::new)).build();
     
 }

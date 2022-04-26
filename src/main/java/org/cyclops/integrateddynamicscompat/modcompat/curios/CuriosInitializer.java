@@ -21,6 +21,7 @@ public class CuriosInitializer implements ICompatInitializer {
     	CuriosValueTypeListProxyFactories.load();
     	
     	Operators.REGISTRY.register(CuriosOperators.OBJECT_ENTITY_CURIOSINVENTORY);
+    	Operators.REGISTRY.register(CuriosOperators.OBJECT_ENTITY_CURIOSSLOTTYPES);
     }
 
 }
