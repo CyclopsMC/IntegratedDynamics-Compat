@@ -1,7 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.curios.variable;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
@@ -25,10 +24,7 @@ public class ValueTypeListProxyEntityCuriosInventory extends ValueTypeListProxyE
 
     @Override
     public ValueObjectTypeItemStack.ValueItemStack get(int index) throws EvaluationException {
-        return ValueObjectTypeItemStack.ValueItemStack.of(getCuriosSlotProxy(index)
-                .orElseThrow(
-                        () -> new EvaluationException(null) // TODO: throw actual error
-                ).getStack());
+        return ValueObjectTypeItemStack.ValueItemStack.of(getCuriosSlotProxy(index).getStack());
     }
     
 }

@@ -24,10 +24,7 @@ public class ValueTypeListProxyEntityCuriosSlotTypes extends ValueTypeListProxyE
 
     @Override
     public ValueTypeString.ValueString get(int index) throws EvaluationException {
-        return ValueTypeString.ValueString.of(getCuriosSlotProxy(index)
-                .orElseThrow(
-                        () -> new EvaluationException(null) // TODO: throw actual error
-                ).getIdentifier());
+        return ValueTypeString.ValueString.of(getCuriosSlotProxy(index).getIdentifier());
     }
     
 }

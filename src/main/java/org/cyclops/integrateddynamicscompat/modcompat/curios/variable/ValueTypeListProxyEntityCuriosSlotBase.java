@@ -1,6 +1,5 @@
 package org.cyclops.integrateddynamicscompat.modcompat.curios.variable;
 
-import java.util.LinkedList;
 import java.util.Optional;
 
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
@@ -8,9 +7,7 @@ import org.cyclops.integrateddynamics.api.evaluate.EvaluationException;
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValue;
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValueType;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyEntityBase;
-import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeString;
-import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypes;
-import org.cyclops.integrateddynamics.core.helper.L10NValues;
+import org.cyclops.integrateddynamicscompat.modcompat.curios.helper.L10NValues;
 import org.cyclops.integrateddynamicscompat.modcompat.curios.slot.CuriosSlotProxy;
 
 import net.minecraft.entity.Entity;
@@ -42,7 +39,7 @@ public abstract class ValueTypeListProxyEntityCuriosSlotBase<T extends IValueTyp
         return CuriosApi.getCuriosHelper().getCuriosHandler((LivingEntity) e).resolve(); // could maybe keep as lazy?
     }
     
-    protected Optional<CuriosSlotProxy> getCuriosSlotProxy(int index) throws EvaluationException {
+    protected Optional<CuriosSlotProxy> getCuriosSlotProxyOptional(int index) throws EvaluationException {
         // assuming that `index` is < `getLength()`; does this need to be explicitly checked?
         
         Optional<ICuriosItemHandler> itemHandlerOptional = getEntityCuriosItemHandler();
@@ -62,15 +59,24 @@ public abstract class ValueTypeListProxyEntityCuriosSlotBase<T extends IValueTyp
             currentGlobalSlot += delta;
         }
         if (curioStacksHandler == null)
-            throw new EvaluationException(null); // TODO: throw actual error
-//                    new TranslationTextComponent(L10NValues.VALUETYPE_ERROR_INVALIDLISTVALUETYPE,
-//                new TranslationTextComponent(expectedValueType.getTranslationKey()),
-//                new TranslationTextComponent(list.getRawValue().getValueType().getTranslationKey())));
+            throw new EvaluationException(
+                    new TranslationTextComponent(L10NValues.VALUETYPE_ERROR_BADPROXYSTACKSHANDLER,
+                    String.valueOf(curioStacksHandler)));
         
-        int slotIndex = index - currentGlobalSlot;
-        // TODO: should probably error if `slotIndex` isn't a valid slot
+        int slotIndex = index - currentGlobalSlot, maxSlotValue = curioStacksHandler.getSlots() - 1;
+        if (slotIndex > maxSlotValue || slotIndex < 0)
+            throw new EvaluationException(
+                    new TranslationTextComponent(L10NValues.VALUETYPE_ERROR_BADPROXYSLOTINDEX,
+                    String.valueOf(slotIndex),
+                    String.valueOf(maxSlotValue)));
         
         return Optional.of(new CuriosSlotProxy(curioStacksHandler, slotIndex));
+    }
+    
+    protected CuriosSlotProxy getCuriosSlotProxy(int index) throws EvaluationException {
+        return getCuriosSlotProxyOptional(index).orElseThrow(() -> new EvaluationException(
+                new TranslationTextComponent(L10NValues.VALUETYPE_ERROR_BADPROXYVALUE,
+                String.valueOf(index))));
     }
     
     @Override

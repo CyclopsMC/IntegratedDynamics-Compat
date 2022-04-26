@@ -257,6 +257,11 @@
     "aspect.integrateddynamics.write.integer.signals.destindex.info": "Set the (zero-based) index of a minecart's next destination.",
 
     "_comment": "# ----- Curios ----- ##",
+    
+    "_comment": "# Value Types",
+    "valuetype.integrateddynamics.error.curios.bad_proxy_stackshandler": "[Internal Error] Bad curios stacks handler: found '%s'.",
+    "valuetype.integrateddynamics.error.curios.bad_proxy_slotindex": "[Internal Error] Bad curios slot index: found '%s', expected between '0' and '%s'.",
+    "valuetype.integrateddynamics.error.curios.bad_proxy_value": "[Internal Error] Bad value from curios proxy at slot '%s'.",
 
     "_comment": "# Operators",
     "operator.integrateddynamics.entity.curiosinventory": "Curios Inventory",
