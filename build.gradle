@@ -5,7 +5,7 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
     }
     dependencies {
@@ -20,6 +20,7 @@ plugins {
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
 apply plugin: 'maven'
 
 loadProperties()
@@ -85,6 +86,10 @@ repositories {
         url "https://repo.refinedmods.com/"
     }
     maven {
+    	name "theillusivec4"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
@@ -119,6 +124,8 @@ dependencies {
     compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${config.theoneprobe_version}") // https://maven.tterrag.com/mcjty/theoneprobe/
     //compile fg.deobf("hwyla:Hwyla-forge-${config.waila_version}") // https://www.curseforge.com/minecraft/mc-mods/hwyla/files/ https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
     compile fg.deobf("com.refinedmods:refinedstorage:${config.refinedstorage_version}") // https://repo.refinedmods.com/com/raoulvdberge/refinedstorage/
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${config.curios_version}") // https://maven.theillusivec4.top/top/theillusivec4/curios/curios-forge
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${config.curios_version}:api") // "
 }
 
 minecraft {
