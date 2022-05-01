@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<Container, RecipeSqueezer, SqueezerRecipeJEI> {
 
     private final List<ItemStack> inputItem;
-    private final NonNullList<RecipeSqueezer.ItemStackChance> outputItems;
+    private final NonNullList<RecipeSqueezer.IngredientChance> outputItems;
     private final FluidStack outputFluid;
 
     public SqueezerRecipeJEI(RecipeSqueezer recipe) {
@@ -42,7 +42,7 @@ public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<Container,
         return inputItem;
     }
 
-    public NonNullList<RecipeSqueezer.ItemStackChance> getOutputItems() {
+    public NonNullList<RecipeSqueezer.IngredientChance> getOutputItems() {
         return outputItems;
     }
 

@@ -29,7 +29,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
         super(RegistryEntries.RECIPETYPE_DRYING_BASIN, recipe);
         this.inputItem = Arrays.stream(recipe.getInputIngredient().getItems()).collect(Collectors.toList());
         this.inputFluid = recipe.getInputFluid();
-        this.outputItem = recipe.getOutputItem();
+        this.outputItem = recipe.getOutputItemFirst();
         this.outputFluid = recipe.getOutputFluid();
         this.duration = recipe.getDuration();
     }

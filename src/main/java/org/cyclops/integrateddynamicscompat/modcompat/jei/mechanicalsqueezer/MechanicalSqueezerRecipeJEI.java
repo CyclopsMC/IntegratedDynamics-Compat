@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<Container, RecipeMechanicalSqueezer, MechanicalSqueezerRecipeJEI> {
 
     private final List<ItemStack> inputItem;
-    private final NonNullList<RecipeSqueezer.ItemStackChance> outputItems;
+    private final NonNullList<RecipeSqueezer.IngredientChance> outputItems;
     private final FluidStack outputFluid;
     private final int duration;
 
@@ -46,7 +46,7 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
         return inputItem;
     }
 
-    public NonNullList<RecipeSqueezer.ItemStackChance> getOutputItems() {
+    public NonNullList<RecipeSqueezer.IngredientChance> getOutputItems() {
         return outputItems;
     }
 

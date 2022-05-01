@@ -76,7 +76,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
     @Override
     public void setIngredients(SqueezerRecipeJEI recipe, IIngredients ingredients) {
         ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItem());
-        ingredients.setOutputs(VanillaTypes.ITEM, recipe.getOutputItems().stream().map(RecipeSqueezer.ItemStackChance::getItemStack).collect(Collectors.toList()));
+        ingredients.setOutputs(VanillaTypes.ITEM, recipe.getOutputItems().stream().map(RecipeSqueezer.IngredientChance::getIngredientFirst).collect(Collectors.toList()));
         ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutputFluid());
     }
 
@@ -98,8 +98,8 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
             recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
         }
         int i = 0;
-        for (RecipeSqueezer.ItemStackChance outputItem : recipe.getOutputItems()) {
-            recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem.getItemStack());
+        for (RecipeSqueezer.IngredientChance outputItem : recipe.getOutputItems()) {
+            recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem.getIngredientFirst());
         }
 
         recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30, 16, 16, 1000, false, null);
