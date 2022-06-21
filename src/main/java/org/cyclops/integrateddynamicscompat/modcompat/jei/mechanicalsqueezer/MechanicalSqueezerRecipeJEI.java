@@ -1,17 +1,17 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.core.NonNullList;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.commons.compress.utils.Lists;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalSqueezer;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +68,7 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
         return new MechanicalSqueezerRecipeJEI(recipe);
     }
 
-    public static Collection<MechanicalSqueezerRecipeJEI> getAllRecipes() {
-        return new MechanicalSqueezerRecipeJEI().createAllRecipes();
+    public static List<MechanicalSqueezerRecipeJEI> getAllRecipes() {
+        return Lists.newArrayList(new MechanicalSqueezerRecipeJEI().createAllRecipes().iterator());
     }
 }

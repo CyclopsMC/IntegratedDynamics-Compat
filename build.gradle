@@ -135,7 +135,7 @@ dependencies {
         transitive = false
     }*/
     //implementation fg.deobf("hwyla:Hwyla-forge-${project.waila_version}") // https://www.curseforge.com/minecraft/mc-mods/hwyla/files/ https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
-    compileOnly "com.refinedmods:refinedstorage:${project.refinedstorage_version}" // https://github.com/refinedmods/refinedstorage/packages/1145536
+    //compileOnly "com.refinedmods:refinedstorage:${project.refinedstorage_version}" // https://github.com/refinedmods/refinedstorage/packages/1145536
     // TODO: for some reason using the following in runtime breaks ForgeGradle
     /*runtimeOnly(fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}")) { // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
         transitive = false
@@ -307,6 +307,7 @@ sourceSets {
             exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/waila/**'
+			exclude '**/modcompat/refinedstorage/**'
         }
     }
 }
@@ -327,6 +328,7 @@ spotless {
             exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/waila/**'
+			exclude '**/modcompat/refinedstorage/**'
         }
 
         endWithNewline()

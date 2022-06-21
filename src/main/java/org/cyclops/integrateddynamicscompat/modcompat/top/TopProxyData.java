@@ -4,7 +4,7 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -28,7 +28,7 @@ public class TopProxyData implements IProbeInfoProvider {
     public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
             BlockEntityHelpers.get(world, data.getPos(), BlockEntityProxy.class)
-                    .ifPresent(tile -> probeInfo.text(new TranslatableComponent(L10NValues.GENERAL_ITEM_ID, tile.getProxyId())));
+                    .ifPresent(tile -> probeInfo.text(Component.translatable(L10NValues.GENERAL_ITEM_ID, tile.getProxyId())));
         }
     }
 }

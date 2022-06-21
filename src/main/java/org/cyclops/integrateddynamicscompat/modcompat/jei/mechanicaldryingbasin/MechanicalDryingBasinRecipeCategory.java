@@ -2,18 +2,21 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
@@ -29,12 +32,7 @@ import javax.annotation.Nonnull;
  */
 public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<MechanicalDryingBasinRecipeJEI> {
 
-    public static final ResourceLocation NAME = new ResourceLocation(Reference.MOD_ID, "mechanical_drying_basin");
-
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
-    private static final int FLUIDINPUT_SLOT = 2;
-    private static final int FLUIDOUTPUT_SLOT = 3;
+    public static final RecipeType<MechanicalDryingBasinRecipeJEI> TYPE = RecipeType.create(Reference.MOD_ID, "mechanical_drying_basin", MechanicalDryingBasinRecipeJEI.class);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -43,26 +41,20 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     public MechanicalDryingBasinRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/drying_basin_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 93, 53);
-        this.icon = guiHelper.createDrawableIngredient(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN));
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN));
         IDrawableStatic arrowDrawable = guiHelper.createDrawable(resourceLocation, 94, 0, 11, 28);
         this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
     }
 
-    @Nonnull
     @Override
-    public ResourceLocation getUid() {
-        return NAME;
-    }
-
-    @Override
-    public Class<? extends MechanicalDryingBasinRecipeJEI> getRecipeClass() {
-        return MechanicalDryingBasinRecipeJEI.class;
+    public RecipeType<MechanicalDryingBasinRecipeJEI> getRecipeType() {
+        return TYPE;
     }
 
     @Nonnull
     @Override
     public Component getTitle() {
-        return new TranslatableComponent(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.getDescriptionId());
+        return Component.translatable(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.getDescriptionId());
     }
 
     @Nonnull
@@ -77,39 +69,22 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     }
 
     @Override
-    public void setIngredients(MechanicalDryingBasinRecipeJEI recipe, IIngredients ingredients) {
-        ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItem());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutputItem());
-        ingredients.setInput(VanillaTypes.FLUID, recipe.getInputFluid());
-        ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutputFluid());
+    public void setRecipe(IRecipeLayoutBuilder builder, MechanicalDryingBasinRecipeJEI recipe, IFocusGroup focuses) {
+        builder.addSlot(RecipeIngredientRole.INPUT, 1, 7)
+                .addItemStacks(recipe.getInputItem());
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 75, 7)
+                .addItemStack(recipe.getOutputItem());
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 6, 28)
+                .addIngredient(ForgeTypes.FLUID_STACK, recipe.getInputFluid());
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 28)
+                .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutputFluid());
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, MechanicalDryingBasinRecipeJEI recipe, IIngredients ingredients) {
-        recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 7);
-        recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 75, 7);
-        recipeLayout.getItemStacks().init(FLUIDINPUT_SLOT, true, 6, 28);
-        recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28);
-
-        if(!recipe.getInputItem().isEmpty()) {
-            recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
-        }
-        if(!recipe.getOutputItem().isEmpty()) {
-            recipeLayout.getItemStacks().set(OUTPUT_SLOT, recipe.getOutputItem());
-        }
-
-        recipeLayout.getFluidStacks().init(FLUIDINPUT_SLOT, true, 6, 28, 8, 9, 1000, true, null);
-        if(!recipe.getInputFluid().isEmpty()) {
-            recipeLayout.getFluidStacks().set(FLUIDINPUT_SLOT, recipe.getInputFluid());
-        }
-        recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28, 8, 9, 1000, true, null);
-        if(!recipe.getOutputFluid().isEmpty()) {
-            recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
-        }
-    }
-
-    @Override
-    public void draw(MechanicalDryingBasinRecipeJEI recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(MechanicalDryingBasinRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
         arrow.draw(matrixStack, 43, 11);
 
         // Draw energy and duration

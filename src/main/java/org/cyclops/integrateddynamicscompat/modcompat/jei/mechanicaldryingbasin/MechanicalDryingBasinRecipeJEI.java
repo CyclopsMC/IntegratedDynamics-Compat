@@ -3,13 +3,13 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.commons.compress.utils.Lists;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.cyclopscore.recipe.type.IInventoryFluid;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalDryingBasin;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,7 +73,7 @@ public class MechanicalDryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapp
         return new MechanicalDryingBasinRecipeJEI(recipe);
     }
 
-    public static Collection<MechanicalDryingBasinRecipeJEI> getAllRecipes() {
-        return new MechanicalDryingBasinRecipeJEI().createAllRecipes();
+    public static List<MechanicalDryingBasinRecipeJEI> getAllRecipes() {
+        return Lists.newArrayList(new MechanicalDryingBasinRecipeJEI().createAllRecipes().iterator());
     }
 }
