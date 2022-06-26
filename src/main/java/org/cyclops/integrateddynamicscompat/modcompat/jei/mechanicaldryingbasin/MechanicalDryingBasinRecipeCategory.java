@@ -70,16 +70,18 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MechanicalDryingBasinRecipeJEI recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 1, 7)
+        builder.addSlot(RecipeIngredientRole.INPUT, 2, 8)
                 .addItemStacks(recipe.getInputItem());
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 75, 7)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 8)
                 .addItemStack(recipe.getOutputItem());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 6, 28)
+                .setFluidRenderer(1000, true, 8, 9)
                 .addIngredient(ForgeTypes.FLUID_STACK, recipe.getInputFluid());
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 28)
+                .setFluidRenderer(1000, true, 8, 9)
                 .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutputFluid());
     }
 

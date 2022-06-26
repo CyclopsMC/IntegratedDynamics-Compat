@@ -70,13 +70,13 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MechanicalSqueezerRecipeJEI recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 1, 17)
+        builder.addSlot(RecipeIngredientRole.INPUT, 2, 18)
                 .addItemStacks(recipe.getInputItem());
 
         int offset = 0;
         for (int i = 0; i < recipe.getOutputItems().size(); i++) {
             RecipeSqueezer.IngredientChance outputItem = recipe.getOutputItems().get(i);
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 75 + (i % 2 > 0 ? 22 : 0), 7 + offset + (i > 1 ? 22 : 0))
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 76 + (i % 2 > 0 ? 22 : 0), 8 + offset + (i > 1 ? 22 : 0))
                     .addItemStack(outputItem.getIngredientFirst())
                     .addTooltipCallback((view, tooltip) -> {
                         float chance = outputItem.getChance();
@@ -85,6 +85,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         }
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 30)
+                .setFluidRenderer(1000, true, 16, 16)
                 .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutputFluid());
     }
 
