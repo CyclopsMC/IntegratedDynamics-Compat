@@ -15,7 +15,7 @@ Integrated Dynamics compatibility with other mods.
 [[dependencies.integrateddynamicscompat]]
     modId="cyclopscore"
     mandatory=true
-    versionRange="[1.13.5,)"
+    versionRange="[1.16.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
