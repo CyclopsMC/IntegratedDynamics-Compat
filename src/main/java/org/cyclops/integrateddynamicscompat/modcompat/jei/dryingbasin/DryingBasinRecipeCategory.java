@@ -1,13 +1,14 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -29,11 +30,6 @@ import javax.annotation.Nonnull;
 public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRecipeJEI> {
 
     public static final ResourceLocation NAME = new ResourceLocation(Reference.MOD_ID, "drying_basin");
-
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
-    private static final int FLUIDINPUT_SLOT = 2;
-    private static final int FLUIDOUTPUT_SLOT = 3;
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -76,35 +72,20 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
     }
 
     @Override
-    public void setIngredients(DryingBasinRecipeJEI recipe, IIngredients ingredients) {
-        ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItem());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutputItem());
-        ingredients.setInput(VanillaTypes.FLUID, recipe.getInputFluid());
-        ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutputFluid());
-    }
+    public void setRecipe(IRecipeLayoutBuilder builder, DryingBasinRecipeJEI recipe, IFocusGroup focuses) {
+        builder.addSlot(RecipeIngredientRole.INPUT, 2, 8)
+                .addItemStacks(recipe.getInputItem());
 
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, DryingBasinRecipeJEI recipe, IIngredients ingredients) {
-        recipeLayout.getItemStacks().init(INPUT_SLOT, true, 1, 7);
-        recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 75, 7);
-        recipeLayout.getItemStacks().init(FLUIDINPUT_SLOT, true, 6, 28);
-        recipeLayout.getItemStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 8)
+                .addItemStack(recipe.getOutputItem());
 
-        if (!recipe.getInputItem().isEmpty()) {
-            recipeLayout.getItemStacks().set(INPUT_SLOT, recipe.getInputItem());
-        }
-        if (!recipe.getOutputItem().isEmpty()) {
-            recipeLayout.getItemStacks().set(OUTPUT_SLOT, recipe.getOutputItem());
-        }
+        builder.addSlot(RecipeIngredientRole.INPUT, 6, 28)
+                .setFluidRenderer(1000, true, 8, 9)
+                .addIngredient(ForgeTypes.FLUID_STACK, recipe.getInputFluid());
 
-        recipeLayout.getFluidStacks().init(FLUIDINPUT_SLOT, true, 6, 28, 8, 9, 1000, true, null);
-        if (!recipe.getInputFluid().isEmpty()) {
-            recipeLayout.getFluidStacks().set(FLUIDINPUT_SLOT, recipe.getInputFluid());
-        }
-        recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 80, 28, 8, 9, 1000, true, null);
-        if (!recipe.getOutputFluid().isEmpty()) {
-            recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
-        }
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 28)
+                .setFluidRenderer(1000, true, 8, 9)
+                .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutputFluid());
     }
 
     @Override

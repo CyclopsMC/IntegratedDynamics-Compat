@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredient;
 import mezz.jei.api.recipe.IFocus;
@@ -122,7 +123,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         }
 
         // Collect fluids
-        for (Map.Entry<Integer, ? extends IGuiIngredient<FluidStack>> entry : recipeLayout.getFluidStacks().getGuiIngredients().entrySet()) {
+        for (Map.Entry<Integer, ? extends IGuiIngredient<FluidStack>> entry : recipeLayout.getIngredientsGroup(ForgeTypes.FLUID_STACK).getGuiIngredients().entrySet()) {
             FluidStack stack = Iterables.getFirst(entry.getValue().getAllIngredients(), FluidStack.EMPTY).copy();
             if (!stack.isEmpty()) {
                 if (entry.getValue().isInput()) {
@@ -163,7 +164,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         // Always work with ItemStacks
         ItemStack itemStack = null;
         IFocus<ItemStack> focusItem = recipeLayout.getFocus(VanillaTypes.ITEM);
-        IFocus<FluidStack> focusFluid = recipeLayout.getFocus(VanillaTypes.FLUID);
+        IFocus<FluidStack> focusFluid = recipeLayout.getFocus(ForgeTypes.FLUID);
         if (focusItem != null) {
             itemStack = focusItem.getValue();
         } else if (focusFluid != null) {

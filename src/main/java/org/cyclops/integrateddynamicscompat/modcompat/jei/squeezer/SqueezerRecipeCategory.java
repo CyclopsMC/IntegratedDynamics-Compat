@@ -2,10 +2,12 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
@@ -15,9 +17,11 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
+import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
 
 import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
@@ -77,7 +81,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
     public void setIngredients(SqueezerRecipeJEI recipe, IIngredients ingredients) {
         ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItem());
         ingredients.setOutputs(VanillaTypes.ITEM, recipe.getOutputItems().stream().map(RecipeSqueezer.IngredientChance::getIngredientFirst).collect(Collectors.toList()));
-        ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutputFluid());
+        ingredients.setOutput(ForgeTypes.FLUID, recipe.getOutputFluid());
     }
 
     @Override
@@ -102,9 +106,11 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
             recipeLayout.getItemStacks().set(OUTPUT_SLOT + i++, outputItem.getIngredientFirst());
         }
 
-        recipeLayout.getFluidStacks().init(FLUIDOUTPUT_SLOT, false, 98, 30, 16, 16, 1000, false, null);
+        recipeLayout.getIngredientsGroup(ForgeTypes.FLUID).init(FLUIDOUTPUT_SLOT, false,
+                (IIngredientRenderer<FluidStack>) JEIIntegratedDynamicsConfig.PLATFORM_HELPER.getFluidHelper().createRenderer(1000, false, 16, 16),
+                98, 30, 16, 16, 0, 0);
         if(!recipe.getOutputFluid().isEmpty()) {
-            recipeLayout.getFluidStacks().set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
+            recipeLayout.getIngredientsGroup(ForgeTypes.FLUID).set(FLUIDOUTPUT_SLOT, recipe.getOutputFluid());
         }
     }
 

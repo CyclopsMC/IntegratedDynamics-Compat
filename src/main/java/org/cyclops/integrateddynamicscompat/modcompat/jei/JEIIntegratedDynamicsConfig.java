@@ -7,6 +7,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.forge.platform.PlatformHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.MutableComponent;
@@ -42,6 +43,8 @@ import java.text.DecimalFormat;
  */
 @JeiPlugin
 public class JEIIntegratedDynamicsConfig implements IModPlugin {
+
+    public static final PlatformHelper PLATFORM_HELPER = new PlatformHelper();
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
