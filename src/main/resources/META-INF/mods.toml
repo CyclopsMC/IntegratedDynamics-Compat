@@ -19,6 +19,12 @@ Integrated Dynamics compatibility with other mods.
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
+    modId="jei"
+    mandatory=false
+    versionRange="[9.7.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.integrateddynamicscompat]]
     modId="forge"
     mandatory=true
     versionRange="[40,)"

@@ -1,14 +1,17 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -30,7 +33,7 @@ import javax.annotation.Nonnull;
  */
 public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<MechanicalDryingBasinRecipeJEI> {
 
-    public static final ResourceLocation NAME = new ResourceLocation(Reference.MOD_ID, "mechanical_drying_basin");
+    public static final RecipeType<MechanicalDryingBasinRecipeJEI> TYPE = RecipeType.create(Reference.MOD_ID, "mechanical_drying_basin", MechanicalDryingBasinRecipeJEI.class);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -39,15 +42,20 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     public MechanicalDryingBasinRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/drying_basin_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 93, 53);
-        this.icon = guiHelper.createDrawableIngredient(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN));
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN));
         IDrawableStatic arrowDrawable = guiHelper.createDrawable(resourceLocation, 94, 0, 11, 28);
         this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
+    }
+
+    @Override
+    public RecipeType<MechanicalDryingBasinRecipeJEI> getRecipeType() {
+        return TYPE;
     }
 
     @Nonnull
     @Override
     public ResourceLocation getUid() {
-        return NAME;
+        return TYPE.getUid();
     }
 
     @Override
@@ -90,7 +98,7 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
     }
 
     @Override
-    public void draw(MechanicalDryingBasinRecipeJEI recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(MechanicalDryingBasinRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
         arrow.draw(matrixStack, 43, 11);
 
         // Draw energy and duration
