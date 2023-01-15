@@ -1,6 +1,5 @@
 package org.cyclops.integrateddynamicscompat;
 
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Level;
@@ -78,8 +77,8 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
     }
 
     @Override
-    protected CreativeModeTab constructDefaultCreativeModeTab() {
-        return null;
+    protected boolean hasDefaultCreativeModeTab() {
+        return false;
     }
 
     @Override

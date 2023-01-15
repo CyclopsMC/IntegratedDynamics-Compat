@@ -126,9 +126,9 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
-    implementation(fg.deobf("mezz.jei:jei-${project.jei_version}")) { // https://dvs1.progwml6.com/files/maven/mezz/jei/
+    /*implementation(fg.deobf("mezz.jei:jei-${project.jei_version}")) { // https://dvs1.progwml6.com/files/maven/mezz/jei/
         transitive = false
-    }
+    }*/
     compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
     // TODO: for some reason using the following in runtime breaks ForgeGradle
     /*runtimeOnly(fg.deobf("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}")) { // https://maven.k-4u.nl
@@ -296,6 +296,7 @@ sourceSets {
     main {
         java {
             // TODO: temporarily disable some mod compats
+            exclude '**/modcompat/jei/**'
             exclude '**/modcompat/charset/**'
             exclude '**/modcompat/forestry/**'
             exclude '**/modcompat/ic2/**'
