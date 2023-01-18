@@ -75,7 +75,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
         builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 8)
                 .addItemStack(recipe.getOutputItem());
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 6, 28)
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 6, 28)
                 .setFluidRenderer(1000, true, 8, 9)
                 .addIngredient(ForgeTypes.FLUID_STACK, recipe.getInputFluid());
 
