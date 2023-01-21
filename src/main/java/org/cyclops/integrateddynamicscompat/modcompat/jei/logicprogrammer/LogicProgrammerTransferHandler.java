@@ -121,17 +121,17 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                         if (heuristicTag != null) {
                             itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), 1));
                         } else {
-                            itemInputs.add(new ItemMatchProperties((ItemStack) typedIngredient.getIngredient()));
+                            itemInputs.add(new ItemMatchProperties(((ItemStack) typedIngredient.getIngredient()).copy()));
                         }
                     } else if (slotView.getRole() == RecipeIngredientRole.OUTPUT) {
-                        itemOutputs.add((ItemStack) typedIngredient.getIngredient());
+                        itemOutputs.add(((ItemStack) typedIngredient.getIngredient()).copy());
                     }
                 } else if (typedIngredient.getType() == ForgeTypes.FLUID_STACK) {
                     // Collect fluids
                     if (slotView.getRole() == RecipeIngredientRole.INPUT) {
-                        fluidInputs.add((FluidStack) typedIngredient.getIngredient());
+                        fluidInputs.add(((FluidStack) typedIngredient.getIngredient()).copy());
                     } else if (slotView.getRole() == RecipeIngredientRole.OUTPUT) {
-                        fluidOutputs.add((FluidStack) typedIngredient.getIngredient());
+                        fluidOutputs.add(((FluidStack) typedIngredient.getIngredient()).copy());
                     }
                 }
             }
