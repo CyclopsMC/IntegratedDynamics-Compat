@@ -1,12 +1,14 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
+import mezz.jei.api.ingredients.ITypedIngredient;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.apache.commons.compress.utils.Lists;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogicProgrammerBase<?>> implements IGhostIngredientHandler<T> {
     @Override
-    public <I> List<Target<I>> getTargets(T screen, I ingredient, boolean doStart) {
+    public <I> List<Target<I>> getTargetsTyped(T screen, ITypedIngredient<I> ingredientTyped, boolean doStart) {
         List<Target<I>> targets = Lists.newArrayList();
 
         // Determine current LP element
@@ -34,14 +36,14 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
         if (element != null) {
             // Determine the stack to insert in slots
             ItemStack itemStack = null;
-            if (ingredient instanceof ItemStack) {
-                itemStack = (ItemStack) ingredient;
-            } else if (ingredient instanceof FluidStack) {
+            if (ingredientTyped.getType() == VanillaTypes.ITEM_STACK) {
+                itemStack = ingredientTyped.getItemStack().get();
+            } else if (ingredientTyped.getType() == ForgeTypes.FLUID_STACK) {
                 itemStack = new ItemStack(Items.BUCKET);
                 IFluidHandlerItem fluidHandler = itemStack
-                        .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+                        .getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
                         .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
-                fluidHandler.fill((FluidStack) ingredient, IFluidHandler.FluidAction.EXECUTE);
+                fluidHandler.fill(ingredientTyped.getIngredient(ForgeTypes.FLUID_STACK).get(), IFluidHandler.FluidAction.EXECUTE);
                 itemStack = fluidHandler.getContainer();
             }
 
