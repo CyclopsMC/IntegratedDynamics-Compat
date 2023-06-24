@@ -1,7 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
@@ -13,6 +12,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.common.Constants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -145,9 +145,9 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 }
 
                 @Override
-                public void showError(PoseStack matrixStack, int mouseX, int mouseY, IRecipeSlotsView recipeLayout, int recipeX, int recipeY) {
-                    Minecraft.getInstance().screen.renderComponentTooltip(
-                            matrixStack,
+                public void showError(GuiGraphics guiGraphics, int mouseX, int mouseY, IRecipeSlotsView recipeLayout, int recipeX, int recipeY) {
+                    guiGraphics.renderComponentTooltip(
+                            Minecraft.getInstance().font,
                             Collections.singletonList(Component.translatable("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc")),
                             mouseX, mouseY);
                 }

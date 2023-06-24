@@ -1,6 +1,5 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -14,6 +13,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -86,8 +86,8 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
     }
 
     @Override
-    public void draw(SqueezerRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(SqueezerRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         int height = (int) ((Minecraft.getInstance().level.getGameTime() / 4) % 7);
-        arrowDrawable.draw(matrixStack, 41, 18 + height * 2);
+        arrowDrawable.draw(guiGraphics, 41, 18 + height * 2);
     }
 }

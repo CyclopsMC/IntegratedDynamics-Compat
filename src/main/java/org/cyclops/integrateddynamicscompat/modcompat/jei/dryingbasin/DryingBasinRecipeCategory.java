@@ -1,6 +1,5 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -15,6 +14,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -85,13 +85,14 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
     }
 
     @Override
-    public void draw(DryingBasinRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
-        arrow.draw(matrixStack, 43, 11);
+    public void draw(DryingBasinRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        arrow.draw(guiGraphics, 43, 11);
 
         // Draw duration
         Font fontRenderer = Minecraft.getInstance().font;
         MutableComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
-        fontRenderer.draw(matrixStack, duration,
-                (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, 0xFF808080);
+        fontRenderer.drawInBatch(duration,
+                (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, 0xFF808080, false,
+                guiGraphics.pose().last().pose(), guiGraphics.bufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
     }
 }
