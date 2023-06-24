@@ -331,6 +331,9 @@ spotless {
         indentWithSpaces()
     }
 }
+spotlessJava.mustRunAfter(javadoc)
+spotlessJava.mustRunAfter(compileTestJava)
+spotlessJava.mustRunAfter(test)
 
 tasks.register('updateGitHooks', Copy) {
     from './scripts/pre-commit'
