@@ -1,8 +1,8 @@
 package org.cyclops.integrateddynamicscompat.modcompat.charset;
 
 import com.google.common.collect.Lists;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.CapabilityInject;
 import org.cyclops.cyclopscore.modcompat.IModCompat;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.api.part.aspect.IAspect;

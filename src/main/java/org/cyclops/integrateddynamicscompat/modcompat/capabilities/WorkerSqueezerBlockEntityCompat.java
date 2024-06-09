@@ -1,12 +1,13 @@
 package org.cyclops.integrateddynamicscompat.modcompat.capabilities;
 
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.capabilities.BaseCapability;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import org.cyclops.commoncapabilities.api.capability.Capabilities;
 import org.cyclops.commoncapabilities.api.capability.work.IWorker;
-import org.cyclops.cyclopscore.modcompat.capabilities.DefaultCapabilityProvider;
-import org.cyclops.cyclopscore.modcompat.capabilities.SimpleCapabilityConstructor;
+import org.cyclops.cyclopscore.modcompat.capabilities.ICapabilityConstructor;
 import org.cyclops.integrateddynamics.blockentity.BlockEntitySqueezer;
-import org.cyclops.integrateddynamicscompat.Capabilities;
 
 import javax.annotation.Nullable;
 
@@ -14,17 +15,17 @@ import javax.annotation.Nullable;
  * Compatibility for squeezer worker capability.
  * @author rubensworks
  */
-public class WorkerSqueezerBlockEntityCompat extends SimpleCapabilityConstructor<IWorker, BlockEntitySqueezer> {
+public class WorkerSqueezerBlockEntityCompat implements ICapabilityConstructor<BlockEntitySqueezer, Direction, IWorker, BlockEntityType<BlockEntitySqueezer>> {
 
     @Override
-    public Capability<IWorker> getCapability() {
-        return Capabilities.WORKER;
+    public BaseCapability<IWorker, Direction> getCapability() {
+        return Capabilities.Worker.BLOCK;
     }
 
     @Nullable
     @Override
-    public ICapabilityProvider createProvider(BlockEntitySqueezer host) {
-        return new DefaultCapabilityProvider<>(Capabilities.WORKER, new Worker(host));
+    public ICapabilityProvider<BlockEntitySqueezer, Direction, IWorker> createProvider(BlockEntityType<BlockEntitySqueezer> host) {
+        return (blockEntity, side) -> new Worker(blockEntity);
     }
 
     public static class Worker implements IWorker {

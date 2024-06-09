@@ -1,17 +1,19 @@
 package org.cyclops.integrateddynamicscompat.network.packet;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.network.CodecField;
 import org.cyclops.cyclopscore.network.PacketCodec;
 import org.cyclops.integrateddynamics.core.ingredient.ItemMatchProperties;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
+import org.cyclops.integrateddynamicscompat.Reference;
 
 import java.util.List;
 
@@ -19,6 +21,8 @@ import java.util.List;
  * @author rubensworks
  */
 public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec {
+
+    public static final ResourceLocation ID = new ResourceLocation(Reference.MOD_ID, "value_type_recipe_lp_element_set_recipe");
 
     @CodecField
     private int windowId;
@@ -32,11 +36,12 @@ public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec {
     private List<FluidStack> fluidOutputs;
 
     public CPacketValueTypeRecipeLPElementSetRecipe() {
-
+        super(ID);
     }
 
     public CPacketValueTypeRecipeLPElementSetRecipe(int windowId, List<ItemMatchProperties> itemInputs, List<FluidStack> fluidInputs,
                                                     List<ItemStack> itemOutputs, List<FluidStack> fluidOutputs) {
+        super(ID);
         this.windowId = windowId;
         this.itemInputs = itemInputs;
         this.fluidInputs = fluidInputs;

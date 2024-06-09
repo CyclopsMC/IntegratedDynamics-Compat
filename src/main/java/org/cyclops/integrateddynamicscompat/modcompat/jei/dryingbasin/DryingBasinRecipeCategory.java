@@ -1,13 +1,13 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamicscompat.Reference;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
@@ -40,7 +41,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
     public DryingBasinRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/drying_basin_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 93, 53);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_DRYING_BASIN));
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_DRYING_BASIN.get()));
         IDrawableStatic arrowDrawable = guiHelper.createDrawable(resourceLocation, 94, 0, 11, 28);
         this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
     }
@@ -53,7 +54,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable(RegistryEntries.BLOCK_DRYING_BASIN.getDescriptionId());
+        return Component.translatable(RegistryEntries.BLOCK_DRYING_BASIN.get().getDescriptionId());
     }
 
     @Nonnull
@@ -77,11 +78,11 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
 
         builder.addSlot(RecipeIngredientRole.INPUT, 6, 28)
                 .setFluidRenderer(1000, true, 8, 9)
-                .addIngredient(ForgeTypes.FLUID_STACK, recipe.getInputFluid());
+                .addIngredient(NeoForgeTypes.FLUID_STACK, recipe.getInputFluid().orElse(FluidStack.EMPTY));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 28)
                 .setFluidRenderer(1000, true, 8, 9)
-                .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutputFluid());
+                .addIngredient(NeoForgeTypes.FLUID_STACK, recipe.getOutputFluid().orElse(FluidStack.EMPTY));
     }
 
     @Override

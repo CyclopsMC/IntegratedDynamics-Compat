@@ -3,8 +3,9 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.compress.utils.Lists;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.integrateddynamics.RegistryEntries;
@@ -13,6 +14,7 @@ import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -23,11 +25,11 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
 
     private final List<ItemStack> inputItem;
     private final NonNullList<RecipeSqueezer.IngredientChance> outputItems;
-    private final FluidStack outputFluid;
+    private final Optional<FluidStack> outputFluid;
     private final int duration;
 
     public MechanicalSqueezerRecipeJEI(RecipeMechanicalSqueezer recipe) {
-        super(RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER, recipe);
+        super(RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER.get(), recipe);
         this.inputItem = Arrays.stream(recipe.getInputIngredient().getItems()).collect(Collectors.toList());
         this.outputItems = recipe.getOutputItems();
         this.outputFluid = recipe.getOutputFluid();
@@ -35,10 +37,10 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
     }
 
     protected MechanicalSqueezerRecipeJEI() {
-        super(RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER, null);
+        super(RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER.get(), null);
         this.inputItem = null;
         this.outputItems = null;
-        this.outputFluid = null;
+        this.outputFluid = Optional.empty();
         this.duration = 0;
     }
 
@@ -50,7 +52,7 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
         return outputItems;
     }
 
-    public FluidStack getOutputFluid() {
+    public Optional<FluidStack> getOutputFluid() {
         return outputFluid;
     }
 
@@ -60,12 +62,12 @@ public class MechanicalSqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<
 
     @Override
     protected RecipeType<RecipeMechanicalSqueezer> getRecipeType() {
-        return RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER;
+        return RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER.get();
     }
 
     @Override
-    protected MechanicalSqueezerRecipeJEI newInstance(RecipeMechanicalSqueezer recipe) {
-        return new MechanicalSqueezerRecipeJEI(recipe);
+    protected MechanicalSqueezerRecipeJEI newInstance(RecipeHolder<RecipeMechanicalSqueezer> recipe) {
+        return new MechanicalSqueezerRecipeJEI(recipe.value());
     }
 
     public static List<MechanicalSqueezerRecipeJEI> getAllRecipes() {

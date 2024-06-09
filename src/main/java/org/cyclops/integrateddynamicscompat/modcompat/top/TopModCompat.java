@@ -1,6 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.top;
 
-import net.minecraftforge.fml.InterModComms;
+import net.neoforged.fml.InterModComms;
 import org.cyclops.cyclopscore.modcompat.ICompatInitializer;
 import org.cyclops.cyclopscore.modcompat.IModCompat;
 import org.cyclops.integrateddynamicscompat.Reference;

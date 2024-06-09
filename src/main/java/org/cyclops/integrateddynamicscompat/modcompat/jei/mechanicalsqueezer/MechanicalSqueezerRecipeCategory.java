@@ -1,12 +1,12 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
@@ -42,7 +43,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
     public MechanicalSqueezerRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/mechanical_squeezer_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER));
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.get()));
         this.arrowDrawable = guiHelper.createAnimatedDrawable(guiHelper.createDrawable(resourceLocation, 116, 0, 4, 11), 20, IDrawableAnimated.StartDirection.TOP, false);
     }
 
@@ -54,7 +55,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.getDescriptionId());
+        return Component.translatable(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.get().getDescriptionId());
     }
 
     @Nonnull
@@ -86,7 +87,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 30)
                 .setFluidRenderer(1000, true, 16, 16)
-                .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutputFluid());
+                .addIngredient(NeoForgeTypes.FLUID_STACK, recipe.getOutputFluid().orElse(FluidStack.EMPTY));
     }
 
     @Override

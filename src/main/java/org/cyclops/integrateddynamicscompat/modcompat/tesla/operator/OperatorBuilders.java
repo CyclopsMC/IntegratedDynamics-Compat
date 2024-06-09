@@ -3,7 +3,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.tesla.operator;
 import net.darkhax.tesla.api.ITeslaConsumer;
 import net.darkhax.tesla.api.ITeslaHolder;
 import net.darkhax.tesla.api.ITeslaProducer;
-import net.minecraftforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capability;
 import org.cyclops.integrateddynamicscompat.Capabilities;
 import org.cyclops.integrateddynamics.api.evaluate.variable.IValue;
 import org.cyclops.integrateddynamics.core.evaluate.operator.IterativeFunction;

@@ -1,7 +1,7 @@
 package org.cyclops.integrateddynamicscompat.modcompat.forestry;
 
 import net.minecraft.block.Block;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.neoforged.fml.common.event.FMLInterModComms;
 import org.cyclops.cyclopscore.config.ConfigHandler;
 import org.cyclops.cyclopscore.modcompat.IModCompat;
 import org.cyclops.integrateddynamics.IntegratedDynamics;

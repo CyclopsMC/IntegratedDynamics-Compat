@@ -2,7 +2,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import com.google.common.collect.Lists;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.ingredients.ITypedIngredient;
@@ -13,14 +13,15 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.common.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.core.ingredient.ItemMatchProperties;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
@@ -87,13 +88,14 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 .map(ItemStack::getItem)
                 .collect(Collectors.toList());
         if (items.size() > 1) {
-            return ForgeRegistries.ITEMS.tags().stream()
-                            .map(tag -> {
-                                if (tag.stream().collect(Collectors.toList()).equals(items)) {
-                                    return Optional.of(tag.getKey().location());
-                                }
-                                return Optional.<ResourceLocation>empty();
-                            })
+            return BuiltInRegistries.ITEM.getTagNames()
+                            .map(tag -> BuiltInRegistries.ITEM.getTag(tag)
+                                    .flatMap(t -> {
+                                        if (t.stream().map(Holder::value).collect(Collectors.toList()).equals(items)) {
+                                            return Optional.of(tag.location());
+                                        }
+                                        return Optional.empty();
+                                    }))
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .findFirst()
@@ -126,7 +128,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                     } else if (slotView.getRole() == RecipeIngredientRole.OUTPUT) {
                         itemOutputs.add(((ItemStack) typedIngredient.getIngredient()).copy());
                     }
-                } else if (typedIngredient.getType() == ForgeTypes.FLUID_STACK) {
+                } else if (typedIngredient.getType() == NeoForgeTypes.FLUID_STACK) {
                     // Collect fluids
                     if (slotView.getRole() == RecipeIngredientRole.INPUT) {
                         fluidInputs.add(((FluidStack) typedIngredient.getIngredient()).copy());

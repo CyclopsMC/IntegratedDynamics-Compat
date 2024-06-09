@@ -7,7 +7,7 @@ import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 
 import IBlockAccess;

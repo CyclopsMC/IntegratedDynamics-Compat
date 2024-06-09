@@ -66,10 +66,10 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_DRYING_BASIN), DryingBasinRecipeCategory.TYPE);
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_SQUEEZER), SqueezerRecipeCategory.TYPE);
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN), MechanicalDryingBasinRecipeCategory.TYPE);
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER), MechanicalSqueezerRecipeCategory.TYPE);
+        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_DRYING_BASIN.get()), DryingBasinRecipeCategory.TYPE);
+        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_SQUEEZER.get()), SqueezerRecipeCategory.TYPE);
+        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.get()), MechanicalDryingBasinRecipeCategory.TYPE);
+        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.get()), MechanicalSqueezerRecipeCategory.TYPE);
     }
 
     @Override

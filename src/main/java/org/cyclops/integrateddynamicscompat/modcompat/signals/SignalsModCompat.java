@@ -13,11 +13,11 @@ import com.minemaarten.signals.api.access.SignalsAccessorProvidingEvent;
 import com.minemaarten.signals.capabilities.CapabilityMinecartDestination;
 
 import lombok.Getter;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.CapabilityInject;
+import net.neoforged.fml.common.Optional;
+import net.neoforged.fml.common.eventhandler.SubscribeEvent;
 
 public class SignalsModCompat implements IModCompat {
 

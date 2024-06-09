@@ -1,8 +1,9 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.compress.utils.Lists;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.cyclopscore.recipe.type.IInventoryFluid;
@@ -11,6 +12,7 @@ import org.cyclops.integrateddynamics.core.recipe.type.RecipeDryingBasin;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -20,14 +22,16 @@ import java.util.stream.Collectors;
 public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInventoryFluid, RecipeDryingBasin, DryingBasinRecipeJEI> {
 
     private final List<ItemStack> inputItem;
-    private final FluidStack inputFluid;
+    private final Optional<FluidStack> inputFluid;
     private final ItemStack outputItem;
-    private final FluidStack outputFluid;
+    private final Optional<FluidStack> outputFluid;
     private final int duration;
 
     public DryingBasinRecipeJEI(RecipeDryingBasin recipe) {
-        super(RegistryEntries.RECIPETYPE_DRYING_BASIN, recipe);
-        this.inputItem = Arrays.stream(recipe.getInputIngredient().getItems()).collect(Collectors.toList());
+        super(RegistryEntries.RECIPETYPE_DRYING_BASIN.get(), recipe);
+        this.inputItem = recipe.getInputIngredient()
+                .map(i -> Arrays.stream(i.getItems()).collect(Collectors.toList()))
+                .orElseGet(Lists::newArrayList);
         this.inputFluid = recipe.getInputFluid();
         this.outputItem = recipe.getOutputItemFirst();
         this.outputFluid = recipe.getOutputFluid();
@@ -35,7 +39,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
     }
 
     protected DryingBasinRecipeJEI() {
-        super(RegistryEntries.RECIPETYPE_DRYING_BASIN, null);
+        super(RegistryEntries.RECIPETYPE_DRYING_BASIN.get(), null);
         this.inputItem = null;
         this.inputFluid = null;
         this.outputItem = null;
@@ -47,7 +51,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
         return inputItem;
     }
 
-    public FluidStack getInputFluid() {
+    public Optional<FluidStack> getInputFluid() {
         return inputFluid;
     }
 
@@ -55,7 +59,7 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
         return outputItem;
     }
 
-    public FluidStack getOutputFluid() {
+    public Optional<FluidStack> getOutputFluid() {
         return outputFluid;
     }
 
@@ -65,12 +69,12 @@ public class DryingBasinRecipeJEI extends RecipeRegistryJeiRecipeWrapper<IInvent
 
     @Override
     protected RecipeType<RecipeDryingBasin> getRecipeType() {
-        return RegistryEntries.RECIPETYPE_DRYING_BASIN;
+        return RegistryEntries.RECIPETYPE_DRYING_BASIN.get();
     }
 
     @Override
-    protected DryingBasinRecipeJEI newInstance(RecipeDryingBasin recipe) {
-        return new DryingBasinRecipeJEI(recipe);
+    protected DryingBasinRecipeJEI newInstance(RecipeHolder<RecipeDryingBasin> recipe) {
+        return new DryingBasinRecipeJEI(recipe.value());
     }
 
     public static List<DryingBasinRecipeJEI> getAllRecipes() {

@@ -24,8 +24,8 @@ public class CommonProxy extends CommonProxyComponent {
         super.registerPacketHandlers(packetHandler);
 
         // Register packets.
-        packetHandler.register(CPacketSetSlot.class);
-        packetHandler.register(CPacketValueTypeRecipeLPElementSetRecipe.class);
+        packetHandler.register(CPacketSetSlot.ID, CPacketSetSlot::new);
+        packetHandler.register(CPacketValueTypeRecipeLPElementSetRecipe.ID, CPacketValueTypeRecipeLPElementSetRecipe::new);
 
         IntegratedDynamicsCompat.clog("Registered packet handler.");
     }

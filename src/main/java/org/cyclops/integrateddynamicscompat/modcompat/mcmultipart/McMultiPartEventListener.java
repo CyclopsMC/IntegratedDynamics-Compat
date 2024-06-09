@@ -1,10 +1,10 @@
 package org.cyclops.integrateddynamicscompat.modcompat.mcmultipart;
 
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.neoforged.neoforge.client.event.ModelBakeEvent;
+import net.neoforged.fml.common.eventhandler.SubscribeEvent;
+import net.neoforged.fml.relauncher.Side;
+import net.neoforged.fml.relauncher.SideOnly;
 
 /**
  * @author rubensworks

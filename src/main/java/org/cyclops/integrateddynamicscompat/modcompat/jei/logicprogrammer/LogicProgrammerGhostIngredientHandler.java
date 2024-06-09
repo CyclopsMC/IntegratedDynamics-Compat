@@ -1,16 +1,16 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.cyclopscore.helper.GuiHelpers;
@@ -38,12 +38,14 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
             ItemStack itemStack = null;
             if (ingredientTyped.getType() == VanillaTypes.ITEM_STACK) {
                 itemStack = ingredientTyped.getItemStack().get();
-            } else if (ingredientTyped.getType() == ForgeTypes.FLUID_STACK) {
+            } else if (ingredientTyped.getType() == NeoForgeTypes.FLUID_STACK) {
                 itemStack = new ItemStack(Items.BUCKET);
                 IFluidHandlerItem fluidHandler = itemStack
-                        .getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
-                        .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
-                fluidHandler.fill(ingredientTyped.getIngredient(ForgeTypes.FLUID_STACK).get(), IFluidHandler.FluidAction.EXECUTE);
+                        .getCapability(Capabilities.FluidHandler.ITEM);
+                if (fluidHandler == null) {
+                    throw new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things.");
+                }
+                fluidHandler.fill(ingredientTyped.getIngredient(NeoForgeTypes.FLUID_STACK).get(), IFluidHandler.FluidAction.EXECUTE);
                 itemStack = fluidHandler.getContainer();
             }
 
