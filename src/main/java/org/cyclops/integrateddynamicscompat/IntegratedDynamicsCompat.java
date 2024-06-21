@@ -2,7 +2,6 @@ package org.cyclops.integrateddynamicscompat;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Level;
 import org.cyclops.cyclopscore.config.ConfigHandler;
 import org.cyclops.cyclopscore.init.ModBaseVersionable;
@@ -30,6 +29,13 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
 
     public IntegratedDynamicsCompat(IEventBus modEventBus) {
         super(Reference.MOD_ID, (instance) -> _instance = instance, modEventBus);
+
+        // Capabilities
+        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_DRYING_BASIN, new WorkerDryingBasinBlockEntityCompat());
+        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_SQUEEZER, new WorkerSqueezerBlockEntityCompat());
+        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_COAL_GENERATOR, new WorkerCoalGeneratorBlockEntityCompat());
+        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_MECHANICAL_DRYING_BASIN, new WorkerMechanicalMachineBlockEntityCompat<>());
+        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_MECHANICAL_SQUEEZER, new WorkerMechanicalMachineBlockEntityCompat<>());
     }
 
     @Override
@@ -49,18 +55,6 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
 //        modCompatLoader.addModCompat(new ImmersiveEngineeringModCompat());
 //        modCompatLoader.addModCompat(new CraftTweakerModCompat());
 //        modCompatLoader.addModCompat(new SignalsModCompat());
-    }
-
-    @Override
-    protected void setup(FMLCommonSetupEvent event) {
-        // Capabilities
-        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_DRYING_BASIN, new WorkerDryingBasinBlockEntityCompat());
-        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_SQUEEZER, new WorkerSqueezerBlockEntityCompat());
-        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_COAL_GENERATOR, new WorkerCoalGeneratorBlockEntityCompat());
-        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_MECHANICAL_DRYING_BASIN, new WorkerMechanicalMachineBlockEntityCompat<>());
-        getCapabilityConstructorRegistry().registerBlockEntity(RegistryEntries.BLOCK_ENTITY_MECHANICAL_SQUEEZER, new WorkerMechanicalMachineBlockEntityCompat<>());
-
-        super.setup(event);
     }
 
     @Override
