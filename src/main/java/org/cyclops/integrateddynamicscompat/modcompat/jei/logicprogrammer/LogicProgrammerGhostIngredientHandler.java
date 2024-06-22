@@ -11,7 +11,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
-import org.apache.commons.compress.utils.Lists;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.cyclopscore.helper.GuiHelpers;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;

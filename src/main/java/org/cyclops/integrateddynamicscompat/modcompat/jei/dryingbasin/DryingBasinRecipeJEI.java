@@ -1,10 +1,10 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin;
 
+import com.google.common.collect.Lists;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.fluids.FluidStack;
-import org.apache.commons.compress.utils.Lists;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.cyclopscore.recipe.type.IInventoryFluid;
 import org.cyclops.integrateddynamics.RegistryEntries;
