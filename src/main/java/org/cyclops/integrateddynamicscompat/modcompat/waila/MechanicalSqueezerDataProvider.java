@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class MechanicalSqueezerDataProvider extends SqueezerDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
-    public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "mechanical_squeezer");
+    public static final ResourceLocation ID = ResourceLocation.parse(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "mechanical_squeezer");
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {

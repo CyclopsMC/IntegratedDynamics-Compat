@@ -19,7 +19,7 @@ import org.cyclops.integrateddynamics.blockentity.BlockEntitySqueezer;
 public class TopSqueezerData implements IProbeInfoProvider {
     @Override
     public ResourceLocation getID() {
-        return new ResourceLocation(Reference.MOD_ID, "squeezer_data");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "squeezer_data");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class TopSqueezerData implements IProbeInfoProvider {
                         }
                         if (!tile.getTank().isEmpty()) {
                             probeInfo.horizontal()
-                                    .text(tile.getTank().getFluid().getDisplayName())
+                                    .text(tile.getTank().getFluid().getHoverName())
                                     .progress(tile.getTank().getFluidAmount(), tile.getTank().getCapacity());
                         }
                     });

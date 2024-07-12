@@ -19,7 +19,7 @@ import org.cyclops.integrateddynamics.core.blockentity.BlockEntityMechanicalMach
 public class TopMechanicalMachineData implements IProbeInfoProvider {
     @Override
     public ResourceLocation getID() {
-        return new ResourceLocation(Reference.MOD_ID, "mechanical_machine_data");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "mechanical_machine_data");
     }
 
     @Override

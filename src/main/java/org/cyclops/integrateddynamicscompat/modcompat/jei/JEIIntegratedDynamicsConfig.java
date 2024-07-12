@@ -91,7 +91,7 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Reference.MOD_ID, "main");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "main");
     }
 
     @Override

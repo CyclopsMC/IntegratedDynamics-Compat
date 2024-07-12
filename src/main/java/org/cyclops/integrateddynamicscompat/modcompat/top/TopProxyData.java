@@ -21,7 +21,7 @@ import org.cyclops.integrateddynamics.core.helper.L10NValues;
 public class TopProxyData implements IProbeInfoProvider {
     @Override
     public ResourceLocation getID() {
-        return new ResourceLocation(Reference.MOD_ID, "proxy_data");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "proxy_data");
     }
 
     @Override

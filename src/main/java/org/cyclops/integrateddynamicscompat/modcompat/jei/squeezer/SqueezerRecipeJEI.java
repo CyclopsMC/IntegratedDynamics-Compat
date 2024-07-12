@@ -1,12 +1,12 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer;
 
+import com.google.common.collect.Lists;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.fluids.FluidStack;
-import com.google.common.collect.Lists;
 import org.cyclops.cyclopscore.modcompat.jei.RecipeRegistryJeiRecipeWrapper;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * Recipe wrapper for Squeezer recipes
  * @author rubensworks
  */
-public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<Container, RecipeSqueezer, SqueezerRecipeJEI> {
+public class SqueezerRecipeJEI extends RecipeRegistryJeiRecipeWrapper<CraftingInput, RecipeSqueezer, SqueezerRecipeJEI> {
 
     private final List<ItemStack> inputItem;
     private final NonNullList<RecipeSqueezer.IngredientChance> outputItems;

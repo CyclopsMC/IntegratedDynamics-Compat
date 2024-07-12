@@ -53,10 +53,10 @@ public class RefinedStorageInitializer implements ICompatInitializer {
         ));
 
         POSITIONED_MASTERITEMINVENTORY = ValueTypeListProxyFactories.REGISTRY.register(
-                new ValueTypeListProxyNBTFactory<>(new ResourceLocation(Reference.MOD_REFINEDSTORAGE, "positioned_item_inventory"),
+                new ValueTypeListProxyNBTFactory<>(ResourceLocation.parse(Reference.MOD_REFINEDSTORAGE, "positioned_item_inventory"),
                         ValueTypeListProxyPositionedNetworkMasterItemInventory.class));
         POSITIONED_MASTERFLUIDINVENTORY = ValueTypeListProxyFactories.REGISTRY.register(
-                new ValueTypeListProxyNBTFactory<>(new ResourceLocation(Reference.MOD_REFINEDSTORAGE, "positioned_fluid_inventory"),
+                new ValueTypeListProxyNBTFactory<>(ResourceLocation.parse(Reference.MOD_REFINEDSTORAGE, "positioned_fluid_inventory"),
                         ValueTypeListProxyPositionedNetworkMasterFluidInventory.class));
     }
 

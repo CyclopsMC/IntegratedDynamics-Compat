@@ -15,24 +15,24 @@ Integrated Dynamics compatibility with other mods.
 [[dependencies.integrateddynamicscompat]]
     modId="cyclopscore"
     type="required"
-    versionRange="[1.19.0,)"
+    versionRange="[1.19.1,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
     modId="neoforge"
     type="required"
-    versionRange="[20.4,)"
+    versionRange="[21.0.43-beta,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
     modId="minecraft"
     type="required"
-    versionRange="[1.20.4,]"
+    versionRange="[1.21,]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.integrateddynamicscompat]]
     modId="integrateddynamics"
     type="required"
-    versionRange="[1.16.7,)"
+    versionRange="[1.21.4,)"
     ordering="AFTER"
     side="BOTH"

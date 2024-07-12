@@ -27,7 +27,7 @@ public class TopPartData implements IProbeInfoProvider {
 
     @Override
     public ResourceLocation getID() {
-        return new ResourceLocation(Reference.MOD_ID, "part_data");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "part_data");
     }
 
     @Override

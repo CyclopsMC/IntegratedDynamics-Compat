@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class DryingBasinDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
-    public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "drying_basin");
+    public static final ResourceLocation ID = ResourceLocation.parse(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "drying_basin");
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {

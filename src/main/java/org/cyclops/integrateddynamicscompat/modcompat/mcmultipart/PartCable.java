@@ -246,7 +246,7 @@ public class PartCable extends MultipartBase implements ITickable {
 
     @Override
     public ResourceLocation getModelPath() {
-        return new ResourceLocation(IntegratedDynamics._instance.getModId(), BlockCableConfig._instance.getNamedId());
+        return ResourceLocation.parse(IntegratedDynamics._instance.getModId(), BlockCableConfig._instance.getNamedId());
     }
 
     @Override

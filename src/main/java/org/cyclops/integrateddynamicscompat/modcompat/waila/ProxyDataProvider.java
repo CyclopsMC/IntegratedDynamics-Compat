@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProxyDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
-    public static final ResourceLocation ID = new ResourceLocation(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "proxy");
+    public static final ResourceLocation ID = ResourceLocation.parse(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "proxy");
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {

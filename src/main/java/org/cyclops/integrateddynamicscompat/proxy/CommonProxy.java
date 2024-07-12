@@ -4,8 +4,8 @@ import org.cyclops.cyclopscore.init.ModBase;
 import org.cyclops.cyclopscore.network.PacketHandler;
 import org.cyclops.cyclopscore.proxy.CommonProxyComponent;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
-import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecipeLPElementSetRecipe;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketSetSlot;
+import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecipeLPElementSetRecipe;
 
 /**
  * Proxy for server and client side.
@@ -24,8 +24,8 @@ public class CommonProxy extends CommonProxyComponent {
         super.registerPacketHandlers(packetHandler);
 
         // Register packets.
-        packetHandler.register(CPacketSetSlot.ID, CPacketSetSlot::new);
-        packetHandler.register(CPacketValueTypeRecipeLPElementSetRecipe.ID, CPacketValueTypeRecipeLPElementSetRecipe::new);
+        packetHandler.register(CPacketSetSlot.ID, CPacketSetSlot.CODEC);
+        packetHandler.register(CPacketValueTypeRecipeLPElementSetRecipe.ID, CPacketValueTypeRecipeLPElementSetRecipe.CODEC);
 
         IntegratedDynamicsCompat.clog("Registered packet handler.");
     }

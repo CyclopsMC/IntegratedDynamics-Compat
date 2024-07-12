@@ -1,8 +1,10 @@
 package org.cyclops.integrateddynamicscompat.network.packet;
 
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
@@ -20,9 +22,10 @@ import java.util.List;
 /**
  * @author rubensworks
  */
-public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec {
+public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec<CPacketValueTypeRecipeLPElementSetRecipe> {
 
-    public static final ResourceLocation ID = new ResourceLocation(Reference.MOD_ID, "value_type_recipe_lp_element_set_recipe");
+    public static final Type<CPacketValueTypeRecipeLPElementSetRecipe> ID = new Type<>(ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "value_type_recipe_lp_element_set_recipe"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CPacketValueTypeRecipeLPElementSetRecipe> CODEC = getCodec(CPacketValueTypeRecipeLPElementSetRecipe::new);
 
     @CodecField
     private int windowId;

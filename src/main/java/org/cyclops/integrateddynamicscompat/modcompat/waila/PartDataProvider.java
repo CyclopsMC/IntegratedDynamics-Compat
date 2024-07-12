@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class PartDataProvider implements IComponentProvider, IServerDataProvider<BlockEntityEntity> {
 
-    public static final ResourceLocation ID = new ResourceLocation(Reference.MOD_ID, "part");
+    public static final ResourceLocation ID = ResourceLocation.parse(Reference.MOD_ID, "part");
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {

@@ -37,7 +37,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
     private final IDrawableStatic arrowDrawable;
 
     public SqueezerRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, "textures/gui/squeezer_gui_jei.png");
+        ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "textures/gui/squeezer_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_SQUEEZER.get()));
         this.arrowDrawable = guiHelper.createDrawable(resourceLocation, 41, 32, 12, 2);
