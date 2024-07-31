@@ -89,6 +89,9 @@ repositories {
         name 'jared'
         url 'https://maven.blamejared.com/'
     }
+    maven {
+        url = 'https://maven.minecraftforge.net/'
+    }
 }
 
 dependencies {
@@ -130,6 +133,8 @@ dependencies {
     /*runtimeOnly(fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}")) { // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
         transitive = false
     }*/
+
+    implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}")
 }
 
 subsystems {
@@ -144,6 +149,8 @@ runs {
 		systemProperty 'forge.logging.markers', 'REGISTRIES'
         systemProperty 'forge.logging.console.level', 'debug'
         systemProperty 'forge.logging.console.level', 'debug'
+        systemProperty 'mixin.env.remapRefMap', 'true'
+        systemProperty 'mixin.env.refMapRemappingFile',"${buildDir}/createSrgToMcp/output.srg"
         modSource project.sourceSets.main
 
         dependencies {
