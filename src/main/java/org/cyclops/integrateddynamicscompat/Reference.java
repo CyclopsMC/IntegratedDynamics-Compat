@@ -17,4 +17,5 @@ public class Reference {
     public static final String MOD_TOP = "theoneprobe";
     public static final String MOD_WAILA = "waila";
     public static final String MOD_REFINEDSTORAGE = "refinedstorage";
+    public static final String MOD_TERRABLENDER = "terrablender";
 }
