@@ -119,7 +119,7 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
-    implementation("mezz.jei:jei-${project.minecraft_version}-neoforge:${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
+    implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
     compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
@@ -139,7 +139,7 @@ dependencies {
 
 subsystems {
     parchment {
-        minecraftVersion = "${project.minecraft_version}"
+        minecraftVersion = "${project.parchment_minecraft_version}"
         mappingsVersion = "${project.parchment_version}"
     }
 }
