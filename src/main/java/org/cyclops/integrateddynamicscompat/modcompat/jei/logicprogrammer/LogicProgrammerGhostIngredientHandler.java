@@ -12,7 +12,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.cyclopscore.helper.GuiHelpers;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammerBase;
@@ -51,9 +50,9 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
 
             if (itemStack != null) {
                 // Determine slots in which the stack could be placed
-                Pair<Integer, Integer>[] slotPositions = element.getRenderPattern().getSlotPositions();
-                for (int slot = 0; slot < slotPositions.length; slot++) {
-                    int slotId = container.slots.size() - 36 - slotPositions.length + slot;
+                int slotPositionsCount = container.slots.size() - 36 - 4; /* subtract player inv, and 4 fixed slots in LP */
+                for (int slot = 0; slot < slotPositionsCount; slot++) {
+                    int slotId = container.slots.size() - 36 - slotPositionsCount + slot;
                     Slot slotContainer = container.getSlot(slotId);
 
                     Rect2i bounds = new Rect2i(
@@ -96,8 +95,8 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
 
     protected void setStackInSlot(T screen, int slot, ItemStack itemStack) {
         ContainerLogicProgrammerBase container = screen.getMenu();
-        Pair<Integer, Integer>[] slotPositions = container.getActiveElement().getRenderPattern().getSlotPositions();
-        int slotId = container.slots.size() - 36 - slotPositions.length + slot;
+        int slotPositionsCount = container.slots.size() - 36 - 4; /* subtract player inv, and 4 fixed slots in LP */
+        int slotId = container.slots.size() - 36 - slotPositionsCount + slot;
         container.setItem(slotId, 0, itemStack.copy());
         IntegratedDynamicsCompat._instance.getPacketHandler().sendToServer(
                 new CPacketSetSlot(container.containerId, slotId, itemStack));
