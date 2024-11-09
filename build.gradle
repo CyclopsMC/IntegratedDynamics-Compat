@@ -99,6 +99,10 @@ repositories {
     maven {
         url = "https://minecraft.curseforge.com/api/maven/"
     }
+    maven {
+        name "REI"
+        url "https://maven.shedaniel.me/"
+    }
 }
 
 dependencies {
@@ -142,6 +146,10 @@ dependencies {
     }*/
 
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${project.terrablender_version}")
+
+    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-forge/
+    compileOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:$cloth_config_version");
+    compileOnly fg.deobf("dev.architectury:architectury-forge:$architectury_version");
 }
 
 minecraft {
