@@ -17,6 +17,12 @@
     "gui.integrateddynamics.waila.fluid.in": "Input Fluid: %s (%s mB)",
     "gui.integrateddynamics.waila.fluid.out": "Input Fluid: %s (%s mB)",
     "gui.integrateddynamics.waila.progress": "Progress: %s / 100",
+    "config.jade.plugin_integrateddynamicscompat.squeezer": "Squeezer",
+    "config.jade.plugin_integrateddynamicscompat.drying_basin": "Drying Basin",
+    "config.jade.plugin_integrateddynamicscompat.mechanical_squeezer": "Mechanical Squeezer",
+    "config.jade.plugin_integrateddynamicscompat.mechanical_drying_basin": "Mechanical Drying Basin",
+    "config.jade.plugin_integrateddynamicscompat.proxy": "Proxy",
+    "config.jade.plugin_integrateddynamicscompat.part": "Part",
 
     "_comment": "# ----- JEI ----- ##",
 
