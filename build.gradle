@@ -150,6 +150,7 @@ dependencies {
     /*runtimeOnly(fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}")) { // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
         transitive = false
     }*/
+    implementation fg.deobf("curse.maven:refinedstorage-243076:${refinedstorage_version}")
 
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${project.terrablender_version}")
 
@@ -327,8 +328,6 @@ sourceSets {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/waila/**'
-			exclude '**/modcompat/refinedstorage/**'
         }
     }
 }
@@ -348,7 +347,6 @@ spotless {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
-			exclude '**/modcompat/refinedstorage/**'
         }
 
         endWithNewline()

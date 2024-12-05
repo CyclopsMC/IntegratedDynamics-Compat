@@ -9,15 +9,12 @@ import org.cyclops.cyclopscore.init.ModBaseVersionable;
 import org.cyclops.cyclopscore.modcompat.ModCompatLoader;
 import org.cyclops.cyclopscore.proxy.IClientProxy;
 import org.cyclops.cyclopscore.proxy.ICommonProxy;
-import org.cyclops.integrateddynamics.blockentity.BlockEntityCoalGenerator;
-import org.cyclops.integrateddynamics.blockentity.BlockEntityDryingBasin;
-import org.cyclops.integrateddynamics.blockentity.BlockEntityMechanicalDryingBasin;
-import org.cyclops.integrateddynamics.blockentity.BlockEntityMechanicalSqueezer;
-import org.cyclops.integrateddynamics.blockentity.BlockEntitySqueezer;
+import org.cyclops.integrateddynamics.blockentity.*;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGeneratorBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerBlockEntityCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.terrablender.TerrablenderCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
 import org.cyclops.integrateddynamicscompat.proxy.ClientProxy;
@@ -42,9 +39,9 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
         super.loadModCompats(modCompatLoader);
         modCompatLoader.addModCompat(new TopModCompat());
         modCompatLoader.addModCompat(new TerrablenderCompat());
+        modCompatLoader.addModCompat(new RefinedStorageModCompat());
         // TODO: temporarily disable some mod compats
         // Mod compats
-//        modCompatLoader.addModCompat(new RefinedStorageModCompat());
 //        modCompatLoader.addModCompat(new CharsetPipesModCompat());
 //        modCompatLoader.addModCompat(new McMultiPartModCompat());
 //        modCompatLoader.addModCompat(new ThaumcraftModCompat());
