@@ -323,10 +323,8 @@ sourceSets {
             exclude '**/modcompat/ic2/**'
             exclude '**/modcompat/immersiveengineering/**'
             exclude '**/modcompat/mcmultipart/**'
-            exclude '**/modcompat/minetweaker/**'
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
-            exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
         }
     }
@@ -342,10 +340,8 @@ spotless {
             exclude '**/modcompat/ic2/**'
             exclude '**/modcompat/immersiveengineering/**'
             exclude '**/modcompat/mcmultipart/**'
-            exclude '**/modcompat/minetweaker/**'
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
-            exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
         }
 
