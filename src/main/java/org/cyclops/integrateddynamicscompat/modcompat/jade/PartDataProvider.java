@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
@@ -46,6 +47,7 @@ public class PartDataProvider implements IBlockComponentProvider, IServerDataPro
                         IPartType partType = partContainer.getPart(side);
                         IPartState partState = partContainer.getPartState(side);
                         List<Component> tooltip = Lists.newArrayList();
+                        tooltip.add(Component.translatable(partType.getTranslationKey()));
                         partType.loadTooltip(partState, tooltip);
                         NBTClassType.getClassType(List.class).writePersistedField("tooltip", tooltip, tag);
                     }
