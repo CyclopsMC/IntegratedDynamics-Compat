@@ -23,7 +23,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
 import org.cyclops.integrateddynamicscompat.Reference;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
+import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 
 import javax.annotation.Nonnull;
 
@@ -92,11 +92,11 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Mech
 
         // Draw energy and duration
         Font fontRenderer = Minecraft.getInstance().font;
-        MutableComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
+        MutableComponent energy = JeiReiHelpers.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
         fontRenderer.drawInBatch(energy,
                 (background.getWidth() - fontRenderer.width(energy)) / 2 + 3, 0, 0xFF808080, false,
                 guiGraphics.pose().last().pose(), guiGraphics.bufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
-        MutableComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
+        MutableComponent duration = JeiReiHelpers.getDurationSecondsTextComponent(recipe.getDuration());
         fontRenderer.drawInBatch(duration,
                 (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, 0xFF808080, false,
                 guiGraphics.pose().last().pose(), guiGraphics.bufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);

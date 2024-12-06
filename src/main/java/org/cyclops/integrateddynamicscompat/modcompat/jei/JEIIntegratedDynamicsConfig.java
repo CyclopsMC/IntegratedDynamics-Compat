@@ -2,24 +2,12 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import org.cyclops.cyclopscore.helper.MinecraftHelpers;
 import org.cyclops.integrateddynamics.RegistryEntries;
-import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammer;
-import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammerPortable;
-import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalDryingBasin;
-import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalSqueezer;
-import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenOnTheDynamicsOfIntegration;
-import org.cyclops.integrateddynamics.core.helper.L10NValues;
+import org.cyclops.integrateddynamics.client.gui.container.*;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammer;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerPortable;
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalDryingBasin;
@@ -35,8 +23,6 @@ import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer.Mec
 import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer.MechanicalSqueezerRecipeJEI;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeCategory;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeJEI;
-
-import java.text.DecimalFormat;
 
 /**
  * Helper for registering JEI manager.
@@ -97,15 +83,5 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         this.jeiRuntime = jeiRuntime;
-    }
-
-    public static MutableComponent getDurationSecondsTextComponent(int durationTicks) {
-        String seconds = new DecimalFormat("#.##").format((double) durationTicks / MinecraftHelpers.SECOND_IN_TICKS);
-        return Component.translatable("gui.jei.category.smelting.time.seconds", seconds);
-    }
-
-    public static MutableComponent getEnergyTextComponent(int durationTicks, int energyPerTick) {
-        return Component.literal(String.format("%,d", durationTicks * energyPerTick))
-                .append(Component.translatable(L10NValues.GENERAL_ENERGY_UNIT));
     }
 }

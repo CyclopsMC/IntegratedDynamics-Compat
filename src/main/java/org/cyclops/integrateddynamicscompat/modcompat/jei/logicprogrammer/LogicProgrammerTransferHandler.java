@@ -2,10 +2,10 @@ package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import com.google.common.collect.Lists;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.ingredients.ITypedIngredient;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
@@ -13,8 +13,6 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.common.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -28,6 +26,7 @@ import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElem
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
 import org.cyclops.integrateddynamicscompat.GeneralConfig;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecipeLPElementSetRecipe;
 
 import javax.annotation.Nullable;
@@ -88,18 +87,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 .map(ItemStack::getItem)
                 .collect(Collectors.toList());
         if (items.size() > 1) {
-            return BuiltInRegistries.ITEM.getTagNames()
-                            .map(tag -> BuiltInRegistries.ITEM.getTag(tag)
-                                    .flatMap(t -> {
-                                        if (t.stream().map(Holder::value).collect(Collectors.toList()).equals(items)) {
-                                            return Optional.of(tag.location());
-                                        }
-                                        return Optional.empty();
-                                    }))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .findFirst()
-                    .orElse(null);
+            return JeiReiHelpers.itemsToTag(items);
         }
         return null;
     }

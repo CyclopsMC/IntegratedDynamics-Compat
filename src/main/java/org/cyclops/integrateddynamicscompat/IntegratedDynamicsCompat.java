@@ -53,9 +53,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
 //        modCompatLoader.addModCompat(new TConstructModCompat());
 //        modCompatLoader.addModCompat(new ForestryModCompat());
 //        modCompatLoader.addModCompat(new Ic2ModCompat());
-//        modCompatLoader.addModCompat(new TeslaApiCompat());
 //        modCompatLoader.addModCompat(new ImmersiveEngineeringModCompat());
-//        modCompatLoader.addModCompat(new CraftTweakerModCompat());
 //        modCompatLoader.addModCompat(new SignalsModCompat());
     }
 
