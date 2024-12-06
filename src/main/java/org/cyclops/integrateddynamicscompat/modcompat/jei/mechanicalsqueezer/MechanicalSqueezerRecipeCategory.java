@@ -20,10 +20,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
-import org.cyclops.integrateddynamics.block.BlockMechanicalDryingBasinConfig;
+import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezerConfig;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
+import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 
 import javax.annotation.Nonnull;
 
@@ -95,10 +95,10 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
 
         // Draw energy and duration
         Font fontRenderer = Minecraft.getInstance().font;
-        MutableComponent energy = JEIIntegratedDynamicsConfig.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
+        MutableComponent energy = JeiReiHelpers.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalSqueezerConfig.consumptionRate);
         fontRenderer.draw(matrixStack, energy,
                 (background.getWidth() - fontRenderer.width(energy)) / 2 - 10, 0, 0xFF808080);
-        MutableComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
+        MutableComponent duration = JeiReiHelpers.getDurationSecondsTextComponent(recipe.getDuration());
         fontRenderer.draw(matrixStack, duration,
                 (background.getWidth() - fontRenderer.width(duration)) / 2 - 10, 42, 0xFF808080);
     }

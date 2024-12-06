@@ -20,13 +20,13 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.core.ingredient.ItemMatchProperties;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
 import org.cyclops.integrateddynamicscompat.GeneralConfig;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecipeLPElementSetRecipe;
 
 import javax.annotation.Nullable;
@@ -87,17 +87,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 .map(ItemStack::getItem)
                 .collect(Collectors.toList());
         if (items.size() > 1) {
-            return ForgeRegistries.ITEMS.tags().stream()
-                            .map(tag -> {
-                                if (tag.stream().collect(Collectors.toList()).equals(items)) {
-                                    return Optional.of(tag.getKey().location());
-                                }
-                                return Optional.<ResourceLocation>empty();
-                            })
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .findFirst()
-                    .orElse(null);
+            return JeiReiHelpers.itemsToTag(items);
         }
         return null;
     }

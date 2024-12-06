@@ -136,7 +136,7 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
-    implementation(fg.deobf("mezz.jei:jei-${project.jei_version}")) { // https://dvs1.progwml6.com/files/maven/mezz/jei/
+    compileOnly(fg.deobf("mezz.jei:jei-${project.jei_version}")) { // https://dvs1.progwml6.com/files/maven/mezz/jei/
         transitive = false
     }
     compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
@@ -154,9 +154,9 @@ dependencies {
 
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${project.terrablender_version}")
 
-    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-forge/
-    compileOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:$cloth_config_version");
-    compileOnly fg.deobf("dev.architectury:architectury-forge:$architectury_version");
+    implementation fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-forge/
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:$cloth_config_version");
+    implementation fg.deobf("dev.architectury:architectury-forge:$architectury_version");
 
     implementation fg.deobf("curse.maven:jade-324717:${jade_version}")
 }

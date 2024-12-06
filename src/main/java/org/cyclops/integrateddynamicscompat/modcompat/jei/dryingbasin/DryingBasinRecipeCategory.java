@@ -21,7 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamicscompat.Reference;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.JEIIntegratedDynamicsConfig;
+import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 
 import javax.annotation.Nonnull;
 
@@ -90,7 +90,7 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<DryingBasinRec
 
         // Draw duration
         Font fontRenderer = Minecraft.getInstance().font;
-        MutableComponent duration = JEIIntegratedDynamicsConfig.getDurationSecondsTextComponent(recipe.getDuration());
+        MutableComponent duration = JeiReiHelpers.getDurationSecondsTextComponent(recipe.getDuration());
         fontRenderer.draw(matrixStack, duration,
                 (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, 0xFF808080);
     }

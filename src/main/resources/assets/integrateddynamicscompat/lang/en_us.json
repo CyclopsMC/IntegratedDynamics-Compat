@@ -27,6 +27,7 @@
     "_comment": "# ----- JEI ----- ##",
 
     "error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc": "Too big for the Logic Programmer recipe pattern.",
+    "gui.integrateddynamics.jei.category.time.seconds": "%ss",
 
     "_comment": "# ----- Charset ----- ##",
 

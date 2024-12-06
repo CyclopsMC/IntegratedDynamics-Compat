@@ -5,8 +5,8 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.apache.commons.compress.utils.Lists;
@@ -14,8 +14,7 @@ import org.cyclops.cyclopscore.helper.GuiHelpers;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammerBase;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
-import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
-import org.cyclops.integrateddynamicscompat.network.packet.CPacketSetSlot;
+import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
             } else if (ingredient instanceof FluidStack) {
                 itemStack = new ItemStack(Items.BUCKET);
                 IFluidHandlerItem fluidHandler = itemStack
-                        .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+                        .getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
                         .orElseThrow(() -> new IllegalStateException("Could not find a fluid handler on the bucket item, some mod must be messing with things."));
                 fluidHandler.fill((FluidStack) ingredient, IFluidHandler.FluidAction.EXECUTE);
                 itemStack = fluidHandler.getContainer();
@@ -68,7 +67,7 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
 
                             @Override
                             public void accept(I ingredient) {
-                                setStackInSlot(screen, finalSlot, finalItemStack);
+                                JeiReiHelpers.setStackInSlot(screen, finalSlot, finalItemStack);
                             }
                         });
                     }
@@ -87,14 +86,5 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
     @Override
     public boolean shouldHighlightTargets() {
         return true;
-    }
-
-    protected void setStackInSlot(T screen, int slot, ItemStack itemStack) {
-        ContainerLogicProgrammerBase container = screen.getMenu();
-        int slotPositionsCount = container.slots.size() - 36 - 4; /* subtract player inv, and 4 fixed slots in LP */
-        int slotId = container.slots.size() - 36 - slotPositionsCount + slot;
-        container.setItem(slotId, 0, itemStack.copy());
-        IntegratedDynamicsCompat._instance.getPacketHandler().sendToServer(
-                new CPacketSetSlot(container.containerId, slotId, itemStack));
     }
 }
