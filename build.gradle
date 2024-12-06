@@ -93,6 +93,16 @@ repositories {
         name 'jared'
         url 'https://maven.blamejared.com/'
     }
+    maven {
+        name "REI"
+        url "https://maven.shedaniel.me/"
+    }
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
@@ -120,7 +130,7 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
-    implementation(fg.deobf("mezz.jei:jei-${project.jei_version}")) { // https://maven.blamejared.com/mezz/jei/
+    compileOnly(fg.deobf("mezz.jei:jei-${project.jei_version}")) { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
     compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
@@ -128,14 +138,21 @@ dependencies {
     /*runtimeOnly(fg.deobf("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}")) { // https://maven.k-4u.nl
         transitive = false
     }*/
-    //implementation fg.deobf("hwyla:Hwyla-forge-${project.waila_version}") // https://www.curseforge.com/minecraft/mc-mods/hwyla/files/ https://github.com/TehNut/HWYLA and https://github.com/TehNut/temporary-maven-thing/tree/master/maven/mcp/mobius/waila/Hwyla
+
     //compileOnly "com.refinedmods:refinedstorage:${project.refinedstorage_version}" // https://github.com/refinedmods/refinedstorage/packages/1145536
     // TODO: for some reason using the following in runtime breaks ForgeGradle
     /*runtimeOnly(fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}")) { // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
         transitive = false
     }*/
+    implementation fg.deobf("curse.maven:refinedstorage-243076:${refinedstorage_version}")
 
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${project.terrablender_version}")
+
+    implementation fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-forge/
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:$cloth_config_version");
+    implementation fg.deobf("dev.architectury:architectury-forge:$architectury_version");
+
+    implementation fg.deobf("curse.maven:jade-324717:${jade_version}")
 }
 
 minecraft {
@@ -300,13 +317,9 @@ sourceSets {
             exclude '**/modcompat/ic2/**'
             exclude '**/modcompat/immersiveengineering/**'
             exclude '**/modcompat/mcmultipart/**'
-            exclude '**/modcompat/minetweaker/**'
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
-            exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/waila/**'
-			exclude '**/modcompat/refinedstorage/**'
         }
     }
 }
@@ -321,13 +334,9 @@ spotless {
             exclude '**/modcompat/ic2/**'
             exclude '**/modcompat/immersiveengineering/**'
             exclude '**/modcompat/mcmultipart/**'
-            exclude '**/modcompat/minetweaker/**'
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
-            exclude '**/modcompat/tesla/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/waila/**'
-			exclude '**/modcompat/refinedstorage/**'
         }
 
         endWithNewline()
