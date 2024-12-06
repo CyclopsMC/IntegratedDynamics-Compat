@@ -12,7 +12,6 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.cyclops.cyclopscore.helper.RenderHelpers;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
