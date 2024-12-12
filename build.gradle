@@ -10,26 +10,26 @@ apply plugin: 'maven-publish'
 String build_number = "DEV" // this will be referenced as simply build_number from now on.
 if (System.getenv().BUILD_NUMBER)
     build_number = System.getenv().BUILD_NUMBER
-if (System.getenv().TRAVIS_BUILD_NUMBER)
-    build_number = System.getenv().TRAVIS_BUILD_NUMBER
 if (System.getenv().GITHUB_RUN_ID)
     build_number = System.getenv().GITHUB_RUN_NUMBER
-if (System.getenv().RELEASE || System.getenv().TRAVIS_TAG)
+if (System.getenv().RELEASE)
     build_number = "RELEASE"
 logger.lifecycle "BUILDING VERSION: " + build_number
 
-// Set mod details
-version = project.mod_version
-group = "org.cyclops.integrateddynamicscompat"
-archivesBaseName = "IntegratedDynamicsCompat-${project.minecraft_version}-neoforge"
+// Include build number in version
+if (build_number.equals("RELEASE"))
+    version = "${project.mod_version}"
+else
+    version = "${project.mod_version}-${build_number}"
+
 base {
-    archivesName = archivesBaseName
+    archivesName = "${mod_id}-${minecraft_version}-neoforge"
 }
 
-// Set Java details
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+}
 compileJava.options.compilerArgs << "-Xmaxerrs" << "9999"
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 // Load secrets
 def getSecrets() {
@@ -39,7 +39,10 @@ def getSecrets() {
     }
     return props
 }
-Properties secrets = getSecrets();
+//ext {
+    Properties secrets = getSecrets();
+    secrets.build_number = build_number;
+//}
 
 sourceSets {
     main
@@ -193,11 +196,6 @@ runs {
     }
 }
 
-if (build_number.equals("RELEASE"))
-    version = "${project.mod_version}"
-else
-    version = "${project.mod_version}-${build_number}"
-
 jar {
     manifest {
         attributes([
@@ -246,6 +244,34 @@ artifacts {
     archives deobfJar
     archives sourcesJar
     archives javadocJar
+}
+
+// Replace properties in files
+processResources {
+    def expandProps = [
+            'mod_version'                           : mod_version,
+            'group'                                 : project.group, //Else we target the task's group.
+            'minecraft_version'                     : minecraft_version,
+            'mod_name'                              : mod_name,
+            'mod_author'                            : mod_author,
+            'mod_id'                                : mod_id,
+            'license'                               : license,
+            'issue_tracker_url'                     : issue_tracker_url,
+            'display_url'                           : display_url,
+            'description'                           : project.description,
+            'neoforge_version'                      : neoforge_version,
+            'neoforge_loader_version_range'         : neoforge_loader_version_range,
+            'java_version'                          : java_version,
+            'cyclopscore_version'                   : cyclopscore_version,
+            'cyclopscore_version_semver'            : cyclopscore_version.replaceAll("-.*\$", ""),
+            'integrateddynamics_version'            : integrateddynamics_version,
+            'integrateddynamics_version_semver'     : integrateddynamics_version.replaceAll("-.*\$", "")
+    ]
+
+    filesMatching(['pack.mcmeta', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', 'mixins.*.json']) {
+        expand expandProps
+    }
+    inputs.properties(expandProps)
 }
 
 publishing {
