@@ -28,13 +28,6 @@ public class JadeIntegratedDynamicsConfig implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registrar) {
-        registrar.addConfig(PartDataProvider.ID, true);
-        registrar.addConfig(SqueezerDataProvider.ID, true);
-        registrar.addConfig(DryingBasinDataProvider.ID, true);
-        registrar.addConfig(MechanicalSqueezerDataProvider.ID, true);
-        registrar.addConfig(MechanicalDryingBasinDataProvider.ID, true);
-        registrar.addConfig(ProxyDataProvider.ID, true);
-
         registrar.registerBlockComponent(new PartDataProvider(), BlockCable.class);
         registrar.registerBlockComponent(new SqueezerDataProvider(), BlockSqueezer.class);
         registrar.registerBlockComponent(new DryingBasinDataProvider(), BlockDryingBasin.class);
