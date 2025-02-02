@@ -86,10 +86,12 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
                 }
             } else if (typedIngredient.getType() == VanillaEntryTypes.FLUID) {
                 // Collect fluids
+                dev.architectury.fluid.FluidStack fluidStack = typedIngredient.castValue();
+                FluidStack fluidStackForge = new FluidStack(fluidStack.getFluid(), (int) fluidStack.getAmount());
                 if (input) {
-                    fluidInputs.add(((FluidStack) typedIngredient.castValue()).copy());
+                    fluidInputs.add(fluidStackForge);
                 } else {
-                    fluidOutputs.add(((FluidStack) typedIngredient.castValue()).copy());
+                    fluidOutputs.add(fluidStackForge);
                 }
             }
         }
