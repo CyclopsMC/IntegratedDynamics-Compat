@@ -77,7 +77,7 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
                 if (input) {
                     ResourceLocation heuristicTag = getHeuristicItemsTag(entry);
                     if (heuristicTag != null) {
-                        itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), 1));
+                        itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), ((ItemStack) typedIngredient.castValue()).getCount()));
                     } else {
                         itemInputs.add(new ItemMatchProperties(((ItemStack) typedIngredient.castValue()).copy()));
                     }
@@ -86,10 +86,12 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
                 }
             } else if (typedIngredient.getType() == VanillaEntryTypes.FLUID) {
                 // Collect fluids
+                dev.architectury.fluid.FluidStack fluidStack = typedIngredient.castValue();
+                FluidStack fluidStackForge = new FluidStack(fluidStack.getFluid(), (int) fluidStack.getAmount());
                 if (input) {
-                    fluidInputs.add(((FluidStack) typedIngredient.castValue()).copy());
+                    fluidInputs.add(fluidStackForge);
                 } else {
-                    fluidOutputs.add(((FluidStack) typedIngredient.castValue()).copy());
+                    fluidOutputs.add(fluidStackForge);
                 }
             }
         }

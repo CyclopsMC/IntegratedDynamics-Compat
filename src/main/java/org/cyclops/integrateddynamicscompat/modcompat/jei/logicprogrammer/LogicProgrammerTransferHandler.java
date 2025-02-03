@@ -109,7 +109,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                     if (slotView.getRole() == RecipeIngredientRole.INPUT) {
                         ResourceLocation heuristicTag = getHeuristicItemsTag(slotView);
                         if (heuristicTag != null) {
-                            itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), 1));
+                            itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), ((ItemStack) typedIngredient.getIngredient()).getCount()));
                         } else {
                             itemInputs.add(new ItemMatchProperties(((ItemStack) typedIngredient.getIngredient()).copy()));
                         }

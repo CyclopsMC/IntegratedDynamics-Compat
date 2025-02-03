@@ -77,7 +77,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         int offset = 0;
         for (int i = 0; i < recipe.getOutputItems().size(); i++) {
             RecipeSqueezer.IngredientChance outputItem = recipe.getOutputItems().get(i);
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 76 + (i % 2 > 0 ? 22 : 0), 8 + offset + (i > 1 ? 22 : 0))
+            builder.addSlot(outputItem.getChance() < 1 ? RecipeIngredientRole.RENDER_ONLY : RecipeIngredientRole.OUTPUT, 76 + (i % 2 > 0 ? 22 : 0), 8 + offset + (i > 1 ? 22 : 0))
                     .addItemStack(outputItem.getIngredientFirst())
                     .addTooltipCallback((view, tooltip) -> {
                         float chance = outputItem.getChance();

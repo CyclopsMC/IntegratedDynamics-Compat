@@ -26,7 +26,9 @@ public class ReiSqueezerRecipe implements Display {
 
         this.inputs.add(EntryIngredients.ofIngredient(recipe.getInputIngredient()));
         for (RecipeSqueezer.IngredientChance outputItem : recipe.getOutputItems()) {
-            this.outputs.add(EntryIngredients.of(outputItem.getIngredientFirst()));
+            if (outputItem.getChance() == 1F) {
+                this.outputs.add(EntryIngredients.of(outputItem.getIngredientFirst()));
+            }
         }
         recipe.getOutputFluid().ifPresent(f -> this.outputs.add(EntryIngredients.of(f.getFluid(), f.getAmount())));
     }
