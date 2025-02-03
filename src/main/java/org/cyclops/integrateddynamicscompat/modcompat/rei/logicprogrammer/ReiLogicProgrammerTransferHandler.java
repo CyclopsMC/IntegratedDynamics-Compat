@@ -77,7 +77,7 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
                 if (input) {
                     ResourceLocation heuristicTag = getHeuristicItemsTag(entry);
                     if (heuristicTag != null) {
-                        itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), 1));
+                        itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), ((ItemStack) typedIngredient.castValue()).getCount()));
                     } else {
                         itemInputs.add(new ItemMatchProperties(((ItemStack) typedIngredient.castValue()).copy()));
                     }
