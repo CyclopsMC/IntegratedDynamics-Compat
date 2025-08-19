@@ -50,7 +50,7 @@ public class CharsetAspects {
                 @Override
                 public IPipeView getOutput(Pair<PartTarget, IAspectProperties> input) {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    return BlockEntityHelpers.getCapability(pos, CharsetPipesModCompat.PIPE);
+                    return IModHelpers.get().getBlockEntityHelpers().getCapability(pos, CharsetPipesModCompat.PIPE);
                 }
             };
 
@@ -116,7 +116,7 @@ public class CharsetAspects {
                     @Override
                     public Pair<org.cyclops.integrateddynamicscompat.modcompat.charset.aspect.ShifterPart, O> getOutput(Triple<PartTarget, IAspectProperties, O> input) throws EvaluationException {
                         PartPos center = input.getLeft().getCenter();
-                        return Pair.of(((org.cyclops.integrateddynamicscompat.modcompat.charset.aspect.ShifterPart) BlockEntityHelpers.getCapability(center.getPos().getWorld(),
+                        return Pair.of(((org.cyclops.integrateddynamicscompat.modcompat.charset.aspect.ShifterPart) IModHelpers.get().getBlockEntityHelpers().getCapability(center.getPos().getWorld(),
                                 center.getPos().getBlockPos(), center.getSide(), CharsetPipesModCompat.SHIFTER)), input.getRight());
                     }
                 });

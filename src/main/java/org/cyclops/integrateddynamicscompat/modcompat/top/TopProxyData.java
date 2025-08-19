@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
+import org.cyclops.cyclopscore.helper.IModHelpers;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.blockentity.BlockEntityProxy;
 import org.cyclops.integrateddynamics.core.helper.L10NValues;
@@ -27,7 +27,7 @@ public class TopProxyData implements IProbeInfoProvider {
     @Override
     public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level world, BlockState blockState, IProbeHitData data) {
         if (world != null && blockState != null && data != null && player != null) {
-            BlockEntityHelpers.get(world, data.getPos(), BlockEntityProxy.class)
+            IModHelpers.get().getBlockEntityHelpers().get(world, data.getPos(), BlockEntityProxy.class)
                     .ifPresent(tile -> probeInfo.text(Component.translatable(L10NValues.GENERAL_ITEM_ID, tile.getProxyId())));
         }
     }

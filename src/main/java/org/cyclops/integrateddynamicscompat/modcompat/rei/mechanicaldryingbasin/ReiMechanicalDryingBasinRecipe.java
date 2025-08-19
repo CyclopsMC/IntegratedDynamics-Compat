@@ -1,47 +1,19 @@
 package org.cyclops.integrateddynamicscompat.modcompat.rei.mechanicaldryingbasin;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.display.Display;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import org.apache.commons.compress.utils.Lists;
-import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalDryingBasin;
+import net.minecraft.world.item.crafting.display.RecipeDisplayId;
+import org.cyclops.integrateddynamics.core.recipe.display.RecipeDisplayDryingBasin;
+import org.cyclops.integrateddynamicscompat.modcompat.rei.dryingbasin.ReiDryingBasinRecipe;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * @author rubensworks
  */
-public class ReiMechanicalDryingBasinRecipe implements Display {
+public class ReiMechanicalDryingBasinRecipe extends ReiDryingBasinRecipe {
 
-    private final RecipeMechanicalDryingBasin recipe;
-    private final List<EntryIngredient> inputs;
-    private final List<EntryIngredient> outputs;
-
-    public ReiMechanicalDryingBasinRecipe(RecipeHolder<RecipeMechanicalDryingBasin> recipeHolder) {
-        this.recipe = recipeHolder.value();
-        this.inputs = Lists.newArrayList();
-        this.outputs = Lists.newArrayList();
-
-        recipe.getInputIngredient().ifPresent(i -> this.inputs.add(EntryIngredients.ofIngredient(i)));
-        recipe.getInputFluid().ifPresent(f -> this.inputs.add(EntryIngredients.of(f.getFluid(), f.getAmount())));
-        this.outputs.add(EntryIngredients.of(recipe.getOutputItemFirst()));
-        recipe.getOutputFluid().ifPresent(f -> this.outputs.add(EntryIngredients.of(f.getFluid(), f.getAmount())));
-    }
-
-    public RecipeMechanicalDryingBasin getRecipe() {
-        return recipe;
-    }
-
-    @Override
-    public List<EntryIngredient> getInputEntries() {
-        return this.inputs;
-    }
-
-    @Override
-    public List<EntryIngredient> getOutputEntries() {
-        return this.outputs;
+    public ReiMechanicalDryingBasinRecipe(RecipeDisplayDryingBasin recipeDisplay, Optional<RecipeDisplayId> id) {
+        super(recipeDisplay, id);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class TopModCompat implements IModCompat {
 
     @Override
     public ICompatInitializer createInitializer() {
-        return () -> InterModComms.sendTo(getId(), "getTheOneProbe", () -> new TheOneProbe());
+        return (mod) -> InterModComms.sendTo(getId(), "getTheOneProbe", () -> new TheOneProbe());
     }
 
 }

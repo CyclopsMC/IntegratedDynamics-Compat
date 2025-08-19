@@ -1,11 +1,17 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei;
 
+import com.google.common.collect.Lists;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeType;
+import org.cyclops.cyclopscore.helper.IModHelpers;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.client.gui.container.*;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammer;
@@ -14,15 +20,11 @@ import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalDry
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeCategory;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin.DryingBasinRecipeJEI;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer.LogicProgrammerGhostIngredientHandler;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer.LogicProgrammerTransferHandler;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin.MechanicalDryingBasinRecipeCategory;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin.MechanicalDryingBasinRecipeJEI;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer.MechanicalSqueezerRecipeCategory;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer.MechanicalSqueezerRecipeJEI;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeCategory;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer.SqueezerRecipeJEI;
 
 /**
  * Helper for registering JEI manager.
@@ -44,18 +46,22 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registry) {
-        registry.addRecipes(DryingBasinRecipeCategory.TYPE, DryingBasinRecipeJEI.getAllRecipes());
-        registry.addRecipes(SqueezerRecipeCategory.TYPE, SqueezerRecipeJEI.getAllRecipes());
-        registry.addRecipes(MechanicalDryingBasinRecipeCategory.TYPE, MechanicalDryingBasinRecipeJEI.getAllRecipes());
-        registry.addRecipes(MechanicalSqueezerRecipeCategory.TYPE, MechanicalSqueezerRecipeJEI.getAllRecipes());
+        addRecipes(registry, DryingBasinRecipeCategory.TYPE, RegistryEntries.RECIPETYPE_DRYING_BASIN.get());
+        addRecipes(registry, SqueezerRecipeCategory.TYPE, RegistryEntries.RECIPETYPE_SQUEEZER.get());
+        addRecipes(registry, MechanicalDryingBasinRecipeCategory.TYPE, RegistryEntries.RECIPETYPE_MECHANICAL_DRYING_BASIN.get());
+        addRecipes(registry, MechanicalSqueezerRecipeCategory.TYPE, RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER.get());
+    }
+
+    protected <I extends RecipeInput, T extends Recipe<I>> void addRecipes(IRecipeRegistration registry, IRecipeHolderType<T> recipeTypeJei, RecipeType<T> recipeType) {
+        registry.addRecipes(recipeTypeJei, Lists.newArrayList(IModHelpers.get().getMinecraftClientHelpers().getRecipes().byType(recipeType)));
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_DRYING_BASIN.get()), DryingBasinRecipeCategory.TYPE);
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_SQUEEZER.get()), SqueezerRecipeCategory.TYPE);
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.get()), MechanicalDryingBasinRecipeCategory.TYPE);
-        registry.addRecipeCatalyst(new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.get()), MechanicalSqueezerRecipeCategory.TYPE);
+        registry.addCraftingStation(DryingBasinRecipeCategory.TYPE, new ItemStack(RegistryEntries.BLOCK_DRYING_BASIN.get()));
+        registry.addCraftingStation(SqueezerRecipeCategory.TYPE, new ItemStack(RegistryEntries.BLOCK_SQUEEZER.get()));
+        registry.addCraftingStation(MechanicalDryingBasinRecipeCategory.TYPE, new ItemStack(RegistryEntries.BLOCK_MECHANICAL_DRYING_BASIN.get()));
+        registry.addCraftingStation(MechanicalSqueezerRecipeCategory.TYPE, new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.get()));
     }
 
     @Override

@@ -31,7 +31,7 @@ public class ValueTypeListProxyPositionedAspectContainer extends ValueTypeListPr
     }
 
     protected IAspectContainer getContainer() {
-        return BlockEntityHelpers.get(pos.getWorld(), pos.getBlockPos(), IAspectContainer.class);
+        return IModHelpers.get().getBlockEntityHelpers().get(pos.getWorld(), pos.getBlockPos(), IAspectContainer.class);
     }
 
     @Override

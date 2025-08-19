@@ -37,7 +37,7 @@ public class BlockCableConverter implements IPartConverter {
     @Override
     public Collection<? extends IMultipart> convertBlock(IBlockAccess world, BlockPos blockPos, boolean simulate) {
         Collection<IMultipart> parts = Lists.newLinkedList();
-        BlockEntityMultipartTicking tile = BlockEntityHelpers.get(world, blockPos, BlockEntityMultipartTicking.class);
+        BlockEntityMultipartTicking tile = IModHelpers.get().getBlockEntityHelpers().get(world, blockPos, BlockEntityMultipartTicking.class);
 
         // Add parts
         EnumFacingMap<PartHelpers.PartStateHolder<?, ?>> partData = EnumFacingMap.newMap(tile.getPartContainer().getPartData());

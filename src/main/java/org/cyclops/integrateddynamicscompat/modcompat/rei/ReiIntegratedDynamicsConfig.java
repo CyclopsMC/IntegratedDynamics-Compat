@@ -12,10 +12,8 @@ import me.shedaniel.rei.forge.REIPluginClient;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalDryingBasin;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenMechanicalSqueezer;
-import org.cyclops.integrateddynamics.core.recipe.type.RecipeDryingBasin;
-import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalDryingBasin;
-import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalSqueezer;
-import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
+import org.cyclops.integrateddynamics.core.recipe.display.RecipeDisplayDryingBasin;
+import org.cyclops.integrateddynamics.core.recipe.display.RecipeDisplaySqueezer;
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalDryingBasin;
 import org.cyclops.integrateddynamics.inventory.container.ContainerMechanicalSqueezer;
 import org.cyclops.integrateddynamicscompat.modcompat.rei.dryingbasin.ReiDryingBasinCategory;
@@ -78,9 +76,17 @@ public class ReiIntegratedDynamicsConfig implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.registerRecipeFiller(RecipeDryingBasin.class, RegistryEntries.RECIPETYPE_DRYING_BASIN.value(), ReiDryingBasinRecipe::new);
-        registry.registerRecipeFiller(RecipeSqueezer.class, RegistryEntries.RECIPETYPE_SQUEEZER.value(), ReiSqueezerRecipe::new);
-        registry.registerRecipeFiller(RecipeMechanicalDryingBasin.class, RegistryEntries.RECIPETYPE_MECHANICAL_DRYING_BASIN.value(), ReiMechanicalDryingBasinRecipe::new);
-        registry.registerRecipeFiller(RecipeMechanicalSqueezer.class, RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER.value(), ReiMechanicalSqueezerRecipe::new);
+        registry.beginRecipeFiller(RecipeDisplayDryingBasin.class)
+                .filterType(RecipeDisplayDryingBasin.TYPE)
+                .fill(ReiDryingBasinRecipe::new);
+        registry.beginRecipeFiller(RecipeDisplaySqueezer.class)
+                .filterType(RecipeDisplaySqueezer.TYPE)
+                .fill(ReiSqueezerRecipe::new);
+        registry.beginRecipeFiller(RecipeDisplayDryingBasin.class)
+                .filterType(RecipeDisplayDryingBasin.TYPE)
+                .fill(ReiMechanicalDryingBasinRecipe::new);
+        registry.beginRecipeFiller(RecipeDisplaySqueezer.class)
+                .filterType(RecipeDisplaySqueezer.TYPE)
+                .fill(ReiMechanicalSqueezerRecipe::new);
     }
 }

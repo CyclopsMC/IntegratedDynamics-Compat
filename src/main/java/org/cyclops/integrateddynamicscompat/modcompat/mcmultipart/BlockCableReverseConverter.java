@@ -47,7 +47,7 @@ public class BlockCableReverseConverter implements IReversePartConverter {
             World world = multipartContainer.getWorldIn();
             BlockPos pos = multipartContainer.getPosIn();
             world.setBlockState(pos, BlockCable.getInstance().getDefaultState());
-            BlockEntityMultipartTicking tile = BlockEntityHelpers.get(world, pos, BlockEntityMultipartTicking.class);
+            BlockEntityMultipartTicking tile = IModHelpers.get().getBlockEntityHelpers().get(world, pos, BlockEntityMultipartTicking.class);
             if(partData == null) {
                 // The cable is not real
                 // We now have to check manually for disabled parts

@@ -7,11 +7,10 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.common.Constants;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -30,7 +29,6 @@ import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecipeLPElementSetRecipe;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,8 +56,8 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     }
 
     @Override
-    public RecipeType<Object> getRecipeType() {
-        return (RecipeType) Constants.UNIVERSAL_RECIPE_TRANSFER_TYPE;
+    public IRecipeType<Object> getRecipeType() {
+        return (IRecipeType) Constants.UNIVERSAL_RECIPE_TRANSFER_TYPE;
     }
 
     @Nullable
@@ -136,9 +134,8 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
 
                 @Override
                 public void showError(GuiGraphics guiGraphics, int mouseX, int mouseY, IRecipeSlotsView recipeLayout, int recipeX, int recipeY) {
-                    guiGraphics.renderComponentTooltip(
-                            Minecraft.getInstance().font,
-                            Collections.singletonList(Component.translatable("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc")),
+                    guiGraphics.setTooltipForNextFrame(
+                            Component.translatable("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc"),
                             mouseX, mouseY);
                 }
             };

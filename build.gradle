@@ -1,5 +1,5 @@
 plugins {
-    id 'net.neoforged.gradle.userdev' version '7.0.145'
+	id 'net.neoforged.gradle.userdev' version '7.0.185'
     id 'com.diffplug.spotless' version '6.25.0'
 }
 
@@ -82,9 +82,9 @@ repositories {
         name 'Tehnut'
         url 'https://tehnut.info/maven/'
     }*/
-    maven {
-        url "https://repo.refinedmods.com/"
-    }
+//    maven {
+//        url "https://repo.refinedmods.com/"
+//    }
     maven {
         url = "https://minecraft.curseforge.com/api/maven/"
     }
@@ -132,7 +132,7 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
-    compileOnly("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
+    implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
     compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
@@ -148,13 +148,13 @@ dependencies {
     }*/
 //    implementation("curse.maven:refinedstorage-243076:${refinedstorage_version}")
 
-    implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}")
+    implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
 
-    implementation("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version");
-    implementation("dev.architectury:architectury-neoforge:$architectury_version");
+    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
+    implementation("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
 
-    implementation("curse.maven:jade-324717:${jade_version}")
+    implementation("curse.maven:jade-324717:${jade_version}") // https://www.curseforge.com/minecraft/mc-mods/jade
 }
 
 subsystems {
@@ -184,15 +184,15 @@ runs {
 
     server {
         systemProperty 'neoforge.enabledGameTestNamespaces', "cyclopscore,${mod_id}"
-        programArgument '--nogui'
+        argument '--nogui'
     }
 
     gameTestServer {
         systemProperty 'neoforge.enabledGameTestNamespaces', "cyclopscore,${mod_id}"
     }
 
-    data {
-        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    clientData {
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 

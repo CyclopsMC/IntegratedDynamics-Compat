@@ -3,8 +3,8 @@ package org.cyclops.integrateddynamicscompat;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.Level;
-import org.cyclops.cyclopscore.config.ConfigHandler;
-import org.cyclops.cyclopscore.init.ModBaseVersionable;
+import org.cyclops.cyclopscore.config.ConfigHandlerCommon;
+import org.cyclops.cyclopscore.init.ModBaseNeoForge;
 import org.cyclops.cyclopscore.modcompat.ModCompatLoader;
 import org.cyclops.cyclopscore.proxy.IClientProxy;
 import org.cyclops.cyclopscore.proxy.ICommonProxy;
@@ -13,6 +13,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGen
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerBlockEntityCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.jei.JeiModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.terrablender.TerrablenderCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
 import org.cyclops.integrateddynamicscompat.proxy.ClientProxy;
@@ -24,7 +25,7 @@ import org.cyclops.integrateddynamicscompat.proxy.CommonProxy;
  *
  */
 @Mod(Reference.MOD_ID)
-public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynamicsCompat> {
+public class IntegratedDynamicsCompat extends ModBaseNeoForge<IntegratedDynamicsCompat> {
 
     public static IntegratedDynamicsCompat _instance;
 
@@ -44,6 +45,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
         super.loadModCompats(modCompatLoader);
         modCompatLoader.addModCompat(new TopModCompat());
         modCompatLoader.addModCompat(new TerrablenderCompat());
+        modCompatLoader.addModCompat(new JeiModCompat());
         // TODO: temporarily disable some mod compats
         // Mod compats
 //        modCompatLoader.addModCompat(new RefinedStorageModCompat());
@@ -73,7 +75,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
     }
 
     @Override
-    protected void onConfigsRegister(ConfigHandler configHandler) {
+    protected void onConfigsRegister(ConfigHandlerCommon configHandler) {
         super.onConfigsRegister(configHandler);
 
         configHandler.addConfigurable(new GeneralConfig());

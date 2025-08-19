@@ -14,7 +14,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.apache.commons.compress.utils.Lists;
-import org.cyclops.cyclopscore.helper.GuiHelpers;
+import org.cyclops.cyclopscore.helper.IModHelpers;
 import org.cyclops.cyclopscore.inventory.slot.SlotExtended;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammerBase;
@@ -70,8 +70,8 @@ public class ReiDraggableStackVisitor implements DraggableStackVisitor<Container
                     Rectangle bounds = new Rectangle(
                             screen.getGuiLeft() + slotContainer.x - 1,
                             screen.getGuiTop() + slotContainer.y - 1,
-                            GuiHelpers.SLOT_SIZE,
-                            GuiHelpers.SLOT_SIZE
+                            IModHelpers.get().getGuiHelpers().getSlotSize(),
+                            IModHelpers.get().getGuiHelpers().getSlotSize()
                     );
                     if (element.isItemValidForSlot(slot, itemStack)) {
                         targets.add(DraggableStackVisitor.BoundsProvider.ofRectangle(bounds));

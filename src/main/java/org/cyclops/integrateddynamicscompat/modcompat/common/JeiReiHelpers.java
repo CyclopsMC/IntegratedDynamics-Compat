@@ -7,7 +7,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.cyclops.cyclopscore.helper.MinecraftHelpers;
+import org.cyclops.cyclopscore.helper.IModHelpers;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammerBase;
 import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
@@ -17,7 +17,6 @@ import org.cyclops.integrateddynamicscompat.network.packet.CPacketSetSlot;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author rubensworks
@@ -25,10 +24,10 @@ import java.util.stream.Collectors;
 public class JeiReiHelpers {
 
     public static ResourceLocation itemsToTag(List<Item> items) {
-        return BuiltInRegistries.ITEM.getTagNames()
-                .map(tag -> BuiltInRegistries.ITEM.getTag(tag)
+        return BuiltInRegistries.ITEM.listTagIds()
+                .map(tag -> BuiltInRegistries.ITEM.get(tag)
                         .flatMap(t -> {
-                            if (t.stream().map(Holder::value).collect(Collectors.toList()).equals(items)) {
+                            if (t.stream().map(Holder::value).toList().equals(items)) {
                                 return Optional.of(tag.location());
                             }
                             return Optional.empty();
@@ -49,7 +48,7 @@ public class JeiReiHelpers {
     }
 
     public static MutableComponent getDurationSecondsTextComponent(int durationTicks) {
-        String seconds = new DecimalFormat("#.##").format((double) durationTicks / MinecraftHelpers.SECOND_IN_TICKS);
+        String seconds = new DecimalFormat("#.##").format((double) durationTicks / IModHelpers.get().getMinecraftHelpers().getSecondInTicks());
         return Component.translatable("gui.integrateddynamics.jei.category.time.seconds", seconds);
     }
 

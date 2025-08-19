@@ -57,7 +57,7 @@ public class McMultiPartHelpers {
         Helpers.addInterfaceRetriever(new Helpers.IInterfaceRetriever() {
             @Override
             public <C> C getInterface(IBlockAccess world, BlockPos pos, Class<C> clazz) {
-                IMultipartContainer multipartContainer = BlockEntityHelpers.get(world, pos, IMultipartContainer.class);
+                IMultipartContainer multipartContainer = IModHelpers.get().getBlockEntityHelpers().get(world, pos, IMultipartContainer.class);
                 if (multipartContainer != null) {
                     for (IMultipart part : multipartContainer.getParts()) {
                         if (clazz.isInstance(part)) {

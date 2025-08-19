@@ -1,26 +1,22 @@
 package org.cyclops.integrateddynamicscompat;
 
-import org.cyclops.cyclopscore.config.ConfigurableProperty;
-import org.cyclops.cyclopscore.config.extendedconfig.DummyConfig;
-import org.cyclops.cyclopscore.init.ModBase;
+import org.cyclops.cyclopscore.config.ConfigurablePropertyCommon;
+import org.cyclops.cyclopscore.config.extendedconfig.DummyConfigCommon;
 
 /**
  * A config with general options for this mod.
  * @author rubensworks
  *
  */
-public class GeneralConfig extends DummyConfig {
+public class GeneralConfig extends DummyConfigCommon<IntegratedDynamicsCompat> {
 
-    @ConfigurableProperty(category = "core", comment = "If mod compatibility loader should crash hard if errors occur in that process.", requiresMcRestart = true)
-    public static boolean crashOnModCompatCrash = false;
-
-    @ConfigurableProperty(category = "core", comment = "If JEI recipe filling should heuristically try to determine item tags from recipes.", requiresMcRestart = true)
+    @ConfigurablePropertyCommon(category = "core", comment = "If JEI recipe filling should heuristically try to determine item tags from recipes.", requiresMcRestart = true)
     public static boolean jeiHeuristicTags = true;
 
-    @ConfigurableProperty(category = "core", comment = "If REI recipe filling should heuristically try to determine item tags from recipes.", requiresMcRestart = true)
+    @ConfigurablePropertyCommon(category = "core", comment = "If REI recipe filling should heuristically try to determine item tags from recipes.", requiresMcRestart = true)
     public static boolean reiHeuristicTags = true;
 
-    @ConfigurableProperty(
+    @ConfigurablePropertyCommon(
             category = "biome",
             comment = "The weight of spawning in the overworld, 0 disables spawning.",
             minimalValue = 0
@@ -32,11 +28,6 @@ public class GeneralConfig extends DummyConfig {
      */
     public GeneralConfig() {
         super(IntegratedDynamicsCompat._instance, "general");
-    }
-
-    @Override
-    public void onRegistered() {
-        getMod().putGenericReference(ModBase.REFKEY_CRASH_ON_MODCOMPAT_CRASH, GeneralConfig.crashOnModCompatCrash);
     }
 
 }

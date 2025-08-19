@@ -35,7 +35,7 @@ public class ValueTypeListProxyPositionedNetworkMasterFluidInventory extends Val
     }
 
     protected Optional<INetworkNode> getNetworkMaster() {
-        return BlockEntityHelpers.get(getPos(), INetworkNodeProxy.class)
+        return IModHelpers.get().getBlockEntityHelpers().get(getPos(), INetworkNodeProxy.class)
                 .map(INetworkNodeProxy::getNode);
     }
 

@@ -41,7 +41,7 @@ public class ThaumcraftAspects {
             public static final IAspectRead<ValueTypeBoolean.ValueBoolean, ValueTypeBoolean> BOOLEAN_ISASPECTCONTAINER =
                     AspectReadBuilders.BUILDER_BOOLEAN.appendKind("thaumcraft").handle(input -> {
                         DimPos dimPos = input.getLeft().getTarget().getPos();
-                        return BlockEntityHelpers.get(dimPos.getWorld(), dimPos.getBlockPos(), IAspectContainer.class) != null;
+                        return IModHelpers.get().getBlockEntityHelpers().get(dimPos.getWorld(), dimPos.getBlockPos(), IAspectContainer.class) != null;
                     }).handle(AspectReadBuilders.PROP_GET_BOOLEAN, "isaspectcontainer").buildRead();
 
             public static final IAspectRead<ValueTypeList.ValueList, ValueTypeList> LIST_ASPECTCONTAINER =
@@ -54,7 +54,7 @@ public class ThaumcraftAspects {
                             .handle(input -> {
                                 int i = input.getRight().getValue(AspectReadBuilders.PROPERTY_LISTINDEX).getRawValue();
                                 DimPos dimPos = input.getLeft().getTarget().getPos();
-                                IAspectContainer aspectContainer = BlockEntityHelpers.get(dimPos, IAspectContainer.class);
+                                IAspectContainer aspectContainer = IModHelpers.get().getBlockEntityHelpers().get(dimPos, IAspectContainer.class);
                                 AspectList aspectList;
                                 if (aspectContainer == null || i >= (aspectList = aspectContainer.getAspects()).size()) {
                                     return ValueObjectTypeAspect.ValueAspect.ofNull();
@@ -66,7 +66,7 @@ public class ThaumcraftAspects {
 
             public static final IAspectValuePropagator<Pair<PartTarget, IAspectProperties>, Pair<Direction, IEssentiaTransport>>
                     PROP_GET_ESSENTIA_TRANSPORT = input -> Pair.of(input.getLeft().getTarget().getSide(),
-                    BlockEntityHelpers.get(input.getLeft().getTarget().getPos().getWorld(),
+                    IModHelpers.get().getBlockEntityHelpers().get(input.getLeft().getTarget().getPos().getWorld(),
                             input.getLeft().getTarget().getPos().getBlockPos(),
                             IEssentiaTransport.class));
 

@@ -7,11 +7,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.cyclopscore.network.CodecField;
 import org.cyclops.cyclopscore.network.PacketCodec;
+import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.core.ingredient.ItemMatchProperties;
 import org.cyclops.integrateddynamics.core.logicprogrammer.ValueTypeRecipeLPElement;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
@@ -58,7 +57,6 @@ public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec<CPacke
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void actionClient(Level world, Player player) {
 
     }
@@ -67,7 +65,7 @@ public class CPacketValueTypeRecipeLPElementSetRecipe extends PacketCodec<CPacke
     public void actionServer(Level world, ServerPlayer player) {
         if(player.containerMenu.containerId == windowId) {
             ContainerLogicProgrammerBase container = (ContainerLogicProgrammerBase) player.containerMenu;
-            ValueTypeRecipeLPElement element = (ValueTypeRecipeLPElement) container.getActiveElement();
+            ValueTypeRecipeLPElement element = (ValueTypeRecipeLPElement) (ILogicProgrammerElement) container.getActiveElement();
             element.setRecipeGrid(container, itemInputs, fluidInputs, itemOutputs, fluidOutputs);
         }
     }

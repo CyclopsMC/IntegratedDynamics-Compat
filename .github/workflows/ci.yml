@@ -53,25 +53,22 @@ jobs:
           GITHUB_USER: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Test'
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        if: ${{ env.COVERALLS_REPO_TOKEN }}
-        run: ./gradlew test jacocoTestReport coveralls
-      - name: 'Game Test'
-        run: ./gradlew runGameTestServer
+        run: ./gradlew test runGameTestServer jacocoTestReport
+      - name: 'Submit coverage results'
+        uses: coverallsapp/github-action@v2
       - name: 'Deploy as GitHub CI artifacts'
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
           path: build/libs/*
       - name: 'Deploy to CurseForge'
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') || (!startsWith(github.event.head_commit.message, 'Bump mod version') && startsWith(github.ref, 'refs/heads/master'))
         env:
           CURSEFORGE_KEY_SECRET: ${{ secrets.CURSEFORGE_KEY_SECRET }}
         run: ./gradlew publishCurseForge
       - name: 'Deploy to Modrinth'
         continue-on-error: true
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') || (!startsWith(github.event.head_commit.message, 'Bump mod version') && startsWith(github.ref, 'refs/heads/master'))
         env:
           MODRINTH_KEY_SECRET: ${{ secrets.MODRINTH_KEY_SECRET }}
         run: ./gradlew modrinth

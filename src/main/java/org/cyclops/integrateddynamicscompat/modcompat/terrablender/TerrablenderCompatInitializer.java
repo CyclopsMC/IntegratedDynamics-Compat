@@ -2,6 +2,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.terrablender;
 
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import org.cyclops.cyclopscore.init.IModBase;
 import org.cyclops.cyclopscore.modcompat.ICompatInitializer;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamicscompat.GeneralConfig;
@@ -13,7 +14,7 @@ import terrablender.api.Regions;
  */
 public class TerrablenderCompatInitializer implements ICompatInitializer {
     @Override
-    public void initialize() {
+    public void initialize(IModBase mod) {
         if (GeneralConfig.meneglinBiomeSpawnWeight > 0) {
             IntegratedDynamicsCompat._instance.getModEventBus().addListener(this::commonSetup);
         }

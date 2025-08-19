@@ -32,11 +32,11 @@ public class Ic2Aspects {
                 @Override
                 public IEnergyWrapper getOutput(Pair<PartTarget, IAspectProperties> input) {
                     DimPos pos = input.getLeft().getTarget().getPos();
-                    IEnergyStorage energyStorage = BlockEntityHelpers.get(pos, IEnergyStorage.class);
+                    IEnergyStorage energyStorage = IModHelpers.get().getBlockEntityHelpers().get(pos, IEnergyStorage.class);
                     if (energyStorage != null) {
                         return new EnergyStorageWrapper(energyStorage);
                     }
-                    BlockEntityEntityBlock tile = BlockEntityHelpers.get(pos, BlockEntityEntityBlock.class);
+                    BlockEntityEntityBlock tile = IModHelpers.get().getBlockEntityHelpers().get(pos, BlockEntityEntityBlock.class);
                     if (tile != null && tile.hasComponent(ic2.core.block.comp.Energy.class)) {
                         return new EnergyWrapper(tile);
                     }

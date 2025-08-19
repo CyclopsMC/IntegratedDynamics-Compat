@@ -4,14 +4,10 @@ import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import org.cyclops.cyclopscore.persist.nbt.NBTClassType;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.blockentity.BlockEntitySqueezer;
 import snownee.jade.api.BlockAccessor;
-import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
-import snownee.jade.api.ITooltip;
-import snownee.jade.api.config.IPluginConfig;
 
 import java.util.List;
 
@@ -20,16 +16,9 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class SqueezerDataProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
+public class SqueezerDataProviderServer implements IServerDataProvider<BlockAccessor> {
 
     public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "squeezer");
-
-    @Override
-    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
-        if(config.get(SqueezerDataProvider.ID)) {
-            tooltip.addAll(NBTClassType.getClassType(List.class).readPersistedField("tooltip", accessor.getServerData(), accessor.getLevel().registryAccess()));
-        }
-    }
 
     @Override
     public void appendServerData(CompoundTag tag, BlockAccessor accessor) {
@@ -41,9 +30,9 @@ public class SqueezerDataProvider implements IBlockComponentProvider, IServerDat
         }
         if (!tile.getTank().isEmpty()) {
             tooltip.add(Component.translatable("gui." + Reference.MOD_ID + ".waila.fluid",
-                    tile.getTank().getFluid().getDisplayName(), tile.getTank().getFluidAmount()));
+                    tile.getTank().getFluid().getHoverName(), tile.getTank().getFluidAmount()));
         }
-        NBTClassType.getClassType(List.class).writePersistedField("tooltip", tooltip, tag, accessor.getLevel().registryAccess());
+        JadeIntegratedDynamicsConfig.putTooltip(tag, tooltip);
     }
 
     @Override

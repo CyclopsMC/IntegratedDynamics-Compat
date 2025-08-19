@@ -9,6 +9,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -57,11 +58,11 @@ public class ReiDryingBasinCategory implements DisplayCategory<ReiDryingBasinRec
             ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "textures/gui/drying_basin_gui_jei.png");
 
             // Background
-            graphics.blit(texture, startPoint.x, startPoint.y, 0, 0, 93, 53);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, startPoint.x, startPoint.y, 0, 0, 93, 53, 256, 256);
 
             // Progress bar
             int height = Mth.ceil(System.currentTimeMillis() / 250d % 18d);
-            graphics.blit(texture, startPoint.x + 43, startPoint.y + 11 + (18 - height), 94, (18 - height), 11, height);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, startPoint.x + 43, startPoint.y + 11 + (18 - height), 94, (18 - height), 11, height, 256, 256);
         }));
 
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 2, startPoint.y + 8))
@@ -80,7 +81,7 @@ public class ReiDryingBasinCategory implements DisplayCategory<ReiDryingBasinRec
                 .entries(display.getOutputEntries().get(1))
                 .markInput());
 
-        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y + 42), JeiReiHelpers.getDurationSecondsTextComponent(display.getRecipe().getDuration()))
+        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y + 42), JeiReiHelpers.getDurationSecondsTextComponent(display.getDuration()))
                 .color(0xFF808080)
                 .noShadow());
 

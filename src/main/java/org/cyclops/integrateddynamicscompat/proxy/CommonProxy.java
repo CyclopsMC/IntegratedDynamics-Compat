@@ -1,7 +1,7 @@
 package org.cyclops.integrateddynamicscompat.proxy;
 
-import org.cyclops.cyclopscore.init.ModBase;
-import org.cyclops.cyclopscore.network.PacketHandler;
+import org.cyclops.cyclopscore.init.ModBaseNeoForge;
+import org.cyclops.cyclopscore.network.IPacketHandler;
 import org.cyclops.cyclopscore.proxy.CommonProxyComponent;
 import org.cyclops.integrateddynamicscompat.IntegratedDynamicsCompat;
 import org.cyclops.integrateddynamicscompat.network.packet.CPacketSetSlot;
@@ -15,17 +15,17 @@ import org.cyclops.integrateddynamicscompat.network.packet.CPacketValueTypeRecip
 public class CommonProxy extends CommonProxyComponent {
 
     @Override
-    public ModBase getMod() {
+    public ModBaseNeoForge getMod() {
         return IntegratedDynamicsCompat._instance;
     }
 
     @Override
-    public void registerPacketHandlers(PacketHandler packetHandler) {
-        super.registerPacketHandlers(packetHandler);
+    public void registerPackets(IPacketHandler packetHandler) {
+        super.registerPackets(packetHandler);
 
         // Register packets.
-        packetHandler.register(CPacketSetSlot.ID, CPacketSetSlot.CODEC);
-        packetHandler.register(CPacketValueTypeRecipeLPElementSetRecipe.ID, CPacketValueTypeRecipeLPElementSetRecipe.CODEC);
+        packetHandler.register(CPacketSetSlot.class, CPacketSetSlot.ID, CPacketSetSlot.CODEC);
+        packetHandler.register(CPacketValueTypeRecipeLPElementSetRecipe.class, CPacketValueTypeRecipeLPElementSetRecipe.ID, CPacketValueTypeRecipeLPElementSetRecipe.CODEC);
 
         IntegratedDynamicsCompat.clog("Registered packet handler.");
     }

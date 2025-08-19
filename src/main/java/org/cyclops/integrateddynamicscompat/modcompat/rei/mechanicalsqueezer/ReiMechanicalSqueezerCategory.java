@@ -12,13 +12,16 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
+import org.apache.commons.lang3.tuple.Pair;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezerConfig;
-import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalSqueezer;
+import org.cyclops.integrateddynamics.core.recipe.display.RecipeDisplaySqueezer;
 import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
 
 import java.util.List;
@@ -54,7 +57,7 @@ public class ReiMechanicalSqueezerCategory implements DisplayCategory<ReiMechani
 
     @Override
     public List<Widget> setupDisplay(ReiMechanicalSqueezerRecipe display, Rectangle bounds) {
-        RecipeMechanicalSqueezer recipe = display.getRecipe();
+        RecipeDisplaySqueezer recipe = display.getRecipeDisplay();
         Point startPoint = new Point(bounds.getCenterX() - 116/2, bounds.getCenterY() - 53/2);
         List<Widget> widgets = Lists.newArrayList();
 
@@ -63,11 +66,11 @@ public class ReiMechanicalSqueezerCategory implements DisplayCategory<ReiMechani
             ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "textures/gui/mechanical_squeezer_gui_jei.png");
 
             // Background
-            graphics.blit(texture, startPoint.x, startPoint.y, 0, 0, 116, 53);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, startPoint.x, startPoint.y, 0, 0, 116, 53, 256, 256);
 
             // Progress bar
             int height = Mth.ceil(System.currentTimeMillis() / 250d % 11d);
-            graphics.blit(texture, startPoint.x + 45, startPoint.y + 21, 116, 0, 4, height);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, startPoint.x + 45, startPoint.y + 21, 116, 0, 4, height, 256, 256);
         }));
 
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 2, startPoint.y + 18))
@@ -75,29 +78,27 @@ public class ReiMechanicalSqueezerCategory implements DisplayCategory<ReiMechani
                 .markInput());
 
         int offset = 0;
-        for (int i = 0; i < recipe.getOutputItems().size(); i++) {
-            RecipeMechanicalSqueezer.IngredientChance outputItem = recipe.getOutputItems().get(i);
+        for (int i = 0; i < recipe.outputItems().size(); i++) {
+            Pair<? extends SlotDisplay, Float> outputItem = recipe.outputItems().get(i);
             Point point = new Point(startPoint.x + 76 + (i % 2 > 0 ? 22 : 0), startPoint.y + 8 + offset + (i > 1 ? 22 : 0));
             widgets.add(Widgets.createSlot(point.clone())
-                    .entries(EntryIngredients.of(outputItem.getIngredientFirst()))
+                    .entries(EntryIngredients.ofSlotDisplay(outputItem.getLeft()))
                     .markOutput());
             point.translate(8, 8);
             widgets.add(Widgets.createTooltip(
                     new Rectangle(point, new Dimension(8, 8)),
-                    Component.literal("Chance: " + (outputItem.getChance() * 100.0F) + "%").withStyle(ChatFormatting.GRAY)
+                    Component.literal("Chance: " + (outputItem.getRight() * 100.0F) + "%").withStyle(ChatFormatting.GRAY)
             ));
         }
 
-        recipe.getOutputFluid().ifPresent(f -> {
-            widgets.add(Widgets.createSlot(new Point(startPoint.x + 98, startPoint.y + 30))
-                    .entries(EntryIngredients.of(f.getFluid(), f.getAmount()))
-                    .markInput());
-        });
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 98, startPoint.y + 30))
+                .entries(EntryIngredients.of(recipe.outputFluid().getFluid(), recipe.outputFluid().getAmount()))
+                .markInput());
 
-        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y), JeiReiHelpers.getEnergyTextComponent(display.getRecipe().getDuration(), BlockMechanicalSqueezerConfig.consumptionRate))
+        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y), JeiReiHelpers.getEnergyTextComponent(recipe.duration(), BlockMechanicalSqueezerConfig.consumptionRate))
                 .color(0xFF808080)
                 .noShadow());
-        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y + 42), JeiReiHelpers.getDurationSecondsTextComponent(display.getRecipe().getDuration()))
+        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y + 42), JeiReiHelpers.getDurationSecondsTextComponent(recipe.duration()))
                 .color(0xFF808080)
                 .noShadow());
 

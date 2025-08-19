@@ -9,14 +9,16 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
@@ -28,9 +30,9 @@ import javax.annotation.Nonnull;
  * Category for the Squeezer recipes.
  * @author rubensworks
  */
-public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI> {
+public class SqueezerRecipeCategory implements IRecipeCategory<RecipeHolder<RecipeSqueezer>> {
 
-    public static final RecipeType<SqueezerRecipeJEI> TYPE = RecipeType.create(Reference.MOD_ID, "squeezer", SqueezerRecipeJEI.class);
+    public static final IRecipeHolderType<RecipeSqueezer> TYPE = IRecipeHolderType.create(RegistryEntries.RECIPETYPE_SQUEEZER.get());
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -44,7 +46,17 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
     }
 
     @Override
-    public RecipeType<SqueezerRecipeJEI> getRecipeType() {
+    public int getWidth() {
+        return this.background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.background.getHeight();
+    }
+
+    @Override
+    public IRecipeType<RecipeHolder<RecipeSqueezer>> getRecipeType() {
         return TYPE;
     }
 
@@ -54,28 +66,24 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
         return Component.translatable(RegistryEntries.BLOCK_SQUEEZER.get().getDescriptionId());
     }
 
-    @Nonnull
-    @Override
-    public IDrawable getBackground() {
-        return background;
-    }
-
     @Override
     public IDrawable getIcon() {
         return icon;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SqueezerRecipeJEI recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<RecipeSqueezer> recipeHolder, IFocusGroup focuses) {
+        RecipeSqueezer recipe = recipeHolder.value();
+
         builder.addSlot(RecipeIngredientRole.INPUT, 2, 18)
-                .addItemStacks(recipe.getInputItem());
+                .add(recipe.getInputIngredient());
 
         int offset = 0;
         for (int i = 0; i < recipe.getOutputItems().size(); i++) {
             RecipeSqueezer.IngredientChance outputItem = recipe.getOutputItems().get(i);
             builder.addSlot(outputItem.getChance() < 1 ? RecipeIngredientRole.RENDER_ONLY : RecipeIngredientRole.OUTPUT, 76 + (i % 2 > 0 ? 22 : 0), 8 + offset + (i > 1 ? 22 : 0))
-                    .addItemStack(outputItem.getIngredientFirst())
-                    .addTooltipCallback((view, tooltip) -> {
+                    .add(outputItem.getIngredientFirst())
+                    .addRichTooltipCallback((recipeSlotView, tooltip) -> {
                         float chance = outputItem.getChance();
                         tooltip.add(Component.literal("Chance: " + (chance * 100.0F) + "%").withStyle(ChatFormatting.GRAY));
                     });
@@ -83,11 +91,12 @@ public class SqueezerRecipeCategory implements IRecipeCategory<SqueezerRecipeJEI
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 30)
                 .setFluidRenderer(1000, true, 16, 16)
-                .addIngredient(NeoForgeTypes.FLUID_STACK, recipe.getOutputFluid().orElse(FluidStack.EMPTY));
+                .add(NeoForgeTypes.FLUID_STACK, recipe.getOutputFluid().orElse(FluidStack.EMPTY));
     }
 
     @Override
-    public void draw(SqueezerRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<RecipeSqueezer> recipeHolder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
         int height = (int) ((Minecraft.getInstance().level.getGameTime() / 4) % 7);
         arrowDrawable.draw(guiGraphics, 41, 18 + height * 2);
     }

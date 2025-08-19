@@ -6,16 +6,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import org.cyclops.cyclopscore.persist.nbt.NBTClassType;
 import org.cyclops.integrateddynamics.api.part.IPartState;
 import org.cyclops.integrateddynamics.api.part.IPartType;
 import org.cyclops.integrateddynamics.core.helper.PartHelpers;
 import org.cyclops.integrateddynamicscompat.Reference;
 import snownee.jade.api.BlockAccessor;
-import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
-import snownee.jade.api.ITooltip;
-import snownee.jade.api.config.IPluginConfig;
 
 import java.util.List;
 
@@ -24,16 +20,9 @@ import java.util.List;
  * @author rubensworks
  *
  */
-public class PartDataProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
+public class PartDataProviderServer implements IServerDataProvider<BlockAccessor> {
 
     public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "part");
-
-    @Override
-    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
-        if(config.get(PartDataProvider.ID)) {
-            tooltip.addAll(NBTClassType.getClassType(List.class).readPersistedField("tooltip", accessor.getServerData(), accessor.getLevel().registryAccess()));
-        }
-    }
 
     @Override
     public void appendServerData(CompoundTag tag, BlockAccessor accessor) {
@@ -47,7 +36,7 @@ public class PartDataProvider implements IBlockComponentProvider, IServerDataPro
                         List<Component> tooltip = Lists.newArrayList();
                         tooltip.add(Component.translatable(partType.getTranslationKey()));
                         partType.loadTooltip(partState, tooltip);
-                        NBTClassType.getClassType(List.class).writePersistedField("tooltip", tooltip, tag, accessor.getLevel().registryAccess());
+                        JadeIntegratedDynamicsConfig.putTooltip(tag, tooltip);
                     }
                 });
     }

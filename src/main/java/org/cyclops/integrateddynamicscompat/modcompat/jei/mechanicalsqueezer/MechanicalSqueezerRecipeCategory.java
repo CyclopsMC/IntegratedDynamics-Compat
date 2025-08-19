@@ -9,8 +9,9 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -18,10 +19,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.cyclops.integrateddynamics.RegistryEntries;
 import org.cyclops.integrateddynamics.block.BlockMechanicalSqueezerConfig;
+import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalSqueezer;
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeSqueezer;
 import org.cyclops.integrateddynamicscompat.Reference;
 import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
@@ -32,9 +36,9 @@ import javax.annotation.Nonnull;
  * Category for the MechanicalSqueezer recipes.
  * @author rubensworks
  */
-public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<MechanicalSqueezerRecipeJEI> {
+public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<RecipeHolder<RecipeMechanicalSqueezer>> {
 
-    public static final RecipeType<MechanicalSqueezerRecipeJEI> TYPE = RecipeType.create(Reference.MOD_ID, "mechanical_squeezer", MechanicalSqueezerRecipeJEI.class);
+    public static final IRecipeHolderType<RecipeMechanicalSqueezer> TYPE = IRecipeHolderType.create(RegistryEntries.RECIPETYPE_MECHANICAL_SQUEEZER.get());
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -48,7 +52,17 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
     }
 
     @Override
-    public RecipeType<MechanicalSqueezerRecipeJEI> getRecipeType() {
+    public int getWidth() {
+        return this.background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.background.getHeight();
+    }
+
+    @Override
+    public IRecipeType<RecipeHolder<RecipeMechanicalSqueezer>> getRecipeType() {
         return TYPE;
     }
 
@@ -58,28 +72,24 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
         return Component.translatable(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.get().getDescriptionId());
     }
 
-    @Nonnull
-    @Override
-    public IDrawable getBackground() {
-        return background;
-    }
-
     @Override
     public IDrawable getIcon() {
         return icon;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, MechanicalSqueezerRecipeJEI recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<RecipeMechanicalSqueezer> recipeHolder, IFocusGroup focuses) {
+        RecipeMechanicalSqueezer recipe = recipeHolder.value();
+
         builder.addSlot(RecipeIngredientRole.INPUT, 2, 18)
-                .addItemStacks(recipe.getInputItem());
+                .add(recipe.getInputIngredient());
 
         int offset = 0;
         for (int i = 0; i < recipe.getOutputItems().size(); i++) {
             RecipeSqueezer.IngredientChance outputItem = recipe.getOutputItems().get(i);
             builder.addSlot(outputItem.getChance() < 1 ? RecipeIngredientRole.RENDER_ONLY : RecipeIngredientRole.OUTPUT, 76 + (i % 2 > 0 ? 22 : 0), 8 + offset + (i > 1 ? 22 : 0))
-                    .addItemStack(outputItem.getIngredientFirst())
-                    .addTooltipCallback((view, tooltip) -> {
+                    .add(outputItem.getIngredientFirst())
+                    .addRichTooltipCallback((view, tooltip) -> {
                         float chance = outputItem.getChance();
                         tooltip.add(Component.literal("Chance: " + (chance * 100.0F) + "%").withStyle(ChatFormatting.GRAY));
                     });
@@ -87,22 +97,21 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<Mechani
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 30)
                 .setFluidRenderer(1000, true, 16, 16)
-                .addIngredient(NeoForgeTypes.FLUID_STACK, recipe.getOutputFluid().orElse(FluidStack.EMPTY));
+                .add(NeoForgeTypes.FLUID_STACK, recipe.getOutputFluid().orElse(FluidStack.EMPTY));
     }
 
     @Override
-    public void draw(MechanicalSqueezerRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<RecipeMechanicalSqueezer> recipeHolder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        RecipeMechanicalSqueezer recipe = recipeHolder.value();
+
+        background.draw(guiGraphics);
         arrowDrawable.draw(guiGraphics, 45, 21);
 
         // Draw energy and duration
         Font fontRenderer = Minecraft.getInstance().font;
         MutableComponent energy = JeiReiHelpers.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalSqueezerConfig.consumptionRate);
-        fontRenderer.drawInBatch(energy,
-                (background.getWidth() - fontRenderer.width(energy)) / 2 - 10, 0, 0xFF808080, false,
-                guiGraphics.pose().last().pose(), guiGraphics.bufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+        guiGraphics.drawString(fontRenderer, energy, (background.getWidth() - fontRenderer.width(energy)) / 2 - 10, 0, ARGB.opaque(0xFF808080), false);
         MutableComponent duration = JeiReiHelpers.getDurationSecondsTextComponent(recipe.getDuration());
-        fontRenderer.drawInBatch(duration,
-                (background.getWidth() - fontRenderer.width(duration)) / 2 - 10, 42, 0xFF808080, false,
-                guiGraphics.pose().last().pose(), guiGraphics.bufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+        guiGraphics.drawString(fontRenderer, duration, (background.getWidth() - fontRenderer.width(duration)) / 2 - 10, 42, ARGB.opaque(0xFF808080), false);
     }
 }
