@@ -1,6 +1,7 @@
 ## IntegratedDynamics-Compat
 
 [![Build Status](https://github.com/CyclopsMC/IntegratedDynamics-Compat/workflows/CI/badge.svg)](https://github.com/CyclopsMC/IntegratedDynamics-Compat/actions?query=workflow%3ACI)
+[![Coverage Status](https://coveralls.io/repos/github/CyclopsMC/IntegratedDynamics-Compat/badge.svg)](https://coveralls.io/github/CyclopsMC/IntegratedDynamics-Compat)
 [![Crowdin](https://badges.crowdin.net/cyclopsmc-integrateddynamics-c/localized.svg)](https://crowdin.com/project/cyclopsmc-integrateddynamics-c)
 [![Download](https://img.shields.io/static/v1?label=Maven&message=GitHub%20Packages&color=blue)](https://github.com/CyclopsMC/packages/packages/770048)
 

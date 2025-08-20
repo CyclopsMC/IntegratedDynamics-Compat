@@ -5,6 +5,7 @@ plugins {
 
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
+apply plugin: 'jacoco'
 
 // Determine build number
 String build_number = "DEV" // this will be referenced as simply build_number from now on.
@@ -314,6 +315,26 @@ idea {
         for (String excludeDirName in ["run", "out", "logs", "gradle"]) {
             File excludeDir = new File(projectDir, excludeDirName)
             excludeDirs.add(excludeDir)
+        }
+    }
+}
+
+jacocoTestReport {
+    // Include unit and game test coverage
+    executionData fileTree(project.buildDir).include("jacoco/*.exec")
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+// Also measure coverage for game tests
+tasks.whenTaskAdded { task ->
+    if (task.name.equals('runGameTestServer')) {
+        jacocoTestReport.dependsOn test, task
+        jacoco {
+            toolVersion = "0.8.12"
+            applyTo task
         }
     }
 }
