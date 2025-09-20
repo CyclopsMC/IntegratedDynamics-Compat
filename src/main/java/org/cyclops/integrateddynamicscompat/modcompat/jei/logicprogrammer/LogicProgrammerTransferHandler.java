@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * Allows recipe transferring to Logic Programmer elements with slots.
  * @author rubensworks
  */
-public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IRecipeTransferHandler<T, Object> {
+public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IRecipeTransferHandler<T, Object> { // TODO: in next major, make extensible for Integrated Mekanism
 
     private final Class<T> clazz;
 
