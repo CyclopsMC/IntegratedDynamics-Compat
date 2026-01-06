@@ -154,6 +154,8 @@ dependencies {
     implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version");
     implementation("dev.architectury:architectury-neoforge:$architectury_version");
 
+    compileOnly "com.almostreliable.mods:almostunified-neoforge:${almostunified_version}:api"
+
     implementation("curse.maven:jade-324717:${jade_version}")
 }
 
