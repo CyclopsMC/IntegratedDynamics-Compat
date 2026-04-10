@@ -1,7 +1,7 @@
 package org.cyclops.integrateddynamicscompat.modcompat.refinedstorage;
 
 import com.google.common.collect.Lists;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.cyclops.cyclopscore.modcompat.ICompatInitializer;
@@ -53,10 +53,10 @@ public class RefinedStorageInitializer implements ICompatInitializer {
         ));
 
         POSITIONED_MASTERITEMINVENTORY = ValueTypeListProxyFactories.REGISTRY.register(
-                new ValueTypeListProxyNBTFactory<>(ResourceLocation.parse(Reference.MOD_REFINEDSTORAGE, "positioned_item_inventory"),
+                new ValueTypeListProxyNBTFactory<>(Identifier.parse(Reference.MOD_REFINEDSTORAGE, "positioned_item_inventory"),
                         ValueTypeListProxyPositionedNetworkMasterItemInventory.class));
         POSITIONED_MASTERFLUIDINVENTORY = ValueTypeListProxyFactories.REGISTRY.register(
-                new ValueTypeListProxyNBTFactory<>(ResourceLocation.parse(Reference.MOD_REFINEDSTORAGE, "positioned_fluid_inventory"),
+                new ValueTypeListProxyNBTFactory<>(Identifier.parse(Reference.MOD_REFINEDSTORAGE, "positioned_fluid_inventory"),
                         ValueTypeListProxyPositionedNetworkMasterFluidInventory.class));
     }
 

@@ -15,10 +15,10 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -45,7 +45,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<RecipeH
     private final IDrawableAnimated arrowDrawable;
 
     public MechanicalSqueezerRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "textures/gui/mechanical_squeezer_gui_jei.png");
+        Identifier resourceLocation = Identifier.fromNamespaceAndPath(Reference.MOD_ID, "textures/gui/mechanical_squeezer_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_MECHANICAL_SQUEEZER.get()));
         this.arrowDrawable = guiHelper.createAnimatedDrawable(guiHelper.createDrawable(resourceLocation, 116, 0, 4, 11), 20, IDrawableAnimated.StartDirection.TOP, false);
@@ -101,7 +101,7 @@ public class MechanicalSqueezerRecipeCategory implements IRecipeCategory<RecipeH
     }
 
     @Override
-    public void draw(RecipeHolder<RecipeMechanicalSqueezer> recipeHolder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<RecipeMechanicalSqueezer> recipeHolder, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         RecipeMechanicalSqueezer recipe = recipeHolder.value();
 
         background.draw(guiGraphics);

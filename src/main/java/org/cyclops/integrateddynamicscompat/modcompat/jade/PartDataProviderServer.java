@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.cyclops.integrateddynamics.api.part.IPartState;
 import org.cyclops.integrateddynamics.api.part.IPartType;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class PartDataProviderServer implements IServerDataProvider<BlockAccessor> {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "part");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Reference.MOD_ID, "part");
 
     @Override
     public void appendServerData(CompoundTag tag, BlockAccessor accessor) {
@@ -42,7 +42,7 @@ public class PartDataProviderServer implements IServerDataProvider<BlockAccessor
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 }

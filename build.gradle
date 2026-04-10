@@ -50,6 +50,9 @@ sourceSets {
     test
 }
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+// Exclude mod compat dirs whose dependencies are not available for this MC version
+sourceSets.main.java.exclude("org/cyclops/integrateddynamicscompat/modcompat/top/**")
+sourceSets.main.java.exclude("org/cyclops/integrateddynamicscompat/modcompat/rei/**")
 
 configurations {
     modLib

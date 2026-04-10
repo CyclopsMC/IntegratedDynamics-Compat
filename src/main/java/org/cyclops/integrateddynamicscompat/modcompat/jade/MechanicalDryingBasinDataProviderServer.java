@@ -3,7 +3,7 @@ package org.cyclops.integrateddynamicscompat.modcompat.jade;
 import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.blockentity.BlockEntityMechanicalDryingBasin;
 import snownee.jade.api.BlockAccessor;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class MechanicalDryingBasinDataProviderServer extends SqueezerDataProviderServer {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "mechanical_drying_basin");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "mechanical_drying_basin");
 
     @Override
     public void appendServerData(CompoundTag tag, BlockAccessor accessor) {
@@ -51,7 +51,7 @@ public class MechanicalDryingBasinDataProviderServer extends SqueezerDataProvide
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 

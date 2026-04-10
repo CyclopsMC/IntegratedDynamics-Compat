@@ -1,6 +1,6 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jade;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -13,9 +13,9 @@ import snownee.jade.api.config.IPluginConfig;
  */
 public class TooltipClientDataProviderClient implements IBlockComponentProvider {
 
-    private final ResourceLocation id;
+    private final Identifier id;
 
-    public TooltipClientDataProviderClient(ResourceLocation id) {
+    public TooltipClientDataProviderClient(Identifier id) {
         this.id = id;
     }
 
@@ -27,7 +27,7 @@ public class TooltipClientDataProviderClient implements IBlockComponentProvider 
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return this.id;
     }
 

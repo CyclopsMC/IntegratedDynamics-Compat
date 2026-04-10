@@ -4,7 +4,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.cyclops.cyclopscore.helper.IModHelpers;
@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 public class JeiReiHelpers {
 
-    public static ResourceLocation itemsToTag(List<Item> items) {
+    public static Identifier itemsToTag(List<Item> items) {
         return BuiltInRegistries.ITEM.listTagIds()
                 .map(tag -> BuiltInRegistries.ITEM.get(tag)
                         .flatMap(t -> {

@@ -6,7 +6,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
@@ -82,8 +82,8 @@ public class JEIIntegratedDynamicsConfig implements IModPlugin {
     }
 
     @Override
-    public ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "main");
+    public Identifier getPluginUid() {
+        return Identifier.fromNamespaceAndPath(Reference.MOD_ID, "main");
     }
 
     @Override

@@ -11,9 +11,9 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.common.Constants;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -74,7 +74,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     }
 
     @Nullable
-    protected ResourceLocation getHeuristicItemsTag(IRecipeSlotView jeiIngredient) {
+    protected Identifier getHeuristicItemsTag(IRecipeSlotView jeiIngredient) {
         // Allow disabling this heuristic
         if (!GeneralConfig.jeiHeuristicTags) {
             return null;
@@ -105,7 +105,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 if (typedIngredient.getType() == VanillaTypes.ITEM_STACK) {
                     // Collect items
                     if (slotView.getRole() == RecipeIngredientRole.INPUT) {
-                        ResourceLocation heuristicTag = getHeuristicItemsTag(slotView);
+                        Identifier heuristicTag = getHeuristicItemsTag(slotView);
                         if (heuristicTag != null) {
                             itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), ((ItemStack) typedIngredient.getIngredient()).getCount()));
                         } else {
@@ -133,7 +133,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 }
 
                 @Override
-                public void showError(GuiGraphics guiGraphics, int mouseX, int mouseY, IRecipeSlotsView recipeLayout, int recipeX, int recipeY) {
+                public void showError(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, IRecipeSlotsView recipeLayout, int recipeX, int recipeY) {
                     guiGraphics.setTooltipForNextFrame(
                             Component.translatable("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc"),
                             mouseX, mouseY);

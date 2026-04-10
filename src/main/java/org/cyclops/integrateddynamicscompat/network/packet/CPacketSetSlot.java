@@ -2,7 +2,7 @@ package org.cyclops.integrateddynamicscompat.network.packet;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
@@ -19,7 +19,7 @@ import org.cyclops.integrateddynamicscompat.Reference;
  */
 public class CPacketSetSlot extends PacketCodec<CPacketSetSlot> {
 
-    public static final Type<CPacketSetSlot> ID = new Type<>(ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "set_slot"));
+    public static final Type<CPacketSetSlot> ID = new Type<>(Identifier.fromNamespaceAndPath(Reference.MOD_ID, "set_slot"));
     public static final StreamCodec<RegistryFriendlyByteBuf, CPacketSetSlot> CODEC = getCodec(CPacketSetSlot::new);
 
     @CodecField

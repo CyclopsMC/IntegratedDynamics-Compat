@@ -14,9 +14,9 @@ import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -39,7 +39,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<RecipeHolder<Reci
     private final IDrawableStatic arrowDrawable;
 
     public SqueezerRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "textures/gui/squeezer_gui_jei.png");
+        Identifier resourceLocation = Identifier.fromNamespaceAndPath(Reference.MOD_ID, "textures/gui/squeezer_gui_jei.png");
         this.background = guiHelper.createDrawable(resourceLocation, 0, 0, 116, 53);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryEntries.BLOCK_SQUEEZER.get()));
         this.arrowDrawable = guiHelper.createDrawable(resourceLocation, 41, 32, 12, 2);
@@ -95,7 +95,7 @@ public class SqueezerRecipeCategory implements IRecipeCategory<RecipeHolder<Reci
     }
 
     @Override
-    public void draw(RecipeHolder<RecipeSqueezer> recipeHolder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<RecipeSqueezer> recipeHolder, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
         int height = (int) ((Minecraft.getInstance().level.getGameTime() / 4) % 7);
         arrowDrawable.draw(guiGraphics, 41, 18 + height * 2);
