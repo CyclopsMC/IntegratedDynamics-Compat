@@ -8,9 +8,7 @@ import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
-import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
-import mezz.jei.api.recipe.types.IRecipeType;
-import mezz.jei.common.Constants;
+import mezz.jei.api.recipe.transfer.IUniversalRecipeTransferHandler;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -37,7 +35,7 @@ import java.util.stream.Collectors;
  * Allows recipe transferring to Logic Programmer elements with slots.
  * @author rubensworks
  */
-public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IRecipeTransferHandler<T, Object> { // TODO: in next major, make extensible for Integrated Mekanism
+public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IUniversalRecipeTransferHandler<T> { // TODO: in next major, make extensible for Integrated Mekanism
 
     private final Class<T> clazz;
 
@@ -53,11 +51,6 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     @Override
     public Optional<MenuType<T>> getMenuType() {
         return Optional.empty();
-    }
-
-    @Override
-    public IRecipeType<Object> getRecipeType() {
-        return (IRecipeType) Constants.UNIVERSAL_RECIPE_TRANSFER_TYPE;
     }
 
     @Nullable

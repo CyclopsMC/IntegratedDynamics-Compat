@@ -24,7 +24,7 @@ public class MechanicalSqueezerDataProviderServer extends SqueezerDataProviderSe
         BlockEntityMechanicalSqueezer tile = (BlockEntityMechanicalSqueezer) accessor.getBlockEntity();
         List<Component> tooltip = Lists.newArrayList();
         tooltip.add(Component.translatable("gui." + Reference.MOD_ID + ".waila.energy",
-                tile.getEnergyStored(), tile.getMaxEnergyStored()));
+                (int) tile.getEnergyHandler().getAmountAsLong(0), tile.getMaxEnergyStored()));
         if (!tile.getInventory().getItem(0).isEmpty()) {
             tooltip.add(Component.translatable("gui." + Reference.MOD_ID + ".waila.item.in",
                     tile.getInventory().getItem(0).getDisplayName()));

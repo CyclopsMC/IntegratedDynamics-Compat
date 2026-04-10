@@ -104,6 +104,6 @@ public class DryingBasinRecipeCategory implements IRecipeCategory<RecipeHolder<R
         // Draw duration
         Font fontRenderer = Minecraft.getInstance().font;
         MutableComponent duration = JeiReiHelpers.getDurationSecondsTextComponent(recipeHolder.value().getDuration());
-        guiGraphics.drawString(fontRenderer, duration, (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, ARGB.opaque(0xFF808080), false);
+        guiGraphics.text(fontRenderer, duration, (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, ARGB.opaque(0xFF808080), false);
     }
 }

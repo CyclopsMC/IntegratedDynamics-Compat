@@ -107,8 +107,8 @@ public class MechanicalDryingBasinRecipeCategory implements IRecipeCategory<Reci
         // Draw energy and duration
         Font fontRenderer = Minecraft.getInstance().font;
         MutableComponent energy = JeiReiHelpers.getEnergyTextComponent(recipe.getDuration(), BlockMechanicalDryingBasinConfig.consumptionRate);
-        guiGraphics.drawString(fontRenderer, energy, (background.getWidth() - fontRenderer.width(energy)) / 2 + 3, 0, ARGB.opaque(0xFF808080), false);
+        guiGraphics.text(fontRenderer, energy, (background.getWidth() - fontRenderer.width(energy)) / 2 + 3, 0, ARGB.opaque(0xFF808080), false);
         MutableComponent duration = JeiReiHelpers.getDurationSecondsTextComponent(recipe.getDuration());
-        guiGraphics.drawString(fontRenderer, duration, (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, ARGB.opaque(0xFF808080), false);
+        guiGraphics.text(fontRenderer, duration, (background.getWidth() - fontRenderer.width(duration)) / 2 + 3, 42, ARGB.opaque(0xFF808080), false);
     }
 }
