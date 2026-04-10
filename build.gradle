@@ -1,5 +1,5 @@
 plugins {
-	id 'net.neoforged.gradle.userdev' version '7.0.185'
+    id 'net.neoforged.moddev' version '2.0.141'
     id 'com.diffplug.spotless' version '6.25.0'
 }
 
@@ -109,14 +109,12 @@ repositories {
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${project.neoforge_version}"
-
 	// Add something like 'integrateddynamics_version_local=0.1.0-DEV' to your secrets.properties if you want to use a custom local Integrated Dynamics version.
     if(secrets.integrateddynamics_version_local) {
-        implementation "org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${secrets.integrateddynamics_version_local}:deobf"
+        implementation "org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${secrets.integrateddynamics_version_local}"
         modLib "com.google.re2j:re2j:1.1"
     } else {
-        implementation("org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${project.integrateddynamics_version}:deobf") {
+        implementation("org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${project.integrateddynamics_version}") {
             exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
             exclude group: 'org.cyclops.commoncapabilities', module: 'commoncapabilities'
         }
@@ -124,19 +122,19 @@ dependencies {
     }
     // Add something like 'cyclopscore_version_local=0.1.0-DEV' to your secrets.properties if you want to use a custom local CyclopsCore version.
     if(secrets.cyclopscore_version_local) {
-        implementation "org.cyclops.cyclopscore:cyclopscore-${project.minecraft_version}-neoforge:${secrets.cyclopscore_version_local}:deobf"
+        implementation "org.cyclops.cyclopscore:cyclopscore-${project.minecraft_version}-neoforge:${secrets.cyclopscore_version_local}"
     } else {
-        implementation "org.cyclops.cyclopscore:cyclopscore-${project.minecraft_version}-neoforge:${project.cyclopscore_version}:deobf"
+        implementation "org.cyclops.cyclopscore:cyclopscore-${project.minecraft_version}-neoforge:${project.cyclopscore_version}"
     }
 
-    implementation("org.cyclops.commoncapabilities:commoncapabilities-${project.minecraft_version}-neoforge:${project.commoncapabilities_version}:deobf") { // https://dl.bintray.com/cyclopsmc/dev/org/cyclops/commoncapabilities/CommonCapabilities/
+    implementation("org.cyclops.commoncapabilities:commoncapabilities-${project.minecraft_version}-neoforge:${project.commoncapabilities_version}") { // https://dl.bintray.com/cyclopsmc/dev/org/cyclops/commoncapabilities/CommonCapabilities/
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
     implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
-    compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
+    //compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
     // TODO: for some reason using the following in runtime breaks ForgeGradle
     /*runtimeOnly(fg.deobf("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}")) { // https://maven.k-4u.nl
         transitive = false
@@ -151,70 +149,50 @@ dependencies {
 
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
 
-    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
-    implementation("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
+    //compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
+    //implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
+    //implementation("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
 
     implementation("curse.maven:jade-324717:${jade_version}") // https://www.curseforge.com/minecraft/mc-mods/jade
 }
 
-subsystems {
-    parchment {
-        minecraftVersion = "${project.parchment_minecraft_version}"
-        mappingsVersion = "${project.parchment_version}"
+neoForge {
+    version = "${neoforge_version}"
+
+    // Automatically enable neoforge AccessTransformers if the file exists
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers = [ at.absolutePath ]
     }
-}
 
-runs {
-    configureEach {
-		systemProperty 'forge.logging.markers', 'REGISTRIES'
-        systemProperty 'forge.logging.console.level', 'debug'
-        systemProperty 'forge.logging.console.level', 'debug'
-        systemProperty 'mixin.env.remapRefMap', 'true'
-        systemProperty 'mixin.env.refMapRemappingFile',"${buildDir}/createSrgToMcp/output.srg"
-        modSource project.sourceSets.main
+    validateAccessTransformers = true
 
-        dependencies {
-            runtime project.configurations.modLib
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+        gameTestServer {
+            type = "gameTestServer"
+        }
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+            systemProperty 'neoforge.enabledGameTestNamespaces', "cyclopscore,${mod_id}"
         }
     }
-	
-    client {
-        systemProperty 'neoforge.enabledGameTestNamespaces', "cyclopscore,${mod_id}"
-    }
 
-    server {
-        systemProperty 'neoforge.enabledGameTestNamespaces', "cyclopscore,${mod_id}"
-        argument '--nogui'
-    }
-
-    gameTestServer {
-        systemProperty 'neoforge.enabledGameTestNamespaces', "cyclopscore,${mod_id}"
-    }
-
-    clientData {
-        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
 jar {
-    manifest {
-        attributes([
-                "FMLAT": "accesstransformer.cfg",
-                "Specification-Title": "${project.name}",
-                "Specification-Vendor": "rubensworks",
-                "Specification-Version": "${project.mod_version}",
-                "Implementation-Title": "${project.name}",
-                "Implementation-Version": "${project.mod_version}",
-                "Implementation-Vendor" :"rubensworks",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
-}
-
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    archiveClassifier.set('deobf')
     manifest {
         attributes([
                 "FMLAT": "accesstransformer.cfg",
@@ -242,7 +220,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 artifacts {
-    archives deobfJar
     archives sourcesJar
     archives javadocJar
 }
@@ -250,7 +227,7 @@ artifacts {
 // Replace properties in files
 processResources {
     def expandProps = [
-            'mod_version'                           : mod_version,
+            'mod_version'                           : project.version,
             'group'                                 : project.group, //Else we target the task's group.
             'minecraft_version'                     : minecraft_version,
             'mod_name'                              : mod_name,
@@ -302,8 +279,8 @@ publishing {
 
     publications { PublicationContainer publicationContainer ->
         publicationContainer.register("maven", MavenPublication) { MavenPublication publication ->
-            publication.artifacts = [jar, javadocJar, deobfJar, sourcesJar]
-            publication.artifactId = project.archivesBaseName.toLowerCase() // GH can't handle uppercase...
+            publication.artifacts = [jar, javadocJar, sourcesJar]
+            publication.artifactId = project.base.archivesName.get().toLowerCase() // GH can't handle uppercase...
         }
     }
 }
@@ -333,7 +310,7 @@ tasks.whenTaskAdded { task ->
     if (task.name.equals('runGameTestServer')) {
         jacocoTestReport.dependsOn test, task
         jacoco {
-            toolVersion = "0.8.12"
+            toolVersion = "0.8.14"
             applyTo task
         }
     }
