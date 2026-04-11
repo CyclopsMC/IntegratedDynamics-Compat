@@ -1,7 +1,7 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jade;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.cyclops.integrateddynamics.core.helper.L10NValues;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -23,7 +23,7 @@ public class ProxyDataProviderClient implements IBlockComponentProvider {
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ProxyDataProviderServer.ID;
     }
 

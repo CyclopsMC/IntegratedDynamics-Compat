@@ -1,7 +1,7 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jade;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.cyclops.integrateddynamics.blockentity.BlockEntityProxy;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IServerDataProvider;
@@ -13,7 +13,7 @@ import snownee.jade.api.IServerDataProvider;
  */
 public class ProxyDataProviderServer implements IServerDataProvider<BlockAccessor> {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "proxy");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "proxy");
 
     @Override
     public void appendServerData(CompoundTag tag, BlockAccessor accessor) {
@@ -22,7 +22,7 @@ public class ProxyDataProviderServer implements IServerDataProvider<BlockAccesso
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 

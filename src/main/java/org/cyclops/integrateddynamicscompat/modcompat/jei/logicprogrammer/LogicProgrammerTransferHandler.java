@@ -8,12 +8,10 @@ import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
-import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
-import mezz.jei.api.recipe.types.IRecipeType;
-import mezz.jei.common.Constants;
-import net.minecraft.client.gui.GuiGraphics;
+import mezz.jei.api.recipe.transfer.IUniversalRecipeTransferHandler;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -37,7 +35,7 @@ import java.util.stream.Collectors;
  * Allows recipe transferring to Logic Programmer elements with slots.
  * @author rubensworks
  */
-public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IRecipeTransferHandler<T, Object> { // TODO: in next major, make extensible for Integrated Mekanism
+public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBase> implements IUniversalRecipeTransferHandler<T> { // TODO: in next major, make extensible for Integrated Mekanism
 
     private final Class<T> clazz;
 
@@ -55,11 +53,6 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
         return Optional.empty();
     }
 
-    @Override
-    public IRecipeType<Object> getRecipeType() {
-        return (IRecipeType) Constants.UNIVERSAL_RECIPE_TRANSFER_TYPE;
-    }
-
     @Nullable
     @Override
     public IRecipeTransferError transferRecipe(T container, Object recipe, IRecipeSlotsView recipeLayout,
@@ -74,7 +67,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     }
 
     @Nullable
-    protected ResourceLocation getHeuristicItemsTag(IRecipeSlotView jeiIngredient) {
+    protected Identifier getHeuristicItemsTag(IRecipeSlotView jeiIngredient) {
         // Allow disabling this heuristic
         if (!GeneralConfig.jeiHeuristicTags) {
             return null;
@@ -105,7 +98,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 if (typedIngredient.getType() == VanillaTypes.ITEM_STACK) {
                     // Collect items
                     if (slotView.getRole() == RecipeIngredientRole.INPUT) {
-                        ResourceLocation heuristicTag = getHeuristicItemsTag(slotView);
+                        Identifier heuristicTag = getHeuristicItemsTag(slotView);
                         if (heuristicTag != null) {
                             itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), ((ItemStack) typedIngredient.getIngredient()).getCount()));
                         } else {
@@ -133,7 +126,7 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
                 }
 
                 @Override
-                public void showError(GuiGraphics guiGraphics, int mouseX, int mouseY, IRecipeSlotsView recipeLayout, int recipeX, int recipeY) {
+                public void showError(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, IRecipeSlotsView recipeLayout, int recipeX, int recipeY) {
                     guiGraphics.setTooltipForNextFrame(
                             Component.translatable("error.jei.integrateddynamics.recipetransfer.recipe.toobig.desc"),
                             mouseX, mouseY);
