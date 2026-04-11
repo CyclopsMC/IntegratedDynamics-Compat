@@ -50,9 +50,6 @@ sourceSets {
     test
 }
 sourceSets.main.resources { srcDir 'src/generated/resources' }
-// Exclude mod compat dirs whose dependencies are not available for this MC version
-sourceSets.main.java.exclude("org/cyclops/integrateddynamicscompat/modcompat/top/**")
-sourceSets.main.java.exclude("org/cyclops/integrateddynamicscompat/modcompat/rei/**")
 
 configurations {
     modLib
@@ -309,14 +306,10 @@ jacocoTestReport {
 }
 
 // Also measure coverage for game tests
-tasks.whenTaskAdded { task ->
-    if (task.name.equals('runGameTestServer')) {
-        jacocoTestReport.dependsOn test, task
-        jacoco {
-            toolVersion = "0.8.14"
-            applyTo task
-        }
-    }
+jacocoTestReport.dependsOn test, runGameTestServer
+jacoco {
+    toolVersion = "0.8.14"
+    applyTo runGameTestServer
 }
 
 sourceSets {
@@ -332,6 +325,8 @@ sourceSets {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/refinedstorage/**'
+            exclude '**/modcompat/top/**'
+            exclude '**/modcompat/rei/**'
         }
     }
 }
@@ -350,6 +345,8 @@ spotless {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/refinedstorage/**'
+            exclude '**/modcompat/top/**'
+            exclude '**/modcompat/rei/**'
         }
 
         endWithNewline()
@@ -367,7 +364,3 @@ tasks.register('updateGitHooks', Copy) {
     into './.git/hooks'
 }
 compileJava.dependsOn updateGitHooks
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
-}
