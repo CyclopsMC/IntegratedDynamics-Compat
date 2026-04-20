@@ -31,7 +31,6 @@
     "operator.operators.integrateddynamics.itemstack.teslacapacity": "Tesla-kapacitet",
     "operator.operators.integrateddynamics.itemstack.teslacapacity.info": "Den maximala mängden Tesla som kan lagras i detta föremål",
     "operator.operators.integrateddynamics.itemstack.isteslareceiver": "Är Tesla-mottagare",
-    "operator.operators.integrateddynamics.itemstack.isteslareceiver.info": "Om det angivna föremålet kan ta emot Tesla",
     "operator.operators.integrateddynamics.itemstack.isteslaprovider": "Är Tesla-tillhandahållare",
     "operator.operators.integrateddynamics.itemstack.isteslaprovider.info": "Om det angivna föremålet kan tillhandahålla Tesla",
     "operator.operators.integrateddynamics.itemstack.isteslafull": "Är Tesla-bufferten full",
