@@ -111,10 +111,10 @@ repositories {
 dependencies {
 	// Add something like 'integrateddynamics_version_local=0.1.0-DEV' to your secrets.properties if you want to use a custom local Integrated Dynamics version.
     if(secrets.integrateddynamics_version_local) {
-        implementation "org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${secrets.integrateddynamics_version_local}"
+        implementation "org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${secrets.integrateddynamics_version_local}:slim"
         modLib "com.google.re2j:re2j:1.1"
     } else {
-        implementation("org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${project.integrateddynamics_version}") {
+        implementation("org.cyclops.integrateddynamics:integrateddynamics-${project.minecraft_version}-neoforge:${project.integrateddynamics_version}:slim") {
             exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
             exclude group: 'org.cyclops.commoncapabilities', module: 'commoncapabilities'
         }
