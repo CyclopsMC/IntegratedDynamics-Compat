@@ -1,20 +1,28 @@
 package org.cyclops.integrateddynamicscompat.modcompat.refinedstorage;
 
 import com.google.common.collect.Lists;
+import net.minecraft.core.Registry;
+import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.resources.Identifier;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.event.RegisterGameTestsEvent;
+import org.cyclops.cyclopscore.gametest.GameTestLoaderHelpers;
+import org.cyclops.cyclopscore.init.IModBase;
+import org.cyclops.cyclopscore.init.ModBaseNeoForge;
 import org.cyclops.cyclopscore.modcompat.ICompatInitializer;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeFluidStack;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueObjectTypeItemStack;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyFactories;
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyNBTFactory;
+import org.cyclops.integrateddynamics.core.event.IntegratedDynamicsSetupEvent;
 import org.cyclops.integrateddynamics.core.part.PartTypes;
 import org.cyclops.integrateddynamics.part.aspect.Aspects;
 import org.cyclops.integrateddynamicscompat.Reference;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.RefinedStorageAspects;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.ValueTypeListProxyPositionedNetworkMasterFluidInventory;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect.ValueTypeListProxyPositionedNetworkMasterItemInventory;
+import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.gametest.GameTestsAspectsRefinedStorage;
+
+import java.lang.reflect.Field;
 
 /**
  * @author rubensworks
@@ -27,11 +35,12 @@ public class RefinedStorageInitializer implements ICompatInitializer {
             ValueTypeListProxyPositionedNetworkMasterFluidInventory> POSITIONED_MASTERFLUIDINVENTORY;
 
     @Override
-    public void initialize() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+    public void initialize(IModBase mod) {
+        ((ModBaseNeoForge) mod).getModEventBus().addListener(this::setup);
+        ((ModBaseNeoForge) mod).getModEventBus().addListener(this::registerGameTests);
     }
 
-    protected void setup(FMLCommonSetupEvent event) {
+    protected void setup(IntegratedDynamicsSetupEvent event) {
         Aspects.REGISTRY.register(PartTypes.MACHINE_READER, Lists.newArrayList(
                 RefinedStorageAspects.Read.Network.BOOLEAN_APPLICABLE
         ));
@@ -53,11 +62,27 @@ public class RefinedStorageInitializer implements ICompatInitializer {
         ));
 
         POSITIONED_MASTERITEMINVENTORY = ValueTypeListProxyFactories.REGISTRY.register(
-                new ValueTypeListProxyNBTFactory<>(Identifier.parse(Reference.MOD_REFINEDSTORAGE, "positioned_item_inventory"),
+                new ValueTypeListProxyNBTFactory<>(Identifier.fromNamespaceAndPath(Reference.MOD_REFINEDSTORAGE, "positioned_item_inventory"),
                         ValueTypeListProxyPositionedNetworkMasterItemInventory.class));
         POSITIONED_MASTERFLUIDINVENTORY = ValueTypeListProxyFactories.REGISTRY.register(
-                new ValueTypeListProxyNBTFactory<>(Identifier.parse(Reference.MOD_REFINEDSTORAGE, "positioned_fluid_inventory"),
+                new ValueTypeListProxyNBTFactory<>(Identifier.fromNamespaceAndPath(Reference.MOD_REFINEDSTORAGE, "positioned_fluid_inventory"),
                         ValueTypeListProxyPositionedNetworkMasterFluidInventory.class));
+    }
+
+    protected void registerGameTests(RegisterGameTestsEvent event) {
+        if (!GameTestLoaderHelpers.areGameTestsEnabled(Reference.MOD_ID)) {
+            return;
+        }
+        try {
+            Field field = RegisterGameTestsEvent.class.getDeclaredField("environmentsRegistry");
+            field.setAccessible(true);
+            Registry<TestEnvironmentDefinition<?>> testEnvironmentRegistry = (Registry<TestEnvironmentDefinition<?>>) field.get(event);
+            GameTestLoaderHelpers.registerCommonTests(Reference.MOD_ID, new Class[]{
+                    GameTestsAspectsRefinedStorage.class
+            }, event::registerTest, testEnvironmentRegistry);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -1,0 +1,19 @@
+package org.cyclops.cyclopscore.infobook.condition;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import org.cyclops.cyclopscore.init.ModBaseNeoForge;
+
+/**
+ * Condition handler for checking if a fluid has been registered.
+ * @author rubensworks
+ *
+ */
+public class FluidSectionConditionHandler implements ISectionConditionHandler {
+
+    @Override
+    public boolean isSatisfied(ModBaseNeoForge<?> mod, String param) {
+        return BuiltInRegistries.FLUID.containsKey(Identifier.parse(param));
+    }
+
+}

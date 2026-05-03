@@ -1,0 +1,87 @@
+accessWidener v1 official
+
+# Recipes
+accessible method net/minecraft/world/item/crafting/RecipeManager byKeyTyped (Lnet/minecraft/world/item/crafting/RecipeType;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/item/crafting/RecipeHolder;
+accessible field net/minecraft/world/item/crafting/RecipeManager recipes Lnet/minecraft/world/item/crafting/RecipeMap;
+accessible field net/minecraft/world/item/crafting/RecipeManager recipeToDisplay Ljava/util/Map;
+
+# Menus
+accessible field net/minecraft/world/inventory/InventoryMenu TEXTURE_EMPTY_SLOTS Ljava/util/Map;
+
+# Screens
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
+mutable field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen imageWidth I
+mutable field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen imageHeight I
+accessible field net/minecraft/world/inventory/MenuType constructor Lnet/minecraft/world/inventory/MenuType$MenuSupplier;
+mutable field net/minecraft/world/inventory/AbstractContainerMenu slots Lnet/minecraft/core/NonNullList;
+
+# GuiGraphics
+accessible method net/minecraft/client/gui/GuiGraphicsExtractor innerBlit (Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIIIFFFFI)V
+accessible method net/minecraft/client/gui/GuiGraphicsExtractor itemBar (Lnet/minecraft/world/item/ItemStack;II)V
+accessible method net/minecraft/client/gui/GuiGraphicsExtractor itemCooldown (Lnet/minecraft/world/item/ItemStack;II)V
+
+# World
+accessible field net/minecraft/world/level/Level thread Ljava/lang/Thread;
+
+# Creative mode tabs
+accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
+
+# ArgumentTypeInfos
+accessible field net/minecraft/commands/synchronization/ArgumentTypeInfos BY_CLASS Ljava/util/Map;
+
+# Worldgen
+extendable class net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType
+extendable class net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType
+
+# BlockEntityRenderers
+accessible method net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
+
+# Screens
+accessible class net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor
+
+# Widgets
+accessible field net/minecraft/client/gui/components/AbstractButton SPRITES Lnet/minecraft/client/gui/components/WidgetSprites;
+
+# Slot
+accessible field net/minecraft/world/inventory/Slot x I
+mutable field net/minecraft/world/inventory/Slot x I
+accessible field net/minecraft/world/inventory/Slot y I
+mutable field net/minecraft/world/inventory/Slot y I
+accessible field net/minecraft/world/inventory/Slot index I
+accessible field net/minecraft/world/inventory/ResultSlot removeCount I
+accessible field net/minecraft/world/inventory/ResultSlot player Lnet/minecraft/world/entity/player/Player;
+accessible field net/minecraft/world/inventory/FurnaceResultSlot removeCount I
+accessible field net/minecraft/world/inventory/FurnaceResultSlot player Lnet/minecraft/world/entity/player/Player;
+
+# EntityRenderers
+accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
+
+# Particles
+accessible class net/minecraft/client/particle/ParticleResources$SpriteParticleRegistration
+accessible method net/minecraft/client/particle/ParticleResources$SpriteParticleRegistration create (Lnet/minecraft/client/particle/SpriteSet;)Lnet/minecraft/client/particle/ParticleProvider;
+accessible field net/minecraft/client/particle/ParticleEngine particles Ljava/util/Map;
+
+# BlockEntityType
+accessible class net/minecraft/world/level/block/entity/BlockEntityType
+accessible method net/minecraft/world/level/block/entity/BlockEntityType <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
+accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
+
+# ItemTintSources
+accessible field net/minecraft/client/color/item/ItemTintSources ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
+
+# RegistryLoadTask
+accessible field net/minecraft/resources/RegistryLoadTask registry Lnet/minecraft/core/WritableRegistry;
+
+# RenderPipelines
+accessible field net/minecraft/client/renderer/RenderPipelines PARTICLE_SNIPPET Lcom/mojang/blaze3d/pipeline/RenderPipeline$Snippet;
+accessible method net/minecraft/client/renderer/RenderPipelines register (Lcom/mojang/blaze3d/pipeline/RenderPipeline;)Lcom/mojang/blaze3d/pipeline/RenderPipeline;
+
+# RenderType
+accessible field net/minecraft/client/renderer/RenderPipelines MATRICES_FOG_SNIPPET Lcom/mojang/blaze3d/pipeline/RenderPipeline$Snippet;
+
+# Structures
+accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool rawTemplates Ljava/util/List;
+mutable field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool rawTemplates Ljava/util/List;
+accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool templates Lit/unimi/dsi/fastutil/objects/ObjectArrayList;

@@ -1,0 +1,46 @@
+package org.cyclops.cyclopscore.infobook.pageelement;
+
+import com.google.common.collect.Lists;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.FormattedCharSequence;
+import net.neoforged.api.distmarker.Dist;
+import org.cyclops.cyclopscore.helper.AdvancementHelpers;
+import org.cyclops.cyclopscore.infobook.AdvancedButton;
+
+import java.util.List;
+
+/**
+ * A button for the advancements, so they can be hovered.
+ */
+public class AdvancementButton extends AdvancedButton {
+
+    private final Identifier advancementId;
+
+    public AdvancementButton(Identifier advancementId) {
+        this.advancementId = advancementId;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+
+    @Override
+    public void renderTooltip(GuiGraphicsExtractor guiGraphics, Font font, int mx, int my) {
+        super.renderTooltip(guiGraphics, font, mx, my);
+        if(mx >= getX() && my >= getY() && mx <= getX() + AdvancementRewardsAppendix.SLOT_SIZE && my <= getY() + AdvancementRewardsAppendix.SLOT_SIZE) {
+            List<FormattedCharSequence> lines = Lists.newArrayList();
+            AdvancementHolder advancement = AdvancementHelpers.getAdvancement(Dist.CLIENT, advancementId);
+            if (advancement != null) {
+                advancement.value().display().ifPresent(display -> {
+                    lines.add(display.getTitle().getVisualOrderText());
+                    lines.add(display.getDescription().getVisualOrderText());
+                });
+            }
+            guiGraphics.setTooltipForNextFrame(font, lines, mx, my);
+        }
+    }
+}

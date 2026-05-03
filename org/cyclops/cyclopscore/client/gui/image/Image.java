@@ -1,0 +1,90 @@
+package org.cyclops.cyclopscore.client.gui.image;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.Identifier;
+import org.cyclops.cyclopscore.helper.IModHelpers;
+import org.joml.Matrix4f;
+
+/**
+ * A wrapper that contains a reference to a {@link  net.minecraft.resources.Identifier} and its sheet position.
+ * @author rubensworks
+ */
+public class Image implements IImage {
+
+    private final Identifier resourceLocation;
+    private final int sheetX, sheetY, sheetWidth, sheetHeight;
+
+    public Image(Identifier resourceLocation, int sheetX, int sheetY, int sheetWidth, int sheetHeight) {
+        this.resourceLocation = resourceLocation;
+        this.sheetX = sheetX;
+        this.sheetY = sheetY;
+        this.sheetWidth = sheetWidth;
+        this.sheetHeight = sheetHeight;
+    }
+
+    public Identifier getIdentifier() {
+        return resourceLocation;
+    }
+
+    public int getSheetX() {
+        return sheetX;
+    }
+
+    public int getSheetY() {
+        return sheetY;
+    }
+
+    public int getSheetWidth() {
+        return sheetWidth;
+    }
+
+    public int getSheetHeight() {
+        return sheetHeight;
+    }
+
+    @Override
+    public void draw(GuiGraphicsExtractor gui, int x, int y) {
+        gui.blit(RenderPipelines.GUI_TEXTURED, resourceLocation, x, y, sheetX, sheetY, sheetWidth, sheetHeight, 256, 256);
+    }
+
+    @Override
+    public void drawWithColor(GuiGraphicsExtractor gui, int x, int y, float r, float g, float b, float a) {
+        IModHelpers.get().getRenderHelpers().blitColored(gui, resourceLocation, x, y, sheetX, sheetY, sheetWidth, sheetHeight, r, g, b, a);
+    }
+
+    @Override
+    public void drawWorldWithAlpha(TextureManager textureManager, PoseStack matrixStack, SubmitNodeCollector submitNodeCollector,
+                                   int combinedLight, int combinedOverlay, float x1, float x2, float y1, float y2, float z, float alpha) {
+        matrixStack.pushPose();
+        float u1, u2, v1, v2;
+        u1 = (float) (getSheetX()) / 256F;
+        u2 = (float) (getSheetX() + getSheetWidth()) / 256F;
+        v1 = (float) (getSheetY()) / 256F;
+        v2 = (float) (getSheetY() + getSheetHeight()) / 256F;
+        int a = Math.round(alpha * 255F);
+        Matrix4f matrix = matrixStack.last().pose();
+        submitNodeCollector.submitCustomGeometry(matrixStack, RenderTypes.text(getIdentifier()), (pose, vb) -> {
+            vb.addVertex(matrix, x2, y2, z).setColor(255, 255, 255, a).setUv(u2, v2).setLight(combinedLight);
+            vb.addVertex(matrix, x2, y1, z).setColor(255, 255, 255, a).setUv(u2, v1).setLight(combinedLight);
+            vb.addVertex(matrix, x1, y1, z).setColor(255, 255, 255, a).setUv(u1, v1).setLight(combinedLight);
+            vb.addVertex(matrix, x1, y2, z).setColor(255, 255, 255, a).setUv(u1, v2).setLight(combinedLight);
+        });
+        matrixStack.popPose();
+    }
+
+    @Override
+    public int getWidth() {
+        return this.sheetWidth;
+    }
+
+    @Override
+    public int getHeight() {
+        return this.sheetHeight;
+    }
+
+}

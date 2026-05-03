@@ -1,0 +1,225 @@
+package org.cyclops.cyclopscore.helper;
+
+import com.google.common.collect.Maps;
+import com.mojang.math.Transformation;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.ModelState;
+import net.minecraft.client.renderer.block.dispatch.SingleVariant;
+import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.SimpleModelWrapper;
+import net.minecraft.client.resources.model.cuboid.CuboidModel;
+import net.minecraft.client.resources.model.cuboid.ItemTransform;
+import net.minecraft.client.resources.model.cuboid.ItemTransforms;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.neoforged.neoforge.model.data.ModelData;
+import net.neoforged.neoforge.model.data.ModelProperty;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
+
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Helpers for models.
+ * @author rubensworks
+ */
+public final class ModelHelpers {
+
+    public static final ItemTransform THIRD_PERSON_RIGHT_HAND = new ItemTransform(
+            new Vector3f(70, 45, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.375f, 0.375f, 0.375f));
+    public static final ItemTransform THIRD_PERSON_LEFT_HAND = new ItemTransform(
+            new Vector3f(70, 45, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.375f, 0.375f, 0.375f));
+    public static final ItemTransform FIRST_PERSON_RIGHT_HAND = new ItemTransform(
+            new Vector3f(0, 45, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.4f, 0.4f, 0.4f));
+    public static final ItemTransform FIRST_PERSON_LEFT_HAND = new ItemTransform(
+            new Vector3f(0, 255, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.4f, 0.4f, 0.4f));
+    public static final ItemTransform HEAD = ItemTransform.NO_TRANSFORM;
+    public static final ItemTransform GROUND = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.375f, 0.375f, 0.375f));
+    public static final ItemTransform FIXED = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.5f, 0.5f, 0.5f));
+    public static final ItemTransform ON_SHELF = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.5f, 0.5f, 0.5f));
+    public static final ItemTransform GUI = new ItemTransform(
+            new Vector3f(30, 225, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.625f, 0.625f, 0.625f));
+    public static final ItemTransforms DEFAULT_CAMERA_TRANSFORMS = new ItemTransforms(
+            THIRD_PERSON_RIGHT_HAND,
+            THIRD_PERSON_LEFT_HAND,
+            FIRST_PERSON_RIGHT_HAND,
+            FIRST_PERSON_LEFT_HAND,
+            HEAD,
+            GUI,
+            GROUND,
+            FIXED,
+            ON_SHELF
+    );
+    public static final Map<ItemDisplayContext, ModelState> DEFAULT_MODEL_STATES = convertModelState(DEFAULT_CAMERA_TRANSFORMS);
+
+    public static final ItemTransform THIRD_PERSON_RIGHT_HAND_ITEM = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.55f, 0.55f, 0.55f));
+    public static final ItemTransform THIRD_PERSON_LEFT_HAND_ITEM = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.55f, 0.55f, 0.55f));
+    public static final ItemTransform FIRST_PERSON_RIGHT_HAND_ITEM = new ItemTransform(
+            new Vector3f(0, -90, 25),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.68F, 0.68F, 0.68F));
+    public static final ItemTransform FIRST_PERSON_LEFT_HAND_ITEM = new ItemTransform(
+            new Vector3f(0, -90, 25),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.68F, 0.68F, 0.68F));
+    public static final ItemTransform HEAD_ITEM = ItemTransform.NO_TRANSFORM;
+    public static final ItemTransform GROUND_ITEM = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(0.5f, 0.5f, 0.5f));
+    public static final ItemTransform FIXED_ITEM = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(1f, 1f, 1f));
+    public static final ItemTransform ON_SHELF_ITEM = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(1f, 1f, 1f));
+    public static final ItemTransform GUI_ITEM = new ItemTransform(
+            new Vector3f(0, 0, 0),
+            new Vector3f(0, 0, 0),
+            new Vector3f(1f, 1f, 1f));
+    public static final ItemTransforms DEFAULT_CAMERA_TRANSFORMS_ITEM = new ItemTransforms(
+            THIRD_PERSON_RIGHT_HAND_ITEM,
+            THIRD_PERSON_LEFT_HAND_ITEM,
+            FIRST_PERSON_RIGHT_HAND_ITEM,
+            FIRST_PERSON_LEFT_HAND_ITEM,
+            HEAD_ITEM,
+            GUI_ITEM,
+            GROUND_ITEM,
+            FIXED_ITEM,
+            ON_SHELF_ITEM
+    );
+
+    // An empty list^2 for quads.
+    public static final Map<Direction, List<BakedQuad>> EMPTY_FACE_QUADS;
+    static {
+        EMPTY_FACE_QUADS = Maps.newHashMap();
+        for (Direction facing : Direction.values()) {
+            EMPTY_FACE_QUADS.put(facing, Collections.emptyList());
+        }
+    }
+
+    /**
+     * Read the given model location to a {@link CuboidModel}.
+     * @param modelLocation A model location (without .json suffix)
+     * @return The corresponding model.
+     * @throws IOException If the model file was invalid.
+     */
+    public static CuboidModel loadModelBlock(Identifier modelLocation) throws IOException {
+        Resource resource = Minecraft.getInstance().getResourceManager().getResource(
+                Identifier.fromNamespaceAndPath(modelLocation.getNamespace(), modelLocation.getPath() + ".json")).get();
+        return CuboidModel.fromStream(resource.openAsReader());
+    }
+
+    /**
+     * Safely get a model data property for a data state and value that may not have been set yet.
+     * @param modelData The model data.
+     * @param property The property to get the value for.
+     * @param fallback The fallback value when something has failed.
+     * @param <T> The type of value to fetch.
+     * @return The value.
+     */
+    public static <T> T getSafeProperty(@Nullable ModelData modelData, ModelProperty<T> property, T fallback) {
+        if(modelData == null) {
+            return fallback;
+        }
+        T value;
+        try {
+            value = modelData.get(property);
+        } catch (IllegalArgumentException e) {
+            return fallback;
+        }
+        if(value == null) {
+            return fallback;
+        }
+        return value;
+    }
+
+    /**
+     * Apply the given overrides to the default transformations.
+     * @param overrides The transformations to override.
+     * @return The resulting transformation map.
+     */
+    public static ItemTransforms modifyDefaultTransforms(Map<ItemDisplayContext, ItemTransform> overrides) {
+        return new ItemTransforms(
+                overrides.getOrDefault(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, THIRD_PERSON_RIGHT_HAND),
+                overrides.getOrDefault(ItemDisplayContext.THIRD_PERSON_LEFT_HAND, THIRD_PERSON_LEFT_HAND),
+                overrides.getOrDefault(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, FIRST_PERSON_RIGHT_HAND),
+                overrides.getOrDefault(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, FIRST_PERSON_LEFT_HAND),
+                overrides.getOrDefault(ItemDisplayContext.HEAD, HEAD),
+                overrides.getOrDefault(ItemDisplayContext.GUI, GUI),
+                overrides.getOrDefault(ItemDisplayContext.GROUND, GROUND),
+                overrides.getOrDefault(ItemDisplayContext.FIXED, FIXED),
+                overrides.getOrDefault(ItemDisplayContext.ON_SHELF, ON_SHELF)
+        );
+
+    }
+
+    private static Map<ItemDisplayContext, ModelState> convertModelState(ItemTransforms itemTransforms) {
+        Map<ItemDisplayContext, ModelState> map = new EnumMap<>(ItemDisplayContext.class);
+        for (ItemDisplayContext key : ItemDisplayContext.values()) {
+            ItemTransform itemTransform = itemTransforms.getTransform(key);
+            Transformation transformation = new Transformation(
+                    new Vector3f(itemTransform.translation()),
+                    eulerToQuaternion(itemTransform.rotation()),
+                    new Vector3f(itemTransform.scale()),
+                    eulerToQuaternion(itemTransform.rightRotation())
+            );
+            map.put(key, new ModelState() {
+                @Override
+                public Transformation transformation() {
+                    return transformation;
+                }
+            });
+        }
+        return map;
+    }
+
+    public static Quaternionf eulerToQuaternion(Vector3fc euler) {
+        return new Quaternionf().rotationXYZ(
+                (float) Math.toRadians(euler.x()),
+                (float) Math.toRadians(euler.y()),
+                (float) Math.toRadians(euler.z())
+        );
+    }
+
+    public static BlockStateModel bakeSingleBlockStateModel(ModelBaker baker, Identifier id, ModelState modelState) {
+        return new SingleVariant(SimpleModelWrapper.bake(baker, id, modelState));
+    }
+}

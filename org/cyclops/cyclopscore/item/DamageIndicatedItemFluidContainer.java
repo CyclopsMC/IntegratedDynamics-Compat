@@ -1,0 +1,131 @@
+package org.cyclops.cyclopscore.item;
+
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import org.cyclops.cyclopscore.CyclopsCoreNeoForge;
+import org.cyclops.cyclopscore.capability.fluid.FluidHandlerItemCapacity;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+/**
+ * This extension on {@link Item} with a fluid capability will show a damage indicator depending on how full
+ * the container is. This can be used to hold certain amounts of Fluids in an Item.
+ * When this item is available in a CreativeTab, it will add itself as a full and an empty container.
+ *
+ * This container ONLY allows the fluid from the given type.
+ *
+ * @author rubensworks
+ *
+ */
+public abstract class DamageIndicatedItemFluidContainer extends Item implements IInformationProvider {
+
+    protected final int capacity;
+    protected DamageIndicatedItemComponent component;
+    protected final Supplier<Fluid> fluid;
+
+    /**
+     * Create a new DamageIndicatedItemFluidContainer.
+     *
+     * @param builder Item properties builder.
+     * @param capacity The capacity this container will have.
+     * @param fluid The Fluid instance this container must hold.
+     */
+    public DamageIndicatedItemFluidContainer(Item.Properties builder, int capacity, Supplier<Fluid> fluid) {
+        super(builder);
+        this.capacity = capacity;
+        this.fluid = fluid;
+        init();
+
+        CyclopsCoreNeoForge._instance.getModEventBus().addListener(this::registerCapability);
+    }
+
+    private void registerCapability(RegisterCapabilitiesEvent event) {
+        event.registerItem(Capabilities.Fluid.ITEM, (itemStack, context) -> new FluidHandlerItemCapacity(context, capacity, getFluid()), this);
+        event.registerItem(org.cyclops.cyclopscore.Capabilities.Item.FLUID_HANDLER_CAPACITY, (itemStack, context) -> new FluidHandlerItemCapacity(context, capacity, getFluid()), this);
+    }
+
+    private void init() {
+        component = new DamageIndicatedItemComponent(this);
+    }
+
+    public Collection<ItemStack> getDefaultCreativeTabEntries() {
+        NonNullList<ItemStack> list = NonNullList.create();
+        component.fillDefaultCreativeTabEntries(list, fluid.get());
+        return list;
+    }
+
+    @Override
+    public MutableComponent getInfo(ItemStack itemStack) {
+        return component.getInfo(itemStack);
+    }
+
+    @Override
+    public void provideInformation(ItemStack itemStack, Level world, List<Component> list, TooltipFlag flag) {
+
+    }
+
+    @Override
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+        component.addInformation(itemStack, context, tooltipDisplay, tooltipAdder, flag);
+        super.appendHoverText(itemStack, context, tooltipDisplay, tooltipAdder, flag);
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public int getBarWidth(ItemStack itemStack) {
+        return component.getDurability(itemStack);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        return Mth.hsvToRgb(Math.max(0.0F, ((float) getBarWidth(stack) / 13)) / 3.0F, 1.0F, 1.0F);
+    }
+
+    /**
+     * Get the fluid.
+     * @return The fluid.
+     */
+    public Fluid getFluid() {
+        return this.fluid.get();
+    }
+
+    /**
+     * If the given amount can be drained. (Will drain in simulation mode)
+     * @param amount The amount to try to drain.
+     * @param itemStack The item stack to drain from.
+     * @return If it could be drained.
+     */
+    public boolean canDrain(int amount, ItemStack itemStack) {
+        ItemAccess itemAccess = ItemAccess.forStack(itemStack);
+        ResourceHandler<FluidResource> fluidHandler = itemAccess.getCapability(Capabilities.Fluid.ITEM);
+        if (fluidHandler == null) return false;
+        FluidResource resource = fluidHandler.getResource(0);
+        // Avoid IllegalArgumentException when the fluid handler has no fluid (empty resource is not allowed in NeoForge extract calls)
+        if (resource.isEmpty()) return false;
+        try (var tx = Transaction.openRoot()) {
+            int simulatedDrain = fluidHandler.extract(resource, amount, tx);
+            return simulatedDrain == amount;
+        }
+    }
+}

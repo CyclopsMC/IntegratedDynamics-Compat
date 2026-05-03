@@ -1,0 +1,58 @@
+package org.cyclops.cyclopscore.client.gui.component.button;
+
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Checkbox;
+import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.network.chat.Component;
+import org.cyclops.cyclopscore.client.gui.image.Image;
+import org.cyclops.cyclopscore.client.gui.image.Images;
+
+/**
+ * Inspired by {@link Checkbox}, but more flexible.
+ * @author rubensworks
+ */
+public class ButtonCheckbox extends Button {
+    private boolean checked;
+
+    public ButtonCheckbox(int x, int y, int width, int height, Component title, OnPress pressedAction) {
+        super(x, y, width, height, title, pressedAction, DEFAULT_NARRATION);
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    @Override
+    public void onPress(InputWithModifiers input) {
+        setChecked(!isChecked());
+        super.onPress(input);
+    }
+
+    @Override
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        if(visible) {
+            // Determine image
+            int i = 0;
+            if (isChecked()) {
+                i = 2;
+            } else if (isHovered) {
+                i = 1;
+            }
+            Image image = Images.CHECKBOX[i];
+
+            // Determine position
+            int imageWidth = image.getWidth();
+            int imageWHeight = image.getHeight();
+            int x = this.width <= imageWidth ? this.getX() : this.getX() + (this.width - imageWidth) / 2;
+            int y = this.height <= imageWHeight ? this.getY() : this.getY() + (this.height - imageWHeight) / 2;
+
+            // Draw image
+            image.draw(guiGraphics, x, y);
+        }
+    }
+}

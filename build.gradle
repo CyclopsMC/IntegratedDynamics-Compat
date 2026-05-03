@@ -67,15 +67,15 @@ repositories {
         }
     }
     maven {
-        url "https://maven.pkg.github.com/refinedmods/refinedstorage"
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME") ?: System.getenv("GITHUB_USER")
-            password = project.findProperty("gpr.key") ?: System.getenv("MAVEN_KEY") ?: System.getenv("GITHUB_TOKEN")
+        name = "Refined Storage"
+        url = uri("https://maven.creeperhost.net")
+        content {
+            includeGroup("com.refinedmods.refinedstorage")
         }
     }
-    maven {
-        url 'https://dvs1.progwml6.com/files/maven/'
-    }
+//    maven {
+//        url 'https://dvs1.progwml6.com/files/maven/'
+//    }
     maven {
         url 'https://maven.k-4u.nl'
     }
@@ -140,12 +140,9 @@ dependencies {
         transitive = false
     }*/
 
-    //compileOnly "com.refinedmods:refinedstorage:${project.refinedstorage_version}" // https://github.com/refinedmods/refinedstorage/packages/1145536
-    // TODO: for some reason using the following in runtime breaks ForgeGradle
-    /*runtimeOnly(fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}")) { // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
+    implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}") { // https://github.com/refinedmods/refinedstorage2/releases
         transitive = false
-    }*/
-//    implementation("curse.maven:refinedstorage-243076:${refinedstorage_version}")
+    }
 
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
 
@@ -315,6 +312,7 @@ sourceSets {
     main {
         java {
             // TODO: temporarily disable some mod compats
+            exclude '**/modcompat/almostunified/**'
             exclude '**/modcompat/charset/**'
             exclude '**/modcompat/forestry/**'
             exclude '**/modcompat/ic2/**'
@@ -323,7 +321,6 @@ sourceSets {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/refinedstorage/**'
             exclude '**/modcompat/top/**'
             exclude '**/modcompat/rei/**'
         }
@@ -335,6 +332,7 @@ spotless {
         target project.fileTree(project.rootDir) {
             include '**/java/org/cyclops/**/*.java'
             // TODO: temporarily disable some mod compats
+            exclude '**/modcompat/almostunified/**'
             exclude '**/modcompat/charset/**'
             exclude '**/modcompat/forestry/**'
             exclude '**/modcompat/ic2/**'
@@ -343,7 +341,6 @@ spotless {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/refinedstorage/**'
             exclude '**/modcompat/top/**'
             exclude '**/modcompat/rei/**'
         }

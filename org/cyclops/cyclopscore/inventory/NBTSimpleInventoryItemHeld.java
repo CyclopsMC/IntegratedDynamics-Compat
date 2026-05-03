@@ -1,0 +1,61 @@
+package org.cyclops.cyclopscore.inventory;
+
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.cyclops.cyclopscore.RegistryEntries;
+import org.cyclops.cyclopscore.helper.IModHelpers;
+
+/**
+ * A simple inventory for a currently held item by a player that can be stored in NBT.
+ * @author rubensworks
+ *
+ */
+public class NBTSimpleInventoryItemHeld extends SimpleInventory {
+
+    protected final Player player;
+    protected final ItemLocation itemLocation;
+    protected final String tagName;
+
+    /**
+     * Make a new instance.
+     * @param player The player holding the item.
+     * @param itemLocation The item location.
+     * @param size The amount of slots in the inventory.
+     * @param stackLimit The stack limit for each slot.
+     * @param tagName The NBT tag name to store this inventory in.
+     *                This should be the same tag name that is used to call the NBT read/write methods.
+     */
+    public NBTSimpleInventoryItemHeld(Player player, ItemLocation itemLocation, int size, int stackLimit, String tagName) {
+        super(size, stackLimit);
+        this.player = player;
+        this.itemLocation = itemLocation;
+        this.tagName = tagName;
+
+        ItemStack itemStack = itemLocation.getItemStack(player);
+        SimpleInventory contents = itemStack.get(RegistryEntries.COMPONENT_INVENTORY);
+        if (contents != null) {
+            for (int i = 0; i < contents.getContainerSize(); i++) {
+                setItem(i, contents.getItem(i));
+            }
+        }
+    }
+
+    @Override
+    public void setChanged() {
+        ItemStack itemStack = itemLocation.getItemStack(player);
+        itemStack.set(RegistryEntries.COMPONENT_INVENTORY, this);
+    }
+
+    @Override
+    public void readFromNBT(ValueInput data, String tagName) {
+        IModHelpers.get().getInventoryHelpers().readFromNBT(this, data, tagName);
+    }
+
+    @Override
+    public void writeToNBT(ValueOutput data, String tagName) {
+        IModHelpers.get().getInventoryHelpers().writeToNBT(this, data, tagName);
+    }
+
+}
