@@ -1,12 +1,13 @@
 package org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect;
 
-import com.google.common.collect.Lists;
-import com.refinedmods.refinedstorage.api.network.INetwork;
-import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
-import com.refinedmods.refinedstorage.api.network.node.INetworkNodeProxy;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import com.refinedmods.refinedstorage.api.network.Network;
+import com.refinedmods.refinedstorage.api.network.storage.StorageNetworkComponent;
+import com.refinedmods.refinedstorage.common.support.resource.ItemResource;
+import com.refinedmods.refinedstorage.neoforge.api.RefinedStorageNeoForgeApi;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import org.cyclops.cyclopscore.datastructure.DimPos;
 import org.cyclops.cyclopscore.helper.BlockEntityHelpers;
 import org.cyclops.cyclopscore.persist.nbt.INBTProvider;
@@ -15,9 +16,9 @@ import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypeListProxyP
 import org.cyclops.integrateddynamics.core.evaluate.variable.ValueTypes;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageInitializer;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,24 +35,21 @@ public class ValueTypeListProxyPositionedNetworkMasterItemInventory extends Valu
         super(RefinedStorageInitializer.POSITIONED_MASTERITEMINVENTORY.getName(), ValueTypes.OBJECT_ITEMSTACK, pos, Direction.NORTH);
     }
 
-    protected Optional<INetworkNode> getNetworkMaster() {
-        return BlockEntityHelpers.get(getPos(), INetworkNodeProxy.class)
-                .map(INetworkNodeProxy::getNode);
+    protected Optional<Network> getNetwork() {
+        return BlockEntityHelpers.getCapability(getPos(), RefinedStorageNeoForgeApi.INSTANCE.getNetworkNodeContainerProviderCapability())
+                .flatMap(provider -> provider.getContainers().stream()
+                        .map(c -> c.getNode().getNetwork())
+                        .filter(Objects::nonNull)
+                        .findFirst());
     }
 
     protected Optional<List<ItemStack>> getInventory() {
-        return getNetworkMaster().map(networkMaster -> {
-            INetwork network = networkMaster.getNetwork();
-            if (network == null) {
-                return Collections.emptyList();
-            }
-            List<List<ItemStack>> itemStacksLists = network.getItemStorageCache().getStorages().stream()
-                    .map(itemStorage -> {
-                        Collection<ItemStack> stacks = itemStorage.getStacks();
-                        return stacks instanceof List ? (List<ItemStack>) stacks : Lists.newArrayList(stacks);
-                    })
+        return getNetwork().map(network -> {
+            StorageNetworkComponent storage = network.getComponent(StorageNetworkComponent.class);
+            return storage.getAll().stream()
+                    .filter(ra -> ra.resource() instanceof ItemResource)
+                    .map(ra -> ((ItemResource) ra.resource()).toItemStack(ra.amount()))
                     .collect(Collectors.toList());
-            return new LazyCompositeList<>(itemStacksLists);
         });
     }
 
@@ -70,12 +68,12 @@ public class ValueTypeListProxyPositionedNetworkMasterItemInventory extends Valu
     }
 
     @Override
-    public void writeGeneratedFieldsToNBT(CompoundTag tag) {
+    public void writeGeneratedFieldsToNBT(CompoundTag tag, HolderLookup.Provider provider) {
 
     }
 
     @Override
-    public void readGeneratedFieldsFromNBT(CompoundTag tag) {
+    public void readGeneratedFieldsFromNBT(CompoundTag tag, HolderLookup.Provider provider) {
 
     }
 }

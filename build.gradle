@@ -1,5 +1,5 @@
 plugins {
-    id 'net.neoforged.gradle.userdev' version '7.0.145'
+    id 'net.neoforged.gradle.userdev' version '7.0.192'
     id 'com.diffplug.spotless' version '6.25.0'
 }
 
@@ -66,15 +66,15 @@ repositories {
         }
     }
     maven {
-        url "https://maven.pkg.github.com/refinedmods/refinedstorage"
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME") ?: System.getenv("GITHUB_USER")
-            password = project.findProperty("gpr.key") ?: System.getenv("MAVEN_KEY") ?: System.getenv("GITHUB_TOKEN")
+        name = "Refined Storage"
+        url = uri("https://maven.creeperhost.net")
+        content {
+            includeGroup("com.refinedmods.refinedstorage")
         }
     }
-    maven {
-        url 'https://dvs1.progwml6.com/files/maven/'
-    }
+//    maven {
+//        url 'https://dvs1.progwml6.com/files/maven/'
+//    }
     maven {
         url 'https://maven.k-4u.nl'
     }
@@ -141,22 +141,19 @@ dependencies {
         transitive = false
     }*/
 
-    //compileOnly "com.refinedmods:refinedstorage:${project.refinedstorage_version}" // https://github.com/refinedmods/refinedstorage/packages/1145536
-    // TODO: for some reason using the following in runtime breaks ForgeGradle
-    /*runtimeOnly(fg.deobf("com.refinedmods:refinedstorage:${project.refinedstorage_version}")) { // https://repo.refinedmods.com/com/refinedmods/refinedstorage/
-        transitive = false
-    }*/
-//    implementation("curse.maven:refinedstorage-243076:${refinedstorage_version}")
-
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}")
 
     implementation("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version");
-    implementation("dev.architectury:architectury-neoforge:$architectury_version");
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}:neoforge");
+    implementation("dev.architectury:architectury-neoforge:${architectury_version}");
 
-    compileOnly "com.almostreliable.mods:almostunified-neoforge:${almostunified_version}:api"
+    compileOnly "com.almostreliable.mods:almostunified-neoforge:${almostunified_version}:api" // https://maven.blamejared.com/com/almostreliable/mods/almostunified-neoforge/
 
     implementation("curse.maven:jade-324717:${jade_version}")
+
+    implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}") { // https://github.com/refinedmods/refinedstorage2/releases
+        transitive = false
+    }
 }
 
 subsystems {
@@ -332,7 +329,6 @@ sourceSets {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/refinedstorage/**'
         }
     }
 }
@@ -350,7 +346,6 @@ spotless {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/refinedstorage/**'
         }
 
         endWithNewline()
