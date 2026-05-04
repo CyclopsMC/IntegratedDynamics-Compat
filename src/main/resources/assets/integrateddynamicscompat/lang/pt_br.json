@@ -186,7 +186,6 @@
     "operator.operators.integrateddynamics.itemstack.storedic2eu.info": "A quantidade de EU armazenada neste item",
     "operator.operators.integrateddynamics.itemstack.ic2eucapacity": "Capacidade de EU",
     "operator.operators.integrateddynamics.itemstack.ic2eucapacity.info": "A quantidade máxima de EU que pode ser armazenada neste item",
-    "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipcrafting": "Pular Se Estiver Craftando",
     "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipstorage": "Pular Se Estiver em Armazenamento",
     "aspect.aspecttypes.integrateddynamics.integer.refinedstorage.craftcount": "Contagem de Fabricação",
     "aspect.integrateddynamics.read.boolean.refinedstorage.network.applicable": "É Rede RS",

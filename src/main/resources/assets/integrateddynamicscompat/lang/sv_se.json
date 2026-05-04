@@ -47,6 +47,5 @@
     "operator.operators.integrateddynamics.itemstack.storedic2eu.info": "Mängden EU som har lagrats i detta föremål",
     "operator.operators.integrateddynamics.itemstack.ic2eucapacity": "EU-kapacitet",
     "operator.operators.integrateddynamics.itemstack.ic2eucapacity.info": "Den maximala mängden EU som kan lagras i detta föremål",
-    "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipcrafting": "Hoppa över vid tillverkning",
     "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipstorage": "Hoppa över om det finns i lagring"
 }
