@@ -127,19 +127,15 @@ public class RefinedStorageAspects {
 
     public static final class Write {
 
-        public static final IAspectPropertyTypeInstance<ValueTypeBoolean, ValueTypeBoolean.ValueBoolean> PROPERTY_SKIPCRAFTING =
-                new AspectPropertyTypeInstance<>(ValueTypes.BOOLEAN, "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipcrafting");
         public static final IAspectPropertyTypeInstance<ValueTypeBoolean, ValueTypeBoolean.ValueBoolean> PROPERTY_SKIPSTORAGE =
                 new AspectPropertyTypeInstance<>(ValueTypes.BOOLEAN, "aspect.aspecttypes.integrateddynamics.boolean.refinedstorage.skipstorage");
         public static final IAspectPropertyTypeInstance<ValueTypeInteger, ValueTypeInteger.ValueInteger> PROPERTY_CRAFTCOUNT =
                 new AspectPropertyTypeInstance<>(ValueTypes.INTEGER, "aspect.aspecttypes.integrateddynamics.integer.refinedstorage.craftcount");
         public static final IAspectProperties CRAFTING_PROPERTIES = new AspectProperties(ImmutableList.<IAspectPropertyTypeInstance>of(
-                PROPERTY_SKIPCRAFTING,
                 PROPERTY_SKIPSTORAGE,
                 PROPERTY_CRAFTCOUNT
         ));
         static {
-            CRAFTING_PROPERTIES.setValue(PROPERTY_SKIPCRAFTING, ValueTypeBoolean.ValueBoolean.of(true));
             CRAFTING_PROPERTIES.setValue(PROPERTY_SKIPSTORAGE, ValueTypeBoolean.ValueBoolean.of(false));
             CRAFTING_PROPERTIES.setValue(PROPERTY_CRAFTCOUNT, ValueTypeInteger.ValueInteger.of(1));
         }
