@@ -44,6 +44,6 @@ public class JadeIntegratedDynamicsConfig implements IWailaPlugin {
     }
 
     public static void appendTooltipClient(ITooltip tooltip, BlockAccessor accessor) {
-        IModHelpers.get().getMinecraftHelpers().valueInputFromNbtVoid(accessor.getServerData().getCompoundOrEmpty("tooltip"), accessor.getLevel().registryAccess(), i -> tooltip.addAll(NBTClassType.getClassType(List.class).readPersistedField("v", i)));
+        accessor.getServerData().getCompound("tooltip").ifPresent(tag -> IModHelpers.get().getMinecraftHelpers().valueInputFromNbtVoid(tag, accessor.getLevel().registryAccess(), i -> tooltip.addAll(NBTClassType.getClassType(List.class).readPersistedField("v", i))));
     }
 }
