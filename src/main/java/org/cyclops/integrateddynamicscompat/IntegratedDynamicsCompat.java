@@ -14,9 +14,6 @@ import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingB
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JeiModCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
-import org.cyclops.integrateddynamicscompat.modcompat.terrablender.TerrablenderCompat;
-// TopModCompat excluded: theoneprobe dependency not available for MC 26.1.1
 import org.cyclops.integrateddynamicscompat.proxy.ClientProxy;
 import org.cyclops.integrateddynamicscompat.proxy.CommonProxy;
 
@@ -45,8 +42,8 @@ public class IntegratedDynamicsCompat extends ModBaseNeoForge<IntegratedDynamics
     protected void loadModCompats(ModCompatLoader modCompatLoader) {
         super.loadModCompats(modCompatLoader);
 //        modCompatLoader.addModCompat(new TopModCompat()); // theoneprobe not available for MC 26.1.1
-        modCompatLoader.addModCompat(new RefinedStorageModCompat());
-        modCompatLoader.addModCompat(new TerrablenderCompat());
+//        modCompatLoader.addModCompat(new RefinedStorageModCompat());
+//        modCompatLoader.addModCompat(new TerrablenderCompat());
         modCompatLoader.addModCompat(new JeiModCompat());
         // TODO: temporarily disable some mod compats
         // Mod compats

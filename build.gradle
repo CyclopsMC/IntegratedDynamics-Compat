@@ -140,11 +140,11 @@ dependencies {
         transitive = false
     }*/
 
-    implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}") { // https://github.com/refinedmods/refinedstorage2/releases
-        transitive = false
-    }
+//    implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}") { // https://github.com/refinedmods/refinedstorage2/releases
+//        transitive = false
+//    }
 
-    implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
+//    implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
 
     //compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
     //implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
@@ -323,6 +323,8 @@ sourceSets {
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/top/**'
             exclude '**/modcompat/rei/**'
+            exclude '**/modcompat/refinedstorage/**'
+            exclude '**/modcompat/terrablender/**'
         }
     }
 }
@@ -343,6 +345,8 @@ spotless {
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/top/**'
             exclude '**/modcompat/rei/**'
+            exclude '**/modcompat/refinedstorage/**'
+            exclude '**/modcompat/terrablender/**'
         }
 
         endWithNewline()
