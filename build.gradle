@@ -146,9 +146,9 @@ dependencies {
 
 //    implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
 
-    //compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
-    //implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
-    //implementation("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
+    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
+    implementation("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
 
     implementation("curse.maven:jade-324717:${jade_version}") // https://www.curseforge.com/minecraft/mc-mods/jade
 }
@@ -322,7 +322,6 @@ sourceSets {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/top/**'
-            exclude '**/modcompat/rei/**'
             exclude '**/modcompat/refinedstorage/**'
             exclude '**/modcompat/terrablender/**'
         }
@@ -344,7 +343,6 @@ spotless {
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/top/**'
-            exclude '**/modcompat/rei/**'
             exclude '**/modcompat/refinedstorage/**'
             exclude '**/modcompat/terrablender/**'
         }

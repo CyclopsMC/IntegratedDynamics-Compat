@@ -11,7 +11,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.cyclops.integrateddynamics.Reference;
 import org.cyclops.integrateddynamics.RegistryEntries;
@@ -26,7 +26,7 @@ import java.util.List;
 public class ReiMechanicalDryingBasinCategory implements DisplayCategory<ReiMechanicalDryingBasinRecipe> {
 
     public static final CategoryIdentifier<ReiMechanicalDryingBasinRecipe> ID = CategoryIdentifier
-            .of(ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "mechanical_drying_basin"));
+            .of(Identifier.fromNamespaceAndPath(Reference.MOD_ID, "mechanical_drying_basin"));
 
     private final Renderer icon;
 
@@ -56,7 +56,7 @@ public class ReiMechanicalDryingBasinCategory implements DisplayCategory<ReiMech
 
         widgets.add(Widgets.createRecipeBase(bounds));
         widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
-            ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "textures/gui/drying_basin_gui_jei.png");
+            Identifier texture = Identifier.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "textures/gui/drying_basin_gui_jei.png");
 
             // Background
             graphics.blit(RenderPipelines.GUI_TEXTURED, texture, startPoint.x, startPoint.y, 0, 0, 93, 53, 256, 256);

@@ -14,7 +14,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import org.apache.commons.lang3.tuple.Pair;
@@ -32,7 +32,7 @@ import java.util.List;
 public class ReiMechanicalSqueezerCategory implements DisplayCategory<ReiMechanicalSqueezerRecipe> {
 
     public static final CategoryIdentifier<ReiMechanicalSqueezerRecipe> ID = CategoryIdentifier
-            .of(ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "mechanical_squeezer"));
+            .of(Identifier.fromNamespaceAndPath(Reference.MOD_ID, "mechanical_squeezer"));
 
     private final Renderer icon;
 
@@ -63,7 +63,7 @@ public class ReiMechanicalSqueezerCategory implements DisplayCategory<ReiMechani
 
         widgets.add(Widgets.createRecipeBase(bounds));
         widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
-            ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "textures/gui/mechanical_squeezer_gui_jei.png");
+            Identifier texture = Identifier.fromNamespaceAndPath(org.cyclops.integrateddynamicscompat.Reference.MOD_ID, "textures/gui/mechanical_squeezer_gui_jei.png");
 
             // Background
             graphics.blit(RenderPipelines.GUI_TEXTURED, texture, startPoint.x, startPoint.y, 0, 0, 116, 53, 256, 256);

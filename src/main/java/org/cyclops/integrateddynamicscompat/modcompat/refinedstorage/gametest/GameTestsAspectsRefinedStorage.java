@@ -4,6 +4,7 @@ import com.refinedmods.refinedstorage.api.autocrafting.Ingredient;
 import com.refinedmods.refinedstorage.api.autocrafting.Pattern;
 import com.refinedmods.refinedstorage.api.autocrafting.PatternLayout;
 import com.refinedmods.refinedstorage.api.autocrafting.PatternType;
+import com.refinedmods.refinedstorage.api.autocrafting.task.ExternalPatternSinkId;
 import com.refinedmods.refinedstorage.api.autocrafting.task.TaskState;
 import com.refinedmods.refinedstorage.api.core.Action;
 import com.refinedmods.refinedstorage.api.network.Network;
@@ -123,6 +124,7 @@ public class GameTestsAspectsRefinedStorage {
         );
         Pattern pattern = new Pattern(UUID.randomUUID(), layout);
         PatternProviderNetworkNode node = new PatternProviderNetworkNode(0, 1);
+        node.setId(ExternalPatternSinkId.create());
         node.tryUpdatePattern(0, pattern);
         autocrafting.onContainerAdded(() -> node);
         return node;

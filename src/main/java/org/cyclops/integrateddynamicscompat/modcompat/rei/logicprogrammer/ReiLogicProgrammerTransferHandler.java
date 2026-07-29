@@ -7,7 +7,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -75,7 +75,7 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
             if (typedIngredient.getType() == VanillaEntryTypes.ITEM) {
                 // Collect items
                 if (input) {
-                    ResourceLocation heuristicTag = getHeuristicItemsTag(entry);
+                    Identifier heuristicTag = getHeuristicItemsTag(entry);
                     if (heuristicTag != null) {
                         itemInputs.add(new ItemMatchProperties(ItemStack.EMPTY, false, heuristicTag.toString(), ((ItemStack) typedIngredient.castValue()).getCount()));
                     } else {
@@ -98,7 +98,7 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
     }
 
     @Nullable
-    protected ResourceLocation getHeuristicItemsTag(EntryIngredient jeiIngredient) {
+    protected Identifier getHeuristicItemsTag(EntryIngredient jeiIngredient) {
         // Allow disabling this heuristic
         if (!GeneralConfig.reiHeuristicTags) {
             return null;
