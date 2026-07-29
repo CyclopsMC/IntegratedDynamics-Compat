@@ -14,6 +14,7 @@ public class Reference {
 
     // MOD ID's
     public static final String MOD_JEI = "jei";
+    public static final String MOD_REI = "roughlyenoughitems";
     public static final String MOD_TOP = "theoneprobe";
     public static final String MOD_WAILA = "waila";
     public static final String MOD_REFINEDSTORAGE = "refinedstorage";

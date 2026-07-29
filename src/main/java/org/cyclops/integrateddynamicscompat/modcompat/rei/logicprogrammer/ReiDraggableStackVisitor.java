@@ -11,8 +11,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.apache.commons.compress.utils.Lists;
 import org.cyclops.cyclopscore.helper.IModHelpers;
 import org.cyclops.cyclopscore.inventory.slot.SlotExtended;
@@ -41,10 +44,15 @@ public class ReiDraggableStackVisitor implements DraggableStackVisitor<Container
             itemStack = stack.getStack().castValue();
         } else if (stack.getStack().getType() == VanillaEntryTypes.FLUID) {
             itemStack = new ItemStack(Items.BUCKET);
-            IFluidHandlerItem fluidHandler = itemStack
-                    .getCapability(Capabilities.FluidHandler.ITEM);
-            fluidHandler.fill(stack.getStack().castValue(), IFluidHandler.FluidAction.EXECUTE);
-            itemStack = fluidHandler.getContainer();
+            ItemAccess itemAccess = ItemAccess.forStack(itemStack);
+            ResourceHandler<FluidResource> fluidHandler = itemStack
+                    .getCapability(Capabilities.Fluid.ITEM, itemAccess);
+            try (var tx = Transaction.openRoot()) {
+                FluidStack fluidStack = stack.getStack().castValue();
+                fluidHandler.insert(FluidResource.of(fluidStack), fluidStack.amount(), tx);
+                tx.commit();
+            }
+            itemStack = itemAccess.getResource().toStack(itemAccess.getAmount());
         }
         return itemStack;
     }
@@ -68,8 +76,8 @@ public class ReiDraggableStackVisitor implements DraggableStackVisitor<Container
                     Slot slotContainer = container.getSlot(slotId);
 
                     Rectangle bounds = new Rectangle(
-                            screen.getGuiLeft() + slotContainer.x - 1,
-                            screen.getGuiTop() + slotContainer.y - 1,
+                            screen.getLeftPos() + slotContainer.x - 1,
+                            screen.getTopPos() + slotContainer.y - 1,
                             IModHelpers.get().getGuiHelpers().getSlotSize(),
                             IModHelpers.get().getGuiHelpers().getSlotSize()
                     );
@@ -86,7 +94,7 @@ public class ReiDraggableStackVisitor implements DraggableStackVisitor<Container
     @Override
     public DraggedAcceptorResult acceptDraggedStack(DraggingContext<ContainerScreenLogicProgrammerBase<?>> context, DraggableStack stack) {
         ContainerScreenLogicProgrammerBase<?> screen = context.getScreen();
-        if (screen.getSlotUnderMouse() instanceof SlotExtended slotExtended && slotExtended.isPhantom()) {
+        if (screen.getHoveredSlot() instanceof SlotExtended slotExtended && slotExtended.isPhantom()) {
             JeiReiHelpers.setStackInSlot(screen, slotExtended.getContainerSlot(), convertItemStack(stack));
             return DraggedAcceptorResult.CONSUMED;
         }
