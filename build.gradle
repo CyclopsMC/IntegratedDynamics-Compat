@@ -132,7 +132,7 @@ dependencies {
         exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
     }
 
-    compileOnly("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
+    implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
     compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
@@ -143,9 +143,9 @@ dependencies {
 
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}")
 
-    implementation("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}:neoforge");
-    implementation("dev.architectury:architectury-neoforge:${architectury_version}");
+    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
+    compileOnly("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}:neoforge");
+    compileOnly("dev.architectury:architectury-neoforge:${architectury_version}");
 
     compileOnly "com.almostreliable.mods:almostunified-neoforge:${almostunified_version}:api" // https://maven.blamejared.com/com/almostreliable/mods/almostunified-neoforge/
 
