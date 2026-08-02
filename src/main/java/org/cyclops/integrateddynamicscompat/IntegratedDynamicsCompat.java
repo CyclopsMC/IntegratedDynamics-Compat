@@ -16,7 +16,6 @@ import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueeze
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JeiModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.terrablender.TerrablenderCompat;
-// TopModCompat excluded: theoneprobe dependency not available for MC 26.1.1
 import org.cyclops.integrateddynamicscompat.proxy.ClientProxy;
 import org.cyclops.integrateddynamicscompat.proxy.CommonProxy;
 
@@ -50,6 +49,7 @@ public class IntegratedDynamicsCompat extends ModBaseNeoForge<IntegratedDynamics
         modCompatLoader.addModCompat(new JeiModCompat());
         // TODO: temporarily disable some mod compats
         // Mod compats
+//        modCompatLoader.addModCompat(new CreateAeronauticsModCompat());
 //        modCompatLoader.addModCompat(new CharsetPipesModCompat());
 //        modCompatLoader.addModCompat(new McMultiPartModCompat());
 //        modCompatLoader.addModCompat(new ThaumcraftModCompat());
