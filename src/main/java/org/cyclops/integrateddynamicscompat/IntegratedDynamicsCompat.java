@@ -13,6 +13,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerCoalGen
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerDryingBasinBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerMechanicalMachineBlockEntityCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueezerBlockEntityCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.createaeronautics.CreateAeronauticsModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.terrablender.TerrablenderCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
@@ -46,6 +47,7 @@ public class IntegratedDynamicsCompat extends ModBaseVersionable<IntegratedDynam
         modCompatLoader.addModCompat(new RefinedStorageModCompat());
         modCompatLoader.addModCompat(new TopModCompat());
         modCompatLoader.addModCompat(new TerrablenderCompat());
+        modCompatLoader.addModCompat(new CreateAeronauticsModCompat());
         // TODO: temporarily disable some mod compats
         // Mod compats
 //        modCompatLoader.addModCompat(new CharsetPipesModCompat());

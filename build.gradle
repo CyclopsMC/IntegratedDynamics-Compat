@@ -105,6 +105,14 @@ repositories {
     maven {
         url = 'https://maven.minecraftforge.net/'
     }
+    exclusiveContent {
+        forRepository {
+            maven { url = "https://maven.ryanhcode.dev/releases" }
+        }
+        filter {
+            includeGroup("dev.ryanhcode.sable-companion")
+        }
+    }
 }
 
 dependencies {
@@ -154,6 +162,11 @@ dependencies {
     implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}") { // https://github.com/refinedmods/refinedstorage2/releases
         transitive = false
     }
+
+    implementation("curse.maven:create-aeronautics-676721:${create_aeronautics_version}")
+    implementation("curse.maven:sable-1312371:${sable_version}")
+    implementation("curse.maven:create-328085:${create_version}")
+    compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${project.sable_companion_version}")
 }
 
 subsystems {
