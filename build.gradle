@@ -1,6 +1,6 @@
 plugins {
     id 'net.neoforged.moddev' version '2.0.141'
-    id 'com.diffplug.spotless' version '6.25.0'
+    id 'com.diffplug.spotless' version '7.2.1'
 }
 
 apply plugin: 'idea'
@@ -106,6 +106,14 @@ repositories {
     maven {
         url = 'https://maven.minecraftforge.net/'
     }
+    exclusiveContent {
+        forRepository {
+            maven { url = "https://maven.ryanhcode.dev/releases" }
+        }
+        filter {
+            includeGroup("dev.ryanhcode.sable-companion")
+        }
+    }
 }
 
 dependencies {
@@ -151,6 +159,12 @@ dependencies {
     implementation("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
 
     implementation("curse.maven:jade-324717:${jade_version}") // https://www.curseforge.com/minecraft/mc-mods/jade
+
+//    implementation("curse.maven:create-aeronautics-676721:${create_aeronautics_version}")
+//    implementation("curse.maven:sable-1312371:${sable_version}")
+//    implementation("curse.maven:create-328085:${create_version}")
+//    compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${project.sable_companion_version}")
+
 }
 
 neoForge {
@@ -323,6 +337,7 @@ sourceSets {
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/top/**'
             exclude '**/modcompat/refinedstorage/**'
+            exclude '**/modcompat/createaeronautics/**'
         }
     }
 }
@@ -343,12 +358,13 @@ spotless {
             exclude '**/modcompat/thaumcraft/**'
             exclude '**/modcompat/top/**'
             exclude '**/modcompat/refinedstorage/**'
+            exclude '**/modcompat/createaeronautics/**'
         }
 
         endWithNewline()
         trimTrailingWhitespace()
         removeUnusedImports()
-        indentWithSpaces()
+        leadingTabsToSpaces()
     }
 }
 spotlessJava.mustRunAfter(javadoc)

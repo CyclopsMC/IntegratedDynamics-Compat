@@ -48,6 +48,7 @@ public class IntegratedDynamicsCompat extends ModBaseNeoForge<IntegratedDynamics
         modCompatLoader.addModCompat(new JeiModCompat());
         // TODO: temporarily disable some mod compats
         // Mod compats
+//        modCompatLoader.addModCompat(new CreateAeronauticsModCompat());
 //        modCompatLoader.addModCompat(new CharsetPipesModCompat());
 //        modCompatLoader.addModCompat(new McMultiPartModCompat());
 //        modCompatLoader.addModCompat(new ThaumcraftModCompat());
