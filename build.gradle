@@ -67,9 +67,6 @@ repositories {
         }
     }
     maven {
-        url 'https://dvs1.progwml6.com/files/maven/'
-    }
-    maven {
         url 'https://maven.k-4u.nl'
     }
     /*maven {
