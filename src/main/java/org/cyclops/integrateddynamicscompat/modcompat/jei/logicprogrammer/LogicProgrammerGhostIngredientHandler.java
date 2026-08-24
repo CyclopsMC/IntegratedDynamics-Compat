@@ -1,19 +1,17 @@
 package org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer;
 
 import com.google.common.collect.Lists;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
-import mezz.jei.api.neoforge.NeoForgeTypes;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
 import org.cyclops.cyclopscore.helper.IModHelpers;
 import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElement;
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammerBase;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
 import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
+import org.cyclops.integrateddynamicscompat.modcompat.common.LogicProgrammerIngredientConverters;
 
 import java.util.List;
 
@@ -30,12 +28,7 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
         ILogicProgrammerElement element = container.getActiveElement();
         if (element != null) {
             // Determine the stack to insert in slots
-            ItemStack itemStack = null;
-            if (ingredientTyped.getType() == VanillaTypes.ITEM_STACK) {
-                itemStack = ingredientTyped.getItemStack().get();
-            } else if (ingredientTyped.getType() == NeoForgeTypes.FLUID_STACK) {
-                itemStack = FluidUtil.getFilledBucket(ingredientTyped.getIngredient(NeoForgeTypes.FLUID_STACK).get());
-            }
+            ItemStack itemStack = LogicProgrammerIngredientConverters.toItemStack(ingredientTyped.getIngredient());
 
             if (itemStack != null) {
                 // Determine slots in which the stack could be placed
