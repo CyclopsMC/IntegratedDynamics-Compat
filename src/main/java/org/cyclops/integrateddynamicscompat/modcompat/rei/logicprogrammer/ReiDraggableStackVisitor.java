@@ -5,17 +5,13 @@ import me.shedaniel.rei.api.client.gui.drag.DraggableStack;
 import me.shedaniel.rei.api.client.gui.drag.DraggableStackVisitor;
 import me.shedaniel.rei.api.client.gui.drag.DraggedAcceptorResult;
 import me.shedaniel.rei.api.client.gui.drag.DraggingContext;
+import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.access.ItemAccess;
-import net.neoforged.neoforge.transfer.fluid.FluidResource;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.apache.commons.compress.utils.Lists;
 import org.cyclops.cyclopscore.helper.IModHelpers;
 import org.cyclops.cyclopscore.inventory.slot.SlotExtended;
@@ -23,6 +19,7 @@ import org.cyclops.integrateddynamics.api.logicprogrammer.ILogicProgrammerElemen
 import org.cyclops.integrateddynamics.client.gui.container.ContainerScreenLogicProgrammerBase;
 import org.cyclops.integrateddynamics.inventory.container.ContainerLogicProgrammerBase;
 import org.cyclops.integrateddynamicscompat.modcompat.common.JeiReiHelpers;
+import org.cyclops.integrateddynamicscompat.modcompat.common.LogicProgrammerIngredientConverters;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -39,22 +36,16 @@ public class ReiDraggableStackVisitor implements DraggableStackVisitor<Container
 
     @Nullable
     public static ItemStack convertItemStack(DraggableStack stack) {
-        ItemStack itemStack = null;
-        if (stack.getStack().getType() == VanillaEntryTypes.ITEM) {
-            itemStack = stack.getStack().castValue();
-        } else if (stack.getStack().getType() == VanillaEntryTypes.FLUID) {
-            itemStack = new ItemStack(Items.BUCKET);
-            ItemAccess itemAccess = ItemAccess.forStack(itemStack);
-            ResourceHandler<FluidResource> fluidHandler = itemStack
-                    .getCapability(Capabilities.Fluid.ITEM, itemAccess);
-            try (var tx = Transaction.openRoot()) {
-                FluidStack fluidStack = stack.getStack().castValue();
-                fluidHandler.insert(FluidResource.of(fluidStack), fluidStack.amount(), tx);
-                tx.commit();
-            }
-            itemStack = itemAccess.getResource().toStack(itemAccess.getAmount());
+        EntryStack<?> entryStack = stack.getStack();
+        // REI exposes fluids as platform-independent fluidstacks, so convert them to NeoForge fluidstacks first.
+        if (entryStack.getType() == VanillaEntryTypes.FLUID) {
+            dev.architectury.fluid.FluidStack fluidStack = (dev.architectury.fluid.FluidStack) entryStack.getValue();
+            int amount = (int) (fluidStack.getAmount() * FluidType.BUCKET_VOLUME
+                    / dev.architectury.fluid.FluidStack.bucketAmount());
+            return LogicProgrammerIngredientConverters.fluidStackToItemStack(
+                    new FluidStack(fluidStack.getFluid().builtInRegistryHolder(), amount, fluidStack.getPatch()));
         }
-        return itemStack;
+        return LogicProgrammerIngredientConverters.toItemStack(entryStack.getValue());
     }
 
     @Override
@@ -95,8 +86,11 @@ public class ReiDraggableStackVisitor implements DraggableStackVisitor<Container
     public DraggedAcceptorResult acceptDraggedStack(DraggingContext<ContainerScreenLogicProgrammerBase<?>> context, DraggableStack stack) {
         ContainerScreenLogicProgrammerBase<?> screen = context.getScreen();
         if (screen.getHoveredSlot() instanceof SlotExtended slotExtended && slotExtended.isPhantom()) {
-            JeiReiHelpers.setStackInSlot(screen, slotExtended.getContainerSlot(), convertItemStack(stack));
-            return DraggedAcceptorResult.CONSUMED;
+            ItemStack itemStack = convertItemStack(stack);
+            if (itemStack != null) {
+                JeiReiHelpers.setStackInSlot(screen, slotExtended.getContainerSlot(), itemStack);
+                return DraggedAcceptorResult.CONSUMED;
+            }
         }
 
         return DraggedAcceptorResult.PASS;
