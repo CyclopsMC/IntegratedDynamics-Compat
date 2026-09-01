@@ -1,6 +1,8 @@
 org.cyclops.integrateddynamicscompat
+org.cyclops.integrateddynamicscompat.modcompat.almostunified
 org.cyclops.integrateddynamicscompat.modcompat.capabilities
 org.cyclops.integrateddynamicscompat.modcompat.common
+org.cyclops.integrateddynamicscompat.modcompat.createaeronautics
 org.cyclops.integrateddynamicscompat.modcompat.jade
 org.cyclops.integrateddynamicscompat.modcompat.jei
 org.cyclops.integrateddynamicscompat.modcompat.jei.dryingbasin
@@ -8,6 +10,9 @@ org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer
 org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin
 org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer
 org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer
+org.cyclops.integrateddynamicscompat.modcompat.refinedstorage
+org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect
+org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.gametest
 org.cyclops.integrateddynamicscompat.modcompat.rei
 org.cyclops.integrateddynamicscompat.modcompat.rei.dryingbasin
 org.cyclops.integrateddynamicscompat.modcompat.rei.logicprogrammer
@@ -15,5 +20,6 @@ org.cyclops.integrateddynamicscompat.modcompat.rei.mechanicaldryingbasin
 org.cyclops.integrateddynamicscompat.modcompat.rei.mechanicalsqueezer
 org.cyclops.integrateddynamicscompat.modcompat.rei.squeezer
 org.cyclops.integrateddynamicscompat.modcompat.terrablender
+org.cyclops.integrateddynamicscompat.modcompat.top
 org.cyclops.integrateddynamicscompat.network.packet
 org.cyclops.integrateddynamicscompat.proxy
