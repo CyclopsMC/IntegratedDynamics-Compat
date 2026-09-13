@@ -139,8 +139,7 @@ dependencies {
     implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
-    // Compile-only: TOP is hooked in via IMC, and its build requires a newer NeoForge than we target
-    compileOnly("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}:api") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
+    implementation("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
         transitive = false
     }
 
