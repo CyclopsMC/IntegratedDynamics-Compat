@@ -1,5 +1,5 @@
 plugins {
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.147'
     id 'com.diffplug.spotless' version '7.2.1'
 }
 
@@ -139,11 +139,9 @@ dependencies {
     implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
-    //compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
-    // TODO: for some reason using the following in runtime breaks ForgeGradle
-    /*runtimeOnly(fg.deobf("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}")) { // https://maven.k-4u.nl
+    implementation("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
         transitive = false
-    }*/
+    }
 
 //    implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}") { // https://github.com/refinedmods/refinedstorage2/releases
 //        transitive = false
@@ -332,7 +330,6 @@ sourceSets {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/top/**'
             exclude '**/modcompat/refinedstorage/**'
             exclude '**/modcompat/createaeronautics/**'
         }
@@ -353,7 +350,6 @@ spotless {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/top/**'
             exclude '**/modcompat/refinedstorage/**'
             exclude '**/modcompat/createaeronautics/**'
         }
