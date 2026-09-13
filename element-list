@@ -8,9 +8,6 @@ org.cyclops.integrateddynamicscompat.modcompat.jei.logicprogrammer
 org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin
 org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer
 org.cyclops.integrateddynamicscompat.modcompat.jei.squeezer
-org.cyclops.integrateddynamicscompat.modcompat.refinedstorage
-org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.aspect
-org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.gametest
 org.cyclops.integrateddynamicscompat.modcompat.rei
 org.cyclops.integrateddynamicscompat.modcompat.rei.dryingbasin
 org.cyclops.integrateddynamicscompat.modcompat.rei.logicprogrammer
