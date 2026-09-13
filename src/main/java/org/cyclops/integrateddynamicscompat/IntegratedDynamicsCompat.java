@@ -16,6 +16,7 @@ import org.cyclops.integrateddynamicscompat.modcompat.capabilities.WorkerSqueeze
 import org.cyclops.integrateddynamicscompat.modcompat.jei.JeiModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.refinedstorage.RefinedStorageModCompat;
 import org.cyclops.integrateddynamicscompat.modcompat.terrablender.TerrablenderCompat;
+import org.cyclops.integrateddynamicscompat.modcompat.top.TopModCompat;
 import org.cyclops.integrateddynamicscompat.proxy.ClientProxy;
 import org.cyclops.integrateddynamicscompat.proxy.CommonProxy;
 
@@ -43,7 +44,7 @@ public class IntegratedDynamicsCompat extends ModBaseNeoForge<IntegratedDynamics
     @Override
     protected void loadModCompats(ModCompatLoader modCompatLoader) {
         super.loadModCompats(modCompatLoader);
-//        modCompatLoader.addModCompat(new TopModCompat()); // theoneprobe not available for MC 26.1.1
+        modCompatLoader.addModCompat(new TopModCompat());
         modCompatLoader.addModCompat(new RefinedStorageModCompat());
         modCompatLoader.addModCompat(new TerrablenderCompat());
         modCompatLoader.addModCompat(new JeiModCompat());
