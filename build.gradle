@@ -139,11 +139,10 @@ dependencies {
     implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
-    //compileOnly "mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}" // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
-    // TODO: for some reason using the following in runtime breaks ForgeGradle
-    /*runtimeOnly(fg.deobf("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}")) { // https://maven.k-4u.nl
+    // Compile-only: TOP is hooked in via IMC, and its build requires a newer NeoForge than we target
+    compileOnly("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}:api") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
         transitive = false
-    }*/
+    }
 
     implementation("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}") { // https://github.com/refinedmods/refinedstorage2/releases
         transitive = false
@@ -332,7 +331,6 @@ sourceSets {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/top/**'
             exclude '**/modcompat/createaeronautics/**'
         }
     }
@@ -352,7 +350,6 @@ spotless {
             exclude '**/modcompat/signals/**'
             exclude '**/modcompat/tconstruct/**'
             exclude '**/modcompat/thaumcraft/**'
-            exclude '**/modcompat/top/**'
             exclude '**/modcompat/createaeronautics/**'
         }
 

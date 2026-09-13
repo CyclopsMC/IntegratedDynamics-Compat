@@ -5,7 +5,7 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.Direction;
@@ -26,8 +26,8 @@ import java.util.List;
 public class TopPartData implements IProbeInfoProvider {
 
     @Override
-    public ResourceLocation getID() {
-        return ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "part_data");
+    public Identifier getID() {
+        return Identifier.fromNamespaceAndPath(Reference.MOD_ID, "part_data");
     }
 
     @Override
