@@ -18,7 +18,9 @@ public class ProxyDataProviderClient implements IBlockComponentProvider {
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         if(config.get(getUid())) {
-            tooltip.add(Component.translatable(L10NValues.GENERAL_ITEM_ID, accessor.getServerData().getInt("id")));
+            // Absent until the server data arrives, so don't fall back to a proxy id that would be wrong
+            accessor.getServerData().getInt("id")
+                    .ifPresent(id -> tooltip.add(Component.translatable(L10NValues.GENERAL_ITEM_ID, id)));
         }
     }
 
