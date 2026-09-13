@@ -18,5 +18,6 @@ org.cyclops.integrateddynamicscompat.modcompat.rei.mechanicaldryingbasin
 org.cyclops.integrateddynamicscompat.modcompat.rei.mechanicalsqueezer
 org.cyclops.integrateddynamicscompat.modcompat.rei.squeezer
 org.cyclops.integrateddynamicscompat.modcompat.terrablender
+org.cyclops.integrateddynamicscompat.modcompat.top
 org.cyclops.integrateddynamicscompat.network.packet
 org.cyclops.integrateddynamicscompat.proxy
