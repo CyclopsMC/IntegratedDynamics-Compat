@@ -38,8 +38,8 @@ public class LogicProgrammerGhostIngredientHandler<T extends ContainerScreenLogi
                     Slot slotContainer = container.getSlot(slotId);
 
                     Rect2i bounds = new Rect2i(
-                            screen.getGuiLeft() + slotContainer.x - 1,
-                            screen.getGuiTop() + slotContainer.y - 1,
+                            screen.leftPos + slotContainer.x - 1,
+                            screen.topPos + slotContainer.y - 1,
                             IModHelpers.get().getGuiHelpers().getSlotSize(),
                             IModHelpers.get().getGuiHelpers().getSlotSize()
                     );
