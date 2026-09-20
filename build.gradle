@@ -132,14 +132,22 @@ dependencies {
         implementation "org.cyclops.cyclopscore:cyclopscore-${project.minecraft_version}-neoforge:${project.cyclopscore_version}"
     }
 
-    implementation("org.cyclops.commoncapabilities:commoncapabilities-${project.minecraft_version}-neoforge:${project.commoncapabilities_version}") { // https://dl.bintray.com/cyclopsmc/dev/org/cyclops/commoncapabilities/CommonCapabilities/
-        exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
+    // Add something like 'commoncapabilities_version_local=0.1.0-DEV' to your secrets.properties if you want to use a custom local Common Capabilities version.
+    if(secrets.commoncapabilities_version_local) {
+        implementation("org.cyclops.commoncapabilities:commoncapabilities-${project.minecraft_version}-neoforge:${secrets.commoncapabilities_version_local}") {
+            exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
+        }
+    } else {
+        implementation("org.cyclops.commoncapabilities:commoncapabilities-${project.minecraft_version}-neoforge:${project.commoncapabilities_version}") { // https://dl.bintray.com/cyclopsmc/dev/org/cyclops/commoncapabilities/CommonCapabilities/
+            exclude group: 'org.cyclops.cyclopscore', module: 'cyclopscore'
+        }
     }
 
     implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
-    implementation("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
+    // TODO: back to implementation once The One Probe updates
+    compileOnly("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
         transitive = false
     }
 
@@ -150,8 +158,8 @@ dependencies {
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
 
     compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
-    implementation("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
+    compileOnly("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
+    compileOnly("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
 
     implementation("curse.maven:jade-324717:${jade_version}") // https://www.curseforge.com/minecraft/mc-mods/jade
 
