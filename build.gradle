@@ -146,9 +146,7 @@ dependencies {
     implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
-    // compileOnly rather than implementation: there is no 26.3 build of The One Probe yet, and a
-    // 26.2 one refuses to load on 26.3. The integration still compiles and ships; it just stays
-    // dormant in dev runs until a 26.3 build exists.
+    // TODO: update to compileOnly once The One Probe updates
     compileOnly("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
         transitive = false
     }
@@ -159,8 +157,6 @@ dependencies {
 
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") // MCF: https://www.curseforge.com/minecraft/mc-mods/terrablender/files/all?page=1&pageSize=20
 
-    // REI has no 26.3 build yet, and neither does architectury, which it depends on. All three are
-    // compileOnly so the REI integration still compiles without dragging 26.2 jars into dev runs.
     compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}") // https://maven.shedaniel.me/me/shedaniel/RoughlyEnoughItems-neoforge/
     compileOnly("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"); // https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-neoforge/
     compileOnly("dev.architectury:architectury-neoforge:$architectury_version"); // https://maven.shedaniel.me/dev/architectury/architectury-neoforge/
