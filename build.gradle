@@ -146,7 +146,7 @@ dependencies {
     implementation("mezz.jei:jei-${project.jei_version}") { // https://maven.blamejared.com/mezz/jei/
         transitive = false
     }
-    // TODO: update to compileOnly once The One Probe updates
+    // TODO: back to implementation once The One Probe updates
     compileOnly("mcjty.theoneprobe:theoneprobe:${project.theoneprobe_version}") { // https://maven.k-4u.nl/mcjty/theoneprobe/theoneprobe/
         transitive = false
     }
