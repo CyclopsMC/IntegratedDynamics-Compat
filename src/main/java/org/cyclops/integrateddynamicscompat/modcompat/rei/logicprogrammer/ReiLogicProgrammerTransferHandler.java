@@ -31,7 +31,6 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
     @Override
     public Result handle(Context context) {
         if (context.getMenu() instanceof ContainerLogicProgrammerBase container) {
-            // Use the slots element, so that recipes nested in lists are also supported
             ILogicProgrammerElement element = container.getTemporarySlotsElement();
 
             if (element instanceof ValueTypeRecipeLPElement) {
