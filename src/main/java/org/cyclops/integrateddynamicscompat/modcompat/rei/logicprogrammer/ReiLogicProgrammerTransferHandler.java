@@ -31,7 +31,7 @@ public class ReiLogicProgrammerTransferHandler implements TransferHandler {
     @Override
     public Result handle(Context context) {
         if (context.getMenu() instanceof ContainerLogicProgrammerBase container) {
-            ILogicProgrammerElement element = container.getActiveElement();
+            ILogicProgrammerElement element = container.getTemporarySlotsElement();
 
             if (element instanceof ValueTypeRecipeLPElement) {
                 return handleRecipeElement((ValueTypeRecipeLPElement) element, container, context.getDisplay(), context.isActuallyCrafting());
