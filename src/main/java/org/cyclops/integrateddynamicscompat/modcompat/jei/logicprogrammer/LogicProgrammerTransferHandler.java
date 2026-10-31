@@ -57,7 +57,6 @@ public class LogicProgrammerTransferHandler<T extends ContainerLogicProgrammerBa
     @Override
     public IRecipeTransferError transferRecipe(T container, Object recipe, IRecipeSlotsView recipeLayout,
                                                Player player, boolean maxTransfer, boolean doTransfer) {
-        // Use the slots element, so that recipes nested in lists are also supported
         ILogicProgrammerElement element = container.getTemporarySlotsElement();
 
         if (element instanceof ValueTypeRecipeLPElement) {
